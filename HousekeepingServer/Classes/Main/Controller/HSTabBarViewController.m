@@ -12,19 +12,33 @@
 #import "HSMineViewController.h"
 #import "HSReceiveViewController.h"
 #import "HSServiceListViewController.h"
+#import "HSTabBar.h"
+#import "HSNavigationViewController.h"
 
-@interface HSTabBarViewController ()
-
+@interface HSTabBarViewController ()<HSTabBarDelegate>
+@property (weak, nonatomic) HSTabBar *customTabBar;
 @end
 
 @implementation HSTabBarViewController
 
 - (void)viewDidLoad {
+    // 添加tabbar
+    [self setupTabbar];
+
     // 添加子控制器
-//    [self setupChildViewController];
-    
+    [self setupChildViewController];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    // 删除系统自带的tabberItem
+    for (UIView *view in self.tabBar.subviews) {
+        if ([view isKindOfClass:[UIControl class]]) {
+            [view removeFromSuperview];
+        }
+    }
+}
 /**
  *  添加子控制器
  */
@@ -56,10 +70,26 @@
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedimage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     // 2.包装导航控制器
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    HSNavigationViewController *nav = [[HSNavigationViewController alloc]initWithRootViewController:vc];
     [self addChildViewController:nav];
     
     // 3.添加tabber内部按钮
-//    [self.customTabBar addTabBarButtonWithItem:vc.tabBarItem];
+    [self.customTabBar addTabBarButtonWithItem:vc.tabBarItem];
+}
+
+/**
+ *  添加自定义tabbar
+ */
+- (void)setupTabbar{
+    HSTabBar *customTabBar = [[HSTabBar alloc]init];
+    customTabBar.frame = self.tabBar.bounds;
+    self.customTabBar = customTabBar;
+    self.customTabBar.delegate = self;
+    [self.tabBar addSubview:customTabBar];
+}
+
+#pragma mark - HSTabBarDelegate
+- (void)tabBar:(HSTabBar *)tabBar didSelectedFrom:(int)from to:(int)to{
+    self.selectedIndex = to;
 }
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HSGrabViewController : UIViewController
+@interface HSGrabViewController : UITableViewController
 
 @end

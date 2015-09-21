@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18151CAC1BAFC0700040CA80 /* HSTabBar.m */; };
+		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
+		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
+		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
+		186DEA5A1BB02A02008C465F /* citydata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA581BB02A02008C465F /* citydata.plist */; };
+		186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
 		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
@@ -31,6 +37,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18151CAB1BAFC0700040CA80 /* HSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBar.h; sourceTree = "<group>"; };
+		18151CAC1BAFC0700040CA80 /* HSTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBar.m; sourceTree = "<group>"; };
+		186DEA511BAFF902008C465F /* HSTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarButton.h; sourceTree = "<group>"; };
+		186DEA521BAFF902008C465F /* HSTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarButton.m; sourceTree = "<group>"; };
+		186DEA541BB001B6008C465F /* HSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavigationViewController.h; sourceTree = "<group>"; };
+		186DEA551BB001B6008C465F /* HSNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSNavigationViewController.m; sourceTree = "<group>"; };
+		186DEA571BB02A02008C465F /* city.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = city.plist; path = ../../city.plist; sourceTree = "<group>"; };
+		186DEA581BB02A02008C465F /* citydata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = citydata.plist; path = ../../citydata.plist; sourceTree = "<group>"; };
+		186DEA5E1BB02B24008C465F /* HSNavBarBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavBarBtn.h; sourceTree = "<group>"; };
+		186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSNavBarBtn.m; sourceTree = "<group>"; };
 		188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HousekeepingServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -73,6 +89,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		186DEA5C1BB02A46008C465F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				186DEA5D1BB02A46008C465F /* plist */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		186DEA5D1BB02A46008C465F /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				186DEA571BB02A02008C465F /* city.plist */,
+				186DEA581BB02A02008C465F /* citydata.plist */,
+			);
+			path = plist;
+			sourceTree = "<group>";
+		};
 		188A205B1BAF8FCD00E4D570 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +136,7 @@
 		188A20671BAF8FCD00E4D570 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				186DEA5C1BB02A46008C465F /* Data */,
 				188A20741BAF8FCD00E4D570 /* Images.xcassets */,
 				188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */,
 				188A20681BAF8FCD00E4D570 /* Info.plist */,
@@ -131,7 +165,7 @@
 		188A208D1BAF90A900E4D570 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				188A208E1BAF90A900E4D570 /* Grab */,
+				188A208E1BAF90A900E4D570 /* Grab(抢单) */,
 				188A20941BAF90A900E4D570 /* History */,
 				188A209A1BAF90A900E4D570 /* Main */,
 				188A20A01BAF90A900E4D570 /* Mine */,
@@ -142,13 +176,14 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		188A208E1BAF90A900E4D570 /* Grab */ = {
+		188A208E1BAF90A900E4D570 /* Grab(抢单) */ = {
 			isa = PBXGroup;
 			children = (
 				188A208F1BAF90A900E4D570 /* Controller */,
 				188A20921BAF90A900E4D570 /* Model */,
 				188A20931BAF90A900E4D570 /* View */,
 			);
+			name = "Grab(抢单)";
 			path = Grab;
 			sourceTree = "<group>";
 		};
@@ -223,6 +258,8 @@
 			children = (
 				188A209C1BAF90A900E4D570 /* HSTabBarViewController.h */,
 				188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */,
+				186DEA541BB001B6008C465F /* HSNavigationViewController.h */,
+				186DEA551BB001B6008C465F /* HSNavigationViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -237,6 +274,12 @@
 		188A209F1BAF90A900E4D570 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18151CAB1BAFC0700040CA80 /* HSTabBar.h */,
+				18151CAC1BAFC0700040CA80 /* HSTabBar.m */,
+				186DEA511BAFF902008C465F /* HSTabBarButton.h */,
+				186DEA521BAFF902008C465F /* HSTabBarButton.m */,
+				186DEA5E1BB02B24008C465F /* HSNavBarBtn.h */,
+				186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -409,11 +452,13 @@
 		188A205C1BAF8FCD00E4D570 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = HS;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = com.jacob;
 				TargetAttributes = {
 					188A20631BAF8FCD00E4D570 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 733C233Y34;
 					};
 					188A207C1BAF8FCD00E4D570 = {
 						CreatedOnToolsVersion = 6.4;
@@ -445,8 +490,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186DEA591BB02A02008C465F /* city.plist in Resources */,
 				188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */,
 				188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */,
+				186DEA5A1BB02A02008C465F /* citydata.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,10 +512,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				188A20B81BAF90A900E4D570 /* HSHistoryViewController.m in Sources */,
+				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
+				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
 				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
 				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
+				186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
+				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
 				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
 				188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */,
@@ -589,9 +640,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -599,9 +653,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
