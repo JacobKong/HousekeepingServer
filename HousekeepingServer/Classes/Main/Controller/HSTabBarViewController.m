@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     // 添加子控制器
-    [self setupChildViewController];
+//    [self setupChildViewController];
     
 }
 
