@@ -1,0 +1,675 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
+		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
+		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
+		188A20841BAF8FCD00E4D570 /* HousekeepingServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */; };
+		188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20911BAF90A900E4D570 /* HSGrabViewController.m */; };
+		188A20B81BAF90A900E4D570 /* HSHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20971BAF90A900E4D570 /* HSHistoryViewController.m */; };
+		188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */; };
+		188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A31BAF90A900E4D570 /* HSMineViewController.m */; };
+		188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A81BAF90A900E4D570 /* AppDelegate.m */; };
+		188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */; };
+		188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		188A207E1BAF8FCD00E4D570 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 188A205C1BAF8FCD00E4D570 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 188A20631BAF8FCD00E4D570;
+			remoteInfo = HousekeepingServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HousekeepingServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		188A20741BAF8FCD00E4D570 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		188A20771BAF8FCD00E4D570 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		188A207D1BAF8FCD00E4D570 /* HousekeepingServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HousekeepingServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		188A20821BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HousekeepingServerTests.m; sourceTree = "<group>"; };
+		188A20901BAF90A900E4D570 /* HSGrabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSGrabViewController.h; sourceTree = "<group>"; };
+		188A20911BAF90A900E4D570 /* HSGrabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSGrabViewController.m; sourceTree = "<group>"; };
+		188A20961BAF90A900E4D570 /* HSHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSHistoryViewController.h; sourceTree = "<group>"; };
+		188A20971BAF90A900E4D570 /* HSHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSHistoryViewController.m; sourceTree = "<group>"; };
+		188A209C1BAF90A900E4D570 /* HSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarViewController.h; sourceTree = "<group>"; };
+		188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarViewController.m; sourceTree = "<group>"; };
+		188A20A21BAF90A900E4D570 /* HSMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSMineViewController.h; sourceTree = "<group>"; };
+		188A20A31BAF90A900E4D570 /* HSMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSMineViewController.m; sourceTree = "<group>"; };
+		188A20A71BAF90A900E4D570 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		188A20A81BAF90A900E4D570 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		188A20AD1BAF90A900E4D570 /* HSReceiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSReceiveViewController.h; sourceTree = "<group>"; };
+		188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSReceiveViewController.m; sourceTree = "<group>"; };
+		188A20B31BAF90A900E4D570 /* HSServiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceListViewController.h; sourceTree = "<group>"; };
+		188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceListViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		188A20611BAF8FCD00E4D570 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		188A207A1BAF8FCD00E4D570 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		188A205B1BAF8FCD00E4D570 = {
+			isa = PBXGroup;
+			children = (
+				188A20661BAF8FCD00E4D570 /* HousekeepingServer */,
+				188A20801BAF8FCD00E4D570 /* HousekeepingServerTests */,
+				188A20651BAF8FCD00E4D570 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		188A20651BAF8FCD00E4D570 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */,
+				188A207D1BAF8FCD00E4D570 /* HousekeepingServerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		188A20661BAF8FCD00E4D570 /* HousekeepingServer */ = {
+			isa = PBXGroup;
+			children = (
+				188A208D1BAF90A900E4D570 /* Classes */,
+				188A20671BAF8FCD00E4D570 /* Supporting Files */,
+			);
+			path = HousekeepingServer;
+			sourceTree = "<group>";
+		};
+		188A20671BAF8FCD00E4D570 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				188A20741BAF8FCD00E4D570 /* Images.xcassets */,
+				188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */,
+				188A20681BAF8FCD00E4D570 /* Info.plist */,
+				188A20691BAF8FCD00E4D570 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		188A20801BAF8FCD00E4D570 /* HousekeepingServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */,
+				188A20811BAF8FCD00E4D570 /* Supporting Files */,
+			);
+			path = HousekeepingServerTests;
+			sourceTree = "<group>";
+		};
+		188A20811BAF8FCD00E4D570 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				188A20821BAF8FCD00E4D570 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		188A208D1BAF90A900E4D570 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				188A208E1BAF90A900E4D570 /* Grab */,
+				188A20941BAF90A900E4D570 /* History */,
+				188A209A1BAF90A900E4D570 /* Main */,
+				188A20A01BAF90A900E4D570 /* Mine */,
+				188A20A61BAF90A900E4D570 /* Others */,
+				188A20AB1BAF90A900E4D570 /* Receive */,
+				188A20B11BAF90A900E4D570 /* ServiceList */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		188A208E1BAF90A900E4D570 /* Grab */ = {
+			isa = PBXGroup;
+			children = (
+				188A208F1BAF90A900E4D570 /* Controller */,
+				188A20921BAF90A900E4D570 /* Model */,
+				188A20931BAF90A900E4D570 /* View */,
+			);
+			path = Grab;
+			sourceTree = "<group>";
+		};
+		188A208F1BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A20901BAF90A900E4D570 /* HSGrabViewController.h */,
+				188A20911BAF90A900E4D570 /* HSGrabViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A20921BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A20931BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188A20941BAF90A900E4D570 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				188A20951BAF90A900E4D570 /* Controller */,
+				188A20981BAF90A900E4D570 /* Model */,
+				188A20991BAF90A900E4D570 /* View */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		188A20951BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A20961BAF90A900E4D570 /* HSHistoryViewController.h */,
+				188A20971BAF90A900E4D570 /* HSHistoryViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A20981BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A20991BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188A209A1BAF90A900E4D570 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				188A209B1BAF90A900E4D570 /* Controller */,
+				188A209E1BAF90A900E4D570 /* Model */,
+				188A209F1BAF90A900E4D570 /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		188A209B1BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A209C1BAF90A900E4D570 /* HSTabBarViewController.h */,
+				188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A209E1BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A209F1BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188A20A01BAF90A900E4D570 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				188A20A11BAF90A900E4D570 /* Controller */,
+				188A20A41BAF90A900E4D570 /* Model */,
+				188A20A51BAF90A900E4D570 /* View */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		188A20A11BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A20A21BAF90A900E4D570 /* HSMineViewController.h */,
+				188A20A31BAF90A900E4D570 /* HSMineViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A20A41BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A20A51BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188A20A61BAF90A900E4D570 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				188A20A71BAF90A900E4D570 /* AppDelegate.h */,
+				188A20A81BAF90A900E4D570 /* AppDelegate.m */,
+				188A20A91BAF90A900E4D570 /* Category */,
+				188A20AA1BAF90A900E4D570 /* Lib */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		188A20A91BAF90A900E4D570 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		188A20AA1BAF90A900E4D570 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		188A20AB1BAF90A900E4D570 /* Receive */ = {
+			isa = PBXGroup;
+			children = (
+				188A20AC1BAF90A900E4D570 /* Controller */,
+				188A20AD1BAF90A900E4D570 /* HSReceiveViewController.h */,
+				188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */,
+				188A20AF1BAF90A900E4D570 /* Model */,
+				188A20B01BAF90A900E4D570 /* View */,
+			);
+			path = Receive;
+			sourceTree = "<group>";
+		};
+		188A20AC1BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A20AF1BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A20B01BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188A20B11BAF90A900E4D570 /* ServiceList */ = {
+			isa = PBXGroup;
+			children = (
+				188A20B21BAF90A900E4D570 /* Controller */,
+				188A20B51BAF90A900E4D570 /* Model */,
+				188A20B61BAF90A900E4D570 /* View */,
+			);
+			path = ServiceList;
+			sourceTree = "<group>";
+		};
+		188A20B21BAF90A900E4D570 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A20B31BAF90A900E4D570 /* HSServiceListViewController.h */,
+				188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		188A20B51BAF90A900E4D570 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		188A20B61BAF90A900E4D570 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		188A20631BAF8FCD00E4D570 /* HousekeepingServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 188A20871BAF8FCD00E4D570 /* Build configuration list for PBXNativeTarget "HousekeepingServer" */;
+			buildPhases = (
+				188A20601BAF8FCD00E4D570 /* Sources */,
+				188A20611BAF8FCD00E4D570 /* Frameworks */,
+				188A20621BAF8FCD00E4D570 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HousekeepingServer;
+			productName = HousekeepingServer;
+			productReference = 188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		188A207C1BAF8FCD00E4D570 /* HousekeepingServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 188A208A1BAF8FCD00E4D570 /* Build configuration list for PBXNativeTarget "HousekeepingServerTests" */;
+			buildPhases = (
+				188A20791BAF8FCD00E4D570 /* Sources */,
+				188A207A1BAF8FCD00E4D570 /* Frameworks */,
+				188A207B1BAF8FCD00E4D570 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				188A207F1BAF8FCD00E4D570 /* PBXTargetDependency */,
+			);
+			name = HousekeepingServerTests;
+			productName = HousekeepingServerTests;
+			productReference = 188A207D1BAF8FCD00E4D570 /* HousekeepingServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		188A205C1BAF8FCD00E4D570 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = com.jacob;
+				TargetAttributes = {
+					188A20631BAF8FCD00E4D570 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					188A207C1BAF8FCD00E4D570 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 188A20631BAF8FCD00E4D570;
+					};
+				};
+			};
+			buildConfigurationList = 188A205F1BAF8FCD00E4D570 /* Build configuration list for PBXProject "HousekeepingServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 188A205B1BAF8FCD00E4D570;
+			productRefGroup = 188A20651BAF8FCD00E4D570 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				188A20631BAF8FCD00E4D570 /* HousekeepingServer */,
+				188A207C1BAF8FCD00E4D570 /* HousekeepingServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		188A20621BAF8FCD00E4D570 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */,
+				188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		188A207B1BAF8FCD00E4D570 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		188A20601BAF8FCD00E4D570 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				188A20B81BAF90A900E4D570 /* HSHistoryViewController.m in Sources */,
+				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
+				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
+				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
+				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
+				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
+				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
+				188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		188A20791BAF8FCD00E4D570 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				188A20841BAF8FCD00E4D570 /* HousekeepingServerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		188A207F1BAF8FCD00E4D570 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 188A20631BAF8FCD00E4D570 /* HousekeepingServer */;
+			targetProxy = 188A207E1BAF8FCD00E4D570 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				188A20771BAF8FCD00E4D570 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		188A20851BAF8FCD00E4D570 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		188A20861BAF8FCD00E4D570 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		188A20881BAF8FCD00E4D570 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HousekeepingServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		188A20891BAF8FCD00E4D570 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HousekeepingServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		188A208B1BAF8FCD00E4D570 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HousekeepingServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HousekeepingServer.app/HousekeepingServer";
+			};
+			name = Debug;
+		};
+		188A208C1BAF8FCD00E4D570 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HousekeepingServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HousekeepingServer.app/HousekeepingServer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		188A205F1BAF8FCD00E4D570 /* Build configuration list for PBXProject "HousekeepingServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				188A20851BAF8FCD00E4D570 /* Debug */,
+				188A20861BAF8FCD00E4D570 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		188A20871BAF8FCD00E4D570 /* Build configuration list for PBXNativeTarget "HousekeepingServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				188A20881BAF8FCD00E4D570 /* Debug */,
+				188A20891BAF8FCD00E4D570 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		188A208A1BAF8FCD00E4D570 /* Build configuration list for PBXNativeTarget "HousekeepingServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				188A208B1BAF8FCD00E4D570 /* Debug */,
+				188A208C1BAF8FCD00E4D570 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 188A205C1BAF8FCD00E4D570 /* Project object */;
+}
