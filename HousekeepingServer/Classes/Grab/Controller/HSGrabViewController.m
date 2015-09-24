@@ -70,9 +70,9 @@
         [self setupBgButton];
         [self setupRegionCollectionView];
     }else{
-        self.tableView.scrollEnabled = YES;
         [self.bgBtn removeFromSuperview];
         [mainCollectionView removeFromSuperview];
+        self.tableView.scrollEnabled = YES;
     }
 }
 
@@ -86,13 +86,16 @@
     UIButton *bgBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
     bgBtn.frame = self.view.bounds;
     [bgBtn setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
-    [self.tableView addSubview:bgBtn];
+    [self.view addSubview:bgBtn];
     self.bgBtn = bgBtn;
-    [bgBtn addTarget:self action:@selector(dismissVc) forControlEvents:UIControlEventTouchUpInside];
+    [bgBtn addTarget:self action:@selector(bgBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)dismissVc{
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)bgBtnClicked{
+    [self.bgBtn removeFromSuperview];
+    [mainCollectionView removeFromSuperview];
+    self.tableView.scrollEnabled = YES;
+    self.leftNavBtn.selected = NO;
 }
 
 /**
@@ -111,9 +114,10 @@
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
     CGFloat collectionViewW = self.view.frame.size.width;
     CGFloat collectionViewH = self.view.frame.size.height * 0.5;
-    CGRect collectionViewF = CGRectMake(0, 0, collectionViewW, collectionViewH);
+    CGFloat collectionViewY = self.tableView.contentOffset.y + 64;
+    CGRect collectionViewF = CGRectMake(0, collectionViewY, collectionViewW, collectionViewH);
     mainCollectionView = [[UICollectionView alloc] initWithFrame:collectionViewF collectionViewLayout:layout];
-    [self.tableView addSubview:mainCollectionView];
+    [self.view addSubview:mainCollectionView];
     mainCollectionView.backgroundColor = [UIColor whiteColor];
     
     // 四周间距
@@ -191,6 +195,7 @@
     [mainCollectionView removeFromSuperview];
     [self.bgBtn removeFromSuperview];
     self.leftNavBtn.selected = NO;
+    self.tableView.scrollEnabled = YES;
 }
 // 设置每个item的垂直间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{

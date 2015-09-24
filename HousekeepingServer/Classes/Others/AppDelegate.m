@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HSTabBarViewController.h"
-#import "HSDropListViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -24,7 +24,7 @@
     self.window.frame = [[UIScreen mainScreen]bounds];
     // 3.设置window的rootviewcontroller
     self.window.rootViewController = [[HSTabBarViewController alloc]init];
-//    self.window.rootViewController = [[HSDropListViewController alloc]init];
+
     
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
