@@ -13,6 +13,7 @@
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
 		186DEA5A1BB02A02008C465F /* citydata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA581BB02A02008C465F /* citydata.plist */; };
 		186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */; };
+		187630A81BB4543F0037F124 /* HSRegionDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630A71BB4543F0037F124 /* HSRegionDropView.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
 		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
@@ -50,6 +51,8 @@
 		186DEA581BB02A02008C465F /* citydata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = citydata.plist; path = ../../citydata.plist; sourceTree = "<group>"; };
 		186DEA5E1BB02B24008C465F /* HSNavBarBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavBarBtn.h; sourceTree = "<group>"; };
 		186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSNavBarBtn.m; sourceTree = "<group>"; };
+		187630A61BB4543F0037F124 /* HSRegionDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRegionDropView.h; sourceTree = "<group>"; };
+		187630A71BB4543F0037F124 /* HSRegionDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRegionDropView.m; sourceTree = "<group>"; };
 		188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HousekeepingServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 			children = (
 				18BEC7011BB3F471002D6DAA /* HSRegionCollectionViewCell.h */,
 				18BEC7021BB3F471002D6DAA /* HSRegionCollectionViewCell.m */,
+				187630A61BB4543F0037F124 /* HSRegionDropView.h */,
+				187630A71BB4543F0037F124 /* HSRegionDropView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
+				187630A81BB4543F0037F124 /* HSRegionDropView.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
 				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
 				188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */,

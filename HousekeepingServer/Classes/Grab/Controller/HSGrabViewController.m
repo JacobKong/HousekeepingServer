@@ -15,7 +15,8 @@
 
 
 @interface HSGrabViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, HSRegionColletionViewCellDelegate>{
-    UICollectionView *mainCollectionView;
+    UICollectionView *regionCollectionView;
+    UITableView *serviceTableView;
 }
 @property (strong, nonatomic) NSArray *regions;
 @property (weak, nonatomic) UIButton *bgBtn;
@@ -58,27 +59,57 @@
     self.rightNavBtn = rightNavBtn;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightNavBtn];
     [rightNavBtn addTarget:self action:@selector(chooseService:) forControlEvents:UIControlEventTouchUpInside];
-
-
-    
 }
+
+/**
+ *  选择沈阳市的地区
+ */
+
 - (void)chooseRegion:(HSNavBarBtn *)button{
     button.selected = !button.selected;
     
     if (button.selected) {
+        // 关闭右边按钮
+        self.rightNavBtn.selected = NO;
+        [self.bgBtn removeFromSuperview];
+        [serviceTableView removeFromSuperview];
+        
         self.tableView.scrollEnabled = NO;
+        // 创建背景半透明按钮
         [self setupBgButton];
         [self setupRegionCollectionView];
     }else{
         [self.bgBtn removeFromSuperview];
-        [mainCollectionView removeFromSuperview];
+        [regionCollectionView removeFromSuperview];
         self.tableView.scrollEnabled = YES;
     }
 }
 
+/**
+ *  选择所有的服务
+ */
 - (void)chooseService:(HSNavBarBtn *)button{
     button.selected = !button.selected;
+    
+    if (button.selected) {
+        // 关闭左边按钮
+        [self.bgBtn removeFromSuperview];
+        [regionCollectionView removeFromSuperview];
+        self.tableView.scrollEnabled = NO;
+        self.leftNavBtn.selected = NO;
+        // 创建背景半透明按钮
+        [self setupBgButton];
+        // 创建下拉tableView
+        [self setupServiceTableView];
+        
+    }else{
+        [self.bgBtn removeFromSuperview];
+        [serviceTableView removeFromSuperview];
+        self.tableView.scrollEnabled = YES;
+    }
+    
 }
+
 /**
  *  设置背景按钮
  */
@@ -93,13 +124,15 @@
 
 - (void)bgBtnClicked{
     [self.bgBtn removeFromSuperview];
-    [mainCollectionView removeFromSuperview];
+    [regionCollectionView removeFromSuperview];
+    [serviceTableView removeFromSuperview];
     self.tableView.scrollEnabled = YES;
     self.leftNavBtn.selected = NO;
+    self.rightNavBtn.selected = NO;
 }
 
 /**
- *  设置collectionView
+ *  创建collectionView
  */
 - (void)setupRegionCollectionView{
     // 初始化layout
@@ -116,19 +149,34 @@
     CGFloat collectionViewH = self.view.frame.size.height * 0.5;
     CGFloat collectionViewY = self.tableView.contentOffset.y + 64;
     CGRect collectionViewF = CGRectMake(0, collectionViewY, collectionViewW, collectionViewH);
-    mainCollectionView = [[UICollectionView alloc] initWithFrame:collectionViewF collectionViewLayout:layout];
-    [self.view addSubview:mainCollectionView];
-    mainCollectionView.backgroundColor = [UIColor whiteColor];
+    regionCollectionView = [[UICollectionView alloc] initWithFrame:collectionViewF collectionViewLayout:layout];
+    [self.view addSubview:regionCollectionView];
+    regionCollectionView.backgroundColor = [UIColor whiteColor];
     
     // 四周间距
     layout.sectionInset = UIEdgeInsetsMake(20, 0, 0, 0);
     
     // 注册collectionViewCell
-    [mainCollectionView registerClass:[HSRegionCollectionViewCell class] forCellWithReuseIdentifier:@"Region"];
+    [regionCollectionView registerClass:[HSRegionCollectionViewCell class] forCellWithReuseIdentifier:@"Region"];
     
     //4.设置代理
-    mainCollectionView.delegate = self;
-    mainCollectionView.dataSource = self;
+    regionCollectionView.delegate = self;
+    regionCollectionView.dataSource = self;
+}
+
+// 创建下拉tableView
+- (void)setupServiceTableView{
+    // 初始化
+    CGFloat tableViewW = self.view.frame.size.width;
+    CGFloat tableViewH = self.view.frame.size.height * 0.5;
+    CGFloat tableViewY = self.tableView.contentOffset.y + 64;
+    CGRect tableViewF = CGRectMake(0, tableViewY, tableViewW, tableViewH);
+    serviceTableView = [[UITableView alloc]initWithFrame:tableViewF style:UITableViewStylePlain];
+    [self.view addSubview:serviceTableView];
+    
+    // 设置代理
+    serviceTableView.delegate = self;
+    serviceTableView.dataSource =self;
 }
 
 
@@ -139,7 +187,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    if (tableView == serviceTableView) {
+        return 9;
+    }else{
+        return 20;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -151,6 +203,10 @@
         // 创建一个新的cell
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:ID];
+    }
+    if (tableView == serviceTableView) {
+        cell.textLabel.text = @"保洁";
+    }else{
         cell.textLabel.text = @"test";
     }
     return cell;
@@ -163,7 +219,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark CollectionView代理方法
+#pragma mark CollectionViewDelegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -192,7 +248,7 @@
     self.selectedRegionBtn = regionBtn;
     [self.leftNavBtn setTitle:regionBtn.titleLabel.text forState:UIControlStateNormal];
     
-    [mainCollectionView removeFromSuperview];
+    [regionCollectionView removeFromSuperview];
     [self.bgBtn removeFromSuperview];
     self.leftNavBtn.selected = NO;
     self.tableView.scrollEnabled = YES;
@@ -208,8 +264,4 @@
 }
 
 
-#pragma mark HSRegionColletionViewCellDelegate
-- (void)didClickedTheCell:(HSRegionCollectionViewCell *)regionCell{
-    regionCell.regionBtn.selected = YES;
-}
 @end

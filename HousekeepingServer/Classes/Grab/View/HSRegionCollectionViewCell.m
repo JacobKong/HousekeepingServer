@@ -35,17 +35,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.regionBtn];
-//        [self.regionBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        if ([self.delegate respondsToSelector:@selector(didClickedTheCell:)]) {
-            [self.delegate didClickedTheCell:self];
-        }
     }
     return self;
 }
 
-//- (void)btnClicked:(UIButton *)btn{
-//    btn.selected = YES;
-//}
 
 - (void)layoutSubviews{
     [super layoutSubviews];
