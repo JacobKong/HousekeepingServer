@@ -19,7 +19,7 @@
         self.adjustsImageWhenHighlighted = NO;
         self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         self.imageView.contentMode = UIViewContentModeCenter;
-        self.titleLabel.textAlignment = NSTextAlignmentLeft;
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self setTitleColor:HSColor(135, 135, 135) forState:UIControlStateHighlighted];
     }

@@ -52,9 +52,6 @@
     HSServiceListViewController *serviceListVc = [[HSServiceListViewController alloc]init];
     [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
     
-    HSHistoryViewController *historyVc = [[HSHistoryViewController alloc]init];
-    [self addTabBarItemWithViewController:historyVc title:@"历史接单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
-    
     HSMineViewController *mineVc = [[HSMineViewController alloc]init];
     [self addTabBarItemWithViewController:mineVc title:@"我的信息" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
     
