@@ -15,6 +15,16 @@
 		186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */; };
 		187630AB1BB525450037F124 /* HSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630AA1BB525450037F124 /* HSService.m */; };
 		187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630B01BB546670037F124 /* UIView+SetFrame.m */; };
+		1876311A1BB56E150037F124 /* HSAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631011BB56E150037F124 /* HSAllViewController.m */; };
+		1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631031BB56E150037F124 /* HSServiceListViewController.m */; };
+		1876311C1BB56E150037F124 /* HSServedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631061BB56E150037F124 /* HSServedViewController.m */; };
+		1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631091BB56E150037F124 /* HSServingViewController.m */; };
+		1876311E1BB56E150037F124 /* HSUnpayedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876310C1BB56E150037F124 /* HSUnpayedViewController.m */; };
+		1876311F1BB56E150037F124 /* XBScrollPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876310E1BB56E150037F124 /* XBScrollPageController.m */; };
+		187631201BB56E150037F124 /* XBTagTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631111BB56E150037F124 /* XBTagTitleModel.m */; };
+		187631211BB56E150037F124 /* XBPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631141BB56E150037F124 /* XBPageCell.m */; };
+		187631221BB56E150037F124 /* XBTagTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631161BB56E150037F124 /* XBTagTitleCell.m */; };
+		187631231BB56E150037F124 /* XBConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631191BB56E150037F124 /* XBConst.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
 		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
@@ -25,7 +35,6 @@
 		188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A31BAF90A900E4D570 /* HSMineViewController.m */; };
 		188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A81BAF90A900E4D570 /* AppDelegate.m */; };
 		188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */; };
-		188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */; };
 		18BEC7031BB3F471002D6DAA /* HSRegionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BEC7021BB3F471002D6DAA /* HSRegionCollectionViewCell.m */; };
 		18BEC7061BB41515002D6DAA /* HSRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BEC7051BB41515002D6DAA /* HSRegion.m */; };
 		7467A87A952F060DAB84259B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9BA1B7DA5E229355C79280 /* libPods.a */; };
@@ -56,6 +65,26 @@
 		187630AA1BB525450037F124 /* HSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSService.m; sourceTree = "<group>"; };
 		187630AF1BB546670037F124 /* UIView+SetFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SetFrame.h"; sourceTree = "<group>"; };
 		187630B01BB546670037F124 /* UIView+SetFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SetFrame.m"; sourceTree = "<group>"; };
+		187631001BB56E150037F124 /* HSAllViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAllViewController.h; sourceTree = "<group>"; };
+		187631011BB56E150037F124 /* HSAllViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSAllViewController.m; sourceTree = "<group>"; };
+		187631021BB56E150037F124 /* HSServiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceListViewController.h; sourceTree = "<group>"; };
+		187631031BB56E150037F124 /* HSServiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceListViewController.m; sourceTree = "<group>"; };
+		187631051BB56E150037F124 /* HSServedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServedViewController.h; sourceTree = "<group>"; };
+		187631061BB56E150037F124 /* HSServedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServedViewController.m; sourceTree = "<group>"; };
+		187631081BB56E150037F124 /* HSServingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServingViewController.h; sourceTree = "<group>"; };
+		187631091BB56E150037F124 /* HSServingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServingViewController.m; sourceTree = "<group>"; };
+		1876310B1BB56E150037F124 /* HSUnpayedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSUnpayedViewController.h; sourceTree = "<group>"; };
+		1876310C1BB56E150037F124 /* HSUnpayedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSUnpayedViewController.m; sourceTree = "<group>"; };
+		1876310D1BB56E150037F124 /* XBScrollPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBScrollPageController.h; sourceTree = "<group>"; };
+		1876310E1BB56E150037F124 /* XBScrollPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBScrollPageController.m; sourceTree = "<group>"; };
+		187631101BB56E150037F124 /* XBTagTitleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBTagTitleModel.h; sourceTree = "<group>"; };
+		187631111BB56E150037F124 /* XBTagTitleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBTagTitleModel.m; sourceTree = "<group>"; };
+		187631131BB56E150037F124 /* XBPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBPageCell.h; sourceTree = "<group>"; };
+		187631141BB56E150037F124 /* XBPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBPageCell.m; sourceTree = "<group>"; };
+		187631151BB56E150037F124 /* XBTagTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBTagTitleCell.h; sourceTree = "<group>"; };
+		187631161BB56E150037F124 /* XBTagTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBTagTitleCell.m; sourceTree = "<group>"; };
+		187631181BB56E150037F124 /* XBConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBConst.h; sourceTree = "<group>"; };
+		187631191BB56E150037F124 /* XBConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBConst.m; sourceTree = "<group>"; };
 		188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HousekeepingServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,8 +105,6 @@
 		188A20A81BAF90A900E4D570 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		188A20AD1BAF90A900E4D570 /* HSReceiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSReceiveViewController.h; sourceTree = "<group>"; };
 		188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSReceiveViewController.m; sourceTree = "<group>"; };
-		188A20B31BAF90A900E4D570 /* HSServiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceListViewController.h; sourceTree = "<group>"; };
-		188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceListViewController.m; sourceTree = "<group>"; };
 		18BEC7011BB3F471002D6DAA /* HSRegionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRegionCollectionViewCell.h; sourceTree = "<group>"; };
 		18BEC7021BB3F471002D6DAA /* HSRegionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRegionCollectionViewCell.m; sourceTree = "<group>"; };
 		18BEC7041BB41515002D6DAA /* HSRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRegion.h; sourceTree = "<group>"; };
@@ -121,6 +148,87 @@
 				186DEA581BB02A02008C465F /* citydata.plist */,
 			);
 			path = plist;
+			sourceTree = "<group>";
+		};
+		187630FE1BB56E140037F124 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				187630FF1BB56E150037F124 /* All(全部) */,
+				187631041BB56E150037F124 /* Served(服务完成) */,
+				187631071BB56E150037F124 /* Serving(服务中) */,
+				1876310A1BB56E150037F124 /* Unpayed(未付款) */,
+				187631021BB56E150037F124 /* HSServiceListViewController.h */,
+				187631031BB56E150037F124 /* HSServiceListViewController.m */,
+				1876310D1BB56E150037F124 /* XBScrollPageController.h */,
+				1876310E1BB56E150037F124 /* XBScrollPageController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		187630FF1BB56E150037F124 /* All(全部) */ = {
+			isa = PBXGroup;
+			children = (
+				187631001BB56E150037F124 /* HSAllViewController.h */,
+				187631011BB56E150037F124 /* HSAllViewController.m */,
+			);
+			path = "All(全部)";
+			sourceTree = "<group>";
+		};
+		187631041BB56E150037F124 /* Served(服务完成) */ = {
+			isa = PBXGroup;
+			children = (
+				187631051BB56E150037F124 /* HSServedViewController.h */,
+				187631061BB56E150037F124 /* HSServedViewController.m */,
+			);
+			path = "Served(服务完成)";
+			sourceTree = "<group>";
+		};
+		187631071BB56E150037F124 /* Serving(服务中) */ = {
+			isa = PBXGroup;
+			children = (
+				187631081BB56E150037F124 /* HSServingViewController.h */,
+				187631091BB56E150037F124 /* HSServingViewController.m */,
+			);
+			path = "Serving(服务中)";
+			sourceTree = "<group>";
+		};
+		1876310A1BB56E150037F124 /* Unpayed(未付款) */ = {
+			isa = PBXGroup;
+			children = (
+				1876310B1BB56E150037F124 /* HSUnpayedViewController.h */,
+				1876310C1BB56E150037F124 /* HSUnpayedViewController.m */,
+			);
+			path = "Unpayed(未付款)";
+			sourceTree = "<group>";
+		};
+		1876310F1BB56E150037F124 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				187631101BB56E150037F124 /* XBTagTitleModel.h */,
+				187631111BB56E150037F124 /* XBTagTitleModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		187631121BB56E150037F124 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				187631131BB56E150037F124 /* XBPageCell.h */,
+				187631141BB56E150037F124 /* XBPageCell.m */,
+				187631151BB56E150037F124 /* XBTagTitleCell.h */,
+				187631161BB56E150037F124 /* XBTagTitleCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		187631171BB56E150037F124 /* XBConst */ = {
+			isa = PBXGroup;
+			children = (
+				187631181BB56E150037F124 /* XBConst.h */,
+				187631191BB56E150037F124 /* XBConst.m */,
+			);
+			name = XBConst;
+			path = ../ServiceList/XBConst;
 			sourceTree = "<group>";
 		};
 		188A205B1BAF8FCD00E4D570 = {
@@ -254,6 +362,7 @@
 				188A209B1BAF90A900E4D570 /* Controller */,
 				188A209E1BAF90A900E4D570 /* Model */,
 				188A209F1BAF90A900E4D570 /* View */,
+				187631171BB56E150037F124 /* XBConst */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -385,34 +494,11 @@
 		188A20B11BAF90A900E4D570 /* ServiceList */ = {
 			isa = PBXGroup;
 			children = (
-				188A20B21BAF90A900E4D570 /* Controller */,
-				188A20B51BAF90A900E4D570 /* Model */,
-				188A20B61BAF90A900E4D570 /* View */,
+				187630FE1BB56E140037F124 /* Controller */,
+				1876310F1BB56E150037F124 /* Model */,
+				187631121BB56E150037F124 /* View */,
 			);
 			path = ServiceList;
-			sourceTree = "<group>";
-		};
-		188A20B21BAF90A900E4D570 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				188A20B31BAF90A900E4D570 /* HSServiceListViewController.h */,
-				188A20B41BAF90A900E4D570 /* HSServiceListViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		188A20B51BAF90A900E4D570 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		188A20B61BAF90A900E4D570 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		18C3C8851BB1A17800C858AB /* Model */ = {
@@ -593,19 +679,28 @@
 				188A20B81BAF90A900E4D570 /* HSHistoryViewController.m in Sources */,
 				18BEC7031BB3F471002D6DAA /* HSRegionCollectionViewCell.m in Sources */,
 				187630AB1BB525450037F124 /* HSService.m in Sources */,
+				1876311A1BB56E150037F124 /* HSAllViewController.m in Sources */,
 				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
+				187631201BB56E150037F124 /* XBTagTitleModel.m in Sources */,
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
+				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
 				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
+				1876311E1BB56E150037F124 /* HSUnpayedViewController.m in Sources */,
+				187631231BB56E150037F124 /* XBConst.m in Sources */,
 				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
+				187631221BB56E150037F124 /* XBTagTitleCell.m in Sources */,
+				187631211BB56E150037F124 /* XBPageCell.m in Sources */,
 				187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */,
 				186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */,
+				1876311C1BB56E150037F124 /* HSServedViewController.m in Sources */,
 				18BEC7061BB41515002D6DAA /* HSRegion.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
+				1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */,
+				1876311F1BB56E150037F124 /* XBScrollPageController.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
 				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
-				188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

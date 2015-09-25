@@ -14,6 +14,8 @@
 #import "HSServiceListViewController.h"
 #import "HSTabBar.h"
 #import "HSNavigationViewController.h"
+#import "UIView+SetFrame.h"
+
 
 @interface HSTabBarViewController ()<HSTabBarDelegate>
 @property (weak, nonatomic) HSTabBar *customTabBar;
@@ -51,6 +53,7 @@
     
     HSServiceListViewController *serviceListVc = [[HSServiceListViewController alloc]init];
     [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
+
     
     HSMineViewController *mineVc = [[HSMineViewController alloc]init];
     [self addTabBarItemWithViewController:mineVc title:@"我的信息" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];

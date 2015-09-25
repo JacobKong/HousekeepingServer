@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HSServiceListViewController : UIViewController
+#import "XBScrollPageController.h"
+@interface HSServiceListViewController : XBScrollPageController
 
 @end
