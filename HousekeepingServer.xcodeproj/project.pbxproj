@@ -13,7 +13,8 @@
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
 		186DEA5A1BB02A02008C465F /* citydata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA581BB02A02008C465F /* citydata.plist */; };
 		186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */; };
-		187630A81BB4543F0037F124 /* HSRegionDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630A71BB4543F0037F124 /* HSRegionDropView.m */; };
+		187630AB1BB525450037F124 /* HSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630AA1BB525450037F124 /* HSService.m */; };
+		187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630B01BB546670037F124 /* UIView+SetFrame.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
 		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
@@ -51,8 +52,10 @@
 		186DEA581BB02A02008C465F /* citydata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = citydata.plist; path = ../../citydata.plist; sourceTree = "<group>"; };
 		186DEA5E1BB02B24008C465F /* HSNavBarBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavBarBtn.h; sourceTree = "<group>"; };
 		186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSNavBarBtn.m; sourceTree = "<group>"; };
-		187630A61BB4543F0037F124 /* HSRegionDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRegionDropView.h; sourceTree = "<group>"; };
-		187630A71BB4543F0037F124 /* HSRegionDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRegionDropView.m; sourceTree = "<group>"; };
+		187630A91BB525450037F124 /* HSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSService.h; sourceTree = "<group>"; };
+		187630AA1BB525450037F124 /* HSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSService.m; sourceTree = "<group>"; };
+		187630AF1BB546670037F124 /* UIView+SetFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SetFrame.h"; sourceTree = "<group>"; };
+		187630B01BB546670037F124 /* UIView+SetFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SetFrame.m"; sourceTree = "<group>"; };
 		188A20641BAF8FCD00E4D570 /* HousekeepingServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HousekeepingServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 		188A20A91BAF90A900E4D570 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				187630AF1BB546670037F124 /* UIView+SetFrame.h */,
+				187630B01BB546670037F124 /* UIView+SetFrame.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -415,6 +420,8 @@
 			children = (
 				18BEC7041BB41515002D6DAA /* HSRegion.h */,
 				18BEC7051BB41515002D6DAA /* HSRegion.m */,
+				187630A91BB525450037F124 /* HSService.h */,
+				187630AA1BB525450037F124 /* HSService.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,8 +431,6 @@
 			children = (
 				18BEC7011BB3F471002D6DAA /* HSRegionCollectionViewCell.h */,
 				18BEC7021BB3F471002D6DAA /* HSRegionCollectionViewCell.m */,
-				187630A61BB4543F0037F124 /* HSRegionDropView.h */,
-				187630A71BB4543F0037F124 /* HSRegionDropView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -587,16 +592,17 @@
 			files = (
 				188A20B81BAF90A900E4D570 /* HSHistoryViewController.m in Sources */,
 				18BEC7031BB3F471002D6DAA /* HSRegionCollectionViewCell.m in Sources */,
+				187630AB1BB525450037F124 /* HSService.m in Sources */,
 				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
 				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
 				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
+				187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */,
 				186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */,
 				18BEC7061BB41515002D6DAA /* HSRegion.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
-				187630A81BB4543F0037F124 /* HSRegionDropView.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
 				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
 				188A20BD1BAF90A900E4D570 /* HSServiceListViewController.m in Sources */,
@@ -721,6 +727,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -735,6 +742,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

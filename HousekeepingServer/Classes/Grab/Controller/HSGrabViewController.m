@@ -51,24 +51,25 @@
     leftNavBtn.frame = CGRectMake(0, 0, 70, 20);
     self.leftNavBtn = leftNavBtn;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.leftNavBtn];
-    [leftNavBtn addTarget:self action:@selector(chooseRegion:) forControlEvents:UIControlEventTouchUpInside];
+    [leftNavBtn addTarget:self action:@selector(navBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     // 右边选区的按钮
     HSNavBarBtn *rightNavBtn = [HSNavBarBtn navBarBtnWithTitle:@"选择服务" image:@"navigation_city_fold" highlightedImage:@"navigation_city_fold_highlighted" selectedImage:@"navigation_city_unfold"];
     rightNavBtn.frame = CGRectMake(0, 0, 70, 20);
     self.rightNavBtn = rightNavBtn;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightNavBtn];
-    [rightNavBtn addTarget:self action:@selector(chooseService:) forControlEvents:UIControlEventTouchUpInside];
+    [rightNavBtn addTarget:self action:@selector(navBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
- *  选择沈阳市的地区
+ *  导航栏按钮被点击
+ *
+ *  @param button 左边按钮／右边按钮
  */
-
-- (void)chooseRegion:(HSNavBarBtn *)button{
+- (void)navBtnClicked:(HSNavBarBtn *)button{
     button.selected = !button.selected;
-    
-    if (button.selected) {
+    // 左边的被点击，选择地区
+    if (button.selected && button == self.leftNavBtn) {
         // 关闭右边按钮
         self.rightNavBtn.selected = NO;
         [self.bgBtn removeFromSuperview];
@@ -78,20 +79,8 @@
         // 创建背景半透明按钮
         [self setupBgButton];
         [self setupRegionCollectionView];
-    }else{
-        [self.bgBtn removeFromSuperview];
-        [regionCollectionView removeFromSuperview];
-        self.tableView.scrollEnabled = YES;
-    }
-}
-
-/**
- *  选择所有的服务
- */
-- (void)chooseService:(HSNavBarBtn *)button{
-    button.selected = !button.selected;
-    
-    if (button.selected) {
+        
+    }else if (button.selected && button == self.rightNavBtn){ // 右边的被点击选择服务
         // 关闭左边按钮
         [self.bgBtn removeFromSuperview];
         [regionCollectionView removeFromSuperview];
@@ -101,15 +90,13 @@
         [self setupBgButton];
         // 创建下拉tableView
         [self setupServiceTableView];
-        
-    }else{
+    }else{ // 取消点击
         [self.bgBtn removeFromSuperview];
         [serviceTableView removeFromSuperview];
+        [regionCollectionView removeFromSuperview];
         self.tableView.scrollEnabled = YES;
     }
-    
 }
-
 /**
  *  设置背景按钮
  */
