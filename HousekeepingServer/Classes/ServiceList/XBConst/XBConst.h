@@ -24,6 +24,7 @@
 #define XBRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1]
 
 #define XBMakeColorWithRGB(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+#define HSColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 extern NSString *const kTagCollectionViewCellIdentifier;
 extern NSString *const kPageCollectionViewCellIdentifier;
 extern NSString *const kCachedTime;

@@ -8,7 +8,6 @@
 
 #import "HSTabBarViewController.h"
 #import "HSGrabViewController.h"
-#import "HSHistoryViewController.h"
 #import "HSMineViewController.h"
 #import "HSReceiveViewController.h"
 #import "HSServiceListViewController.h"
@@ -56,7 +55,7 @@
 
     
     HSMineViewController *mineVc = [[HSMineViewController alloc]init];
-    [self addTabBarItemWithViewController:mineVc title:@"我的信息" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
+    [self addTabBarItemWithViewController:mineVc title:@"个人中心" image:@"tabbar_profile_os7" selectedImage:@"tabbar_profile_selected_os7"];
     
 }
 

@@ -39,15 +39,15 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[NSForegroundColorAttributeName] = [UIColor whiteColor];
     dict[NSFontAttributeName] = [UIFont boldSystemFontOfSize:19];
-    dict[UITextAttributeTextShadowOffset] = [NSValue valueWithUIOffset:UIOffsetZero];
+//    dict[UITextAttributeTextShadowOffset] = [NSValue valueWithUIOffset:UIOffsetZero];
     [navBar setTitleTextAttributes:dict];
     // 设置导航栏颜色
     [navBar setBarTintColor:HSColor(234, 103, 7)];
     // 设置返回按钮颜色
     [navBar setTintColor:[UIColor whiteColor]];
-    // 设置indicator
-    [navBar setBackIndicatorImage:[UIImage imageNamed:@"navigationbar_indicator"]];
-    [navBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"navigationbar_indicator"]];
+//   设置indicator
+    [navBar setBackIndicatorImage:[UIImage imageNamed:@"navgation_back_arrow"]];
+    [navBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"navgation_back_arrow"]];
     
 }
 
@@ -57,11 +57,16 @@
 + (void)setupNavBarItem{
     UIBarButtonItem *item = [UIBarButtonItem appearance];
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
-    textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+    textAttrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    textAttrs[NSFontAttributeName] = [UIFont boldSystemFontOfSize:14];
     textAttrs[UITextAttributeTextShadowOffset] = [NSValue valueWithUIOffset:UIOffsetZero];
     [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:textAttrs forState:UIControlStateHighlighted];
+    
+    // 去掉返回按钮的文字
+    [item setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
+
 
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{

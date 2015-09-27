@@ -10,6 +10,7 @@
 @class HSNavBarBtn;
 @interface HSNavBarBtn : UIButton
 + (HSNavBarBtn *)navBarBtnWithTitle:(NSString *)title;
++ (HSNavBarBtn *)navBarBtnWithBgImage:(NSString *)image;
 + (HSNavBarBtn *)navBarBtnWithImage:(NSString *)image highlightedImage:(NSString *)highlightedImage;
 + (HSNavBarBtn *)navBarBtnWithTitle:(NSString *)title image:(NSString *)image highlightedImage:(NSString *)highlightedImage;
 + (HSNavBarBtn *)navBarBtnWithTitle:(NSString *)title image:(NSString *)image highlightedImage:(NSString *)highlightedImage selectedImage:(NSString *)selectedImage;

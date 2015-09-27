@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HSMineViewController : UIViewController
+#import "HSBaseViewController.h"
+@interface HSMineViewController : HSBaseViewController
 
 @end

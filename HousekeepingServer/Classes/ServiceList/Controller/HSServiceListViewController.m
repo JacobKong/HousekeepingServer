@@ -49,7 +49,7 @@
     self.selectedIndicatorColor = HSColor(234, 103, 7);
         self.selectedTitleFont = [UIFont systemFontOfSize:15];
     
-    //    self.graceTime = 15;
+        self.graceTime = 15;
     //    self.gapAnimated = YES;
     
     self.backgroundColor = [UIColor whiteColor];

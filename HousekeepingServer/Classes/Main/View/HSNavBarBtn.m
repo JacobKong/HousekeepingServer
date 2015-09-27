@@ -49,6 +49,12 @@
     return button;
 }
 
++ (HSNavBarBtn *)navBarBtnWithBgImage:(NSString *)image{
+    HSNavBarBtn *button = [HSNavBarBtn buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    return button;
+}
+
 + (HSNavBarBtn *)navBarBtnWithImage:(NSString *)image highlightedImage:(NSString *)highlightedImage{
         HSNavBarBtn *button = [HSNavBarBtn buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];

@@ -43,6 +43,16 @@
 }
 
 /**
+ *  view消失时调用
+ */
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.leftNavBtn.selected = NO;
+    self.rightNavBtn.selected = NO;
+    [self bgBtnClicked];
+}
+
+/**
  *  设置navBar的左右按钮
  */
 - (void)setupNavBarBtn{
@@ -203,6 +213,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *vc = [[UIViewController alloc]init];
     vc.view.backgroundColor = [UIColor blueColor];
+//    [vc.navigationItem setHidesBackButton:YES];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
