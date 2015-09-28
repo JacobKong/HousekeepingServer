@@ -11,7 +11,7 @@
 @class HSNoBorderTextField;
 @interface HSInfoTableViewCell : UITableViewCell
 @property (strong, nonatomic) HSInfoItem *item;
-@property (strong, nonatomic) HSNoBorderTextField *textField;
+//@property (strong, nonatomic) HSNoBorderTextField *textField;
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;

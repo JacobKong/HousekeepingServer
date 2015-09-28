@@ -13,6 +13,7 @@ typedef void (^HSInfoItemOption)();
  *  图标
  */
 @property (copy, nonatomic) NSString *icon;
+
 /**
  *  标题
  */

@@ -14,36 +14,19 @@
 #import "HSInfoTextFieldItem.h"
 #import "HSNoBorderTextField.h"
 
-@interface HSInfoTableViewCell ()
-@property (strong, nonatomic) UIImageView *arrowView;
-@property (nonatomic, weak) UIView *divider;
+@interface HSInfoTableViewCell (){
+    UIImageView *_arrowView;
+//    UITextField *_textField;
+    HSNoBorderTextField *_textField;
+    
+}
+@property (weak, nonatomic) UIView *divider;
 
 @end
 
 @implementation HSInfoTableViewCell
 
 #pragma mark 懒加载
-- (UIImageView *)arrowView {
-    if (_arrowView == nil) {
-#warning 更改箭头颜色！
-        _arrowView =
-        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrowright"]];
-    }
-    return _arrowView;
-}
-
-- (HSNoBorderTextField *)textField{
-    if (!_textField) {
-        _textField = [[HSNoBorderTextField alloc]init];
-        CGFloat textFiledW = self.contentView.frame.size.width - 120;
-        CGFloat textFiledH = self.contentView.frame.size.height;
-        
-        _textField.bounds = CGRectMake(0, 100, textFiledW, textFiledH);
-       
-    }
-    return _textField;
-}
-
 /**
  *  再次方法中设置cell的textLable的frame
  */
@@ -126,11 +109,14 @@
 }
 
 - (void)setData:(HSInfoItem *)item {
+    // 设置标题
     if (item.attrTitle) {
         self.textLabel.attributedText = item.attrTitle;
     }else{
         self.textLabel.text = item.title;
     }
+    
+    // 设置图标
     if (item.icon == nil){
         return;
     }else{
@@ -142,31 +128,32 @@
 
 - (void)setRightContent:(HSInfoItem *)item {
     if ([self.item isKindOfClass:[HSInfoArrowItem class]]) {
-        self.accessoryView = self.arrowView;
+        [self settingArrow];
+        
     }else if ([self.item isKindOfClass:[HSInfoTextFieldItem class]]){
+        [self settingTextField];
         HSInfoTextFieldItem *textFieldItem = (HSInfoTextFieldItem *)self.item;
-        self.accessoryView = self.textField;
         // 设置文本款内容
-        [self.textField setText:textFieldItem.text];
+        [_textField setText:textFieldItem.text];
         // 设置placeHolder
-        [self.textField setAttributedPlaceholder:textFieldItem.attrPlaceholder];
+        [_textField setAttributedPlaceholder:textFieldItem.attrPlaceholder];
         // 设置是否安全输入
-        self.textField.secureTextEntry = textFieldItem.isSecure;
+        _textField.secureTextEntry = textFieldItem.isSecure;
         // 设置键盘类型
         if (textFieldItem.keyboardtype) {
-            self.textField.keyboardType = textFieldItem.keyboardtype;
+            _textField.keyboardType = textFieldItem.keyboardtype;
         }else{
-            self.textField.keyboardType = UIReturnKeyDefault;
+            _textField.keyboardType = UIReturnKeyDefault;
         }
         // 设置是否可输入
         if (textFieldItem.isEnable) {
-            self.textField.enabled = textFieldItem.enable;
+            _textField.enabled = textFieldItem.enable;
         }else{
-            self.textField.enabled = NO;
+            _textField.enabled = NO;
         }
         // 设置delegate控制器
 //        self.textField.delegate = textFieldItem.delegateVc;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 //    } else if ([self.item isKindOfClass:[KWJSettingSwitchItem class]]) {
 //        self.accessoryView = self.switchView;
@@ -179,5 +166,38 @@
     else {
         self.accessoryType = UITableViewCellAccessoryNone;
     }
+}
+
+- (void)settingArrow{
+    if (_arrowView == nil) {
+#warning 更改箭头颜色！
+        _arrowView =
+        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrowright"]];
+    }
+    self.accessoryView = _arrowView;
+    // 用默认的选中样式
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+}
+
+- (void)settingTextField{
+    if (!_textField) {
+        _textField = [[HSNoBorderTextField alloc]init];
+        CGFloat textFiledW = self.contentView.frame.size.width - 120;
+        CGFloat textFiledH = self.contentView.frame.size.height;
+        _textField.bounds = CGRectMake(0, 100, textFiledW, textFiledH);
+        // 光标颜色
+        _textField.tintColor = [UIColor orangeColor];
+        // 右边清空按钮
+        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        UIImageView *cancleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"textfield_text_clear"]];
+        [cancleView sizeToFit];
+        _textField.rightView = cancleView;
+        // 设置输入文字大小
+        [_textField setFont:[UIFont systemFontOfSize:14]];
+        
+    }
+    self.accessoryView = _textField;
+    // 用默认的选中样式
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 @end

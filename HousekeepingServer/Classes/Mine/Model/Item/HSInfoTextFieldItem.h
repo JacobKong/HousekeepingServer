@@ -30,7 +30,6 @@
  *  文本框文字
  */
 @property (copy, nonatomic) NSString *text;
-//+ (instancetype)itemWithTitle:(NSString*)title placeholder:(NSString *)placeholder;
 
 + (instancetype)itemWithTitle:(NSAttributedString*)attrTitle placeholder:(NSAttributedString *)attrPlaceholder text:(NSString *)text;
 + (instancetype)itemWithTitle:(NSAttributedString*)attrTitle placeholder:(NSAttributedString *)attrPlaceholder;

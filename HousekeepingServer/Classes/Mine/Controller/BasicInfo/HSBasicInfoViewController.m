@@ -15,6 +15,7 @@
 #import "HSNoBorderTextField.h"
 #import "HSInfoTableViewCell.h"
 #import "MBProgressHUD.h"
+#import "XBConst.h"
 
 @interface HSBasicInfoViewController ()<InfoFooterViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) UIButton *saveBtn;
@@ -83,21 +84,32 @@
     NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];
     placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
     
-    NSAttributedString *userNumPh = [[NSAttributedString alloc]initWithString:@"账号" attributes:placeholderAttr];
-    NSAttributedString *userNamePh = [[NSAttributedString alloc]initWithString:@"姓名" attributes:placeholderAttr];
-    NSAttributedString *sexPh = [[NSAttributedString alloc]initWithString:@"性别" attributes:placeholderAttr];
-    NSAttributedString *birthdayPh = [[NSAttributedString alloc]initWithString:@"生日" attributes:placeholderAttr];
-    NSAttributedString *IDCardPh = [[NSAttributedString alloc]initWithString:@"身份证号" attributes:placeholderAttr];
-    NSAttributedString *phoneNumberPh = [[NSAttributedString alloc]initWithString:@"联系电话" attributes:placeholderAttr];
-    NSAttributedString *emailPh = [[NSAttributedString alloc]initWithString:@"电子邮件" attributes:placeholderAttr];
+    NSAttributedString *userNumPh = [[NSAttributedString alloc]initWithString:@"请输入账号" attributes:placeholderAttr];
+    NSAttributedString *userNamePh = [[NSAttributedString alloc]initWithString:@"请输入您的姓名" attributes:placeholderAttr];
+    NSAttributedString *sexPh = [[NSAttributedString alloc]initWithString:@"请选择您的性别" attributes:placeholderAttr];
+    NSAttributedString *birthdayPh = [[NSAttributedString alloc]initWithString:@"请选择您的生日" attributes:placeholderAttr];
+    NSAttributedString *IDCardPh = [[NSAttributedString alloc]initWithString:@"请输入您的身份证号" attributes:placeholderAttr];
+    NSAttributedString *phoneNumberPh = [[NSAttributedString alloc]initWithString:@"请输入您的联系电话" attributes:placeholderAttr];
+    NSAttributedString *emailPh = [[NSAttributedString alloc]initWithString:@"请输入您的电子邮件" attributes:placeholderAttr];
     
     HSInfoTextFieldItem *userNum = [HSInfoTextFieldItem itemWithTitle:userNumStr placeholder:userNumPh text:@"20132037"];
 
     HSInfoTextFieldItem *userName = [HSInfoTextFieldItem itemWithTitle:userNameStr placeholder:userNamePh text:@"孔伟杰"];
 
     HSInfoTextFieldItem *sex = [HSInfoTextFieldItem itemWithTitle:sexStr placeholder:sexPh text:@"男"];
+    
+    HSInfoItem *birthday = [HSInfoTextFieldItem itemWithTitle:birthdayStr placeholder:birthdayPh text:@"2013-10-10"];
+    birthday.option = ^{
+        CGFloat pickerY = XBScreenHeight * 0.6;
+        CGFloat pickerW = XBScreenWidth;
+        CGFloat pickerH = XBScreenHeight * 0.4;
+        CGRect pickerViewF = CGRectMake(0, pickerY, pickerW, pickerH);
+        UIDatePicker *datePicker = [[UIDatePicker alloc]initWithFrame:pickerViewF];
+        datePicker.datePickerMode = UIDatePickerModeDate;
+        [self.tableView addSubview:datePicker];
+    };
+    
 
-    HSInfoTextFieldItem *birthday = [HSInfoTextFieldItem itemWithTitle:birthdayStr placeholder:birthdayPh text:@"2013-10-10"];
 
     HSInfoTextFieldItem *IDCard = [HSInfoTextFieldItem itemWithTitle:IDCardStr placeholder:IDCardPh text:@"140"];
 
@@ -146,9 +158,12 @@
 - (void)saveBtnClicked{
     NSMutableArray *itemArray = [NSMutableArray array];
     for (HSInfoTextFieldItem *textItem in self.g0.items) {
+        textItem.text = @"haha";
         textItem.enable = NO;
+        NSLog(@"%@",textItem.text);
         [itemArray addObject:textItem];
     }
+    // 重新赋值g0的items
     self.g0.items = itemArray;
     [self.data removeLastObject];
     [self.data addObject:self.g0];
@@ -207,6 +222,14 @@
 
 - (void)textChange{
     self.saveBtn.enabled = YES;
+//    NSString *text = self.cell.textField.text;
+//    NSLog(@"textChange,%@", text);
+//    NSMutableArray *itemArray = [NSMutableArray array];
+//    for (HSInfoTextFieldItem *textItem in self.g0.items) {
+//        NSLog(@"%@",textItem.text);
+//        [itemArray addObject:textItem];
+//    }
+
 }
 #pragma mark - UITextFieldDelegate
 //- (void)textFieldDidBeginEditing:(UITextField *)textField{

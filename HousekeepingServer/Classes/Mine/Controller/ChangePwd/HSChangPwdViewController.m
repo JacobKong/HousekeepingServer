@@ -49,6 +49,9 @@
     HSInfoTextFieldItem *originPwd = [HSInfoTextFieldItem itemWithTitle:originPwdStr placeholder:originPwdPh];
     originPwd.secure = YES;
     originPwd.enable = YES;
+    originPwd.option = ^{
+    
+    };
     HSInfoTextFieldItem *newPwd = [HSInfoTextFieldItem itemWithTitle:newPwdStr placeholder:newPwdPh];
     newPwd.secure = YES;
     newPwd.enable = YES;
