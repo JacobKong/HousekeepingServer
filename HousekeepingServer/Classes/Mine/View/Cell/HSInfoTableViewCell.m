@@ -13,37 +13,20 @@
 #import "UIView+SetFrame.h"
 #import "HSInfoTextFieldItem.h"
 #import "HSNoBorderTextField.h"
+#import "HSInfoLableItem.h"
 
-@interface HSInfoTableViewCell ()
-@property (strong, nonatomic) UIImageView *arrowView;
-@property (nonatomic, weak) UIView *divider;
+@interface HSInfoTableViewCell (){
+    UIImageView *_arrowView;
+    HSNoBorderTextField *_textField;
+    UILabel *_label;
+    
+}
+@property (weak, nonatomic) UIView *divider;
 
 @end
-
 @implementation HSInfoTableViewCell
 
 #pragma mark 懒加载
-- (UIImageView *)arrowView {
-    if (_arrowView == nil) {
-#warning 更改箭头颜色！
-        _arrowView =
-        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrowright"]];
-    }
-    return _arrowView;
-}
-
-- (HSNoBorderTextField *)textField{
-    if (!_textField) {
-        _textField = [[HSNoBorderTextField alloc]init];
-        CGFloat textFiledW = self.contentView.frame.size.width - 120;
-        CGFloat textFiledH = self.contentView.frame.size.height;
-        
-        _textField.bounds = CGRectMake(0, 100, textFiledW, textFiledH);
-       
-    }
-    return _textField;
-}
-
 /**
  *  再次方法中设置cell的textLable的frame
  */
@@ -141,32 +124,37 @@
 }
 
 - (void)setRightContent:(HSInfoItem *)item {
-    if ([self.item isKindOfClass:[HSInfoArrowItem class]]) {
-        self.accessoryView = self.arrowView;
-    }else if ([self.item isKindOfClass:[HSInfoTextFieldItem class]]){
-        HSInfoTextFieldItem *textFieldItem = (HSInfoTextFieldItem *)self.item;
+    if ([item isKindOfClass:[HSInfoArrowItem class]]) {
+        [self settingArrow];
+    }else if ([item isKindOfClass:[HSInfoTextFieldItem class]]){
+        [self settingTextField];
+        HSInfoTextFieldItem *textFieldItem = (HSInfoTextFieldItem *)item;
         self.accessoryView = self.textField;
         // 设置文本款内容
-        [self.textField setText:textFieldItem.text];
+        [_textField setText:textFieldItem.text];
         // 设置placeHolder
-        [self.textField setAttributedPlaceholder:textFieldItem.attrPlaceholder];
+        [_textField setAttributedPlaceholder:textFieldItem.attrPlaceholder];
         // 设置是否安全输入
-        self.textField.secureTextEntry = textFieldItem.isSecure;
+        _textField.secureTextEntry = textFieldItem.isSecure;
         // 设置键盘类型
         if (textFieldItem.keyboardtype) {
-            self.textField.keyboardType = textFieldItem.keyboardtype;
+            _textField.keyboardType = textFieldItem.keyboardtype;
         }else{
-            self.textField.keyboardType = UIReturnKeyDefault;
+            _textField.keyboardType = UIReturnKeyDefault;
         }
         // 设置是否可输入
         if (textFieldItem.isEnable) {
-            self.textField.enabled = textFieldItem.enable;
+            _textField.enabled = textFieldItem.enable;
         }else{
-            self.textField.enabled = NO;
+            _textField.enabled = NO;
         }
         // 设置delegate控制器
-//        self.textField.delegate = textFieldItem.delegateVc;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        _textField.delegate = textFieldItem.delegateVc;
+        // 设置textField的inputView
+        _textField.inputView = textFieldItem.inputView;
+        
+    }else if ([item isKindOfClass:[HSInfoLableItem class]]){
+        [self settingLabel];
     }
 //    } else if ([self.item isKindOfClass:[KWJSettingSwitchItem class]]) {
 //        self.accessoryView = self.switchView;
@@ -177,7 +165,59 @@
 //        self.accessoryView = self.labelView;
 //    }
     else {
-        self.accessoryType = UITableViewCellAccessoryNone;
+        // 什么也没有，清空右边显示的view
+        self.accessoryView = nil;
+        // 用默认的选中样式
+        self.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
 }
+
+- (void)settingArrow{
+    if (_arrowView == nil) {
+#warning 更改箭头颜色！
+        _arrowView =
+        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrowright"]];
+    }
+    self.accessoryView = _arrowView;
+    // 用默认的选中样式
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+}
+
+- (void)settingTextField{
+    if (!_textField) {
+        _textField = [[HSNoBorderTextField alloc]init];
+        CGFloat textFiledW = self.contentView.frame.size.width - 120;
+        CGFloat textFiledH = self.contentView.frame.size.height;
+        _textField.bounds = CGRectMake(0, 100, textFiledW, textFiledH);
+        //        [_textField addObserver:self forKeyPath:@"text" options:0 context:nil];
+        //        [self observeValueForKeyPath:nil ofObject:nil change:nil context:nil];
+    }
+    self.accessoryView = _textField;
+    // 用默认的选中样式
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+}
+
+//- (void)dealloc{
+//    [_textField removeObserver:self forKeyPath:@"text"];
+//}
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+//    NSLog(@"%@", _textField.text);
+//
+//}
+
+- (void)settingLabel{
+    if (!_label) {
+        _label = [[UILabel alloc] init];
+        _label.bounds = CGRectMake(0, 0, 100, self.frame.size.height);
+        _label.textAlignment = NSTextAlignmentRight;
+        _label.backgroundColor = [UIColor clearColor];
+        _label.textColor = [UIColor blackColor];
+        _label.font = [UIFont systemFontOfSize:14];
+    }
+    self.accessoryView = _label;
+    // 用默认的选中样式
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+}
+
 @end

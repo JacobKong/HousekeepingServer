@@ -13,6 +13,10 @@
 		1810BF851BB6DDC800D33FA0 /* UIImage+HSResizingImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF841BB6DDC800D33FA0 /* UIImage+HSResizingImage.m */; };
 		1810BF881BB6DE0F00D33FA0 /* HSInfoFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF871BB6DE0F00D33FA0 /* HSInfoFooterView.m */; };
 		18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18151CAC1BAFC0700040CA80 /* HSTabBar.m */; };
+		183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398141BB968C5002EAC65 /* HSMineKeys.m */; };
+		183398181BB968C5002EAC65 /* HSMineTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398161BB968C5002EAC65 /* HSMineTool.m */; };
+		1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */; };
+		1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */; };
 		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
 		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
@@ -77,6 +81,14 @@
 		18151CAB1BAFC0700040CA80 /* HSTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBar.h; sourceTree = "<group>"; };
 		18151CAC1BAFC0700040CA80 /* HSTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBar.m; sourceTree = "<group>"; };
 		183397C21BB7E833002EAC65 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		183398131BB968C5002EAC65 /* HSMineKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSMineKeys.h; sourceTree = "<group>"; };
+		183398141BB968C5002EAC65 /* HSMineKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSMineKeys.m; sourceTree = "<group>"; };
+		183398151BB968C5002EAC65 /* HSMineTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSMineTool.h; sourceTree = "<group>"; };
+		183398161BB968C5002EAC65 /* HSMineTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSMineTool.m; sourceTree = "<group>"; };
+		183398191BB969C0002EAC65 /* HSInfoValueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoValueItem.h; sourceTree = "<group>"; };
+		1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoValueItem.m; sourceTree = "<group>"; };
+		1833981C1BB9A187002EAC65 /* HSInfoLableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoLableItem.h; sourceTree = "<group>"; };
+		1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoLableItem.m; sourceTree = "<group>"; };
 		186DEA511BAFF902008C465F /* HSTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarButton.h; sourceTree = "<group>"; };
 		186DEA521BAFF902008C465F /* HSTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarButton.m; sourceTree = "<group>"; };
 		186DEA541BB001B6008C465F /* HSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavigationViewController.h; sourceTree = "<group>"; };
@@ -203,6 +215,17 @@
 			path = TextField;
 			sourceTree = "<group>";
 		};
+		183398121BB968C5002EAC65 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				183398131BB968C5002EAC65 /* HSMineKeys.h */,
+				183398141BB968C5002EAC65 /* HSMineKeys.m */,
+				183398151BB968C5002EAC65 /* HSMineTool.h */,
+				183398161BB968C5002EAC65 /* HSMineTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		186DEA5C1BB02A46008C465F /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,8 +349,12 @@
 				1876312E1BB62C9E0037F124 /* HSInfoItem.m */,
 				1876313D1BB6308E0037F124 /* HSInfoArrowItem.h */,
 				1876313E1BB6308E0037F124 /* HSInfoArrowItem.m */,
+				183398191BB969C0002EAC65 /* HSInfoValueItem.h */,
+				1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */,
 				18F5AE531BB68E9500BB5B49 /* HSInfoTextFieldItem.h */,
 				18F5AE541BB68E9500BB5B49 /* HSInfoTextFieldItem.m */,
+				1833981C1BB9A187002EAC65 /* HSInfoLableItem.h */,
+				1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -505,6 +532,7 @@
 		188A20A01BAF90A900E4D570 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				183398121BB968C5002EAC65 /* Tool */,
 				188A20A11BAF90A900E4D570 /* Controller */,
 				187631391BB62ECF0037F124 /* View */,
 				1876312A1BB62C9E0037F124 /* Model */,
@@ -792,9 +820,11 @@
 				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
 				187631201BB56E150037F124 /* XBTagTitleModel.m in Sources */,
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
+				183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */,
 				1876314F1BB635720037F124 /* HSSettingViewController.m in Sources */,
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
 				1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */,
+				1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */,
 				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
 				18F5AE521BB682F800BB5B49 /* HSChangPwdViewController.m in Sources */,
 				1810BF881BB6DE0F00D33FA0 /* HSInfoFooterView.m in Sources */,
@@ -812,10 +842,12 @@
 				1810BF7A1BB6DC8300D33FA0 /* HSInfoTableViewCell.m in Sources */,
 				18BEC7061BB41515002D6DAA /* HSRegion.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
+				1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
+				183398181BB968C5002EAC65 /* HSMineTool.m in Sources */,
 				1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */,
 				1810BF7C1BB6DC8300D33FA0 /* HSNoBorderTextField.m in Sources */,
 				1876311F1BB56E150037F124 /* XBScrollPageController.m in Sources */,

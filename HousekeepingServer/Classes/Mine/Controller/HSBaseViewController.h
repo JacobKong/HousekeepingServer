@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSMineKeys.h"
+
 @class HSInfoTableViewCell;
 @interface HSBaseViewController : UITableViewController
 @property (strong, nonatomic) NSMutableArray *data;

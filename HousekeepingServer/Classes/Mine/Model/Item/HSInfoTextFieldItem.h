@@ -8,8 +8,8 @@
 
 #import "HSInfoItem.h"
 #import "HSBasicInfoViewController.h"
-
-@interface HSInfoTextFieldItem : HSInfoItem
+#import "HSInfoValueItem.h"
+@interface HSInfoTextFieldItem : HSInfoValueItem
 /**
  *  可设置颜色、字体的placeholder
  */
@@ -30,6 +30,14 @@
  *  文本框文字
  */
 @property (copy, nonatomic) NSString *text;
+/**
+ *  代理控制器
+ */
+@property (weak, nonatomic) HSBasicInfoViewController *delegateVc;
+/**
+ *  keyboard的inputView
+ */
+@property (weak, nonatomic) UIView *inputView;
 //+ (instancetype)itemWithTitle:(NSString*)title placeholder:(NSString *)placeholder;
 
 + (instancetype)itemWithTitle:(NSAttributedString*)attrTitle placeholder:(NSAttributedString *)attrPlaceholder text:(NSString *)text;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSMineTool.h"
 typedef void (^HSInfoItemOption)();
 @interface HSInfoItem : NSObject
 /**

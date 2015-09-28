@@ -24,4 +24,21 @@
     return item;
 }
 
+- (void)setKey:(NSString *)key
+{
+    [super setKey:key];
+    
+    _text = [HSMineTool objectForKey:key];
+}
+
+- (void)setText:(NSString *)text{
+    _text = text;
+    
+//    [HSMineTool setObject:text forKey:self.key];
+}
+
+- (void)setEnable:(BOOL)enable{
+    _enable = enable;
+}
+
 @end

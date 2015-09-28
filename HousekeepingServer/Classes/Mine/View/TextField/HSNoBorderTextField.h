@@ -7,5 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @interface HSNoBorderTextField : UITextField
+
 @end
