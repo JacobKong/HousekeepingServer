@@ -15,4 +15,13 @@
 + (void)setObject:(id)obj forKey:(NSString *)key;
 + (id)objectForKey:(NSString *)key;
 
+/**
+ *  date转string
+ */
++ (NSString *)stringFromDate:(NSDate *)date;
+
+/**
+ *  string转date
+ */
++ (NSDate *)dateFromString:(NSString *)string;
 @end

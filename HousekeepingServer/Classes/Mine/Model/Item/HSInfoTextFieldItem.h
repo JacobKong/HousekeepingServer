@@ -23,10 +23,6 @@
  */
 @property (assign, nonatomic) UIKeyboardType keyboardtype;
 /**
- *  是否可输入
- */
-@property (assign, nonatomic, getter=isEnable)  BOOL enable;
-/**
  *  文本框文字
  */
 @property (copy, nonatomic) NSString *text;

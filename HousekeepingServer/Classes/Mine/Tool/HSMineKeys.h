@@ -11,6 +11,8 @@
 extern NSString *const name;
 
 HSDeclareConstStr(BasicInfoUserNum)
+
+HSDeclareConstStr(BasicInfoBirthday)
 @interface HSMineKeys : NSObject
 
 @end

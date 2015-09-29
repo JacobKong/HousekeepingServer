@@ -9,7 +9,10 @@
 #import "HSMineKeys.h"
 #define HSDefineConstStr(name) \
 NSString *const name = @#name;
+
 HSDefineConstStr(BasicInfoUserNum)
+
+HSDefineConstStr(BasicInfoBirthday)
 @implementation HSMineKeys
 
 @end

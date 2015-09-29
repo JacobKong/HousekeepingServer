@@ -36,9 +36,4 @@
     
 //    [HSMineTool setObject:text forKey:self.key];
 }
-
-- (void)setEnable:(BOOL)enable{
-    _enable = enable;
-}
-
 @end

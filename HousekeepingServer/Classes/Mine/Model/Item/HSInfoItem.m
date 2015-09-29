@@ -21,5 +21,8 @@
     return item;
 }
 
+- (void)setEnable:(BOOL)enable{
+    _enable = enable;
+}
 
 @end

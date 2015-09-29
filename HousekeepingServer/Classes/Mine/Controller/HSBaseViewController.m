@@ -24,6 +24,7 @@
     self = [super init];
     if (self) {
         return [super initWithStyle:UITableViewStyleGrouped];
+
     }
     return self;
 }
@@ -87,8 +88,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 数据模型
     HSInfoGroup *group = self.data[indexPath.section];
     HSInfoItem *item = group.items[indexPath.row];
-    if (item.option) {
+    if (item.option && item.enable == YES) {
         item.option();
+        return;
     } else if ([item isKindOfClass:[HSInfoArrowItem class]]) {
         HSInfoArrowItem *arrowitem = (HSInfoArrowItem *)item;
         // 如果没有需要跳转的控制器
@@ -98,10 +100,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         destVC.title = item.title;
         [self.navigationController pushViewController:destVC animated:YES];
     }
-//        else if ([item isKindOfClass:[HSInfoTextFieldItem class]]){
-//        HSInfoTextFieldItem *textItem = (HSInfoTextFieldItem *)item;
-//        self.cell.textField.delegate = textItem.delegateVc;
-//    }
     return;
 }
 

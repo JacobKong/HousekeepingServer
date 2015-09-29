@@ -10,5 +10,9 @@
 #import "HSInfoValueItem.h"
 
 @interface HSInfoLableItem : HSInfoValueItem
++ (instancetype)itemWithTitle:(NSAttributedString*)attrTitle;
+/**
+ *  label的内容
+ */
 @property (nonatomic, copy) NSString *text;
 @end

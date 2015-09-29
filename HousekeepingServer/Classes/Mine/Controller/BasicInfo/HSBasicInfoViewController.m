@@ -16,16 +16,25 @@
 #import "HSInfoTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "XBConst.h"
+#import "HSInfoLableItem.h"
+#import "HSDatePickerView.h"
+#import "HSSexPicker.h"
 
-@interface HSBasicInfoViewController () <InfoFooterViewDelegate,
-                                         UITextFieldDelegate> {
+@interface HSBasicInfoViewController () <
+    InfoFooterViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate,
+    HSDatePickerViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
+    HSSexPickerViewDelegate> {
   HSInfoTextFieldItem *_userNum;
   HSInfoTextFieldItem *_userName;
-  HSInfoTextFieldItem *_sex;
-  HSInfoTextFieldItem *_birthday;
+  HSInfoLableItem *_sex;
+  HSInfoLableItem *_birthday;
   HSInfoTextFieldItem *_IDCard;
   HSInfoTextFieldItem *_phoneNumber;
   HSInfoTextFieldItem *_email;
+  UIDatePicker *_datePicker;
+  HSDatePickerView *_pickerView;
+  UIPickerView *_picker;
+  HSSexPicker *_sexPicker;
 }
 
 @property(weak, nonatomic) UIButton *saveBtn;
@@ -38,7 +47,6 @@
 @implementation HSBasicInfoViewController
 
 - (void)viewDidLoad {
-  NSLog(@"%@", self.cell.subviews);
 
   // 添加第一组
   [self setupGroup0];
@@ -53,6 +61,7 @@
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
       initWithTarget:self
               action:@selector(dismissKeyboard)];
+  tap.delegate = self;
   [self.view addGestureRecognizer:tap];
 
   // 设置通知，文本框文字变化则收到通知，调用textChange方法
@@ -72,18 +81,19 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)textChange {
-    self.saveBtn.enabled = YES;
+  self.saveBtn.enabled = YES;
 }
 
 /**
  *  取消键盘
  */
 - (void)dismissKeyboard {
+  [self dateConfirmButtonDidClicked];
+    [self sexConfirmButtonDidClicked];
   [self.view endEditing:YES];
 }
 
 - (void)setupGroup0 {
-  __weak HSBasicInfoViewController *basic = self;
   NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
   titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
   titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
@@ -122,9 +132,6 @@
   NSAttributedString *sexPh =
       [[NSAttributedString alloc] initWithString:@"性别"
                                       attributes:placeholderAttr];
-  NSAttributedString *birthdayPh =
-      [[NSAttributedString alloc] initWithString:@"生日"
-                                      attributes:placeholderAttr];
   NSAttributedString *IDCardPh =
       [[NSAttributedString alloc] initWithString:@"身份证号"
                                       attributes:placeholderAttr];
@@ -149,37 +156,68 @@
   _userName = userName;
   userName.delegateVc = self;
 
-  HSInfoTextFieldItem *sex =
-      [HSInfoTextFieldItem itemWithTitle:sexStr placeholder:sexPh text:@"男"];
+    // 性别
+  HSInfoLableItem *sex = [HSInfoLableItem itemWithTitle:sexStr];
   _sex = sex;
-  sex.delegateVc = self;
+  if (sex.text.length == 0) {
+    sex.text = @"请选择您的性别";
+  }
+  sex.enable = NO;
+  sex.option = ^{
+    // 改变tableView的frame
+    self.tableView.frame =
+        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
+    // 创建pickerView
+    CGFloat sexPickerY = XBScreenHeight * 0.6;
+    CGFloat sexPickerW = XBScreenWidth;
+    CGFloat sexPickerH = XBScreenHeight * 0.4;
+    HSSexPicker *sexPicker = [HSSexPicker sexPicker];
+    sexPicker.frame = CGRectMake(0, sexPickerY, sexPickerW, sexPickerH);
+    [self.tableView.superview addSubview:sexPicker];
+    // 设置代理
+    sexPicker.delegate = self;
 
-  HSInfoTextFieldItem *birthday =
-      [HSInfoTextFieldItem itemWithTitle:birthdayStr
-                             placeholder:birthdayPh
-                                    text:@"2013-10-10"];
-  _birthday = birthday;
-  birthday.delegateVc = self;
+    _sexPicker = sexPicker;
+    _picker = sexPicker.picker;
+
+    _picker.delegate = self;
+    _picker.dataSource = self;
+      
+      // 使保存按钮激活
+      self.saveBtn.enabled = YES;
+  };
+
+    // 生日
+  HSInfoLableItem *birthday = [HSInfoLableItem itemWithTitle:birthdayStr];
+  if (birthday.text.length == 0) {
+    birthday.text = @"1900-01-01";
+  }
+  birthday.enable = NO;
 
   birthday.option = ^{
-    //              CGFloat pickerY = XBScreenHeight * 0.6;
-    //              CGFloat pickerW = XBScreenWidth;
-    //              CGFloat pickerH = XBScreenHeight * 0.4;
-    //              CGRect pickerViewF = CGRectMake(0, pickerY, pickerW,
-    //              pickerH);
-    //              UIDatePicker *datePicker = [[UIDatePicker
-    //              alloc]initWithFrame:pickerViewF];
-    //              datePicker.datePickerMode = UIDatePickerModeDate;
-    //              [self.tableView addSubview:datePicker];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
-    view.backgroundColor = [UIColor redColor];
+    // 改变tableView的frame
+    self.tableView.frame =
+        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
+    // 创建pickerView
+    CGFloat pickerViewY = XBScreenHeight * 0.6;
+    CGFloat pickerViewW = XBScreenWidth;
+    CGFloat pickerViewH = XBScreenHeight * 0.4;
+    HSDatePickerView *pickerView = [HSDatePickerView datePicker];
+    pickerView.frame = CGRectMake(0, pickerViewY, pickerViewW, pickerViewH);
+    [self.tableView.superview addSubview:pickerView];
+    // 设置代理
+    pickerView.delegate = self;
 
-    // 2.2.文本框
-    UITextField *temp = [[UITextField alloc] init];
-    temp.inputView = view;
-    _birthday.inputView = view;
-    [basic.view addSubview:view];
+    _pickerView = pickerView;
+    _datePicker = pickerView.datePicker;
+    // 监听datePicker
+    [_datePicker addTarget:self
+                    action:@selector(dateChange)
+          forControlEvents:UIControlEventValueChanged];
+    // 是保存按钮激活
+    self.saveBtn.enabled = YES;
   };
+  _birthday = birthday;
 
   HSInfoTextFieldItem *IDCard = [HSInfoTextFieldItem itemWithTitle:IDCardStr
                                                        placeholder:IDCardPh
@@ -191,9 +229,12 @@
       [HSInfoTextFieldItem itemWithTitle:phoneNumberStr
                              placeholder:phoneNumberPh
                                     text:@"185"];
+    IDCard.keyboardtype = UIKeyboardTypeNumberPad;
+    
   _phoneNumber = phoneNumber;
   phoneNumber.delegateVc = self;
-
+    phoneNumber.keyboardtype = UIKeyboardTypePhonePad;
+    
   HSInfoTextFieldItem *email = [HSInfoTextFieldItem itemWithTitle:emailStr
                                                       placeholder:emailPh
                                                              text:@"947"];
@@ -205,6 +246,15 @@
 
   self.g0 = g0;
   [self.data addObject:self.g0];
+}
+
+/**
+ *  日期变化调用
+ */
+- (void)dateChange {
+  NSString *string = [HSMineTool stringFromDate:_datePicker.date];
+  _birthday.text = string;
+  [self.tableView reloadData];
 }
 
 /**
@@ -239,12 +289,13 @@
   self.tableView.tableFooterView = footerView;
 }
 
+#pragma mark - 导航栏按钮点击
 /**
  *  保存按钮点击
  */
 - (void)saveBtnClicked {
   // 禁止按钮点击
-  [self setTextFieldDisable];
+  [self setCellDisable];
   // 重载tableView
   [self.tableView reloadData];
 
@@ -283,17 +334,20 @@
 
   if ([self.rightBtn.title isEqualToString:@"取消"]) {
     self.rightBtn.title = @"编辑";
-    [self setTextFieldDisable];
+    [self setCellDisable];
+      [self dateCancelButtonDidClicked];
+      [self sexCancelButtonDidClicked];
     [self.tableView reloadData];
 
   } else {
     self.rightBtn.title = @"取消";
-    [self setTextFieldEnable];
+    [self setCellEnable];
     [self.tableView reloadData];
   }
 }
 
-- (void)setTextFieldEnable {
+#pragma mark - cell状态变化
+- (void)setCellEnable {
   _userNum.enable = YES;
   _userName.enable = YES;
   _sex.enable = YES;
@@ -303,7 +357,7 @@
   _email.enable = YES;
 }
 
-- (void)setTextFieldDisable {
+- (void)setCellDisable {
   _userNum.enable = NO;
   _userName.enable = NO;
   _sex.enable = NO;
@@ -313,19 +367,12 @@
   _email.enable = NO;
 }
 #pragma mark - UITextFieldDelegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-}
-
 - (void)textFieldDidEndEditing:(UITextField *)textField {
   HSInfoTableViewCell *cell = [textField superview];
   if ([cell.textLabel.text isEqualToString:@"账号"]) {
     _userNum.text = textField.text;
   } else if ([cell.textLabel.text isEqualToString:@"姓名"]) {
     _userName.text = textField.text;
-  } else if ([cell.textLabel.text isEqualToString:@"性别"]) {
-    _sex.text = textField.text;
-  } else if ([cell.textLabel.text isEqualToString:@"生日"]) {
-    _birthday.text = textField.text;
   } else if ([cell.textLabel.text isEqualToString:@"身份证号"]) {
     _IDCard.text = textField.text;
   } else if ([cell.textLabel.text isEqualToString:@"联系电话"]) {
@@ -338,4 +385,79 @@
   self.saveBtn.enabled = YES;
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+/**
+ *  重写UIGestureRecognizerDelegate解决tap手势与didSelectRowAtIndexPath的冲突
+ */
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+       shouldReceiveTouch:(UITouch *)touch {
+  // 若为UITableView（即点击了UITableView），则截获Touch事件
+  if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableView"]) {
+    return YES;
+  }
+  return NO;
+}
+
+#pragma mark - HSDatePickerViewDelegate
+/**
+ *  修改时间取消按钮
+ */
+- (void)dateCancelButtonDidClicked {
+  _birthday.text = @"1900-01-01";
+  [_pickerView removeFromSuperview];
+
+  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
+  [self.tableView reloadData];
+}
+/**
+ *  修改时间确认按钮
+ */
+- (void)dateConfirmButtonDidClicked {
+  [_pickerView removeFromSuperview];
+  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
+}
+
+#pragma mark - UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return 2;
+}
+
+#pragma mark - UIPickerViewDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if (row == 0) {
+        return @"女";
+    }else{
+        return @"男";
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if (row == 0) {
+        _sex.text = @"女";
+    }else{
+        _sex.text = @"男";
+    }
+    [self.tableView reloadData];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 50;
+}
+
+#pragma mark - HSSexPickerViewDelegate
+- (void)sexCancelButtonDidClicked{
+    _sex.text = @"请选择您的性别";
+    [_sexPicker removeFromSuperview];
+    
+    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
+    [self.tableView reloadData];
+}
+
+- (void)sexConfirmButtonDidClicked{
+    [_sexPicker removeFromSuperview];
+    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
+}
 @end

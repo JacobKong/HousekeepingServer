@@ -24,8 +24,16 @@ typedef void (^HSInfoItemOption)();
  */
 @property (copy, nonatomic) NSAttributedString *attrTitle;
 
-
+/**
+ *  点击后cell需要执行的操作
+ */
 @property (strong, nonatomic) HSInfoItemOption option;
+
+/**
+ *  是否可交互
+ */
+@property (assign, nonatomic, getter=isEnable)  BOOL enable;
+
 
 +(instancetype)itemWithIcon:(NSString *)icon title:(NSString *)title;
 +(instancetype)itemWithTitle:(NSString *)title;

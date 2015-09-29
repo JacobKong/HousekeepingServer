@@ -9,17 +9,16 @@
 #import "HSInfoLableItem.h"
 
 @implementation HSInfoLableItem
-- (void)setKey:(NSString *)key
-{
-    [super setKey:key];
-    
-    _text = [HSMineTool objectForKey:key];
++ (instancetype)itemWithTitle:(NSAttributedString *)attrTitle{
+    HSInfoLableItem *item = [[HSInfoLableItem alloc]init];
+    item.attrTitle = attrTitle;
+    return item;
 }
 
 - (void)setText:(NSString *)text
 {
     _text = text;
-    
-    [HSMineTool setObject:text forKey:self.key];
 }
+
+
 @end

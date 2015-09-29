@@ -17,6 +17,9 @@
 		183398181BB968C5002EAC65 /* HSMineTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398161BB968C5002EAC65 /* HSMineTool.m */; };
 		1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */; };
 		1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */; };
+		184324171BBAB011001E2F69 /* HSToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324161BBAB011001E2F69 /* HSToolBarButton.m */; };
+		1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843241E1BBAB338001E2F69 /* HSDatePickerView.m */; };
+		184324221BBADD39001E2F69 /* HSSexPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324211BBADD39001E2F69 /* HSSexPicker.m */; };
 		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
 		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
@@ -89,6 +92,12 @@
 		1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoValueItem.m; sourceTree = "<group>"; };
 		1833981C1BB9A187002EAC65 /* HSInfoLableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoLableItem.h; sourceTree = "<group>"; };
 		1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoLableItem.m; sourceTree = "<group>"; };
+		184324151BBAB011001E2F69 /* HSToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSToolBarButton.h; sourceTree = "<group>"; };
+		184324161BBAB011001E2F69 /* HSToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSToolBarButton.m; sourceTree = "<group>"; };
+		1843241D1BBAB338001E2F69 /* HSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDatePickerView.h; sourceTree = "<group>"; };
+		1843241E1BBAB338001E2F69 /* HSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDatePickerView.m; sourceTree = "<group>"; };
+		184324201BBADD39001E2F69 /* HSSexPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSexPicker.h; sourceTree = "<group>"; };
+		184324211BBADD39001E2F69 /* HSSexPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSexPicker.m; sourceTree = "<group>"; };
 		186DEA511BAFF902008C465F /* HSTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarButton.h; sourceTree = "<group>"; };
 		186DEA521BAFF902008C465F /* HSTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarButton.m; sourceTree = "<group>"; };
 		186DEA541BB001B6008C465F /* HSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavigationViewController.h; sourceTree = "<group>"; };
@@ -224,6 +233,26 @@
 				183398161BB968C5002EAC65 /* HSMineTool.m */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		184324141BBAAFFE001E2F69 /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				184324151BBAB011001E2F69 /* HSToolBarButton.h */,
+				184324161BBAB011001E2F69 /* HSToolBarButton.m */,
+			);
+			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		1843241C1BBAB338001E2F69 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				1843241D1BBAB338001E2F69 /* HSDatePickerView.h */,
+				1843241E1BBAB338001E2F69 /* HSDatePickerView.m */,
+				184324201BBADD39001E2F69 /* HSSexPicker.h */,
+				184324211BBADD39001E2F69 /* HSSexPicker.m */,
+			);
+			path = PickerView;
 			sourceTree = "<group>";
 		};
 		186DEA5C1BB02A46008C465F /* Data */ = {
@@ -362,6 +391,8 @@
 		187631391BB62ECF0037F124 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1843241C1BBAB338001E2F69 /* PickerView */,
+				184324141BBAAFFE001E2F69 /* ToolBar */,
 				1810BF711BB6DC8300D33FA0 /* Cell */,
 				1810BF741BB6DC8300D33FA0 /* Header/FooterView */,
 				1810BF771BB6DC8300D33FA0 /* TextField */,
@@ -847,9 +878,12 @@
 				1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
+				184324221BBADD39001E2F69 /* HSSexPicker.m in Sources */,
+				1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */,
 				183398181BB968C5002EAC65 /* HSMineTool.m in Sources */,
 				1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */,
 				1810BF7C1BB6DC8300D33FA0 /* HSNoBorderTextField.m in Sources */,
+				184324171BBAB011001E2F69 /* HSToolBarButton.m in Sources */,
 				1876311F1BB56E150037F124 /* XBScrollPageController.m in Sources */,
 				187631461BB6352F0037F124 /* HSAboutViewController.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
@@ -974,6 +1008,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1012,6 +1047,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
