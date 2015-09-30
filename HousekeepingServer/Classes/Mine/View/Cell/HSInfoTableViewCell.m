@@ -14,6 +14,7 @@
 #import "HSInfoTextFieldItem.h"
 #import "HSNoBorderTextField.h"
 #import "HSInfoLableItem.h"
+#import "HSRegistViewController.h"
 
 @interface HSInfoTableViewCell () {
   UIImageView *_arrowView;
@@ -140,7 +141,13 @@
       _textField.enabled = NO;
     }
     // 设置delegate控制器
-    _textField.delegate = textFieldItem.delegateVc;
+      if (textFieldItem.basicDelegateVc) {
+          _textField.delegate = textFieldItem.basicDelegateVc;
+      }else if(textFieldItem.loginDelegateVc){
+          _textField.delegate = textFieldItem.loginDelegateVc;
+      }else if (textFieldItem.registDelegateVc){
+          _textField.delegate = textFieldItem.registDelegateVc;
+      }
 
   } else if ([item isKindOfClass:[HSInfoLableItem class]]) {
     [self settingLabel];
@@ -186,7 +193,7 @@
       textFiledW = self.contentView.frame.size.width * 0.65;
     }
     CGFloat textFiledH = self.contentView.frame.size.height;
-    _textField.bounds = CGRectMake(0, 100, textFiledW, textFiledH);
+    _textField.bounds = CGRectMake(0, 0, textFiledW, textFiledH);
     //        [_textField addObserver:self forKeyPath:@"text" options:0
     //        context:nil];
     //        [self observeValueForKeyPath:nil ofObject:nil change:nil

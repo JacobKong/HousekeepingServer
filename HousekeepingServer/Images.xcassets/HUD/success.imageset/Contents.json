@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "chris-flower-600.png"
+      "filename" : "success.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "success@2x.png"
     },
     {
       "idiom" : "universal",

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "HSTabBarViewController.h"
 #import "HSServiceListViewController.h"
+#import "HSLoginViewController.h"
 
 
 @interface AppDelegate ()
@@ -25,7 +26,7 @@
     self.window.frame = [[UIScreen mainScreen]bounds];
     // 3.设置window的rootviewcontroller
     self.window.rootViewController = [[HSTabBarViewController alloc]init];
-//    self.window.rootViewController = [[HSServiceListViewController alloc]init];
+//    self.window.rootViewController = [[HSLoginViewController alloc]init];
 
     
     [self.window makeKeyAndVisible];

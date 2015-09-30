@@ -15,7 +15,7 @@
 #import "HSNoBorderTextField.h"
 #import "HSInfoTextFieldItem.h"
 
-@interface HSBaseViewController ()
+@interface HSBaseViewController ()<UIGestureRecognizerDelegate>
 @end
 
 @implementation HSBaseViewController
@@ -42,7 +42,9 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+//    self.tableView.rowHeight = 40;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -113,6 +115,10 @@ titleForHeaderInSection:(NSInteger)section {
 titleForFooterInSection:(NSInteger)section {
     HSInfoGroup *group = self.data[section];
     return group.footer;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
 }
 
 @end

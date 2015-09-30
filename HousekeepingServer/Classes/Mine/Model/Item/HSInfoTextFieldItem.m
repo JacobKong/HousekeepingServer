@@ -24,6 +24,12 @@
     return item;
 }
 
++ (instancetype)itemWithIcon:(NSString *)icon placeholder:(NSAttributedString *)attrPlaceHolder{
+    HSInfoTextFieldItem *item = [[HSInfoTextFieldItem alloc]init];
+    item.icon = icon;
+    item.attrPlaceholder = attrPlaceHolder;
+    return item;
+}
 - (void)setKey:(NSString *)key
 {
     [super setKey:key];

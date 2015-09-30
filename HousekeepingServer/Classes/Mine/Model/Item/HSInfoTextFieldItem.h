@@ -9,6 +9,8 @@
 #import "HSInfoItem.h"
 #import "HSBasicInfoViewController.h"
 #import "HSInfoValueItem.h"
+#import "HSLoginViewController.h"
+#import "HSRegistViewController.h"
 @interface HSInfoTextFieldItem : HSInfoValueItem
 /**
  *  可设置颜色、字体的placeholder
@@ -27,9 +29,17 @@
  */
 @property (copy, nonatomic) NSString *text;
 /**
- *  代理控制器
+ *  代理控制器1
  */
-@property (weak, nonatomic) HSBasicInfoViewController *delegateVc;
+@property (weak, nonatomic) HSBasicInfoViewController *basicDelegateVc;
+/**
+ *  代理控制器2
+ */
+@property (weak, nonatomic) HSLoginViewController *loginDelegateVc;
+/**
+ *  代理控制器3
+ */
+@property (weak, nonatomic) HSRegistViewController *registDelegateVc;
 /**
  *  keyboard的inputView
  */
@@ -38,4 +48,5 @@
 
 + (instancetype)itemWithTitle:(NSAttributedString*)attrTitle placeholder:(NSAttributedString *)attrPlaceholder text:(NSString *)text;
 + (instancetype)itemWithTitle:(NSAttributedString*)attrTitle placeholder:(NSAttributedString *)attrPlaceholder;
++ (instancetype)itemWithIcon:(NSString *)icon placeholder:(NSAttributedString *)attrPlaceHolder;
 @end

@@ -147,14 +147,14 @@
                              placeholder:userNumPh
                                     text:@"20132037"];
   _userNum = userNum;
-  userNum.delegateVc = self;
+  userNum.basicDelegateVc = self;
 
   HSInfoTextFieldItem *userName =
       [HSInfoTextFieldItem itemWithTitle:userNameStr
                              placeholder:userNamePh
                                     text:@"孔伟杰"];
   _userName = userName;
-  userName.delegateVc = self;
+  userName.basicDelegateVc = self;
 
     // 性别
   HSInfoLableItem *sex = [HSInfoLableItem itemWithTitle:sexStr];
@@ -223,7 +223,7 @@
                                                        placeholder:IDCardPh
                                                               text:@"140"];
   _IDCard = IDCard;
-  IDCard.delegateVc = self;
+  IDCard.basicDelegateVc = self;
 
   HSInfoTextFieldItem *phoneNumber =
       [HSInfoTextFieldItem itemWithTitle:phoneNumberStr
@@ -232,14 +232,14 @@
     IDCard.keyboardtype = UIKeyboardTypeNumberPad;
     
   _phoneNumber = phoneNumber;
-  phoneNumber.delegateVc = self;
+  phoneNumber.basicDelegateVc = self;
     phoneNumber.keyboardtype = UIKeyboardTypePhonePad;
     
   HSInfoTextFieldItem *email = [HSInfoTextFieldItem itemWithTitle:emailStr
                                                       placeholder:emailPh
                                                              text:@"947"];
   _email = email;
-  email.delegateVc = self;
+  email.basicDelegateVc = self;
 
   HSInfoGroup *g0 = [[HSInfoGroup alloc] init];
   g0.items = @[ userNum, userName, sex, birthday, IDCard, phoneNumber, email ];
@@ -460,4 +460,5 @@
     [_sexPicker removeFromSuperview];
     self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
 }
+
 @end

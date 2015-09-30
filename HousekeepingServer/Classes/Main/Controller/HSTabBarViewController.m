@@ -14,10 +14,12 @@
 #import "HSTabBar.h"
 #import "HSNavigationViewController.h"
 #import "UIView+SetFrame.h"
+#import "HSLoginViewController.h"
 
 
 @interface HSTabBarViewController ()<HSTabBarDelegate>
 @property (weak, nonatomic) HSTabBar *customTabBar;
+@property (strong, nonatomic) HSLoginViewController *loginVc;
 @end
 
 @implementation HSTabBarViewController
@@ -28,6 +30,13 @@
 
     // 添加子控制器
     [self setupChildViewController];
+    if (!_loginVc) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
+            [self presentViewController:loginVc animated:YES completion:nil];
+            _loginVc = loginVc;
+        });
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{

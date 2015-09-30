@@ -16,7 +16,7 @@
     if (!_button) {
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         [_button setBackgroundImage:[UIImage resizeableImage:@"common_button_orange"] forState:UIControlStateNormal];
-        [_button setBackgroundImage:[UIImage resizeableImage:@"common_button_pressed_orange"] forState:UIControlStateHighlighted];
+        [_button setBackgroundImage:[UIImage resizeableImage:@"common_button_orange_highlighted"] forState:UIControlStateHighlighted];
     }
     return _button;
 }
@@ -36,7 +36,7 @@
     footerView.frame = CGRectMake(0, 0, XBScreenWidth, 50);
     CGFloat buttonX = 10;
     CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;
-    CGFloat buttonH = 40;
+    CGFloat buttonH = 50;
     CGFloat buttonY = footerView.center.y - buttonH * 0.5;
     self.button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
     [self.button setTitle:title forState:UIControlStateNormal];
