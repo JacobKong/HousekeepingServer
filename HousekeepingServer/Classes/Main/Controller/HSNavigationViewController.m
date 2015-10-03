@@ -34,7 +34,7 @@
 + (void)setupNavBar{
     // 取出appearance对象
     UINavigationBar *navBar = [UINavigationBar appearance];
-    
+
     // 设置导航栏字体
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[NSForegroundColorAttributeName] = [UIColor whiteColor];

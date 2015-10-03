@@ -49,7 +49,6 @@
 		1876314F1BB635720037F124 /* HSSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876314E1BB635720037F124 /* HSSettingViewController.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188A20741BAF8FCD00E4D570 /* Images.xcassets */; };
-		188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */; };
 		188A20841BAF8FCD00E4D570 /* HousekeepingServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */; };
 		188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20911BAF90A900E4D570 /* HSGrabViewController.m */; };
 		188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */; };
@@ -158,7 +157,6 @@
 		188A20681BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20691BAF8FCD00E4D570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		188A20741BAF8FCD00E4D570 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		188A20771BAF8FCD00E4D570 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		188A207D1BAF8FCD00E4D570 /* HousekeepingServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HousekeepingServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		188A20821BAF8FCD00E4D570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HousekeepingServerTests.m; sourceTree = "<group>"; };
@@ -513,7 +511,6 @@
 			children = (
 				186DEA5C1BB02A46008C465F /* Data */,
 				188A20741BAF8FCD00E4D570 /* Images.xcassets */,
-				188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */,
 				188A20681BAF8FCD00E4D570 /* Info.plist */,
 				188A20691BAF8FCD00E4D570 /* main.m */,
 			);
@@ -843,7 +840,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				186DEA591BB02A02008C465F /* city.plist in Resources */,
-				188A20781BAF8FCD00E4D570 /* LaunchScreen.xib in Resources */,
 				188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */,
 				186DEA5A1BB02A02008C465F /* citydata.plist in Resources */,
 			);
@@ -966,17 +962,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		188A20761BAF8FCD00E4D570 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				188A20771BAF8FCD00E4D570 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		188A20851BAF8FCD00E4D570 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1014,7 +999,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1051,7 +1036,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1063,6 +1048,7 @@
 			baseConfigurationReference = D5081C50E19EB4F0BEC67FE3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1102,6 +1088,7 @@
 			baseConfigurationReference = 4A74B14A0C3C7065AB33FA73 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
