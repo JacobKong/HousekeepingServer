@@ -11,4 +11,8 @@
 @interface HSRegion : NSObject
 @property (copy, nonatomic) NSString *areaName;
 @property (copy, nonatomic) NSString *ID;
+
++ (instancetype)regionWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary *)dict;
+
 @end

@@ -12,9 +12,9 @@
 @implementation HSInfoHeaderView
 + (instancetype)headerView{
     HSInfoHeaderView *infoView = [[HSInfoHeaderView alloc]init];
-    infoView.backgroundColor = [UIColor whiteColor];
+    infoView.backgroundColor = [UIColor clearColor];
     CGFloat infoViewW = XBScreenWidth;
-    CGFloat infoViewH = XBScreenHeight * 0.5;
+    CGFloat infoViewH = XBScreenHeight * 0.3;
     infoView.frame = CGRectMake(0, 0, infoViewW, infoViewH);
     
     UIImageView *iconImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon"]];

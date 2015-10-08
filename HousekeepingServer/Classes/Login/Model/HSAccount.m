@@ -1,0 +1,39 @@
+//
+//  HSAccount.m
+//  HousekeepingServer
+//
+//  Created by Jacob on 15/10/3.
+//  Copyright © 2015年 com.jacob. All rights reserved.
+//
+
+#import "HSAccount.h"
+
+@implementation HSAccount
+- (instancetype)initWithDict:(NSDictionary *)dict{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
+
++ (instancetype)accountWithDict:(NSDictionary *)dict{
+    return [[self alloc]initWithDict:dict];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+//        _servantID = [aDecoder decodeObjectForKey:@"servantID"];
+//        _loginPassword = [aDecoder decodeObjectForKey:@"loginPassword"];
+        _servantName = [aDecoder decodeObjectForKey:@"servantName"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+//    [coder encodeObject:self.servantID forKey:@"servantID"];
+//    [coder encodeObject:self.loginPassword forKey:@"loginPassword"];
+    [coder encodeObject:self.servantName forKey:@"servantName"];
+}
+@end

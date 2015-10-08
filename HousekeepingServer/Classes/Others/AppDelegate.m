@@ -10,9 +10,10 @@
 #import "HSTabBarViewController.h"
 #import "HSServiceListViewController.h"
 #import "HSLoginViewController.h"
-
-
+#import <CoreLocation/CoreLocation.h>
 @interface AppDelegate ()
+
+@property (strong,nonatomic) CLLocationManager * locationManager;
 
 @end
 
@@ -26,9 +27,14 @@
     self.window.frame = [[UIScreen mainScreen]bounds];
     // 3.设置window的rootviewcontroller
     self.window.rootViewController = [[HSTabBarViewController alloc]init];
-//    self.window.rootViewController = [[HSLoginViewController alloc]init];
-
+    // 定位访问
+    self.locationManager = [[CLLocationManager alloc] init];
     
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        
+        [self.locationManager requestWhenInUseAuthorization];
+        
+    }
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;

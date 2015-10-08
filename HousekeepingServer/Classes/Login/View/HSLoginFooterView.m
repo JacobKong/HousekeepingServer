@@ -9,6 +9,7 @@
 #import "HSLoginFooterView.h"
 #import "UIImage+HSResizingImage.h"
 #import "XBConst.h"
+#import "HSOrangeButton.h"
 
 @interface HSLoginFooterView ()
 @property (weak, nonatomic) UIButton *registBtn;
@@ -17,11 +18,7 @@
 @implementation HSLoginFooterView
 - (UIButton *)loginBtn{
     if (!_loginBtn) {
-        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [_loginBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_orange"] forState:UIControlStateNormal];
-        [_loginBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_orange_disable"] forState:UIControlStateDisabled];
-        [_loginBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_orange_highlighted"] forState:UIControlStateHighlighted];
+        _loginBtn = [HSOrangeButton orangeButtonWithTitle:@"登录"];
         _loginBtn.enabled = NO;
         _loginBtn.alpha = 0.66;
         [_loginBtn addTarget:self action:@selector(loginBtnClickded) forControlEvents:UIControlEventTouchUpInside];

@@ -17,9 +17,15 @@
 #import "HSInfoHeaderView.h"
 #import "XBConst.h"
 #import "HSChangPwdViewController.h"
+#import "HSInfoFooterView.h"
+#import "HSAccountTool.h"
+#import "UIImage+HSResizingImage.h"
+#import "HSLoginViewController.h"
+#import "HSTabBarViewController.h"
+#import "MBProgressHUD.h"
+#import "HSOrangeButton.h"
 
-@interface HSMineViewController ()
-
+@interface HSMineViewController ()<UIAlertViewDelegate>
 @end
 
 @implementation HSMineViewController
@@ -64,11 +70,37 @@
     
     HSInfoGroup *g1 = [[HSInfoGroup alloc]init];
     g1.items = @[basicInfo, changeInfo, about];
-    
     [self.data addObject:g1];
+    
+    // 设置底部按钮
+    HSInfoFooterView *footerView = [HSInfoFooterView footerView];
+    
+    HSOrangeButton *logoutBtn = [HSOrangeButton orangeButtonWithTitle:@"退出当前账户"];
+    CGFloat buttonX = 10;
+    CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;
+    CGFloat buttonH = 50;
+    CGFloat buttonY = footerView.center.y - buttonH * 0.5;
+    logoutBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+    [footerView addSubview:logoutBtn];
+    [logoutBtn addTarget:self action:@selector(logoutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.tableView.tableFooterView = footerView;
 
 }
 
+- (void)logoutBtnClicked{
+    // 删除本地账户
+    [HSAccountTool removeAccount];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"您确定退出吗？" message:@"推出后您可能无法收到订单消息，您确定退出吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定退出", nil];
+    alert.delegate = self;
+    [alert show];
+}
 
-
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        // 跳到登录界面
+        HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
+        [self presentViewController:loginVc animated:YES completion:nil];
+    }
+}
 @end

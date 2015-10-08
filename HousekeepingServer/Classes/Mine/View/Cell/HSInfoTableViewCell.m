@@ -141,19 +141,26 @@
       _textField.enabled = NO;
     }
     // 设置delegate控制器
-      if (textFieldItem.basicDelegateVc) {
-          _textField.delegate = textFieldItem.basicDelegateVc;
-      }else if(textFieldItem.loginDelegateVc){
-          _textField.delegate = textFieldItem.loginDelegateVc;
-      }else if (textFieldItem.registDelegateVc){
-          _textField.delegate = textFieldItem.registDelegateVc;
-      }
+    if (textFieldItem.basicDelegateVc) {
+      _textField.delegate = textFieldItem.basicDelegateVc;
+    } else if (textFieldItem.loginDelegateVc) {
+      _textField.delegate = textFieldItem.loginDelegateVc;
+    } else if (textFieldItem.registDelegateVc) {
+      _textField.delegate = textFieldItem.registDelegateVc;
+    } else if (textFieldItem.finalRegistDelegateVc) {
+      _textField.delegate = textFieldItem.finalRegistDelegateVc;
+    }
 
   } else if ([item isKindOfClass:[HSInfoLableItem class]]) {
     [self settingLabel];
     HSInfoLableItem *labelItem = (HSInfoLableItem *)item;
     // 设置文本内容
-    _label.text = labelItem.text;
+    if (labelItem.attrText) {
+      _label.attributedText = labelItem.attrText;
+    }
+      if (labelItem.text) {
+      _label.text = labelItem.text;
+    }
     _label.userInteractionEnabled = labelItem.enable;
   }
   //    } else if ([self.item isKindOfClass:[KWJSettingSwitchItem class]]) {
@@ -194,41 +201,27 @@
     }
     CGFloat textFiledH = self.contentView.frame.size.height;
     _textField.bounds = CGRectMake(0, 0, textFiledW, textFiledH);
-    //        [_textField addObserver:self forKeyPath:@"text" options:0
-    //        context:nil];
-    //        [self observeValueForKeyPath:nil ofObject:nil change:nil
-    //        context:nil];
   }
   self.accessoryView = _textField;
   // 用默认的选中样式
   self.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 
-//- (void)dealloc{
-//    [_textField removeObserver:self forKeyPath:@"text"];
-//}
-//
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-//change:(NSDictionary *)change context:(void *)context{
-//    NSLog(@"%@", _textField.text);
-//
-//}
-
 - (void)settingLabel {
   if (!_label) {
     _label = [[UILabel alloc] init];
     CGFloat labelW;
-    if (XBScreenWidth > 320) {
-      labelW = self.contentView.frame.size.width * 0.85;
-    } else {
+//    if (XBScreenWidth > 320) {
+//      labelW = self.contentView.frame.size.width * 0.85;
+//    } else {
       labelW = self.contentView.frame.size.width * 0.65;
-    }
+//    }
     CGFloat labelH = self.contentView.frame.size.height;
     _label.bounds = CGRectMake(0, 0, labelW, labelH);
     _label.textAlignment = NSTextAlignmentLeft;
     _label.backgroundColor = [UIColor clearColor];
     _label.textColor = [UIColor blackColor];
-    _label.font = [UIFont systemFontOfSize:14];
+    _label.font = [UIFont systemFontOfSize:15];
   }
   self.accessoryView = _label;
   // 用默认的选中样式

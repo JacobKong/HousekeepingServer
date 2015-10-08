@@ -20,5 +20,8 @@
     _text = text;
 }
 
+- (void)setAttrText:(NSAttributedString *)attrText{
+    _attrText = attrText;
+}
 
 @end

@@ -17,6 +17,7 @@
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         [_button setBackgroundImage:[UIImage resizeableImage:@"common_button_orange"] forState:UIControlStateNormal];
         [_button setBackgroundImage:[UIImage resizeableImage:@"common_button_orange_highlighted"] forState:UIControlStateHighlighted];
+        
     }
     return _button;
 }
@@ -40,7 +41,10 @@
     CGFloat buttonY = footerView.center.y - buttonH * 0.5;
     self.button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
     [self.button setTitle:title forState:UIControlStateNormal];
+
     [footerView addSubview:self.button];
     return footerView;
 }
+
+
 @end

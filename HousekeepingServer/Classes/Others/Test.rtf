@@ -1,0 +1,451 @@
+{\rtf1\ansi\ansicpg936\cocoartf1404\cocoasubrtf110
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf0 //\
+//  HSFinalRegistViewController.m\
+//  HousekeepingServer\
+//\
+//  Created by Jacob on 15/10/4.\
+//  Copyright \'a9 2015
+\f1 \'c4\'ea
+\f0  com.jacob. All rights reserved.\
+//\
+\
+#import "HSFinalRegistViewController.h"\
+#import "HSRegistViewController.h"\
+#import "HSInfoGroup.h"\
+#import "HSInfoFooterView.h"\
+#import "HSOrangeButton.h"\
+#import "HSInfoTextFieldItem.h"\
+#import "HSInfoLableItem.h"\
+#import "XBConst.h"\
+#import "HSPickerView.h"\
+#import "HSRegion.h"\
+#import "MJExtension.h"\
+\
+\
+@interface HSFinalRegistViewController () <\
+    HSRegistViewContrllerDelegate, UIGestureRecognizerDelegate,HSPickerViewDelegate,\
+    UIPickerViewDelegate, UIPickerViewDataSource> \{\
+  HSOrangeButton *_registBtn;\
+  HSInfoTextFieldItem *_servantProvince;\
+  HSInfoTextFieldItem *_servantCity;\
+  HSInfoLableItem *_servantCounty;\
+  HSInfoLableItem *_sex;\
+  HSInfoTextFieldItem *_trainingIntro;\
+  HSPickerView *_sexPicker;\
+  UIPickerView *_sexPickerView;\
+        HSPickerView *_servantPicker;\
+        UIPickerView *_servantPickerView;\
+\}\
+/**\
+ *  
+\f1 \'c7\'f8\'cf\'d8
+\f0 \
+ */\
+@property (strong, nonatomic) NSArray *regions;\
+@end\
+\
+@implementation HSFinalRegistViewController\
+- (NSArray *)regions\{\
+    if (!_regions) \{\
+        NSString *file = [[NSBundle mainBundle]pathForResource:@"citydata.plist" ofType:nil];\
+        NSArray *dictArray = [NSArray arrayWithContentsOfFile:file];\
+        _regions = [HSRegion objectArrayWithKeyValuesArray:dictArray];\
+    \}\
+    return _regions;\
+\}\
+\
+- (NSArray *)basicInfoArray \{\
+  if (!_basicInfoArray) \{\
+    _basicInfoArray = [NSArray array];\
+  \}\
+  return _basicInfoArray;\
+\}\
+\
+- (void)viewDidLoad \{\
+  // 
+\f1 \'b1\'ea\'cc\'e2
+\f0 \
+  self.title = @"
+\f1 \'cf\'ea\'cf\'b8\'d0\'c5\'cf\'a2
+\f0 ";\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b5\'bc\'ba\'bd\'c0\'b8\'b0\'b4\'c5\'a5
+\f0 \
+  [self setupNavBtn];\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b5\'da\'d2\'bb\'d7\'e9
+\f0 \
+  [self setupGroup0];\
+  // 
+\f1 \'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
+\f0 \
+  // 
+\f1 \'c9\'e8\'d6\'c3\'c7\'c3\'bb\'f7\'ca\'d6\'ca\'c6\'a3\'ac\'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
+\f0 \
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]\
+      initWithTarget:self\
+              action:@selector(dismissKeyboard)];\
+  tap.delegate = self;\
+  [self.view addGestureRecognizer:tap];\
+  [super viewDidLoad];\
+\}\
+\
+/**\
+ *  
+\f1 \'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
+\f0 \
+ */\
+- (void)dismissKeyboard \{\
+  [self.view endEditing:YES];\
+    [_sexPicker removeFromSuperview];\
+    [_servantPicker removeFromSuperview];\
+    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
+\}\
+\
+/**\
+ *
+\f1 \'c9\'e8\'d6\'c3\'b5\'bc\'ba\'bd\'c0\'b8\'b0\'b4\'c5\'a5
+\f0 \
+ */\
+- (void)setupNavBtn \{\
+  self.navigationItem.leftBarButtonItem =\
+      [[UIBarButtonItem alloc] initWithTitle:@"
+\f1 \'c8\'a1\'cf\'fb
+\f0 "\
+                                       style:UIBarButtonItemStyleDone\
+                                      target:self\
+                                      action:@selector(backBtnClicked)];\
+\}\
+/**\
+ *  
+\f1 \'c8\'a1\'cf\'fb\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+ */\
+- (void)backBtnClicked \{\
+  [self dismissViewControllerAnimated:YES completion:nil];\
+\}\
+/**\
+ *  
+\f1 \'c9\'e8\'d6\'c3\'b5\'da\'d2\'bb\'d7\'e9
+\f0 \
+ */\
+- (void)setupGroup0 \{\
+  NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];\
+  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];\
+  titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];\
+\
+  NSAttributedString *servantProvinceStr =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'ca\'a1\'b7\'dd
+\f0 "\
+                                      attributes:titleAttr];\
+\
+  NSAttributedString *servantCityStr =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'b3\'c7\'ca\'d0
+\f0 "\
+                                      attributes:titleAttr];\
+\
+  NSAttributedString *servantCountyStr =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'cf\'d8\'c7\'f8
+\f0 "\
+                                      attributes:titleAttr];\
+\
+  NSAttributedString *servantGenderStr =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'d0\'d4\'b1\'f0
+\f0 "\
+                                      attributes:titleAttr];\
+\
+  NSAttributedString *trainingIntroStr =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'c5\'e0\'d1\'b5\'be\'ad\'c0\'fa
+\f0 "\
+                                      attributes:titleAttr];\
+\
+  NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];\
+  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];\
+\
+  NSAttributedString *servantProvincePh =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'ca\'a1\'b7\'dd
+\f0 "\
+                                      attributes:placeholderAttr];\
+\
+  NSAttributedString *servantCityPh =\
+      [[NSAttributedString alloc] initWithString:@"
+\f1 \'b3\'c7\'ca\'d0
+\f0 "\
+                                      attributes:placeholderAttr];\
+\
+  NSAttributedString *trainingIntroPh = [[NSAttributedString alloc]\
+      initWithString:@"
+\f1 \'c7\'eb\'bc\'f2\'d2\'aa\'cc\'ee\'d0\'b4\'c5\'e0\'d1\'b5\'be\'ad\'c0\'fa\'a3\'ac\'c8\'e7\'c3\'bb\'d3\'d0\'c7\'eb\'d0\'b4\'ce\'de
+\f0 "\
+          attributes:placeholderAttr];\
+\
+  HSInfoTextFieldItem *servantProvince =\
+      [HSInfoTextFieldItem itemWithTitle:servantProvinceStr\
+                             placeholder:servantProvincePh\
+                                    text:@"
+\f1 \'c1\'c9\'c4\'fe\'ca\'a1
+\f0 "];\
+  _servantProvince = servantProvince;\
+\
+  HSInfoTextFieldItem *servantCity =\
+      [HSInfoTextFieldItem itemWithTitle:servantCityStr\
+                             placeholder:servantCityPh\
+                                    text:@"
+\f1 \'c9\'f2\'d1\'f4\'ca\'d0
+\f0 "];\
+  _servantCity = servantCity;\
+\
+  HSInfoLableItem *servantCounty =\
+      [HSInfoLableItem itemWithTitle:servantCountyStr];\
+  servantCounty.text = @"
+\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'cb\'f9\'d4\'da\'cf\'d8\'c7\'f8
+\f0 ";\
+  servantCounty.enable = YES;\
+    _servantCounty = servantCounty;\
+    servantCounty.option = ^\{\
+        // 
+\f1 \'bd\'ab\'d6\'ae\'c7\'b0\'b5\'c4
+\f0 picker
+\f1 \'c9\'be\'b5\'f4
+\f0 \
+        [_sexPicker removeFromSuperview];\
+        // 
+\f1 \'b8\'c4\'b1\'e4
+\f0 tableView
+\f1 \'b5\'c4
+\f0 frame\
+        self.tableView.frame =\
+        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);\
+        // 
+\f1 \'b4\'b4\'bd\'a8
+\f0 pickerView\
+        CGFloat servantPickerY = XBScreenHeight * 0.6;\
+        CGFloat servantPickerW = XBScreenWidth;\
+        CGFloat servantPickerH = XBScreenHeight * 0.4;\
+        HSPickerView *servantPicker = [HSPickerView picker];\
+        servantPicker.frame = CGRectMake(0, servantPickerY, servantPickerW, servantPickerH);\
+        [self.tableView.superview addSubview:servantPicker];\
+        // 
+\f1 \'c9\'e8\'d6\'c3\'b4\'fa\'c0\'ed
+\f0 \
+        servantPicker.delegate = self;\
+        _servantPicker = servantPicker;\
+        _servantPickerView = servantPicker.picker;\
+        \
+        _servantPickerView.delegate = self;\
+        _servantPickerView.dataSource = self;\
+        \
+        // 
+\f1 \'d1\'a1\'d6\'d0\'b5\'da\'d2\'bb\'b8\'f6
+\f0 \
+        [self pickerView:_servantPickerView didSelectRow:0 inComponent:1];\
+    \};\
+\
+  \
+\
+  HSInfoLableItem *sex = [HSInfoLableItem itemWithTitle:servantGenderStr];\
+  sex.text = @"
+\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'b5\'c4\'d0\'d4\'b1\'f0
+\f0 ";\
+    sex.enable = YES;\
+  _sex = sex;\
+  sex.option = ^\{\
+      // 
+\f1 \'bd\'ab\'d6\'ae\'c7\'b0\'b5\'c4
+\f0 picker
+\f1 \'c9\'be\'b5\'f4
+\f0 \
+      [_servantPicker removeFromSuperview];\
+    // 
+\f1 \'b8\'c4\'b1\'e4
+\f0 tableView
+\f1 \'b5\'c4
+\f0 frame\
+    self.tableView.frame =\
+        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);\
+    // 
+\f1 \'b4\'b4\'bd\'a8
+\f0 pickerView\
+    CGFloat sexPickerY = XBScreenHeight * 0.6;\
+    CGFloat sexPickerW = XBScreenWidth;\
+    CGFloat sexPickerH = XBScreenHeight * 0.4;\
+    HSPickerView *sexPicker = [HSPickerView picker];\
+    sexPicker.frame = CGRectMake(0, sexPickerY, sexPickerW, sexPickerH);\
+    [self.tableView.superview addSubview:sexPicker];\
+    // 
+\f1 \'c9\'e8\'d6\'c3\'b4\'fa\'c0\'ed
+\f0 \
+    sexPicker.delegate = self;\
+\
+    _sexPicker = sexPicker;\
+    _sexPickerView = sexPicker.picker;\
+\
+    _sexPickerView.delegate = self;\
+    _sexPickerView.dataSource = self;\
+      \
+      // 
+\f1 \'d1\'a1\'d6\'d0\'b5\'da\'d2\'bb\'b8\'f6
+\f0 \
+      [self pickerView:_sexPickerView didSelectRow:0 inComponent:1];\
+\
+\
+  \};\
+\
+  HSInfoTextFieldItem *trainingIntro =\
+      [HSInfoTextFieldItem itemWithTitle:trainingIntroStr\
+                             placeholder:trainingIntroPh];\
+  trainingIntro.enable = YES;\
+  _trainingIntro = trainingIntro;\
+\
+  HSInfoGroup *g0 = [[HSInfoGroup alloc] init];\
+  g0.items =\
+      @[ servantProvince, servantCity, servantCounty, trainingIntro ];\
+  [self.data addObject:g0];\
+\
+  // 
+\f1 \'b1\'ed\'ce\'b2
+\f0 \
+  HSInfoFooterView *footerView = [HSInfoFooterView footerView];\
+  HSOrangeButton *registBtn = [HSOrangeButton orangeButtonWithTitle:@"
+\f1 \'d7\'a2\'b2\'e1
+\f0 "];\
+  CGFloat buttonX = 10;\
+  CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;\
+  CGFloat buttonH = 50;\
+  CGFloat buttonY = footerView.frame.size.height * 0.5 - buttonH * 0.5;\
+  registBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);\
+  registBtn.enabled = NO;\
+  registBtn.alpha = 0.66;\
+  [registBtn addTarget:self\
+                action:@selector(registBtnClicked)\
+      forControlEvents:UIControlEventTouchUpInside];\
+  [footerView addSubview:registBtn];\
+  self.tableView.tableFooterView = footerView;\
+  _registBtn = registBtn;\
+\}\
+\
+- (void)registBtnClicked \{\
+\}\
+\
+#pragma mark - UIGestureRecognizerDelegate\
+/**\
+ *  
+\f1 \'d6\'d8\'d0\'b4
+\f0 UIGestureRecognizerDelegate
+\f1 \'bd\'e2\'be\'f6
+\f0 tap
+\f1 \'ca\'d6\'ca\'c6\'d3\'eb
+\f0 didSelectRowAtIndexPath
+\f1 \'b5\'c4\'b3\'e5\'cd\'bb
+\f0 \
+ */\
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer\
+       shouldReceiveTouch:(UITouch *)touch \{\
+  NSString *tapPlace = NSStringFromClass([touch.view class]);\
+  // 
+\f1 \'c8\'f4\'ce\'aa
+\f0 UITableView
+\f1 \'a3\'a8\'bc\'b4\'b5\'e3\'bb\'f7\'c1\'cb
+\f0 UITableView
+\f1 \'a3\'a9\'a3\'ac\'d4\'f2\'bd\'d8\'bb\'f1
+\f0 Touch
+\f1 \'ca\'c2\'bc\'fe
+\f0 \
+  if ([tapPlace isEqualToString:@"UITableView"]) \{\
+    return YES;\
+  \}\
+  return NO;\
+\}\
+\
+#pragma mark - UIPickerViewDataSource\
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView\{\
+    return 1;\
+\}\
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component\{\
+    if (pickerView == _sexPickerView) \{\
+        return 2;\
+    \}else\{\
+        return self.regions.count;\
+    \}\
+\}\
+\
+#pragma mark - UIPickerViewDelegate\
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component\{\
+    if (pickerView == _sexPickerView) \{\
+        if (row == 0) \{\
+            return @"
+\f1 \'c5\'ae
+\f0 ";\
+        \}else\{\
+            return @"
+\f1 \'c4\'d0
+\f0 ";\
+        \}\
+    \}else\{\
+        HSRegion *region = self.regions[row];\
+        return region.areaName;\
+    \}\
+    return nil;\
+\}\
+\
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component\{\
+    if (pickerView == _sexPickerView) \{\
+        if (row == 0) \{\
+            _sex.text = @"
+\f1 \'c5\'ae
+\f0 ";\
+        \}else\{\
+            _sex.text = @"
+\f1 \'c4\'d0
+\f0 ";\
+        \}\
+    \}else\{\
+        HSRegion *region = self.regions[row];\
+        _servantCounty.text = region.areaName;\
+    \}\
+    [self.tableView reloadData];\
+\}\
+\
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component\{\
+    return 50;\
+\}\
+\
+#pragma mark - HSPickerViewDelegate\
+- (void)pickerView:(HSPickerView *)pickerView cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar\{\
+    if (pickerView == _sexPicker) \{\
+        _sex.text = @"
+\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'b5\'c4\'d0\'d4\'b1\'f0
+\f0 ";\
+        [_sexPicker removeFromSuperview];\
+    \}else\{\
+        _servantCounty.text = @"
+\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'cb\'f9\'d4\'da\'cf\'d8\'c7\'f8
+\f0 ";\
+        [_servantPicker removeFromSuperview];\
+    \}\
+    \
+    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
+    [self.tableView reloadData];\
+\}\
+\
+- (void)pickerView:(HSPickerView *)pickerView confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar\{\
+    [_sexPicker removeFromSuperview];\
+    [_servantPicker removeFromSuperview];\
+    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
+\}\
+\
+\
+\
+@end\
+}

@@ -15,4 +15,8 @@
  *  label的内容
  */
 @property (nonatomic, copy) NSString *text;
+/**
+ *  可设置字体的内容
+ */
+@property (copy, nonatomic) NSAttributedString *attrText;
 @end

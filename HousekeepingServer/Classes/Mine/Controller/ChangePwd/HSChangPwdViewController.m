@@ -12,7 +12,12 @@
 #import "HSInfoGroup.h"
 #import "HSInfoFooterView.h"
 #import "XBConst.h"
+#import "HSOrangeButton.h"
 
+@interface HSChangPwdViewController ()
+@property (weak, nonatomic) HSOrangeButton *commitBtn;
+
+@end
 
 @implementation HSChangPwdViewController
 - (void)viewDidLoad{
@@ -32,7 +37,7 @@
 
 - (void)setupGroup0{
     NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-    titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+    titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
     titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
     
     NSAttributedString *originPwdStr = [[NSAttributedString alloc]initWithString:@"原密码" attributes:titleAttr];
@@ -40,7 +45,7 @@
     NSAttributedString *confirmPwdStr = [[NSAttributedString alloc]initWithString:@"确认密码" attributes:titleAttr];
     
     NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];
-    placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+    placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
 
     NSAttributedString *originPwdPh = [[NSAttributedString alloc]initWithString:@"请输入原密码" attributes:placeholderAttr];
     NSAttributedString *newPwdPh= [[NSAttributedString alloc]initWithString:@"6-18位数字、字母或其他符号" attributes:placeholderAttr];
@@ -61,8 +66,26 @@
     [self.data addObject:g0];
     
     // footerView
-    HSInfoFooterView *footerView = [HSInfoFooterView footerViewWithBtnTitle:@"提交"];
+    HSInfoFooterView *footerView = [HSInfoFooterView footerView];
+    HSOrangeButton *commitBtn = [HSOrangeButton orangeButtonWithTitle:@"保存"];
+    CGFloat buttonX = 10;
+    CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;
+    CGFloat buttonH = 50;
+    CGFloat buttonY = footerView.center.y - buttonH * 0.5;
+    commitBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+    [commitBtn setTitle:@"保存" forState:UIControlStateNormal];
+    commitBtn.enabled = NO;
+    commitBtn.alpha = 0.66;
+    [footerView addSubview:commitBtn];
+    
+    self.commitBtn = commitBtn;
+    [commitBtn addTarget:self
+                action:@selector(commitBtnClicked)
+      forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableFooterView = footerView;
+}
+
+- (void)commitBtnClicked{
     
 }
 @end

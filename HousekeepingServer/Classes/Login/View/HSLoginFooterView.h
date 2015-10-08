@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HSOrangeButton;
 @protocol HSLoginFooterViewDelegate <NSObject>
 
 @optional
@@ -17,6 +17,6 @@
 @end
 @interface HSLoginFooterView : UIView
 + (instancetype)footerView;
-@property (strong, nonatomic) UIButton *loginBtn;
+@property (strong, nonatomic) HSOrangeButton *loginBtn;
 @property (weak, nonatomic) id<HSLoginFooterViewDelegate> delegate;
 @end

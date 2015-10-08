@@ -18,12 +18,14 @@
 #import "XBConst.h"
 #import "HSInfoLableItem.h"
 #import "HSDatePickerView.h"
-#import "HSSexPicker.h"
+#import "HSOrangeButton.h"
+#import "HSPickerView.h"
+
 
 @interface HSBasicInfoViewController () <
     InfoFooterViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate,
     HSDatePickerViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
-    HSSexPickerViewDelegate> {
+    HSPickerViewDelegate> {
   HSInfoTextFieldItem *_userNum;
   HSInfoTextFieldItem *_userName;
   HSInfoLableItem *_sex;
@@ -34,7 +36,7 @@
   UIDatePicker *_datePicker;
   HSDatePickerView *_pickerView;
   UIPickerView *_picker;
-  HSSexPicker *_sexPicker;
+  HSPickerView *_sexPicker;
 }
 
 @property(weak, nonatomic) UIButton *saveBtn;
@@ -89,13 +91,13 @@
  */
 - (void)dismissKeyboard {
   [self dateConfirmButtonDidClicked];
-    [self sexConfirmButtonDidClicked];
+    [self pickerView:_sexPicker confirmButtonDidClickedOnToolBar:_sexPicker.toolBar];
   [self.view endEditing:YES];
 }
 
 - (void)setupGroup0 {
   NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
   titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
 
   NSAttributedString *userNumStr =
@@ -121,7 +123,7 @@
                                       attributes:titleAttr];
 
   NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];
-  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
 
   NSAttributedString *userNumPh =
       [[NSAttributedString alloc] initWithString:@"账号"
@@ -164,6 +166,8 @@
   }
   sex.enable = NO;
   sex.option = ^{
+      // 删除datePicker
+      [_pickerView removeFromSuperview];
     // 改变tableView的frame
     self.tableView.frame =
         CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
@@ -171,7 +175,7 @@
     CGFloat sexPickerY = XBScreenHeight * 0.6;
     CGFloat sexPickerW = XBScreenWidth;
     CGFloat sexPickerH = XBScreenHeight * 0.4;
-    HSSexPicker *sexPicker = [HSSexPicker sexPicker];
+    HSPickerView *sexPicker = [HSPickerView picker];
     sexPicker.frame = CGRectMake(0, sexPickerY, sexPickerW, sexPickerH);
     [self.tableView.superview addSubview:sexPicker];
     // 设置代理
@@ -185,6 +189,9 @@
       
       // 使保存按钮激活
       self.saveBtn.enabled = YES;
+      // 选中第一个
+      [self pickerView:_picker didSelectRow:0 inComponent:1];
+
   };
 
     // 生日
@@ -195,6 +202,8 @@
   birthday.enable = NO;
 
   birthday.option = ^{
+      // 删除sexPicker
+      [_sexPicker removeFromSuperview];
     // 改变tableView的frame
     self.tableView.frame =
         CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
@@ -216,6 +225,8 @@
           forControlEvents:UIControlEventValueChanged];
     // 是保存按钮激活
     self.saveBtn.enabled = YES;
+      // 选中今天
+      [self dateChange];
   };
   _birthday = birthday;
 
@@ -262,19 +273,10 @@
  */
 - (void)setupfooterView {
   HSInfoFooterView *footerView = [HSInfoFooterView footerView];
-
-  UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-  saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-  [saveBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_orange"]
-                     forState:UIControlStateNormal];
-  [saveBtn
-      setBackgroundImage:[UIImage
-                             resizeableImage:@"common_button_pressed_orange"]
-                forState:UIControlStateHighlighted];
-
+    HSOrangeButton *saveBtn = [HSOrangeButton orangeButtonWithTitle:@"保存"];
   CGFloat buttonX = 10;
   CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;
-  CGFloat buttonH = 40;
+  CGFloat buttonH = 50;
   CGFloat buttonY = footerView.center.y - buttonH * 0.5;
   saveBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
   [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
@@ -336,7 +338,9 @@
     self.rightBtn.title = @"编辑";
     [self setCellDisable];
       [self dateCancelButtonDidClicked];
-      [self sexCancelButtonDidClicked];
+      [_sexPicker removeFromSuperview];
+      [_pickerView removeFromSuperview];
+      [self pickerView:_sexPicker cancelButtonDidClickedOnToolBar:_sexPicker.toolBar];
     [self.tableView reloadData];
 
   } else {
@@ -447,8 +451,8 @@
     return 50;
 }
 
-#pragma mark - HSSexPickerViewDelegate
-- (void)sexCancelButtonDidClicked{
+#pragma mark - HSPickerViewDelegate
+- (void)pickerView:(HSPickerView *)pickerView cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar{
     _sex.text = @"请选择您的性别";
     [_sexPicker removeFromSuperview];
     
@@ -456,9 +460,8 @@
     [self.tableView reloadData];
 }
 
-- (void)sexConfirmButtonDidClicked{
+- (void)pickerView:(HSPickerView *)pickerView confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar{
     [_sexPicker removeFromSuperview];
     self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
 }
-
 @end

@@ -7,7 +7,13 @@
 //
 
 #import "HSBaseViewController.h"
+@class HSRegistViewController;
+@protocol HSRegistViewContrllerDelegate <NSObject>
 
+@optional
+- (void)registViewController:(HSRegistViewController *)registVc passTextFieldValues:(NSArray *)basicInfoText;
+@end
 @interface HSRegistViewController : HSBaseViewController
+@property (weak, nonatomic) id<HSRegistViewContrllerDelegate> delegate;
 
 @end

@@ -12,8 +12,10 @@
 
 @optional
 - (BOOL)didChangeBtnEnable;
+- (void)logoutButtonDidClicked;
 
 @end
+
 @interface HSInfoFooterView : UIView
 @property (strong, nonatomic) UIButton *button;
 @property (weak, nonatomic) id<InfoFooterViewDelegate> delegate;

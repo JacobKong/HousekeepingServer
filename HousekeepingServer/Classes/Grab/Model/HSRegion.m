@@ -9,5 +9,16 @@
 #import "HSRegion.h"
 
 @implementation HSRegion
++ (instancetype)regionWithDict:(NSDictionary *)dict{
+    return [[self alloc] initWithDict:dict];
+}
 
+- (instancetype)initWithDict:(NSDictionary *)dict{
+    if (self = [super init]) {
+        // 1.注入所有属性
+        self.areaName = dict[@"areaName"];
+        self.ID = dict[@"ID"];
+    }
+    return self;
+}
 @end
