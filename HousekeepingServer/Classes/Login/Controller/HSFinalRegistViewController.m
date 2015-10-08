@@ -27,6 +27,8 @@
 #import "HSHeadPictureView.h"
 #import "UIImage+CircleCilp.h"
 #import "UIImage+SquareImage.h"
+#import "HSServant.h"
+#import "HSServantTool.h"
 
 @interface HSFinalRegistViewController () <
     HSRegistViewContrllerDelegate, UIGestureRecognizerDelegate,
@@ -460,7 +462,6 @@
   attrDict[@"qqNumber"] = self.basicInfoArray[5];
   attrDict[@"emailAddress"] = @"无";
   attrDict[@"servantGender"] = self.basicInfoArray[3];
-  attrDict[@"headPicture"] = _headPicture;
   attrDict[@"workYears"] = _workYears.text;
   attrDict[@"servantHonors"] = _servantHonors.text;
   attrDict[@"servantIntro"] = _servantIntro.text;
@@ -473,6 +474,12 @@
   attrDict[@"serviceItems"] = _serviceItems.text;
   attrDict[@"careerType"] = @"无";
 
+    // 创建模型
+    HSServant *servant = [HSServant objectWithKeyValues:attrDict];
+    NSLog(@"hs%@", servant.servantID);
+    // 存档
+    [HSServantTool saveServant:servant];
+    
   NSString *urlStr = [NSString
       stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_register",
                        kHSBaseURL];
@@ -524,7 +531,6 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
        shouldReceiveTouch:(UITouch *)touch {
   NSString *tapPlace = NSStringFromClass([touch.view class]);
-    NSLog(@"%@", tapPlace);
   // 若为UITableView（即点击了UITableView），则截获Touch事件
     if ([tapPlace isEqualToString:@"UITableView"]||
         [tapPlace isEqualToString:@"UIImageView"]||

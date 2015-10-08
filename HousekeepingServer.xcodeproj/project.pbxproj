@@ -29,6 +29,8 @@
 		1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245A1BBB83E3001E2F69 /* HSLoginViewController.m */; };
 		1843245E1BBB9178001E2F69 /* HSLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */; };
 		184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324601BBB9370001E2F69 /* HSLoginFooterView.m */; };
+		184DFFAB1BC65BA300CDB9E6 /* HSServant.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAA1BC65BA300CDB9E6 /* HSServant.m */; settings = {ASSET_TAGS = (); }; };
+		184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */; settings = {ASSET_TAGS = (); }; };
 		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
 		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
@@ -133,6 +135,10 @@
 		1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSLoginHeaderView.m; sourceTree = "<group>"; };
 		1843245F1BBB9370001E2F69 /* HSLoginFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSLoginFooterView.h; sourceTree = "<group>"; };
 		184324601BBB9370001E2F69 /* HSLoginFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSLoginFooterView.m; sourceTree = "<group>"; };
+		184DFFA91BC65BA300CDB9E6 /* HSServant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServant.h; sourceTree = "<group>"; };
+		184DFFAA1BC65BA300CDB9E6 /* HSServant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServant.m; sourceTree = "<group>"; };
+		184DFFAC1BC662C500CDB9E6 /* HSServantTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServantTool.h; sourceTree = "<group>"; };
+		184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServantTool.m; sourceTree = "<group>"; };
 		186DEA511BAFF902008C465F /* HSTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarButton.h; sourceTree = "<group>"; };
 		186DEA521BAFF902008C465F /* HSTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarButton.m; sourceTree = "<group>"; };
 		186DEA541BB001B6008C465F /* HSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavigationViewController.h; sourceTree = "<group>"; };
@@ -346,6 +352,8 @@
 			children = (
 				18E60F841BBFF3B600BDE6FD /* HSAccount.h */,
 				18E60F851BBFF3B600BDE6FD /* HSAccount.m */,
+				184DFFA91BC65BA300CDB9E6 /* HSServant.h */,
+				184DFFAA1BC65BA300CDB9E6 /* HSServant.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -811,6 +819,8 @@
 				18E60F891BBFFA3900BDE6FD /* HSAccountTool.m */,
 				18081BFC1BC26764000011AE /* HSHTTPRequestOperationManager.h */,
 				18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */,
+				184DFFAC1BC662C500CDB9E6 /* HSServantTool.h */,
+				184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1005,6 +1015,7 @@
 			files = (
 				18A998141BC2716000A1C961 /* MBProgressHUD+MJ.m in Sources */,
 				18E6A5B11BC545D500E67C26 /* HSHeadPictureView.m in Sources */,
+				184DFFAB1BC65BA300CDB9E6 /* HSServant.m in Sources */,
 				182161921BC4B6D000EAA41A /* HSCity.m in Sources */,
 				18BEC7031BB3F471002D6DAA /* HSRegionCollectionViewCell.m in Sources */,
 				187630AB1BB525450037F124 /* HSService.m in Sources */,
@@ -1059,6 +1070,7 @@
 				1876311F1BB56E150037F124 /* XBScrollPageController.m in Sources */,
 				187631461BB6352F0037F124 /* HSAboutViewController.m in Sources */,
 				188A20B71BAF90A900E4D570 /* HSGrabViewController.m in Sources */,
+				184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */,
 				188A20BA1BAF90A900E4D570 /* HSMineViewController.m in Sources */,
 				18E60FA11BC1281500BDE6FD /* HSPickerView.m in Sources */,
 				18E60F8D1BC0F90900BDE6FD /* HSOrangeButton.m in Sources */,

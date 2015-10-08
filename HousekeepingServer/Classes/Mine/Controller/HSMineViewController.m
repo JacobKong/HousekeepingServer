@@ -24,6 +24,7 @@
 #import "HSTabBarViewController.h"
 #import "MBProgressHUD.h"
 #import "HSOrangeButton.h"
+#import "HSServantTool.h"
 
 @interface HSMineViewController ()<UIAlertViewDelegate>
 @end
