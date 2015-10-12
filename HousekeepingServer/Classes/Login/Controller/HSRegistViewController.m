@@ -290,6 +290,9 @@
       _confirmPwd.text
     ];
     MBProgressHUD *hud = [MBProgressHUD showMessage:@"请稍等"];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.labelText = @"请稍等";
+    
     // 访问服务器
     AFHTTPRequestOperationManager *manager =
         (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager
@@ -307,6 +310,7 @@
                   id _Nonnull responseObject) {
           NSString *serverResponse = responseObject[@"serverResponse"];
           if ([serverResponse isEqualToString:@"Failed"]) {
+              hud.labelText = @"用户名被占用";
             [hud hide:YES];
             [MBProgressHUD showError:@"用户名被占用"];
             dispatch_after(

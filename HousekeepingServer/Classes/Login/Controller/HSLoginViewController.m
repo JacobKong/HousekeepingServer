@@ -170,18 +170,15 @@
             [hud hide:YES];
             // 创建模型
             HSAccount *account = [HSAccount objectWithKeyValues:responseObject];
-//            account.servantID = _userNum.text;
-//            account.loginPassword = _userPwd.text;
-//            account.servantName = responseObject[@"servantName"];
             
             // 存储模型数据
             [HSAccountTool saveAccount:account];
 
+            [self dismissViewControllerAnimated:YES completion:nil];
             [MBProgressHUD showSuccess:@"登录成功"];
           dispatch_after(
               dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
               dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
                   [MBProgressHUD hideHUDForView:self.view];
               });
         } else {

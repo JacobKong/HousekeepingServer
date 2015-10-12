@@ -50,8 +50,8 @@
   if ([self.delegate
           respondsToSelector:@selector(tabBar:didSelectedFrom:to:)]) {
     [self.delegate tabBar:self
-          didSelectedFrom:self.selectedBtn.tag
-                       to:button.tag];
+          didSelectedFrom:(int)self.selectedBtn.tag
+                       to:(int)button.tag];
   }
   self.selectedBtn.selected = NO;
   button.selected = YES;

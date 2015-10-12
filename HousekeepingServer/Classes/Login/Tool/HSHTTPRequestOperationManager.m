@@ -12,11 +12,12 @@
 @implementation HSHTTPRequestOperationManager
 + (instancetype)manager{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     manager.requestSerializer.timeoutInterval = 20.f;
-    return manager;
+    return (HSHTTPRequestOperationManager *)manager;
 }
 @end

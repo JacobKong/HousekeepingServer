@@ -27,9 +27,13 @@
 #define HSColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
 // BasePath
-//#define kHSBaseURL @"http://118.202.26.249:8080/NationalService"
+//#define kHSBaseURL @"http://169.254.185.249:8080/NationalService"
 #define kHSBaseURL @"http://219.216.65.182:8080/NationalService"
-
+#define kServiceResponse responseObject[@"serverResponse"]
+#define kDataResponse responseObject[@"data"]
+// HUD View
+#define MBProgressHUDSuccessView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"success"]]
+#define MBProgressHUDErrorView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"error"]]
 extern NSString *const kTagCollectionViewCellIdentifier;
 extern NSString *const kPageCollectionViewCellIdentifier;
 extern NSString *const kCachedTime;

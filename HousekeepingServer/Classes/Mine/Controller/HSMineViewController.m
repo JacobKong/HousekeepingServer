@@ -22,9 +22,9 @@
 #import "UIImage+HSResizingImage.h"
 #import "HSLoginViewController.h"
 #import "HSTabBarViewController.h"
-#import "MBProgressHUD.h"
 #import "HSOrangeButton.h"
 #import "HSServantTool.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface HSMineViewController ()<UIAlertViewDelegate>
 @end

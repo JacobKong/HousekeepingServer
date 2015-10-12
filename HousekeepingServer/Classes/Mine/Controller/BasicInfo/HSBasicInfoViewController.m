@@ -14,12 +14,12 @@
 #import "UIImage+HSResizingImage.h"
 #import "HSNoBorderTextField.h"
 #import "HSInfoTableViewCell.h"
-#import "MBProgressHUD.h"
 #import "XBConst.h"
 #import "HSInfoLableItem.h"
 #import "HSDatePickerView.h"
 #import "HSOrangeButton.h"
 #import "HSPickerView.h"
+#import "MBProgressHUD+MJ.h"
 
 
 @interface HSBasicInfoViewController () <

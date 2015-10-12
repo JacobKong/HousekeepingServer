@@ -35,6 +35,8 @@
         [self.locationManager requestWhenInUseAuthorization];
         
     }
+    //设置状态栏的字体颜色模式
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
