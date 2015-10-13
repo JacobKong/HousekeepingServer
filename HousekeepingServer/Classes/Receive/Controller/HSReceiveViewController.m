@@ -7,19 +7,15 @@
 //
 
 #import "HSReceiveViewController.h"
-#import "HSServant.h"
-#import "HSServantTool.h"
 #import "HSHTTPRequestOperationManager.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
-#import "HSServiceReceive.h"
 #import "MJExtension.h"
-#import "HSReceiveCell.h"
+#import "HSServiceDeclare.h"
 
-@interface HSReceiveViewController ()<HSServiceCellDelegate, UIAlertViewDelegate>{
+@interface HSReceiveViewController ()<HSDeclareCellDelegate, UIAlertViewDelegate>{
     MBProgressHUD *hud;
 }
-@property (strong, nonatomic) NSArray *serviceReceive;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 @end
 
@@ -27,32 +23,9 @@
 
 - (void)viewDidLoad {
     self.tableView.rowHeight = 330;
+    self.rightBtnTitle = @"接单";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.serviceReceive.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HSReceiveCell *cell = [HSReceiveCell cellWithTableView:tableView];
-    cell.serviceReceive = self.serviceReceive[indexPath.section];
-    cell.delegate = self;
-    cell.indexPath = indexPath;
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -64,13 +37,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - 刷新
--(void)viewWillAppear:(BOOL)animated{
-    // 一进入该界面就开始刷新
-    [self setupRefreshView];
-    
-    [super viewWillAppear:animated];
-}
-
 - (void)loadNewData{
     [super loadNewData];
     __weak __typeof(self) weakSelf = self;
@@ -91,8 +57,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     id _Nonnull responseObject) {
               [MBProgressHUD hideHUDForView:self.view animated:YES];
               if ([kServiceResponse isEqualToString:@"Success"]) {
-                  _serviceReceive = [HSServiceReceive objectArrayWithKeyValuesArray:kDataResponse];
+                  self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+                  NSLog(@"%@", self.serviceDeclare);
                   [self.tableView reloadData];
+                  if (self.serviceDeclare.count == 0) {
+                      HSRefreshLab *refreshLab = [HSRefreshLab
+                                                  refreshLabelWithText:
+                                                  @"目前没有您的接单，请刷新重试"];
+                      
+                      CGFloat labelW = XBScreenWidth;
+                      CGFloat labelX = 0;
+                      CGFloat labelY = XBScreenHeight * 0.3;
+                      CGFloat labelH = 20;
+                      refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+                      self.refreshLab = refreshLab;
+                      [self.view addSubview:refreshLab];
+                  }
                   [self.tableView.header endRefreshing];
               } else {
                   // 取消刷新
@@ -139,28 +119,29 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - HSServiceCellDelegate
-- (void)receiveCell:(HSReceiveCell *)receiveCell receiveButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+- (void)declareCell:(HSDeclareCell *)declareCell rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+    [super declareCell:declareCell leftButtonDidClickedAtIndexPath:indexPath];
     // 创建hud
     hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
     hud.labelText = @"正在接单...";
     
-    HSServiceReceive *serviceReceive = self.serviceReceive[indexPath.section];
+    HSServiceDeclare *serviceDeclare = self.serviceDeclare[indexPath.section];
     // 访问服务器
     AFHTTPRequestOperationManager *manager =
     (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
     
     NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-    attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceReceive.ID];
-    attrDict[@"customerID"] = serviceReceive.customerID;
-    attrDict[@"customerName"] = serviceReceive.customerName;
+    attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
+    attrDict[@"customerID"] = serviceDeclare.customerID;
+    attrDict[@"customerName"] = serviceDeclare.customerName;
     attrDict[@"servantID"] = self.servant.servantID;
     attrDict[@"servantName"] = self.servant.servantName;
-    attrDict[@"contactAddress"] = serviceReceive.serviceAddress;
-    attrDict[@"contactPhone"] = serviceReceive.phoneNo;
-    attrDict[@"servicePrice"] = serviceReceive.salary;
-    attrDict[@"serviceType"] = serviceReceive.serviceType;
+    attrDict[@"contactAddress"] = serviceDeclare.serviceAddress;
+    attrDict[@"contactPhone"] = serviceDeclare.phoneNo;
+    attrDict[@"servicePrice"] = serviceDeclare.salary;
+    attrDict[@"serviceType"] = serviceDeclare.serviceType;
     attrDict[@"serviceContent"] = @"";
-    attrDict[@"remarks"] = serviceReceive.remarks;
+    attrDict[@"remarks"] = serviceDeclare.remarks;
     
     NSString *urlStr =
     [NSString stringWithFormat:@"%@/MobileServiceOrderAction?operation=_add",
@@ -199,7 +180,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
           }];
 }
 
-- (void)receiveCell:(HSReceiveCell *)receiveCell refuseButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+- (void)declareCell:(HSDeclareCell *)declareCell leftButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+    [super declareCell:declareCell rightButtonDidClickedAtIndexPath:indexPath];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您确定拒绝该订单吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
     self.selectedIndexPath = indexPath;
@@ -211,13 +193,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
         hud.labelText = @"正在拒单...";
         
-        HSServiceReceive *serviceReceive = self.serviceReceive[self.selectedIndexPath.section];
+        HSServiceDeclare *serviceDeclare = self.serviceDeclare[self.selectedIndexPath.section];
         // 访问服务器
         AFHTTPRequestOperationManager *manager =
         (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
         
         NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-        attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceReceive.ID];
+        attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
         
         NSString *urlStr =
         [NSString stringWithFormat:@"%@/MobileServiceDeclareAction?operation=_refuse",

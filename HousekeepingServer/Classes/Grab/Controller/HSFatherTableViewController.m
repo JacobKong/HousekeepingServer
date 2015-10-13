@@ -7,8 +7,6 @@
 //
 
 #import "HSFatherTableViewController.h"
-
-
 @interface HSFatherTableViewController ()
 
 @end
@@ -44,6 +42,8 @@
  */
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    // 一进入该界面就开始刷新
+    [self setupRefreshView];
     self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
 }
 
@@ -51,9 +51,51 @@
     [super viewWillDisappear:animated];
     [self.tableView.header endRefreshing];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.tableView.header endRefreshing];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.serviceDeclare.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HSDeclareCell *cell = [HSDeclareCell cellWithTableView:tableView];
+    // 是否隐藏按钮
+    if (self.leftBtnHiddn) {
+        cell.leftBtn.hidden = YES;
+    }else{
+        cell.leftBtn.hidden = NO;
+    }
+    
+    if (self.rightBtnHidden) {
+        cell.rightBtn.hidden = YES;
+    }else{
+        cell.rightBtn.hidden = NO;
+    }
+    
+    // 设置标题
+    if (self.leftBtnTitle) {
+        [cell.leftBtn setTitle:self.leftBtnTitle forState:UIControlStateNormal];
+    }
+    
+    if (self.rightBtnTitle) {
+        [cell.rightBtn setTitle:self.rightBtnTitle forState:UIControlStateNormal];
+    }
+    
+    cell.serviceDeclare = self.serviceDeclare[indexPath.section];
+    cell.delegate = self;
+    cell.indexPath = indexPath;
+    return cell;
 }
 
 - (void)setupRefreshView{
@@ -75,4 +117,12 @@
 }
 
 - (void)loadNewData{}
+
+#pragma mark - HSDeclareCellDelegate
+- (void)declareCell:(HSDeclareCell *)declareCell leftButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+- (void)declareCell:(HSDeclareCell *)declareCell rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
 @end

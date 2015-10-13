@@ -12,7 +12,9 @@
 @protocol HSDeclareCellDelegate <NSObject>
 
 @optional
-- (void)declareCell:(HSDeclareCell *)declareCell grabButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath;
+- (void)declareCell:(HSDeclareCell *)declareCell leftButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)declareCell:(HSDeclareCell *)declareCell rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 @interface HSDeclareCell : UITableViewCell
@@ -20,6 +22,10 @@
 @property (weak, nonatomic) id<HSDeclareCellDelegate> delegate;
 @property (strong, nonatomic) HSServiceDeclare *serviceDeclare;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+
+@property (weak, nonatomic) IBOutlet UIButton *rightBtn;
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
+@property (weak, nonatomic) IBOutlet UIButton *locationBtn;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

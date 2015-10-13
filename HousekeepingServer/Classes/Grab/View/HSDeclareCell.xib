@@ -60,7 +60,7 @@
                     <color key="backgroundColor" red="1" green="0.98039215686274506" blue="0.74509803921568629" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月嫂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JYU-Yl-Hrb">
-                    <rect key="frame" x="212" y="15" width="100" height="21"/>
+                    <rect key="frame" x="212" y="17" width="100" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -149,8 +149,8 @@
                     <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.74509803919999995" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="33C-DK-KQ2">
-                    <rect key="frame" x="110" y="282" width="100" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="212" y="282" width="100" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
@@ -158,9 +158,30 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="grabBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="9Ei-LD-ZxZ"/>
+                        <action selector="rightBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="L2O-fK-lSR"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9fA-tJ-hJs">
+                    <rect key="frame" x="8" y="282" width="100" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <state key="normal" title="拒绝" image="icon_grab" backgroundImage="common_button_blue">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="leftBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="pgZ-Ue-IvK"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="待付款" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O1V-sC-XBC">
+                    <rect key="frame" x="212" y="46" width="100" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,10 +190,12 @@
             <connections>
                 <outlet property="addressTextView" destination="320-Aq-whI" id="gsp-5n-UG4"/>
                 <outlet property="customerNameLab" destination="6iP-9U-DVx" id="LGq-6B-ly8"/>
-                <outlet property="grabBtn" destination="33C-DK-KQ2" id="cJp-m9-qBh"/>
+                <outlet property="leftBtn" destination="9fA-tJ-hJs" id="lW2-0W-89Q"/>
+                <outlet property="locationBtn" destination="LqZ-24-dwe" id="o46-eS-maA"/>
                 <outlet property="phoneNoLab" destination="sid-Bc-D2t" id="EJV-ke-jOQ"/>
                 <outlet property="remarksTextView" destination="r0y-F6-H55" id="vYE-q8-sKU"/>
                 <outlet property="remarksView" destination="8Av-1k-utz" id="28g-RZ-ibs"/>
+                <outlet property="rightBtn" destination="33C-DK-KQ2" id="03w-wH-HkE"/>
                 <outlet property="salaryLab" destination="pge-sX-RlM" id="1CG-gQ-sVC"/>
                 <outlet property="serviceTimeLab" destination="dF8-GV-awe" id="9zw-bS-OyI"/>
                 <outlet property="serviceTypeLab" destination="JYU-Yl-Hrb" id="4pU-xP-8Rv"/>

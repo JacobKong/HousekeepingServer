@@ -30,13 +30,13 @@
 @interface HSGrabViewController () <
     UICollectionViewDataSource, UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate,
-    HSSubServiceViewDelegate, UIAlertViewDelegate, HSDeclareCellDelegate> {
+    HSSubServiceViewDelegate, UIAlertViewDelegate> {
   MBProgressHUD *hud;
 }
 @property(strong, nonatomic) NSArray *regions;
 @property(strong, nonatomic) NSArray *service;
 @property(strong, nonatomic) NSArray *subService;
-@property(strong, nonatomic) NSArray *serviceDeclare;
+
 
 @property(weak, nonatomic) UIButton *bgBtn; // 半透明背景
 
@@ -53,10 +53,6 @@
 
 @property(copy, nonatomic) NSString *regionStr;
 @property(copy, nonatomic) NSString *serviceStr;
-
-@property(strong, nonatomic) UIWebView *webView; // 用来打电话
-
-
 @end
 
 @implementation HSGrabViewController
@@ -102,6 +98,8 @@
   // 设置tableView样式
   self.tableView.rowHeight = 330;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // 隐藏按钮
+    self.leftBtnHiddn = YES;
 
     // 刷新表格
     if (self.regionStr && self.serviceStr) {
@@ -401,24 +399,6 @@
   self.serviceCollectionView.dataSource = self;
 }
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return self.serviceDeclare.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
-  return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  HSDeclareCell *cell = [HSDeclareCell cellWithTableView:tableView];
-  cell.serviceDeclare = self.serviceDeclare[indexPath.section];
-  cell.delegate = self;
-    cell.indexPath = indexPath;
-  return cell;
-}
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView
@@ -626,7 +606,7 @@
         [MBProgressHUD hideHUDForView:self.regionCollectionView animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
             NSArray *declareArray = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-          _serviceDeclare =
+          self.serviceDeclare =
               [[declareArray reverseObjectEnumerator]allObjects];
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
@@ -685,7 +665,8 @@
 }
 
 #pragma mark - HSDeclareCellDelegate
-- (void)declareCell:(HSDeclareCell *)declareCell grabButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+- (void)declareCell:(HSDeclareCell *)declareCell rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
+    [super declareCell:declareCell rightButtonDidClickedAtIndexPath:indexPath];
     // 创建hud
     hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
     hud.labelText = @"正在抢单...";

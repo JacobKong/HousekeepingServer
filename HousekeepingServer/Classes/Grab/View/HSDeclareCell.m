@@ -20,11 +20,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *addressTextView;
 @property (weak, nonatomic) IBOutlet UIView *remarksView;
 @property (weak, nonatomic) IBOutlet UITextView *remarksTextView;
-@property (weak, nonatomic) IBOutlet UIButton *grabBtn;
 @property (strong, nonatomic) UIWebView *webView;
-- (IBAction)grabBtnClicked:(id)sender;
+- (IBAction)leftBtnClicked:(id)sender;
 - (IBAction)showLocation:(id)sender;
 - (IBAction)callClient:(id)sender;
+
+- (IBAction)rightBtnClicked:(id)sender;
 
 @end
 
@@ -43,8 +44,12 @@
 - (void)awakeFromNib{
     self.layer.cornerRadius = 10;
     self.layer.masksToBounds = YES;
-    [self.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];
-    [self.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue_highlighted"] forState:UIControlStateHighlighted];
+    [self.leftBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];
+    [self.leftBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue_highlighted"] forState:UIControlStateHighlighted];
+    
+    [self.rightBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];
+    [self.rightBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue_highlighted"] forState:UIControlStateHighlighted];
+
     // 保持滚动帧率在55以上
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
@@ -78,9 +83,9 @@
     self.serviceTypeLab.text = self.serviceDeclare.serviceType;
 }
 
-- (IBAction)grabBtnClicked:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(declareCell:grabButtonDidClickedAtIndexPath:)]) {
-        [self.delegate declareCell:self grabButtonDidClickedAtIndexPath:self.indexPath];
+- (IBAction)leftBtnClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(declareCell:leftButtonDidClickedAtIndexPath:)]) {
+        [self.delegate declareCell:self leftButtonDidClickedAtIndexPath:self.indexPath];
     }
 }
 
@@ -93,5 +98,11 @@
     }
     NSString *phoneNoStr = [NSString stringWithFormat:@"tel://%@", self.serviceDeclare.phoneNo];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:phoneNoStr]]];
+}
+
+- (IBAction)rightBtnClicked:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(declareCell:rightButtonDidClickedAtIndexPath:)]) {
+        [self.delegate declareCell:self rightButtonDidClickedAtIndexPath:self.indexPath];
+    }
 }
 @end

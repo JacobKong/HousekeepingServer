@@ -9,5 +9,7 @@
 #import "HSService.h"
 
 @implementation HSService
-
++ (NSDictionary *)replacedKeyFromPropertyName{
+    return @{@"ID":@"id"};
+}
 @end

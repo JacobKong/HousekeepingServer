@@ -12,10 +12,18 @@
 #import "HSRefreshLab.h"
 #import "MJRefresh.h"
 #import "HSServantTool.h"
+#import "HSDeclareCell.h"
+#import "HSServiceDeclare.h"
 
-@interface HSFatherTableViewController : UITableViewController
+@interface HSFatherTableViewController : UITableViewController <HSDeclareCellDelegate>
 @property (strong, nonatomic) HSServant *servant;
 @property(strong, nonatomic) HSRefreshLab *refreshLab; // 刷新失败后现实的label
+@property(strong, nonatomic) NSArray *serviceDeclare;
+@property (assign, nonatomic, getter=isLeftBtnHidden)  BOOL leftBtnHiddn;
+@property (assign, nonatomic, getter=isRightBtnHidden)  BOOL rightBtnHidden;
+
+@property (copy, nonatomic) NSString *leftBtnTitle;
+@property (copy, nonatomic) NSString *rightBtnTitle;
 
 - (void)setupRefreshView;
 - (void)loadNewData;
