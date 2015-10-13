@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSFatherTableViewController.h"
 
-@interface HSReceiveViewController : UIViewController
+@interface HSReceiveViewController : HSFatherTableViewController
 
 @end

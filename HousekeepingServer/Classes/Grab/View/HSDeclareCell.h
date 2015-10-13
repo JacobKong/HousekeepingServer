@@ -16,8 +16,10 @@
 
 @end
 @interface HSDeclareCell : UITableViewCell
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
+
 @property (weak, nonatomic) id<HSDeclareCellDelegate> delegate;
 @property (strong, nonatomic) HSServiceDeclare *serviceDeclare;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "HSServantTool.h"
+#import "HSServant.h"
 #define HSServantFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject]stringByAppendingPathComponent:@"servant.data"]
 @implementation HSServantTool
 + (void)saveServant:(HSServant *)servant{
@@ -14,7 +15,8 @@
 }
 
 + (HSServant *)servant{
-    HSServant *servant = [NSKeyedUnarchiver unarchiveObjectWithFile:HSServantFile];
+    HSServant *servant = [HSServant sharedServant];
+    servant = [NSKeyedUnarchiver unarchiveObjectWithFile:HSServantFile];
     return servant;
 }
 

@@ -36,16 +36,19 @@
     if (cell == nil) {
         // 创建一个新的cell
         cell = [[[NSBundle mainBundle]loadNibNamed:@"HSDeclareCell" owner:nil options:nil]lastObject];
-        cell.layer.cornerRadius = 10;
-        cell.layer.masksToBounds = YES;
-        [cell.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];
-        [cell.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue_highlighted"] forState:UIControlStateHighlighted];
-        // 保持滚动帧率在55以上
-        cell.layer.shouldRasterize = YES;
-        cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
-
     }
     return cell;
+}
+
+- (void)awakeFromNib{
+    self.layer.cornerRadius = 10;
+    self.layer.masksToBounds = YES;
+    [self.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];
+    [self.grabBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue_highlighted"] forState:UIControlStateHighlighted];
+    // 保持滚动帧率在55以上
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+
 }
 
 - (void)setServiceDeclare:(HSServiceDeclare *)serviceDeclare{

@@ -11,7 +11,6 @@
 #import "HSDropListViewController.h"
 #import "HSRegion.h"
 #import "MJExtension.h"
-#import "XBConst.h"
 #import "HSHTTPRequestOperationManager.h"
 #import "AFNetworking.h"
 #import "HSService.h"
@@ -25,8 +24,6 @@
 #import "HSNavigationViewController.h"
 #import "HSServiceDeclare.h"
 #import "HSDeclareCell.h"
-#import "MJRefresh.h"
-#import "HSRefreshLab.h"
 
 #define RegionStrKey @"region"
 #define ServiceStrKey @"service"
@@ -59,7 +56,6 @@
 
 @property(strong, nonatomic) UIWebView *webView; // 用来打电话
 
-@property(strong, nonatomic) HSRefreshLab *refreshLab; // 刷新失败后现实的label
 
 @end
 
@@ -97,19 +93,6 @@
                     forControlEvents:UIControlEventTouchUpInside];
   }
   return _serviceRefreshButton;
-}
-
-#pragma mark - tableView样式
-- (instancetype)init {
-  self = [super init];
-  if (self) {
-    return [super initWithStyle:UITableViewStyleGrouped];
-  }
-  return self;
-}
-
-- (id)initWithStyle:(UITableViewStyle)style {
-  return [super initWithStyle:UITableViewStyleGrouped];
 }
 
 #pragma mark - view加载
@@ -275,13 +258,6 @@
   [self bgBtnClicked];
 }
 
-/**
- *  view即将显示时调用
- */
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
-}
 
 #pragma mark - 导航栏
 /**
@@ -617,9 +593,6 @@
                                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                                [defaults setObject:subService.typeName forKey:ServiceStrKey];
                                [defaults synchronize];
-                               
-                               
-                             NSLog(@"%@", subService.typeName);
                              self.serviceStr = subService.typeName;
                              [weakSelf setupRefreshView];
                              //        [self loadNewData];
@@ -627,30 +600,12 @@
 }
 
 #pragma mark - 表格刷新
-/**
- *  设置refreshView
- */
-- (void)setupRefreshView {
-  __weak __typeof(self) weakSelf = self;
-
-  // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-  MJRefreshNormalHeader *header =
-      [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf loadNewData];
-      }];
-  // 设置自动切换透明度(在导航栏下面自动隐藏)
-  header.automaticallyChangeAlpha = YES;
-  if (!self.tableView.header) {
-    self.tableView.header = header;
-  }
-  // 马上进入刷新状态
-  [self.tableView.header beginRefreshing];
-}
 
 /**
  *  加载新数据
  */
 - (void)loadNewData {
+    [super loadNewData];
   __weak __typeof(self) weakSelf = self;
   // 先移除label
   [self.refreshLab removeFromSuperview];
@@ -735,7 +690,6 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
     hud.labelText = @"正在抢单...";
     HSServiceDeclare *serviceDeclare = self.serviceDeclare[indexPath.section];
-    NSLog(@"%@", serviceDeclare);
     
     // 访问服务器
     AFHTTPRequestOperationManager *manager =
@@ -745,8 +699,8 @@
     attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
     attrDict[@"customerID"] = serviceDeclare.customerID;
     attrDict[@"customerName"] = serviceDeclare.customerName;
-    attrDict[@"servantID"] = serviceDeclare.servantID;
-    attrDict[@"servantName"] = serviceDeclare.servantName;
+    attrDict[@"servantID"] = self.servant.servantID;
+    attrDict[@"servantName"] = self.servant.servantName;
     attrDict[@"contactAddress"] = serviceDeclare.serviceAddress;
     attrDict[@"contactPhone"] = serviceDeclare.phoneNo;
     attrDict[@"servicePrice"] = serviceDeclare.salary;

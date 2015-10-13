@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSFatherTableViewController.h"
 
-@interface HSGrabViewController : UITableViewController
+@interface HSGrabViewController : HSFatherTableViewController
 
 @end

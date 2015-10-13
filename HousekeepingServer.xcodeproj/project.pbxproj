@@ -74,7 +74,6 @@
 		188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A81BAF90A900E4D570 /* AppDelegate.m */; };
 		188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */; };
 		189B50DB1BCA6A3200C516FE /* HSRefreshLab.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B50DA1BCA6A3200C516FE /* HSRefreshLab.m */; settings = {ASSET_TAGS = (); }; };
-		189B50DF1BCB4CA800C516FE /* HSServiceReceive.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B50DE1BCB4CA800C516FE /* HSServiceReceive.m */; settings = {ASSET_TAGS = (); }; };
 		18C1505C1BC764CB0033469A /* HSServant.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAA1BC65BA300CDB9E6 /* HSServant.m */; };
 		18C1505D1BC764E40033469A /* HSHeadPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B01BC545D500E67C26 /* HSHeadPictureView.m */; };
 		18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F851BBFF3B600BDE6FD /* HSAccount.m */; settings = {ASSET_TAGS = (); }; };
@@ -87,6 +86,10 @@
 		18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */ = {isa = PBXBuildFile; fileRef = 18E6A5AD1BC517EE00E67C26 /* Test2 */; settings = {ASSET_TAGS = (); }; };
 		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; settings = {ASSET_TAGS = (); }; };
 		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; settings = {ASSET_TAGS = (); }; };
+		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18EC05E71BCBD27900039AF0 /* HSServiceReceive.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05E61BCBD27900039AF0 /* HSServiceReceive.m */; settings = {ASSET_TAGS = (); }; };
+		18EC05F01BCBDBC500039AF0 /* HSReceiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05EE1BCBDBC500039AF0 /* HSReceiveCell.m */; settings = {ASSET_TAGS = (); }; };
+		18EC05F31BCBDC5700039AF0 /* HSReceiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC05F21BCBDC5700039AF0 /* HSReceiveCell.xib */; settings = {ASSET_TAGS = (); }; };
 		18F5AE521BB682F800BB5B49 /* HSChangPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5AE511BB682F800BB5B49 /* HSChangPwdViewController.m */; };
 		18F5AE551BB68E9500BB5B49 /* HSInfoTextFieldItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5AE541BB68E9500BB5B49 /* HSInfoTextFieldItem.m */; };
 		18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD9681BBC084E00EC98F5 /* HSRegistViewController.m */; };
@@ -236,8 +239,6 @@
 		188A20AE1BAF90A900E4D570 /* HSReceiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSReceiveViewController.m; sourceTree = "<group>"; };
 		189B50D91BCA6A3200C516FE /* HSRefreshLab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRefreshLab.h; sourceTree = "<group>"; };
 		189B50DA1BCA6A3200C516FE /* HSRefreshLab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRefreshLab.m; sourceTree = "<group>"; };
-		189B50DD1BCB4CA800C516FE /* HSServiceReceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceReceive.h; sourceTree = "<group>"; };
-		189B50DE1BCB4CA800C516FE /* HSServiceReceive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceReceive.m; sourceTree = "<group>"; };
 		18E60F841BBFF3B600BDE6FD /* HSAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAccount.h; sourceTree = "<group>"; };
 		18E60F851BBFF3B600BDE6FD /* HSAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSAccount.m; sourceTree = "<group>"; };
 		18E60F881BBFFA3900BDE6FD /* HSAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAccountTool.h; sourceTree = "<group>"; };
@@ -259,6 +260,13 @@
 		18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CircleCilp.m"; sourceTree = "<group>"; };
 		18E6A5B81BC6188B00E67C26 /* UIImage+SquareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SquareImage.h"; sourceTree = "<group>"; };
 		18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
+		18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSFatherTableViewController.h; sourceTree = "<group>"; };
+		18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSFatherTableViewController.m; sourceTree = "<group>"; };
+		18EC05E51BCBD27900039AF0 /* HSServiceReceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceReceive.h; sourceTree = "<group>"; };
+		18EC05E61BCBD27900039AF0 /* HSServiceReceive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceReceive.m; sourceTree = "<group>"; };
+		18EC05ED1BCBDBC500039AF0 /* HSReceiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSReceiveCell.h; sourceTree = "<group>"; };
+		18EC05EE1BCBDBC500039AF0 /* HSReceiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSReceiveCell.m; sourceTree = "<group>"; };
+		18EC05F21BCBDC5700039AF0 /* HSReceiveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSReceiveCell.xib; sourceTree = "<group>"; };
 		18F5AE501BB682F800BB5B49 /* HSChangPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSChangPwdViewController.h; sourceTree = "<group>"; };
 		18F5AE511BB682F800BB5B49 /* HSChangPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSChangPwdViewController.m; sourceTree = "<group>"; };
 		18F5AE531BB68E9500BB5B49 /* HSInfoTextFieldItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoTextFieldItem.h; sourceTree = "<group>"; };
@@ -579,8 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				187DC7E31BC7F5FE00FF8AAF /* Address */,
-				189B50DC1BCB4C8500C516FE /* Receive */,
-				187DC7EC1BC7F5FE00FF8AAF /* Declare */,
+				187DC7EC1BC7F5FE00FF8AAF /* ServiceDeclare */,
 				187DC7EF1BC7F5FE00FF8AAF /* Service */,
 			);
 			path = Model;
@@ -601,12 +608,13 @@
 			path = Address;
 			sourceTree = "<group>";
 		};
-		187DC7EC1BC7F5FE00FF8AAF /* Declare */ = {
+		187DC7EC1BC7F5FE00FF8AAF /* ServiceDeclare */ = {
 			isa = PBXGroup;
 			children = (
 				187DC7ED1BC7F5FE00FF8AAF /* HSServiceDeclare.h */,
 				187DC7EE1BC7F5FE00FF8AAF /* HSServiceDeclare.m */,
 			);
+			name = ServiceDeclare;
 			path = Declare;
 			sourceTree = "<group>";
 		};
@@ -711,6 +719,8 @@
 				188A20911BAF90A900E4D570 /* HSGrabViewController.m */,
 				187DC7C31BC7BAE900FF8AAF /* HSSubServiceViewController.h */,
 				187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */,
+				18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */,
+				18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -844,6 +854,7 @@
 		188A20AF1BAF90A900E4D570 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18EC05E41BCBD27900039AF0 /* ServiceReceive */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -851,6 +862,9 @@
 		188A20B01BAF90A900E4D570 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18EC05ED1BCBDBC500039AF0 /* HSReceiveCell.h */,
+				18EC05EE1BCBDBC500039AF0 /* HSReceiveCell.m */,
+				18EC05F21BCBDC5700039AF0 /* HSReceiveCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -863,15 +877,6 @@
 				187631121BB56E150037F124 /* View */,
 			);
 			path = ServiceList;
-			sourceTree = "<group>";
-		};
-		189B50DC1BCB4C8500C516FE /* Receive */ = {
-			isa = PBXGroup;
-			children = (
-				189B50DD1BCB4CA800C516FE /* HSServiceReceive.h */,
-				189B50DE1BCB4CA800C516FE /* HSServiceReceive.m */,
-			);
-			path = Receive;
 			sourceTree = "<group>";
 		};
 		18C3C8861BB1A17800C858AB /* View */ = {
@@ -921,6 +926,16 @@
 				18E60F9A1BC102F900BDE6FD /* XBConst.m */,
 			);
 			path = XBConst;
+			sourceTree = "<group>";
+		};
+		18EC05E41BCBD27900039AF0 /* ServiceReceive */ = {
+			isa = PBXGroup;
+			children = (
+				18EC05E51BCBD27900039AF0 /* HSServiceReceive.h */,
+				18EC05E61BCBD27900039AF0 /* HSServiceReceive.m */,
+			);
+			name = ServiceReceive;
+			path = Receive;
 			sourceTree = "<group>";
 		};
 		18F5AE4F1BB682F800BB5B49 /* ChangePwd */ = {
@@ -1036,6 +1051,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */,
+				18EC05F31BCBDC5700039AF0 /* HSReceiveCell.xib in Resources */,
 				186DC5681BC8B520007887F9 /* HSDeclareCell.xib in Resources */,
 				187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */,
 				186DEA591BB02A02008C465F /* city.plist in Resources */,
@@ -1102,6 +1118,7 @@
 				187DC7F51BC7F5FE00FF8AAF /* HSCoveredCountry.m in Sources */,
 				184DFFB41BC6964100CDB9E6 /* HSCollectionViewCell.m in Sources */,
 				1876311A1BB56E150037F124 /* HSAllViewController.m in Sources */,
+				18EC05F01BCBDBC500039AF0 /* HSReceiveCell.m in Sources */,
 				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
 				187631201BB56E150037F124 /* XBTagTitleModel.m in Sources */,
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
@@ -1114,7 +1131,6 @@
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
 				1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */,
 				184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */,
-				189B50DF1BCB4CA800C516FE /* HSServiceReceive.m in Sources */,
 				1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */,
 				188A20BC1BAF90A900E4D570 /* HSReceiveViewController.m in Sources */,
 				18F5AE521BB682F800BB5B49 /* HSChangPwdViewController.m in Sources */,
@@ -1144,11 +1160,13 @@
 				1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */,
+				18EC05E71BCBD27900039AF0 /* HSServiceReceive.m in Sources */,
 				18E60F9E1BC10F9200BDE6FD /* HSFinalRegistViewController.m in Sources */,
 				187DC7F71BC7F5FE00FF8AAF /* HSRegion.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
 				184DFFB11BC68D7500CDB9E6 /* HSCollectionView.m in Sources */,
 				18E60F8A1BBFFA3900BDE6FD /* HSAccountTool.m in Sources */,
+				18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */,
 				187DC7FD1BC89B8900FF8AAF /* HSDeclareCell.m in Sources */,
 				1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */,
 				183398181BB968C5002EAC65 /* HSMineTool.m in Sources */,

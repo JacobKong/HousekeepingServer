@@ -10,6 +10,10 @@
 #import <objc/runtime.h>
 
 @implementation HSServant
++ (NSDictionary *)replacedKeyFromPropertyName{
+    return @{@"ID":@"id"};
+}
+
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dict];
@@ -21,6 +25,7 @@
     return [[self alloc] initWithDict:dict];
 }
 
+#pragma mark - 归档解党
 /**
  *  解档
  */
@@ -41,29 +46,6 @@
             [self setValue:value forKey:strName];
         }
         free(ivar);
-//        _servantID = [coder decodeObjectForKey:@"servantID"];
-//        _idCardNo = [coder decodeObjectForKey:@"idCardNo"];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
-//        = [coder decodeObjectForKey:@""];
     }
     return self;
 }
@@ -84,4 +66,23 @@
     }
     free(ivar);
 }
+
+#pragma mark - Singleton Methods
++ (id)sharedServant{
+    return [[self alloc]init];
+}
+
+/**
+ *  重写allocWithZone方法，用dispatch_once方法来实例化一个变量
+ */
++ (id)allocWithZone:(struct _NSZone *)zone{
+    static HSServant *sharedServant;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedServant = [super allocWithZone:zone];
+    });
+    return sharedServant;
+}
+
+
 @end

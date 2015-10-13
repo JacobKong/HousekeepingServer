@@ -11,6 +11,7 @@
 #import "HSServiceListViewController.h"
 #import "HSLoginViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "HSHTTPRequestOperationManager.h"
 @interface AppDelegate ()
 
 @property (strong,nonatomic) CLLocationManager * locationManager;
