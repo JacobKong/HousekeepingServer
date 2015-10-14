@@ -68,7 +68,8 @@
     // 服务时间
     self.serviceTimeLab.text = self.serviceDeclare.serviceTime;
     // 薪资
-    self.salaryLab.text = self.serviceDeclare.salary;
+    NSString *salaryStr = [NSString stringWithFormat:@"%@元", self.serviceDeclare.salary];
+    self.salaryLab.text = salaryStr;
     // 电话号码
     self.phoneNoLab.text = self.serviceDeclare.phoneNo;
     // 详细地址

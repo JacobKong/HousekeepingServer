@@ -9,6 +9,12 @@
 #import "HSUnpayedViewController.h"
 #import "XBConst.h"
 
+@interface HSUnpayedViewController (){
+    MBProgressHUD *hud;
+}
+
+@end
+
 @implementation HSUnpayedViewController
 - (void)setXBParam:(NSString *)XBParam
 {
@@ -22,8 +28,14 @@
 }
 
 - (void)viewDidLoad{
+    self.tableView.rowHeight = 220;
+    self.orderStatus = @"待付款";
+    self.refreshLabText = @"目前尚无待付款的订单，请刷新重试";
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor orangeColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 一进入该界面就开始刷新
+}
 @end

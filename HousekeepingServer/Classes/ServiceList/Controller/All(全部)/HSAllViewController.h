@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSOrderBaseViewController.h"
 
-@interface HSAllViewController : UITableViewController
+@interface HSAllViewController : HSOrderBaseViewController
 //XBScrollPageController 传参
 @property (nonatomic,copy) NSString *XBParam;
 

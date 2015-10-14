@@ -7,7 +7,12 @@
 //
 
 #import "HSAllViewController.h"
-#import "XBConst.h"
+
+
+@interface HSAllViewController (){
+    MBProgressHUD *hud;
+}
+@end
 
 @implementation HSAllViewController
 - (void)setXBParam:(NSString *)XBParam
@@ -22,7 +27,22 @@
 }
 
 - (void)viewDidLoad{
+    self.tableView.rowHeight = 220;
+    self.refreshLabText = @"您没有任何订单，请刷新重试";
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 一进入该界面就开始刷新
+}
+
+//#pragma mark - UITableViewDelegate
+//- (void)tableView:(UITableView *)tableView
+//didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UIViewController *vc = [[UIViewController alloc] init];
+//    vc.view.backgroundColor = [UIColor blueColor];
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
+
 @end

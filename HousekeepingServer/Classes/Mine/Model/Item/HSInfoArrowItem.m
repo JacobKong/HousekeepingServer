@@ -26,5 +26,11 @@
     return item;
 }
 
++ (instancetype)itemWithAttrTitle:(NSAttributedString *)title destVcClass:(__unsafe_unretained Class) destVcClass{
+    HSInfoArrowItem *item = [[self alloc] init];
+    item.attrTitle = title;
+    item.destVcClass = destVcClass;
+    return item;
+}
 
 @end

@@ -182,8 +182,9 @@
             hud.labelText = @"登录成功";
             hud.customView = MBProgressHUDSuccessView;
             [hud hide:YES afterDelay:1.0];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                hud.labelText = @"正在存储用户信息";
+            hud.completionBlock = ^{
+                MBProgressHUD *hud1 = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud1.labelText = @"正在存储用户信息";
                 // 根据servantID找出当前登录用户的信息
                 NSString *servantInfoURLStr = [NSString stringWithFormat:@"%@/MobileServantInfoAction?operation=_queryByServantID",
                                                kHSBaseURL];
@@ -196,30 +197,30 @@
                         weakSelf.servant = [HSServant objectWithKeyValues:kDataResponse];
                         // 存储模型
                         [HSServantTool saveServant:weakSelf.servant];
-                        hud.mode = MBProgressHUDModeCustomView;
-                        hud.labelText = @"存储成功";
-                        hud.customView = MBProgressHUDSuccessView;
-                        [hud hide:YES afterDelay:1.0];
-                        hud.completionBlock = ^{
+                        hud1.mode = MBProgressHUDModeCustomView;
+                        hud1.labelText = @"存储成功";
+                        hud1.customView = MBProgressHUDSuccessView;
+                        [hud1 hide:YES afterDelay:1.0];
+                        hud1.completionBlock = ^{
                             [weakSelf dismissViewControllerAnimated:YES completion:nil];
                         };
                     }else{
-                        hud.mode = MBProgressHUDModeCustomView;
-                        hud.labelText = @"存储失败，请重新登陆";
-                        hud.customView = MBProgressHUDErrorView;
-                        [hud hide:YES afterDelay:1.0];
+                        hud1.mode = MBProgressHUDModeCustomView;
+                        hud1.labelText = @"存储失败，请重新登陆";
+                        hud1.customView = MBProgressHUDErrorView;
+                        [hud1 hide:YES afterDelay:1.0];
                         
                         _servant = [[HSServant alloc]init];
                     }
                 } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-                    hud.mode = MBProgressHUDModeCustomView;
-                    hud.labelText = @"网络错误,请重新登录";
-                    hud.customView = MBProgressHUDErrorView;
-                    [hud hide:YES afterDelay:1.0];
+                    hud1.mode = MBProgressHUDModeCustomView;
+                    hud1.labelText = @"网络错误,请重新登录";
+                    hud1.customView = MBProgressHUDErrorView;
+                    [hud1 hide:YES afterDelay:1.0];
                     NSLog(@"%@", error);
                 }];
-
-            });
+                
+            };
         } else {
             hud.mode = MBProgressHUDModeCustomView;
             hud.labelText = @"用户名或密码错误";

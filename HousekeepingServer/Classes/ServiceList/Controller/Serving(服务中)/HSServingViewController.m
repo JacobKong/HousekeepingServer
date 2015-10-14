@@ -9,6 +9,12 @@
 #import "HSServingViewController.h"
 #import "XBConst.h"
 
+@interface HSServingViewController (){
+    MBProgressHUD *hud;
+}
+
+@end
+
 @implementation HSServingViewController
 - (void)setXBParam:(NSString *)XBParam
 {
@@ -22,8 +28,15 @@
 }
 
 - (void)viewDidLoad{
+    self.tableView.rowHeight = 220;
+    self.orderStatus = @"服务中";
+    self.refreshLabText = @"目前尚无服务完成的订单，请刷新重试";
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor yellowColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 一进入该界面就开始刷新
 }
 
 @end

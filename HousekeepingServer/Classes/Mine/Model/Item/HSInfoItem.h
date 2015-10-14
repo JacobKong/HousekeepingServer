@@ -33,6 +33,10 @@ typedef void (^HSInfoItemOption)();
  *  是否可交互
  */
 @property (assign, nonatomic, getter=isEnable)  BOOL enable;
+/**
+ *  是否隐藏divider
+ */
+@property (assign, nonatomic, getter = isDividerHidden)  BOOL dividerHidden;
 
 
 +(instancetype)itemWithIcon:(NSString *)icon title:(NSString *)title;

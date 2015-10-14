@@ -86,8 +86,15 @@
 		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; settings = {ASSET_TAGS = (); }; };
 		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; settings = {ASSET_TAGS = (); }; };
 		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC05FF1BCCB46A00039AF0 /* HServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HServiceOrder.m */; settings = {ASSET_TAGS = (); }; };
+		18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */; settings = {ASSET_TAGS = (); }; };
 		18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC06091BCD021600039AF0 /* HSOrderCell.xib */; settings = {ASSET_TAGS = (); }; };
+		18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC060F1BCD310400039AF0 /* HSOrderCell.m */; settings = {ASSET_TAGS = (); }; };
+		18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18EC06221BCEA92B00039AF0 /* HSOrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */; settings = {ASSET_TAGS = (); }; };
+		18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */; settings = {ASSET_TAGS = (); }; };
 		18F5AE521BB682F800BB5B49 /* HSChangPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5AE511BB682F800BB5B49 /* HSChangPwdViewController.m */; };
 		18F5AE551BB68E9500BB5B49 /* HSInfoTextFieldItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5AE541BB68E9500BB5B49 /* HSInfoTextFieldItem.m */; };
 		18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD9681BBC084E00EC98F5 /* HSRegistViewController.m */; };
@@ -258,10 +265,22 @@
 		18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
 		18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSFatherTableViewController.h; sourceTree = "<group>"; };
 		18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSFatherTableViewController.m; sourceTree = "<group>"; };
-		18EC05FD1BCCB46A00039AF0 /* HServiceOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HServiceOrder.h; sourceTree = "<group>"; };
-		18EC05FE1BCCB46A00039AF0 /* HServiceOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HServiceOrder.m; sourceTree = "<group>"; };
+		18EC05FD1BCCB46A00039AF0 /* HSServiceOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceOrder.h; sourceTree = "<group>"; };
+		18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceOrder.m; sourceTree = "<group>"; };
 		18EC06011BCCB87B00039AF0 /* HSReceiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSReceiveViewController.h; sourceTree = "<group>"; };
 		18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSReceiveViewController.m; sourceTree = "<group>"; };
+		18EC06091BCD021600039AF0 /* HSOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSOrderCell.xib; sourceTree = "<group>"; };
+		18EC060E1BCD310400039AF0 /* HSOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCell.h; sourceTree = "<group>"; };
+		18EC060F1BCD310400039AF0 /* HSOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCell.m; sourceTree = "<group>"; };
+		18EC06151BCE6ED100039AF0 /* HSOrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderDetailsViewController.h; sourceTree = "<group>"; };
+		18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderDetailsViewController.m; sourceTree = "<group>"; };
+		18EC061C1BCEA2AA00039AF0 /* HSOrderCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCommentViewController.h; sourceTree = "<group>"; };
+		18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCommentViewController.m; sourceTree = "<group>"; };
+		18EC061F1BCEA92B00039AF0 /* HSOrderCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCommentCell.h; sourceTree = "<group>"; };
+		18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCommentCell.m; sourceTree = "<group>"; };
+		18EC06261BCEA99200039AF0 /* HSOrderBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderBaseViewController.h; sourceTree = "<group>"; };
+		18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderBaseViewController.m; sourceTree = "<group>"; };
+		18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSOrderCommentCell.xib; sourceTree = "<group>"; };
 		18F5AE501BB682F800BB5B49 /* HSChangPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSChangPwdViewController.h; sourceTree = "<group>"; };
 		18F5AE511BB682F800BB5B49 /* HSChangPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSChangPwdViewController.m; sourceTree = "<group>"; };
 		18F5AE531BB68E9500BB5B49 /* HSInfoTextFieldItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoTextFieldItem.h; sourceTree = "<group>"; };
@@ -424,10 +443,13 @@
 		187630FE1BB56E140037F124 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18EC061B1BCEA29000039AF0 /* Comment */,
+				18EC06141BCE6EB700039AF0 /* Details */,
 				187630FF1BB56E150037F124 /* All(全部) */,
 				187631041BB56E150037F124 /* Served(服务完成) */,
 				187631071BB56E150037F124 /* Serving(服务中) */,
 				1876310A1BB56E150037F124 /* Unpayed(未付款) */,
+				18EC06251BCEA99200039AF0 /* Base */,
 				187631021BB56E150037F124 /* HSServiceListViewController.h */,
 				187631031BB56E150037F124 /* HSServiceListViewController.m */,
 				1876310D1BB56E150037F124 /* XBScrollPageController.h */,
@@ -477,8 +499,8 @@
 			children = (
 				187631101BB56E150037F124 /* XBTagTitleModel.h */,
 				187631111BB56E150037F124 /* XBTagTitleModel.m */,
-				18EC05FD1BCCB46A00039AF0 /* HServiceOrder.h */,
-				18EC05FE1BCCB46A00039AF0 /* HServiceOrder.m */,
+				18EC05FD1BCCB46A00039AF0 /* HSServiceOrder.h */,
+				18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -490,6 +512,12 @@
 				187631141BB56E150037F124 /* XBPageCell.m */,
 				187631151BB56E150037F124 /* XBTagTitleCell.h */,
 				187631161BB56E150037F124 /* XBTagTitleCell.m */,
+				18EC060E1BCD310400039AF0 /* HSOrderCell.h */,
+				18EC060F1BCD310400039AF0 /* HSOrderCell.m */,
+				18EC06091BCD021600039AF0 /* HSOrderCell.xib */,
+				18EC061F1BCEA92B00039AF0 /* HSOrderCommentCell.h */,
+				18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */,
+				18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -930,6 +958,33 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		18EC06141BCE6EB700039AF0 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				18EC06151BCE6ED100039AF0 /* HSOrderDetailsViewController.h */,
+				18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		18EC061B1BCEA29000039AF0 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				18EC061C1BCEA2AA00039AF0 /* HSOrderCommentViewController.h */,
+				18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		18EC06251BCEA99200039AF0 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				18EC06261BCEA99200039AF0 /* HSOrderBaseViewController.h */,
+				18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		18F5AE4F1BB682F800BB5B49 /* ChangePwd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1045,7 +1100,9 @@
 				18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */,
 				186DC5681BC8B520007887F9 /* HSDeclareCell.xib in Resources */,
 				187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */,
+				18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */,
 				186DEA591BB02A02008C465F /* city.plist in Resources */,
+				18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */,
 				188A20751BAF8FCD00E4D570 /* Images.xcassets in Resources */,
 				1821618C1BC4B27100EAA41A /* citydata.plist in Resources */,
 				18081BF41BC15E5A000011AE /* Test.rtf in Resources */,
@@ -1114,9 +1171,11 @@
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
 				187DC7FA1BC7F5FE00FF8AAF /* HSSubService.m in Sources */,
 				187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */,
+				18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */,
 				187DC7C21BC7A84B00FF8AAF /* HSRefreshButton.m in Sources */,
+				18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */,
 				18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */,
-				18EC05FF1BCCB46A00039AF0 /* HServiceOrder.m in Sources */,
+				18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */,
 				183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */,
 				1876314F1BB635720037F124 /* HSSettingViewController.m in Sources */,
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
@@ -1130,6 +1189,7 @@
 				1876311E1BB56E150037F124 /* HSUnpayedViewController.m in Sources */,
 				187DC7F81BC7F5FE00FF8AAF /* HSServiceDeclare.m in Sources */,
 				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
+				18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */,
 				187631221BB56E150037F124 /* XBTagTitleCell.m in Sources */,
 				187631491BB635450037F124 /* HSBasicInfoViewController.m in Sources */,
 				187631211BB56E150037F124 /* XBPageCell.m in Sources */,
@@ -1138,9 +1198,11 @@
 				187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */,
 				18F5AE551BB68E9500BB5B49 /* HSInfoTextFieldItem.m in Sources */,
 				186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */,
+				18EC06221BCEA92B00039AF0 /* HSOrderCommentCell.m in Sources */,
 				1876311C1BB56E150037F124 /* HSServedViewController.m in Sources */,
 				189B50DB1BCA6A3200C516FE /* HSRefreshLab.m in Sources */,
 				1810BF7A1BB6DC8300D33FA0 /* HSInfoTableViewCell.m in Sources */,
+				18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
 				187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */,
 				18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */,

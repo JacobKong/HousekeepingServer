@@ -686,7 +686,7 @@
     attrDict[@"contactPhone"] = serviceDeclare.phoneNo;
     attrDict[@"servicePrice"] = serviceDeclare.salary;
     attrDict[@"serviceType"] = serviceDeclare.serviceType;
-    attrDict[@"serviceContent"] = @"";
+    attrDict[@"serviceContent"] = serviceDeclare.serviceType;
     attrDict[@"remarks"] = serviceDeclare.remarks;
     
     NSString *urlStr =

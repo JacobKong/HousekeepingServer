@@ -17,6 +17,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         return [super initWithStyle:UITableViewStyleGrouped];
     }
     return self;
