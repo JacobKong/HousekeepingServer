@@ -87,31 +87,6 @@
     HSOrderDetailsViewController *orderDetailsVc = [[HSOrderDetailsViewController alloc]init];
     orderDetailsVc.serviceOrder = self.serviceOrder[indexPath.section];
     [self.navigationController pushViewController:orderDetailsVc animated:YES];
-    
-//    AFHTTPRequestOperationManager *manager =
-//    (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-//    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-//    NSString *urlStr = urlStr = [NSString
-//                                 stringWithFormat:@"%@/MobileServiceOrderAction?operation=_queryDetail",
-//                                 kHSBaseURL];
-//    HSServiceOrder *serviceOrder = self.serviceOrder[indexPath.section];
-//    attrDict[@"orderNo"] = serviceOrder.orderNo;
-//    [manager POST:urlStr
-//       parameters:attrDict
-//          success:^(AFHTTPRequestOperation *_Nonnull operation,
-//                    id _Nonnull responseObject) {
-//              [MBProgressHUD hideHUDForView:self.view animated:YES];
-//              if ([kServiceResponse isEqualToString:@"Success"]) {
-//                  self.serviceOrder =
-//                  [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
-//                  [self.tableView reloadData];
-//              } else {
-//                }
-//          }
-//          failure:^(AFHTTPRequestOperation *_Nonnull operation,
-//                    NSError *_Nonnull error) {
-//              XBLog(@"failure:%@", error);
-//        }];
 }
 
 /**

@@ -50,7 +50,12 @@
 
     // 添加第三组
     [self setupGroup2];
-    
+
+    // 添加第四组
+    [self setupGroup3];
+
+    // 标题
+    self.title = @"订单详情";
     self.clearsSelectionOnViewWillAppear = NO;
 
     [super viewDidLoad];
@@ -216,16 +221,26 @@
     titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
     titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
     titleAttr[NSForegroundColorAttributeName] =
-    XBMakeColorWithRGB(28, 21, 80, 1);
+    XBMakeColorWithRGB(234, 103, 7, 1);
     
     NSAttributedString *checkCommentStr = [[NSAttributedString alloc]initWithString:@"查看该客户评论对您的服务评价" attributes:titleAttr];
-
-    HSInfoArrowItem *checkComment = [HSInfoArrowItem itemWithAttrTitle:checkCommentStr destVcClass:[HSOrderCommentViewController class]];
+    
+    HSInfoArrowItem *checkComment = [HSInfoArrowItem itemWithAttrTitle:checkCommentStr];
     
     HSInfoGroup *g3 = [[HSInfoGroup alloc] init];
     g3.items = @[checkComment];
     g3.header = @"查看评价";
     
     [self.data addObject:g3];
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if (indexPath.section == 3 && indexPath.row == 0) {
+        HSOrderCommentViewController *orderCommentVc = [[HSOrderCommentViewController alloc]init];
+        orderCommentVc.servantID = self.serviceOrder.servantID;
+        [self.navigationController pushViewController:orderCommentVc animated:YES];
+    }
 }
 @end

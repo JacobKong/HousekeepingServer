@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "HSServiceOrder.h"
 
+@protocol HSOrderCommentViewControllerDelegate <NSObject>
+
+
+
+@end
 @interface HSOrderCommentViewController : UITableViewController
 @property (strong, nonatomic) HSServiceOrder *serviceOrder;
+@property (strong, nonatomic) NSString *servantID;
 @end

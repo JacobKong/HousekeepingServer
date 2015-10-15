@@ -41,5 +41,6 @@ typedef void (^HSInfoItemOption)();
 
 +(instancetype)itemWithIcon:(NSString *)icon title:(NSString *)title;
 +(instancetype)itemWithTitle:(NSString *)title;
++(instancetype)itemWithAttrTitle:(NSAttributedString *)title;
 
 @end

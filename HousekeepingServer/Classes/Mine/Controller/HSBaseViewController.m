@@ -96,11 +96,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     } else if ([item isKindOfClass:[HSInfoArrowItem class]]) {
         HSInfoArrowItem *arrowitem = (HSInfoArrowItem *)item;
         // 如果没有需要跳转的控制器
-        if (arrowitem.destVcClass == nil) return;
-        
+        if (arrowitem.destVcClass){
         UIViewController *destVC = [[arrowitem.destVcClass alloc] init];
         destVC.title = item.title;
         [self.navigationController pushViewController:destVC animated:YES];
+        }
     }
     return;
 }
@@ -117,18 +117,6 @@ titleForFooterInSection:(NSInteger)section {
     return group.footer;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(20, 8, XBScreenWidth, 20);
-    myLabel.font = [UIFont boldSystemFontOfSize:15];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    
-    UIView *headerView = [[UIView alloc] init];
-    [headerView addSubview:myLabel];
-    
-    return headerView;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;

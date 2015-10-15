@@ -8,11 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="aT7-Lf-wZ6" customClass="HSOrderCommentCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JUA-Xg-F1P">
-                    <rect key="frame" x="252" y="182" width="60" height="30"/>
+                    <rect key="frame" x="252" y="172" width="60" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -24,8 +24,8 @@
                     </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="工作认真、努力，好评！" textAlignment="natural" id="zLz-Ir-tlq">
-                    <rect key="frame" x="0.0" y="39" width="320" height="135"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="0.0" y="39" width="320" height="100"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <color key="backgroundColor" red="1" green="0.98039215686274506" blue="0.74509803921568629" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                     <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
@@ -37,17 +37,39 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.91764705882352937" green="0.40392156862745099" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评价时间：2015-10-15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5so-gZ-oB3">
+                    <rect key="frame" x="114" y="147" width="200" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Gd-5m-CRH">
+                    <rect key="frame" x="8" y="172" width="60" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="重新加载" backgroundImage="common_button_blue">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="reloadComment:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="PBH-67-whl"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="commentDateLab" destination="5so-gZ-oB3" id="5rz-On-elH"/>
                 <outlet property="commentTextView" destination="zLz-Ir-tlq" id="c4I-ut-QfG"/>
-                <outlet property="leftBtn" destination="JUA-Xg-F1P" id="aee-Uz-7xB"/>
+                <outlet property="leftBtn" destination="JUA-Xg-F1P" id="qge-tR-1Tf"/>
+                <outlet property="rightBtn" destination="1Gd-5m-CRH" id="7AD-sh-M2v"/>
                 <outlet property="titleLab" destination="6iP-9U-DVx" id="PEw-ka-LwC"/>
             </connections>
             <point key="canvasLocation" x="498" y="468"/>

@@ -21,6 +21,11 @@
     return item;
 }
 
++(instancetype)itemWithAttrTitle:(NSAttributedString *)title{
+    HSInfoItem *item = [[HSInfoItem alloc]init];
+    item.attrTitle = title;
+    return item;
+}
 - (void)setEnable:(BOOL)enable{
     _enable = enable;
 }

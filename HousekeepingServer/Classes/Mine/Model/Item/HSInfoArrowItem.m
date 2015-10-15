@@ -33,4 +33,10 @@
     return item;
 }
 
++(instancetype)itemWithAttrTitle:(NSAttributedString *)title{
+    HSInfoArrowItem *item = [[HSInfoArrowItem alloc]init];
+    item.attrTitle = title;
+    return item;
+}
+
 @end

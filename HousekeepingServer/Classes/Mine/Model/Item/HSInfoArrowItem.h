@@ -16,4 +16,5 @@
 +(instancetype)itemWithTitle:(NSString *)title destVcClass:(Class) destVcClass;
 +(instancetype)itemWithIcon:(NSString *)icon title:(NSString *)title destVcClass:(Class) destVcClass;
 + (instancetype)itemWithAttrTitle:(NSAttributedString *)title destVcClass:(Class) destVcClass;
++(instancetype)itemWithAttrTitle:(NSAttributedString *)title;
 @end
