@@ -12,6 +12,7 @@
 #import "HSLoginViewController.h"
 #import "HSRegistViewController.h"
 #import "HSFinalRegistViewController.h"
+#import "HSMineInfoViewController.h"
 @interface HSInfoTextFieldItem : HSInfoValueItem
 /**
  *  可设置颜色、字体的placeholder
@@ -45,6 +46,10 @@
  *  代理控制器4
  */
 @property (weak, nonatomic) HSFinalRegistViewController *finalRegistDelegateVc;
+/**
+ *  代理控制器5
+ */
+@property (weak, nonatomic) HSMineInfoViewController *mineInfoDelegateVc;
 
 /**
  *  keyboard的inputView

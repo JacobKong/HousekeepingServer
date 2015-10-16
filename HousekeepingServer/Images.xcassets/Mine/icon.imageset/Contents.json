@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "chris-flower-600.png"
+      "filename" : "icon.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

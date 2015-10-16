@@ -163,7 +163,7 @@
                 NSError *_Nonnull error) {
         XBLog(@"failure:%@", error);
         // 创建hud
-        hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeCustomView;
         hud.labelText = @"网络错误";
         hud.customView = MBProgressHUDErrorView;
@@ -218,7 +218,7 @@
 
     NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
     attrDict[@"orderNo"] = serviceOrder.orderNo;
-    NSLog(@"%@", attrDict[@"id"]);
+    XBLog(@"%@", attrDict[@"id"]);
     NSString *urlStr = [NSString
         stringWithFormat:@"%@/MobileServiceOrderAction?operation=_vetifyCash",
                          kHSBaseURL];
@@ -242,7 +242,7 @@
             hud.labelText = @"确认失败，请重新确认";
             hud.customView = MBProgressHUDErrorView;
             [hud hide:YES afterDelay:1.0];
-            NSLog(@"failed");
+            XBLog(@"failed");
           }
         }
         failure:^(AFHTTPRequestOperation *_Nonnull operation,

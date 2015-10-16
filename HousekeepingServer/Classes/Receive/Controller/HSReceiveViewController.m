@@ -28,6 +28,12 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 一进入该界面就开始刷新
+    [self setupRefreshView];
+}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -58,7 +64,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
               [MBProgressHUD hideHUDForView:self.view animated:YES];
               if ([kServiceResponse isEqualToString:@"Success"]) {
                   self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-                  NSLog(@"%@", self.serviceDeclare);
+                  XBLog(@"%@", self.serviceDeclare);
                   [self.tableView reloadData];
                   if (self.serviceDeclare.count == 0) {
                       HSRefreshLab *refreshLab = [HSRefreshLab
@@ -165,7 +171,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                   hud.labelText = @"接单失败";
                   hud.customView = MBProgressHUDErrorView;
                   [hud hide:YES afterDelay:1.0];
-                  NSLog(@"failed");
+                  XBLog(@"failed");
               }
           }
           failure:^(AFHTTPRequestOperation *_Nonnull operation,
@@ -223,7 +229,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                       hud.labelText = @"拒单失败";
                       hud.customView = MBProgressHUDErrorView;
                       [hud hide:YES afterDelay:1.0];
-                      NSLog(@"failed");
+                      XBLog(@"failed");
                   }
               }
               failure:^(AFHTTPRequestOperation *_Nonnull operation,

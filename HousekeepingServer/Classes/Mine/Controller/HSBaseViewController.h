@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "HSMineKeys.h"
+#import "XBConst.h"
+
 
 @class HSInfoTableViewCell;
 @interface HSBaseViewController : UITableViewController

@@ -109,6 +109,7 @@
 
   // Do any additional setup after loading the view.
 }
+
 /**
  *  加载region
  */
@@ -711,7 +712,7 @@
                   hud.labelText = @"抢单失败";
                   hud.customView = MBProgressHUDErrorView;
                   [hud hide:YES afterDelay:1.0];
-                  NSLog(@"failed");
+                  XBLog(@"failed");
               }
           }
           failure:^(AFHTTPRequestOperation *_Nonnull operation,

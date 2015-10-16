@@ -149,6 +149,8 @@
       _textField.delegate = textFieldItem.registDelegateVc;
     } else if (textFieldItem.finalRegistDelegateVc) {
       _textField.delegate = textFieldItem.finalRegistDelegateVc;
+    }else if (textFieldItem.mineInfoDelegateVc){
+        _textField.delegate = textFieldItem.mineInfoDelegateVc;
     }
 
   } else if ([item isKindOfClass:[HSInfoLableItem class]]) {

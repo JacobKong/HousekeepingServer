@@ -17,6 +17,7 @@
 #import "HSLoginViewController.h"
 #import "HSAccountTool.h"
 #import "HSAccount.h"
+#import "HSMineInfoViewController.h"
 
 
 @interface HSTabBarViewController ()<HSTabBarDelegate>
@@ -30,21 +31,22 @@
     // 添加tabbar
     [self setupTabbar];
 
-    // 添加子控制器
-    [self setupChildViewController];
-    
     // 判断是否加载登录界面
     HSAccount *account = [HSAccountTool account];
     // 之前没有登录过
     if (!account) {
         if (!_loginVc) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
                 [self presentViewController:loginVc animated:YES completion:nil];
                 _loginVc = loginVc;
             });
         }
     }
+    
+    // 添加子控制器
+    [self setupChildViewController];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -71,8 +73,8 @@
     [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
 
     
-    HSMineViewController *mineVc = [[HSMineViewController alloc]init];
-    [self addTabBarItemWithViewController:mineVc title:@"个人中心" image:@"tabbar_profile_os7" selectedImage:@"tabbar_profile_selected_os7"];
+    HSMineInfoViewController *mineInfoVc = [[HSMineInfoViewController alloc]init];
+    [self addTabBarItemWithViewController:mineInfoVc title:@"个人中心" image:@"tabbar_profile_os7" selectedImage:@"tabbar_profile_selected_os7"];
     
 }
 

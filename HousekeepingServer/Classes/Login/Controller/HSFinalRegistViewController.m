@@ -35,10 +35,6 @@
     HSPickerViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
     UITextFieldDelegate, CLLocationManagerDelegate, HSHeadPictureViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
   HSOrangeButton *_registBtn;
-  // 第一组
-  //  HSInfoTextFieldItem *_servantProvince;
-  //  HSInfoTextFieldItem *_servantCity;
-  //  HSInfoLableItem *_servantCounty;
   HSInfoLableItem *_location;
   HSInfoTextFieldItem *_contactAddress;
   // 第二组
@@ -327,7 +323,6 @@
     [self pickerView:self.servantPickerView didSelectRow:0 inComponent:2];
 
   };
-
   _location = location;
 
   HSInfoTextFieldItem *contactAddress =
@@ -473,19 +468,13 @@
   attrDict[@"holidayInMonth"] = _holidayInMonth.text;
   attrDict[@"serviceItems"] = _serviceItems.text;
   attrDict[@"careerType"] = @"无";
-
-    // 创建模型
-    HSServant *servant = [HSServant objectWithKeyValues:attrDict];
-    NSLog(@"hs%@", servant.servantID);
-    // 存档
-    [HSServantTool saveServant:servant];
     
   NSString *urlStr = [NSString
       stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_register",
                        kHSBaseURL];
     
     [manager POST:urlStr parameters:attrDict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        NSLog(@"%@", _iconImageFilePath);
+        XBLog(@"%@", _iconImageFilePath);
         [formData appendPartWithFileURL:_iconImageFilePath name:@"headPicture" error:nil];
     } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSString *serverResponse = responseObject[@"serverResponse"];
@@ -495,6 +484,11 @@
             dispatch_after(
                            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
+                               // 创建模型
+                               HSServant *servant = [HSServant objectWithKeyValues:attrDict];
+                               // 存档
+                               [HSServantTool saveServant:servant];
+                               
                                [MBProgressHUD hideHUD];
                                [self dismissViewControllerAnimated:YES completion:nil];
                            });
@@ -508,7 +502,7 @@
                                [self dismissViewControllerAnimated:YES completion:nil];
                            });
         }
-        NSLog(@"success%@", responseObject);
+        XBLog(@"success%@", responseObject);
 
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         [hud hide:YES];
@@ -520,7 +514,7 @@
                            [self dismissViewControllerAnimated:YES completion:nil];
                        });
         
-        NSLog(@"error%@", error);
+        XBLog(@"error%@", error);
     }];
 }
 
@@ -748,7 +742,7 @@ rowHeightForComponent:(NSInteger)component {
             case 0:
                 // 相册  或者 UIImagePickerControllerSourceTypePhotoLibrary
                 sourceType =  UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                NSLog(@"选择相册图片");
+                XBLog(@"选择相册图片");
                 break;
                 //相机
             case 1:
@@ -801,7 +795,7 @@ rowHeightForComponent:(NSInteger)component {
     // 获取沙盒目录
     _fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
     // 将图片写入文件
-    NSLog(@"图片保存path:%@",_fullPath);
+    XBLog(@"图片保存path:%@",_fullPath);
     [imageData writeToFile:_fullPath atomically:NO];
     NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];
     

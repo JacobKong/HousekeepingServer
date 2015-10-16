@@ -43,8 +43,6 @@
  */
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    // 一进入该界面就开始刷新
-    [self setupRefreshView];
     self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
 }
 

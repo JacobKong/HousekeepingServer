@@ -59,7 +59,7 @@
 @property (copy, nonatomic) NSString *emailAddress;
 @property (copy, nonatomic) NSString *headPicture;
 @property (assign, nonatomic)  int holidayInMonth;
-@property (assign, nonatomic)  int id;
+@property (assign, nonatomic)  int ID;
 @property (copy, nonatomic) NSString *idCardNo;
 @property (assign, nonatomic, getter=isMarried) BOOL isMarried;
 @property (assign, nonatomic, getter=isStayHome) BOOL isStayHome;
