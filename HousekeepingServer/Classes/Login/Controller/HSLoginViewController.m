@@ -243,14 +243,6 @@
     }];
 }
 
-- (void)saveHeadPictureWithServant:(HSServant *)servant{
-    NSString *headPicture = servant.headPicture;
-    NSString *pictureURLStr = [NSString stringWithFormat:@"%@/%@", kHSBaseURL, headPicture];
-    NSURL *pictureURL = [NSURL URLWithString:pictureURLStr];
-    
-    
-    
-}
 - (void)registButtonDidClicked {
   HSRegistViewController *registVc = [[HSRegistViewController alloc] init];
   HSNavigationViewController *nav = [[HSNavigationViewController alloc] init];

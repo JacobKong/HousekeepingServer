@@ -66,7 +66,7 @@
     [self.commentRefreshButton removeFromSuperview];
     // 访问服务器
     __weak __typeof(self) weakSelf = self;
-    hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.userInteractionEnabled = YES;
     hud.labelText = @"正在加载...";
     AFHTTPRequestOperationManager *manager =

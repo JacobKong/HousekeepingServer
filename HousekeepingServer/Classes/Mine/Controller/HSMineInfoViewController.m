@@ -402,7 +402,6 @@
   NSString *headPicture = servant.headPicture;
   NSString *pictureURLStr =
       [NSString stringWithFormat:@"%@/%@", kHSBaseURL, headPicture];
-  XBLog(@"%@", pictureURLStr);
   NSURL *pictureURL = [NSURL URLWithString:pictureURLStr];
   NSURLRequest *request =
       [NSURLRequest requestWithURL:pictureURL

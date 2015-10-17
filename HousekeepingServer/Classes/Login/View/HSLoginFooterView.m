@@ -16,7 +16,7 @@
 @end
 
 @implementation HSLoginFooterView
-- (UIButton *)loginBtn{
+- (HSOrangeButton *)loginBtn{
     if (!_loginBtn) {
         _loginBtn = [HSOrangeButton orangeButtonWithTitle:@"登录"];
         _loginBtn.enabled = NO;

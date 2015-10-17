@@ -8,26 +8,27 @@
 
 #import "HSFatherTableViewController.h"
 @interface HSFatherTableViewController ()
-
 @end
 
 @implementation HSFatherTableViewController
 
-#pragma mark - tableView样式
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        return [super initWithStyle:UITableViewStyleGrouped];
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
     }
-    return self;
+    return _tableView;
 }
-
-- (id)initWithStyle:(UITableViewStyle)style {
-    return [super initWithStyle:UITableViewStyleGrouped];
-}
+#pragma mark - tableView样式
 
 - (void)viewDidLoad {
+    UIView *containerView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.view = containerView;
+    self.containerView = containerView;
+    [self.containerView addSubview:self.tableView];
+//    [self.view addSubview:self.tableView];
     [super viewDidLoad];
 }
 
@@ -42,8 +43,8 @@
  *  view即将显示时调用
  */
 - (void)viewWillAppear:(BOOL)animated {
+//    [self.tableView.header beginRefreshing];
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

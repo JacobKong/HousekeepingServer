@@ -138,8 +138,8 @@
                 id _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
-          self.serviceOrder =
-              [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
+            NSArray *orderArray = [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
+            self.serviceOrder = [[orderArray reverseObjectEnumerator]allObjects];
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
         } else {
@@ -207,7 +207,7 @@
     clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (buttonIndex == 1) {
     // 创建hud
-    hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在确认...";
 
     HSServiceOrder *serviceOrder =

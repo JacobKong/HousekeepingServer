@@ -7,7 +7,6 @@
 //
 
 #import "HSInfoItem.h"
-#import "HSBasicInfoViewController.h"
 #import "HSInfoValueItem.h"
 #import "HSLoginViewController.h"
 #import "HSRegistViewController.h"
@@ -33,7 +32,7 @@
 /**
  *  代理控制器1
  */
-@property (weak, nonatomic) HSBasicInfoViewController *basicDelegateVc;
+//@property (weak, nonatomic) HSBasicInfoViewController *basicDelegateVc;
 /**
  *  代理控制器2
  */

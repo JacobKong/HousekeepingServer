@@ -8,7 +8,6 @@
 
 #import "HSTabBarViewController.h"
 #import "HSGrabViewController.h"
-#import "HSMineViewController.h"
 #import "HSReceiveViewController.h"
 #import "HSServiceListViewController.h"
 #import "HSTabBar.h"

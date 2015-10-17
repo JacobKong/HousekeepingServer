@@ -63,8 +63,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     id _Nonnull responseObject) {
               [MBProgressHUD hideHUDForView:self.view animated:YES];
               if ([kServiceResponse isEqualToString:@"Success"]) {
-                  self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-                  XBLog(@"%@", self.serviceDeclare);
+                  NSArray *declareArray = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+                  self.serviceDeclare = [[declareArray reverseObjectEnumerator]allObjects];
                   [self.tableView reloadData];
                   if (self.serviceDeclare.count == 0) {
                       HSRefreshLab *refreshLab = [HSRefreshLab
@@ -79,6 +79,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                       self.refreshLab = refreshLab;
                       [self.view addSubview:refreshLab];
                   }
+                  [self.refreshLab removeFromSuperview];
                   [self.tableView.header endRefreshing];
               } else {
                   // 取消刷新
@@ -102,7 +103,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     NSError *_Nonnull error) {
               XBLog(@"failure:%@", error);
               // 创建hud
-              hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+              hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
               hud.mode = MBProgressHUDModeCustomView;
               hud.labelText = @"网络错误";
               hud.customView = MBProgressHUDErrorView;
@@ -128,7 +129,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)declareCell:(HSDeclareCell *)declareCell rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{
     [super declareCell:declareCell leftButtonDidClickedAtIndexPath:indexPath];
     // 创建hud
-    hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在接单...";
     
     HSServiceDeclare *serviceDeclare = self.serviceDeclare[indexPath.section];
@@ -196,7 +197,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         // 创建hud
-        hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.labelText = @"正在拒单...";
         
         HSServiceDeclare *serviceDeclare = self.serviceDeclare[self.selectedIndexPath.section];

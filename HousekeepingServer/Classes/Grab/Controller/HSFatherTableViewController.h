@@ -15,12 +15,15 @@
 #import "HSDeclareCell.h"
 #import "HSServiceDeclare.h"
 
-@interface HSFatherTableViewController : UITableViewController <HSDeclareCellDelegate>
+@interface HSFatherTableViewController : UIViewController <HSDeclareCellDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) HSServant *servant;
 @property(strong, nonatomic) HSRefreshLab *refreshLab; // 刷新失败后现实的label
 @property(strong, nonatomic) NSArray *serviceDeclare;
 @property (assign, nonatomic, getter=isLeftBtnHidden)  BOOL leftBtnHiddn;
 @property (assign, nonatomic, getter=isRightBtnHidden)  BOOL rightBtnHidden;
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (weak, nonatomic) UIView *containerView;
 
 @property (copy, nonatomic) NSString *leftBtnTitle;
 @property (copy, nonatomic) NSString *rightBtnTitle;

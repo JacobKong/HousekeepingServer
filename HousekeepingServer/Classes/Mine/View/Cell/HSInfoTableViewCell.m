@@ -141,16 +141,14 @@
       _textField.enabled = NO;
     }
     // 设置delegate控制器
-    if (textFieldItem.basicDelegateVc) {
-      _textField.delegate = textFieldItem.basicDelegateVc;
-    } else if (textFieldItem.loginDelegateVc) {
+    if (textFieldItem.loginDelegateVc) {
       _textField.delegate = textFieldItem.loginDelegateVc;
     } else if (textFieldItem.registDelegateVc) {
       _textField.delegate = textFieldItem.registDelegateVc;
     } else if (textFieldItem.finalRegistDelegateVc) {
       _textField.delegate = textFieldItem.finalRegistDelegateVc;
-    }else if (textFieldItem.mineInfoDelegateVc){
-        _textField.delegate = textFieldItem.mineInfoDelegateVc;
+    } else if (textFieldItem.mineInfoDelegateVc) {
+      _textField.delegate = textFieldItem.mineInfoDelegateVc;
     }
 
   } else if ([item isKindOfClass:[HSInfoLableItem class]]) {
@@ -160,7 +158,7 @@
     if (labelItem.attrText) {
       _label.attributedText = labelItem.attrText;
     }
-      if (labelItem.text) {
+    if (labelItem.text) {
       _label.text = labelItem.text;
     }
     _label.userInteractionEnabled = labelItem.enable;
@@ -213,11 +211,11 @@
   if (!_label) {
     _label = [[UILabel alloc] init];
     CGFloat labelW;
-//    if (XBScreenWidth > 320) {
-//      labelW = self.contentView.frame.size.width * 0.85;
-//    } else {
-      labelW = self.contentView.frame.size.width * 0.65;
-//    }
+    //    if (XBScreenWidth > 320) {
+    //      labelW = self.contentView.frame.size.width * 0.85;
+    //    } else {
+    labelW = self.contentView.frame.size.width * 0.65;
+    //    }
     CGFloat labelH = self.contentView.frame.size.height;
     _label.bounds = CGRectMake(0, 0, labelW, labelH);
     _label.textAlignment = NSTextAlignmentLeft;

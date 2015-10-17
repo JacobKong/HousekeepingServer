@@ -12,7 +12,11 @@
 #import "HSLoginViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "HSHTTPRequestOperationManager.h"
-@interface AppDelegate ()
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+@interface AppDelegate (){
+    UINavigationController *navigationController;
+    BMKMapManager* _mapManager;
+}
 
 @property (strong,nonatomic) CLLocationManager * locationManager;
 
@@ -36,6 +40,16 @@
         [self.locationManager requestWhenInUseAuthorization];
         
     }
+    // 百度地图初始化
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"WiKQGircnjOxuPzDGNaoTSf2"  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    // Add the navigation controller's view to the window and display.
+    [self.window addSubview:navigationController.view];
+    
     //设置状态栏的字体颜色模式
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
