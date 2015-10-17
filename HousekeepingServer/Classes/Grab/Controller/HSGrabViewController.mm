@@ -152,6 +152,20 @@
     [super viewDidAppear:animated];
     // 设置地图按钮
     [self setupMapBtn];
+    // 提示label
+    if (!self.regionStr && !self.serviceStr) {
+        HSRefreshLab *refreshLab = [HSRefreshLab
+                                    refreshLabelWithText:
+                                    @"请先选择所在地区和服务项目"];
+        
+        CGFloat labelW = XBScreenWidth;
+        CGFloat labelX = 0;
+        CGFloat labelY = XBScreenHeight * 0.3;
+        CGFloat labelH = 20;
+        refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+        self.refreshLab = refreshLab;
+        [self.view addSubview:refreshLab];
+    }
 }
 
 - (void)setupMapBtn{

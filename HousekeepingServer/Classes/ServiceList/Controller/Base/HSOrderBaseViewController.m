@@ -140,6 +140,20 @@
         if ([kServiceResponse isEqualToString:@"Success"]) {
             NSArray *orderArray = [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
             self.serviceOrder = [[orderArray reverseObjectEnumerator]allObjects];
+            if (self.serviceOrder.count == 0) {
+                HSRefreshLab *refreshLab =
+                [HSRefreshLab refreshLabelWithText:@"当前项目无任何订单，请刷新重试"];
+                CGFloat labelW = XBScreenWidth;
+                CGFloat labelX = 0;
+                CGFloat labelY = XBScreenHeight * 0.2;
+                CGFloat labelH = 20;
+                refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+                self.refreshLab = refreshLab;
+                [self.view addSubview:refreshLab];
+
+            }else{
+                [self.refreshLab removeFromSuperview];
+            }
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
         } else {
@@ -150,7 +164,7 @@
 
           CGFloat labelW = XBScreenWidth;
           CGFloat labelX = 0;
-          CGFloat labelY = XBScreenHeight * 0.3;
+          CGFloat labelY = XBScreenHeight * 0.2;
           CGFloat labelH = 20;
           refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
           self.refreshLab = refreshLab;
@@ -174,7 +188,7 @@
                   @"无法连接服务器，请检查网络连接是否正确"];
           CGFloat labelW = XBScreenWidth;
           CGFloat labelX = 0;
-          CGFloat labelY = 0;
+          CGFloat labelY = 10;
           CGFloat labelH = 20;
           refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
           weakSelf.refreshLab = refreshLab;

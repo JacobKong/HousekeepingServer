@@ -66,10 +66,10 @@
     [self addTabBarItemWithViewController:grabVc title:@"我的抢单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
     
     HSReceiveViewController *receiveVc = [[HSReceiveViewController alloc]init];
-    [self addTabBarItemWithViewController:receiveVc title:@"我的接单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
+    [self addTabBarItemWithViewController:receiveVc title:@"我的接单" image:@"tabbar_receive_os7" selectedImage:@"tabbar_receive_selected_os7"];
     
     HSServiceListViewController *serviceListVc = [[HSServiceListViewController alloc]init];
-    [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
+    [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_service_list_os7" selectedImage:@"tabbar_service_list_selected_os7"];
 
     
     HSMineInfoViewController *mineInfoVc = [[HSMineInfoViewController alloc]init];

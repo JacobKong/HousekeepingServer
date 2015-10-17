@@ -118,7 +118,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>北京</string>
+				<string>北京市</string>
 				<key>ID</key>
 				<string>110000</string>
 			</dict>
@@ -244,7 +244,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>天津</string>
+				<string>天津市</string>
 				<key>ID</key>
 				<string>120000</string>
 			</dict>
@@ -2989,7 +2989,7 @@
 					</dict>
 					<dict>
 						<key>areaName</key>
-						<string>沈北新区</string>
+						<string>新城子区</string>
 						<key>ID</key>
 						<string>210113</string>
 					</dict>
@@ -5032,7 +5032,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>大兴安岭</string>
+				<string>大兴安岭地区</string>
 				<key>ID</key>
 				<string>232700</string>
 			</dict>
@@ -5164,7 +5164,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>上海</string>
+				<string>上海市</string>
 				<key>ID</key>
 				<string>310000</string>
 			</dict>
@@ -11206,7 +11206,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>襄阳市</string>
+				<string>襄樊市</string>
 				<key>ID</key>
 				<string>420600</string>
 			</dict>
@@ -11576,6 +11576,21 @@
 				<key>ID</key>
 				<string>422800</string>
 			</dict>
+            <dict>
+                <key>arealist</key>
+                <array>
+                    <dict>
+                        <key>areaName</key>
+                        <string>神农架林区</string>
+                        <key>ID</key>
+                        <string>429021</string>
+                    </dict>
+                </array>
+                <key>cityName</key>
+                <string>神农架</string>
+                <key>ID</key>
+                <string>429021</string>
+            </dict>
 			<dict>
 				<key>arealist</key>
 				<array>
@@ -11605,51 +11620,6 @@
 				<string>潜江市</string>
 				<key>ID</key>
 				<string>429005</string>
-			</dict>
-			<dict>
-				<key>arealist</key>
-				<array>
-					<dict>
-						<key>areaName</key>
-						<string>天门市</string>
-						<key>ID</key>
-						<string>429006</string>
-					</dict>
-				</array>
-				<key>cityName</key>
-				<string>天门市</string>
-				<key>ID</key>
-				<string>429006</string>
-			</dict>
-			<dict>
-				<key>arealist</key>
-				<array>
-					<dict>
-						<key>areaName</key>
-						<string>神农架林区</string>
-						<key>ID</key>
-						<string>429021</string>
-					</dict>
-				</array>
-				<key>cityName</key>
-				<string>神农架林区</string>
-				<key>ID</key>
-				<string>429021</string>
-			</dict>
-			<dict>
-				<key>arealist</key>
-				<array>
-					<dict>
-						<key>areaName</key>
-						<string>三峡</string>
-						<key>ID</key>
-						<string>429900</string>
-					</dict>
-				</array>
-				<key>cityName</key>
-				<string>三峡</string>
-				<key>ID</key>
-				<string>429900</string>
 			</dict>
 		</array>
 		<key>ID</key>
@@ -13454,21 +13424,6 @@
 				<key>ID</key>
 				<string>445300</string>
 			</dict>
-			<dict>
-				<key>arealist</key>
-				<array>
-					<dict>
-						<key>areaName</key>
-						<string>顺德市</string>
-						<key>ID</key>
-						<string>445400</string>
-					</dict>
-				</array>
-				<key>cityName</key>
-				<string>顺德市</string>
-				<key>ID</key>
-				<string>445400</string>
-			</dict>
 		</array>
 		<key>ID</key>
 		<string>189</string>
@@ -14569,7 +14524,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>重庆</string>
+				<string>重庆市</string>
 				<key>ID</key>
 				<string>500000</string>
 			</dict>
@@ -16927,7 +16882,7 @@
 					</dict>
 				</array>
 				<key>cityName</key>
-				<string>普洱市</string>
+				<string>思茅市</string>
 				<key>ID</key>
 				<string>530800</string>
 			</dict>

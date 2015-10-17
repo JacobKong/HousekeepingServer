@@ -112,6 +112,7 @@
     // 如果有图片则使divider的x更大一些
     self.divider.frame = CGRectMake(50, self.height - 1, XBScreenWidth, 1);
   };
+    
   self.imageView.image = [UIImage imageNamed:item.icon];
 }
 
