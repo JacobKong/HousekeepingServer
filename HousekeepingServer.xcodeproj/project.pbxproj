@@ -30,7 +30,6 @@
 		184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */; settings = {ASSET_TAGS = (); }; };
 		184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E869F1BCF363A00BD087E /* HSOrderComment.m */; settings = {ASSET_TAGS = (); }; };
 		184E86A61BCFA2CD00BD087E /* HSMineInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */; settings = {ASSET_TAGS = (); }; };
-		184E86A81BCFD91400BD087E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184E86A71BCFD91400BD087E /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		18518DBE1BD1F57E00A0A46E /* HSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DAE1BD1F57E00A0A46E /* HSCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		18518DBF1BD1F57E00A0A46E /* HSDeclareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB01BD1F57E00A0A46E /* HSDeclareCell.m */; settings = {ASSET_TAGS = (); }; };
 		18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18518DB11BD1F57E00A0A46E /* HSDeclareCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -98,6 +97,7 @@
 		18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */ = {isa = PBXBuildFile; fileRef = 18E6A5AD1BC517EE00E67C26 /* Test2 */; settings = {ASSET_TAGS = (); }; };
 		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; settings = {ASSET_TAGS = (); }; };
 		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; settings = {ASSET_TAGS = (); }; };
+		18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E884FE1BD7C2A9000680C6 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */; settings = {ASSET_TAGS = (); }; };
 		18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -169,7 +169,6 @@
 		184E869F1BCF363A00BD087E /* HSOrderComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderComment.m; sourceTree = "<group>"; };
 		184E86A41BCFA2CD00BD087E /* HSMineInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSMineInfoViewController.h; sourceTree = "<group>"; };
 		184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSMineInfoViewController.m; sourceTree = "<group>"; };
-		184E86A71BCFD91400BD087E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18518DAD1BD1F57E00A0A46E /* HSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCollectionViewCell.h; sourceTree = "<group>"; };
 		18518DAE1BD1F57E00A0A46E /* HSCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCollectionViewCell.m; sourceTree = "<group>"; };
 		18518DAF1BD1F57E00A0A46E /* HSDeclareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDeclareCell.h; sourceTree = "<group>"; };
@@ -289,6 +288,7 @@
 		18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CircleCilp.m"; sourceTree = "<group>"; };
 		18E6A5B81BC6188B00E67C26 /* UIImage+SquareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SquareImage.h"; sourceTree = "<group>"; };
 		18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
+		18E884FE1BD7C2A9000680C6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSFatherTableViewController.h; sourceTree = "<group>"; };
 		18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSFatherTableViewController.m; sourceTree = "<group>"; };
 		18EC05FD1BCCB46A00039AF0 /* HSServiceOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceOrder.h; sourceTree = "<group>"; };
@@ -742,9 +742,9 @@
 		188A20671BAF8FCD00E4D570 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18E884FE1BD7C2A9000680C6 /* Images.xcassets */,
 				18C979C31BD0FD2600841BB6 /* Map */,
 				186DEA5C1BB02A46008C465F /* Data */,
-				184E86A71BCFD91400BD087E /* Images.xcassets */,
 				188A20681BAF8FCD00E4D570 /* Info.plist */,
 				188A20691BAF8FCD00E4D570 /* main.m */,
 				18081BF71BC256FD000011AE /* LaunchScreen.xib */,
@@ -1148,12 +1148,12 @@
 				18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */,
 				187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */,
 				18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */,
-				184E86A81BCFD91400BD087E /* Images.xcassets in Resources */,
 				186DEA591BB02A02008C465F /* city.plist in Resources */,
 				18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */,
 				1821618C1BC4B27100EAA41A /* citydata.plist in Resources */,
 				18081BF41BC15E5A000011AE /* Test.rtf in Resources */,
 				18C979C51BD0FD3B00841BB6 /* mapapi.bundle in Resources */,
+				18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */,
 				186DEA5A1BB02A02008C465F /* region.plist in Resources */,
 				18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */,
 			);
@@ -1400,7 +1400,7 @@
 			baseConfigurationReference = D5081C50E19EB4F0BEC67FE3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1443,7 +1443,7 @@
 			baseConfigurationReference = 4A74B14A0C3C7065AB33FA73 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

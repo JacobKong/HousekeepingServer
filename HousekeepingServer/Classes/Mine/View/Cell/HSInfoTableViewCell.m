@@ -38,7 +38,7 @@
  *  返回cell
  */
 + (instancetype)cellWithTableView:(UITableView *)tableView {
-  static NSString *ID = @"settings";
+  static NSString *ID = @"cell";
   HSInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
   if (cell == nil) {
     cell = [[HSInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1

@@ -37,12 +37,5 @@
     // 一进入该界面就开始刷新
 }
 
-//#pragma mark - UITableViewDelegate
-//- (void)tableView:(UITableView *)tableView
-//didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UIViewController *vc = [[UIViewController alloc] init];
-//    vc.view.backgroundColor = [UIColor blueColor];
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
 
 @end

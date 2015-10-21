@@ -26,9 +26,9 @@
 - (void)viewDidLoad {
     UIView *containerView = [[UIView alloc] initWithFrame:self.view.frame];
     self.view = containerView;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.containerView = containerView;
     [self.containerView addSubview:self.tableView];
-//    [self.view addSubview:self.tableView];
     [super viewDidLoad];
 }
 
@@ -95,6 +95,7 @@
     cell.serviceDeclare = self.serviceDeclare[indexPath.section];
     cell.delegate = self;
     cell.indexPath = indexPath;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -117,6 +118,15 @@
 }
 
 - (void)loadNewData{}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 5;
+}
 
 #pragma mark - HSDeclareCellDelegate
 - (void)declareCell:(HSDeclareCell *)declareCell leftButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath{

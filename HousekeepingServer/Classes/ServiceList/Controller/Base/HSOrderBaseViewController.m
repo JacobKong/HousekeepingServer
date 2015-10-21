@@ -13,6 +13,7 @@
   MBProgressHUD *hud;
 }
 @property(strong, nonatomic) NSIndexPath *selectedIndexPath;
+
 @end
 
 @implementation HSOrderBaseViewController
@@ -88,6 +89,15 @@
     orderDetailsVc.serviceOrder = self.serviceOrder[indexPath.section];
     [self.navigationController pushViewController:orderDetailsVc animated:YES];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 5;
+}
+
 
 /**
  *  添加refreshView

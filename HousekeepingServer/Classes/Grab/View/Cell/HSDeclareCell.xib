@@ -35,30 +35,6 @@
                     <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" id="8Av-1k-utz">
-                    <rect key="frame" x="0.0" y="214" width="320" height="60"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="注意早点来" id="r0y-F6-H55">
-                            <rect key="frame" x="84" y="0.0" width="228" height="60"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备       注：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J46-gY-zYv">
-                            <rect key="frame" x="8" y="19" width="80" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <animations/>
-                    <color key="backgroundColor" red="1" green="0.98039215686274506" blue="0.74509803921568629" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月嫂" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JYU-Yl-Hrb">
                     <rect key="frame" x="212" y="17" width="100" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -139,19 +115,6 @@
                     <animations/>
                     <color key="backgroundColor" red="1" green="0.98039215690000003" blue="0.74509803919999995" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9fA-tJ-hJs">
-                    <rect key="frame" x="8" y="282" width="70" height="40"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                    <state key="normal" title="拒绝" backgroundImage="common_button_blue">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="leftBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="pgZ-Ue-IvK"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="33C-DK-KQ2">
                     <rect key="frame" x="242" y="282" width="70" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
@@ -161,8 +124,47 @@
                     <state key="normal" title="抢单" backgroundImage="common_button_blue">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="highlighted" backgroundImage="common_button_blue_highlighted"/>
                     <connections>
-                        <action selector="rightBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="L2O-fK-lSR"/>
+                        <action selector="rightBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="ea2-Gw-EDL"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="8Av-1k-utz">
+                    <rect key="frame" x="0.0" y="214" width="320" height="60"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="注意早点来" id="r0y-F6-H55">
+                            <rect key="frame" x="84" y="0.0" width="228" height="60"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备       注：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J46-gY-zYv">
+                            <rect key="frame" x="8" y="19" width="80" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.10980392156862745" green="0.082352941176470587" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="1" green="0.98039215686274506" blue="0.74509803921568629" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9fA-tJ-hJs">
+                    <rect key="frame" x="8" y="282" width="70" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <state key="normal" title="拒绝" backgroundImage="common_button_blue">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="common_button_blue_highlighted"/>
+                    <connections>
+                        <action selector="leftBtnClicked:" destination="aT7-Lf-wZ6" eventType="touchUpInside" id="pgZ-Ue-IvK"/>
                     </connections>
                 </button>
             </subviews>
@@ -182,11 +184,12 @@
                 <outlet property="serviceTimeLab" destination="dF8-GV-awe" id="9zw-bS-OyI"/>
                 <outlet property="serviceTypeLab" destination="JYU-Yl-Hrb" id="4pU-xP-8Rv"/>
             </connections>
-            <point key="canvasLocation" x="498" y="465"/>
+            <point key="canvasLocation" x="482" y="395"/>
         </view>
     </objects>
     <resources>
         <image name="common_button_blue" width="22" height="70"/>
+        <image name="common_button_blue_highlighted" width="22" height="70"/>
         <image name="icon_circle_salary" width="26" height="26"/>
         <image name="icon_client" width="24" height="24"/>
         <image name="icon_phone_blue" width="24" height="24"/>

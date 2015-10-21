@@ -15,12 +15,14 @@
 #import "XBConst.h"
 #import "MJExtension.h"
 #import "HSRefreshButton.h"
+#import "HSRefreshLab.h"
 
 @interface HSOrderCommentViewController ()<HSOrderCommentCellDelegate>{
     MBProgressHUD *hud;
 }
 @property (strong, nonatomic) HSRefreshButton *commentRefreshButton;
 @property (strong, nonatomic) NSArray *orderComment;
+@property(strong, nonatomic) HSRefreshLab *refreshLab;
 @end
 
 @implementation HSOrderCommentViewController
@@ -51,6 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.orderComment = nil;
     self.tableView.rowHeight = 210;
     self.title = @"客户评价";
     self.clearsSelectionOnViewWillAppear = NO;
@@ -58,6 +61,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    self.orderComment = nil;
     [self loadComment];
 }
 
@@ -89,7 +93,20 @@
                   [hud hide:YES afterDelay:0.5];
                   hud.completionBlock = ^{
                       _orderComment = [HSOrderComment objectArrayWithKeyValuesArray:kDataResponse];
-                      [weakSelf.tableView reloadData];
+                      if (_orderComment.count == 0) {
+                          HSRefreshLab *refreshLab = [HSRefreshLab
+                                                      refreshLabelWithText:
+                                                      @"当前无客户对您的服务评价"];
+                          CGFloat labelW = XBScreenWidth;
+                          CGFloat labelX = 0;
+                          CGFloat labelY = 10;
+                          CGFloat labelH = 20;
+                          refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+                          weakSelf.refreshLab = refreshLab;
+                          [weakSelf.tableView reloadData];
+                      }else{
+                          [weakSelf.tableView reloadData];
+                      }
                   };
               } else {
                   hud.mode = MBProgressHUDModeCustomView;
@@ -131,7 +148,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _orderComment.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -140,8 +157,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HSOrderCommentCell *cell = [HSOrderCommentCell cellWithTableView:tableView];
-    cell.orderComment = self.orderComment[0];
-    cell.delegate = self;
+    if (self.orderComment.count) {
+        cell.orderComment = self.orderComment[0];
+        cell.delegate = self;
+    }
     return cell;
 }
 

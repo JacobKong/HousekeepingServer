@@ -13,6 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "HSHTTPRequestOperationManager.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import "HSAccount.h"
+#import "HSAccountTool.h"
 @interface AppDelegate (){
     UINavigationController *navigationController;
     BMKMapManager* _mapManager;
@@ -31,7 +33,15 @@
     // 2.设置window的frame
     self.window.frame = [[UIScreen mainScreen]bounds];
     // 3.设置window的rootviewcontroller
-    self.window.rootViewController = [[HSTabBarViewController alloc]init];
+    // 判断是否加载登录界面
+    HSAccount *account = [HSAccountTool account];
+    // 之前没有登录过
+    if (!account) {
+        HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
+        self.window.rootViewController = loginVc;
+    }else{
+        self.window.rootViewController = [[HSTabBarViewController alloc]init];
+    }
     // 定位访问
     self.locationManager = [[CLLocationManager alloc] init];
     

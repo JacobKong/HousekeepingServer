@@ -21,6 +21,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "Default@2x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
@@ -39,6 +40,7 @@
       "idiom" : "iphone",
       "filename" : "Default.png",
       "extent" : "full-screen",
+      "unassigned" : true,
       "scale" : "1x"
     },
     {
@@ -46,6 +48,7 @@
       "idiom" : "iphone",
       "filename" : "Default@2x.png",
       "extent" : "full-screen",
+      "unassigned" : true,
       "scale" : "2x"
     }
   ],

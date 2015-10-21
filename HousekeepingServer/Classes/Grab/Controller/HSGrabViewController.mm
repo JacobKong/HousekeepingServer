@@ -115,6 +115,10 @@
 - (UIView *)mapBtnView{
     if (!_mapBtnView) {
         _mapBtnView = [[UIView alloc]init];
+        UIView *blackLineView = [[UIView alloc]init];
+        blackLineView.frame = CGRectMake(0, 0, XBScreenWidth, 0.5);
+        blackLineView.backgroundColor = [UIColor lightGrayColor];
+        [_mapBtnView addSubview:blackLineView];
         CGFloat viewX = 0;
         CGFloat viewH = 49;
         CGFloat viewY = XBScreenHeight - 49 - viewH;
@@ -135,7 +139,7 @@
     
   // 设置tableView样式
   self.tableView.rowHeight = 330;
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  
     // 隐藏按钮
     self.leftBtnHiddn = YES;
 
@@ -154,17 +158,10 @@
     [self setupMapBtn];
     // 提示label
     if (!self.regionStr && !self.serviceStr) {
-        HSRefreshLab *refreshLab = [HSRefreshLab
-                                    refreshLabelWithText:
-                                    @"请先选择所在地区和服务项目"];
-        
-        CGFloat labelW = XBScreenWidth;
-        CGFloat labelX = 0;
-        CGFloat labelY = XBScreenHeight * 0.3;
-        CGFloat labelH = 20;
-        refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-        self.refreshLab = refreshLab;
-        [self.view addSubview:refreshLab];
+       UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请先选择所在地区和服务项目" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }else{
+        [self.refreshLab removeFromSuperview];
     }
 }
 
@@ -398,6 +395,7 @@
   button.selected = !button.selected;
   // 左边的被点击，选择地区
   if (button.selected && button == self.leftNavBtn) {
+          [self.refreshLab removeFromSuperview];
     // 关闭右边按钮
     self.rightNavBtn.selected = NO;
     [self.bgBtn removeFromSuperview];
@@ -411,6 +409,7 @@
 
   } else if (button.selected &&
              button == self.rightNavBtn) { // 右边的被点击选择服务
+          [self.refreshLab removeFromSuperview];
     // 关闭左边按钮
       [self.refreshLab removeFromSuperview];
     [self.bgBtn removeFromSuperview];
@@ -484,15 +483,6 @@
   // 4.设置代理
   self.serviceCollectionView.delegate = self;
   self.serviceCollectionView.dataSource = self;
-}
-
-
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  UIViewController *vc = [[UIViewController alloc] init];
-  vc.view.backgroundColor = [UIColor blueColor];
-  [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - CollectionViewDelegate
@@ -692,6 +682,7 @@
                 id _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.regionCollectionView animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
+            [self.refreshLab removeFromSuperview];
             NSArray *declareArray = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
           self.serviceDeclare =
               [[declareArray reverseObjectEnumerator]allObjects];

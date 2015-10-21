@@ -40,6 +40,8 @@
 }
 
 - (void)awakeFromNib{
+    // 移除表面的contentView，否则无法响应按钮点击
+    [self.contentView removeFromSuperview];
     self.layer.cornerRadius = 10;
     self.layer.masksToBounds = YES;
     [self.leftBtn setBackgroundImage:[UIImage resizeableImage:@"common_button_blue"] forState:UIControlStateNormal];

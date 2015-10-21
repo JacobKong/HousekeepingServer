@@ -35,14 +35,6 @@
   [self setupRefreshView];
 }
 
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  UIViewController *vc = [[UIViewController alloc] init];
-  vc.view.backgroundColor = [UIColor blueColor];
-  [self.navigationController pushViewController:vc animated:YES];
-}
-
 #pragma mark - 刷新
 - (void)loadNewData {
   [super loadNewData];

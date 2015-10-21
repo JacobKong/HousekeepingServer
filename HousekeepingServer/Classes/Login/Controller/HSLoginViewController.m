@@ -224,7 +224,8 @@
             hud1.customView = MBProgressHUDSuccessView;
             [hud1 hide:YES afterDelay:1.0];
             hud1.completionBlock = ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
+                HSTabBarViewController *tabVc = [[HSTabBarViewController alloc]init];
+                self.view.window.rootViewController = tabVc;
             };
         }else{
             hud1.mode = MBProgressHUDModeCustomView;

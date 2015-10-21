@@ -471,7 +471,6 @@
 }
 - (NSInteger)pickerView:(UIPickerView *)pickerView
 numberOfRowsInComponent:(NSInteger)component {
-
   return 2;
 }
 

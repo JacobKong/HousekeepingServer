@@ -22,6 +22,7 @@
 @interface HSTabBarViewController ()<HSTabBarDelegate>
 @property (weak, nonatomic) HSTabBar *customTabBar;
 @property (strong, nonatomic) HSLoginViewController *loginVc;
+@property (assign, nonatomic)  BOOL isLoadedChildVc;
 @end
 
 @implementation HSTabBarViewController
@@ -29,22 +30,8 @@
 - (void)viewDidLoad {
     // 添加tabbar
     [self setupTabbar];
-
-    // 判断是否加载登录界面
-    HSAccount *account = [HSAccountTool account];
-    // 之前没有登录过
-    if (!account) {
-        if (!_loginVc) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
-                [self presentViewController:loginVc animated:YES completion:nil];
-                _loginVc = loginVc;
-            });
-        }
-    }
-    
-    // 添加子控制器
     [self setupChildViewController];
+    self.view.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
     
 }
 
@@ -57,6 +44,30 @@
             [view removeFromSuperview];
         }
     }
+    
+//    // 判断是否加载登录界面
+//    HSAccount *account = [HSAccountTool account];
+//    // 之前没有登录过
+//    if (!account) {
+//        if (!_loginVc) {
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                HSLoginViewController *loginVc = [[HSLoginViewController alloc]init];
+//                [self presentViewController:loginVc animated:YES completion:nil];
+//                _loginVc = loginVc;
+//            });
+//        }
+//    }else{
+//        if (_isLoadedChildVc == NO) {
+//            // 添加子控制器
+//            [self setupChildViewController];
+//            _isLoadedChildVc = YES;
+//        }
+//    }
+
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 /**
  *  添加子控制器
