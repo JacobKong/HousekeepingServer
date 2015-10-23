@@ -22,6 +22,8 @@
 		183398181BB968C5002EAC65 /* HSMineTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398161BB968C5002EAC65 /* HSMineTool.m */; };
 		1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */; };
 		1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */; };
+		1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E31BD86C1E00B4196B /* HSGrabButton.m */; settings = {ASSET_TAGS = (); }; };
+		1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */; settings = {ASSET_TAGS = (); }; };
 		184324171BBAB011001E2F69 /* HSToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324161BBAB011001E2F69 /* HSToolBarButton.m */; };
 		1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843241E1BBAB338001E2F69 /* HSDatePickerView.m */; };
 		1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245A1BBB83E3001E2F69 /* HSLoginViewController.m */; };
@@ -37,7 +39,6 @@
 		18518DC21BD1F57E00A0A46E /* HSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB61BD1F57E00A0A46E /* HSCollectionView.m */; settings = {ASSET_TAGS = (); }; };
 		18518DC41BD1F57E00A0A46E /* HSRefreshButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBB1BD1F57E00A0A46E /* HSRefreshButton.m */; settings = {ASSET_TAGS = (); }; };
 		18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBD1BD1F57E00A0A46E /* HSRefreshLab.m */; settings = {ASSET_TAGS = (); }; };
-		18518DC81BD1F5AA00A0A46E /* HSGrabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DC71BD1F5AA00A0A46E /* HSGrabButton.m */; settings = {ASSET_TAGS = (); }; };
 		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
 		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
@@ -151,6 +152,10 @@
 		1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoValueItem.m; sourceTree = "<group>"; };
 		1833981C1BB9A187002EAC65 /* HSInfoLableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoLableItem.h; sourceTree = "<group>"; };
 		1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoLableItem.m; sourceTree = "<group>"; };
+		1841A7E21BD86C1E00B4196B /* HSGrabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSGrabButton.h; sourceTree = "<group>"; };
+		1841A7E31BD86C1E00B4196B /* HSGrabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSGrabButton.m; sourceTree = "<group>"; };
+		1841A7E51BD86C3F00B4196B /* HSTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTitleBtn.h; sourceTree = "<group>"; };
+		1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTitleBtn.m; sourceTree = "<group>"; };
 		184324151BBAB011001E2F69 /* HSToolBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSToolBarButton.h; sourceTree = "<group>"; };
 		184324161BBAB011001E2F69 /* HSToolBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSToolBarButton.m; sourceTree = "<group>"; };
 		1843241D1BBAB338001E2F69 /* HSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDatePickerView.h; sourceTree = "<group>"; };
@@ -182,8 +187,6 @@
 		18518DBB1BD1F57E00A0A46E /* HSRefreshButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRefreshButton.m; sourceTree = "<group>"; };
 		18518DBC1BD1F57E00A0A46E /* HSRefreshLab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSRefreshLab.h; sourceTree = "<group>"; };
 		18518DBD1BD1F57E00A0A46E /* HSRefreshLab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSRefreshLab.m; sourceTree = "<group>"; };
-		18518DC61BD1F5AA00A0A46E /* HSGrabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSGrabButton.h; sourceTree = "<group>"; };
-		18518DC71BD1F5AA00A0A46E /* HSGrabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSGrabButton.m; sourceTree = "<group>"; };
 		186DEA511BAFF902008C465F /* HSTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTabBarButton.h; sourceTree = "<group>"; };
 		186DEA521BAFF902008C465F /* HSTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarButton.m; sourceTree = "<group>"; };
 		186DEA541BB001B6008C465F /* HSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavigationViewController.h; sourceTree = "<group>"; };
@@ -388,6 +391,17 @@
 			path = Tool;
 			sourceTree = "<group>";
 		};
+		1841A7E11BD86C1E00B4196B /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				1841A7E21BD86C1E00B4196B /* HSGrabButton.h */,
+				1841A7E31BD86C1E00B4196B /* HSGrabButton.m */,
+				1841A7E51BD86C3F00B4196B /* HSTitleBtn.h */,
+				1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 		184324141BBAAFFE001E2F69 /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,11 +474,10 @@
 		18518DAB1BD1F57E00A0A46E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1841A7E11BD86C1E00B4196B /* Button */,
 				18518DAC1BD1F57E00A0A46E /* Cell */,
 				18518DB41BD1F57E00A0A46E /* CollectionView */,
 				18518DB91BD1F57E00A0A46E /* Refresh */,
-				18518DC61BD1F5AA00A0A46E /* HSGrabButton.h */,
-				18518DC71BD1F5AA00A0A46E /* HSGrabButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1112,7 +1125,15 @@
 				TargetAttributes = {
 					188A20631BAF8FCD00E4D570 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 733C233Y34;
+						DevelopmentTeam = 63DDTS8PP5;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					188A207C1BAF8FCD00E4D570 = {
 						CreatedOnToolsVersion = 6.4;
@@ -1252,6 +1273,7 @@
 				18C979AB1BD0E05D00841BB6 /* HSServiceMapViewController.m in Sources */,
 				1876311C1BB56E150037F124 /* HSServedViewController.m in Sources */,
 				1810BF7A1BB6DC8300D33FA0 /* HSInfoTableViewCell.m in Sources */,
+				1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */,
 				18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
 				187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */,
@@ -1264,7 +1286,6 @@
 				18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */,
 				18E60F9E1BC10F9200BDE6FD /* HSFinalRegistViewController.m in Sources */,
 				187DC7F71BC7F5FE00FF8AAF /* HSRegion.m in Sources */,
-				18518DC81BD1F5AA00A0A46E /* HSGrabButton.m in Sources */,
 				186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */,
 				18E60F8A1BBFFA3900BDE6FD /* HSAccountTool.m in Sources */,
 				18518DC11BD1F57E00A0A46E /* HSRegionCollectionViewCell.m in Sources */,
@@ -1284,6 +1305,7 @@
 				187DC7F41BC7F5FE00FF8AAF /* HSCity.m in Sources */,
 				18E60F8D1BC0F90900BDE6FD /* HSOrangeButton.m in Sources */,
 				1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */,
+				1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1401,7 +1423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1432,9 +1454,9 @@
 					"-framework",
 					Reveal,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-47124563-qq.com.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5fd245fa-36bb-4667-a8cc-10d07f8a222b";
 			};
 			name = Debug;
 		};
@@ -1444,7 +1466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1475,9 +1497,9 @@
 					"-framework",
 					Reveal,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-47124563-qq.com.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "5fd245fa-36bb-4667-a8cc-10d07f8a222b";
 			};
 			name = Release;
 		};

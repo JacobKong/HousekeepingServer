@@ -26,9 +26,11 @@
 #import "HSDeclareCell.h"
 #import "UIImage+HSResizingImage.h"
 #import "HSServiceMapViewController.h"
+#import "HSTitleBtn.h"
 
 #define RegionStrKey @"region"
 #define ServiceStrKey @"service"
+#define StatusStrKey @"status"
 @interface HSGrabViewController () <
     UICollectionViewDataSource, UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate,
@@ -44,6 +46,7 @@
 
 @property(weak, nonatomic) HSNavBarBtn *leftNavBtn;
 @property(weak, nonatomic) HSNavBarBtn *rightNavBtn;
+@property (weak, nonatomic) HSTitleBtn *titleBtn;
 
 @property(weak, nonatomic) UIButton *selectedRegionBtn;
 @property(strong, nonatomic) HSCollectionView *regionCollectionView;
@@ -58,6 +61,10 @@
 
 @property (strong, nonatomic) UIView *mapBtnView;
 @property (strong, nonatomic) UIButton *mapBtn;
+
+@property (strong, nonatomic) UIImageView *bgImgView;
+@property (weak, nonatomic) UITableView *statusTableView;
+@property (weak, nonatomic) UILabel *statusLab;
 @end
 
 @implementation HSGrabViewController
@@ -129,6 +136,33 @@
     return  _mapBtnView;
 }
 
+- (UIImageView *)bgImgView{
+    if (!_bgImgView) {
+        CGFloat viewW = 217;
+        CGFloat viewH = 110;
+        CGFloat viewY = 55;
+        CGFloat viewX = XBScreenWidth * 0.5 - 0.5 * viewW;
+        CGRect satusFrame = CGRectMake(viewX, viewY, viewW, viewH);
+        
+        _bgImgView = [[UIImageView alloc]initWithImage:[UIImage resizeableImage:@"navigation_popover_background"]];
+        _bgImgView.frame = satusFrame;
+        _bgImgView.userInteractionEnabled = YES;
+        
+        CGFloat tableY = 15;
+        CGFloat tableX = 10;
+        CGFloat tableW = viewW - 2 * tableX;
+        CGFloat tableH = 90;
+        UITableView *statusTableView = [[UITableView alloc]initWithFrame:CGRectMake(tableX, tableY, tableW, tableH)];
+        statusTableView.backgroundColor = [UIColor clearColor];
+        statusTableView.rowHeight = 40;
+        statusTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.statusTableView = statusTableView;
+        self.statusTableView.dataSource = self;
+        self.statusTableView.delegate = self;
+        [_bgImgView addSubview:statusTableView];
+    }
+    return _bgImgView;
+}
 #pragma mark - view加载
 - (void)viewDidLoad {
   // 添加导航栏按钮
@@ -147,6 +181,16 @@
     if (self.regionStr && self.serviceStr) {
         [self setupRefreshView];
     }
+    
+    // 导航栏状态按钮标题
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *titleStr = [userDefault objectForKey:StatusStrKey];
+    if (titleStr) {
+        [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
+    }else{
+        [self.titleBtn setTitle:@"当前空闲" forState:UIControlStateNormal];
+    }
+
   [super viewDidLoad];
 
   // Do any additional setup after loading the view.
@@ -383,8 +427,48 @@
   [rightNavBtn addTarget:self
                   action:@selector(navBtnClicked:)
         forControlEvents:UIControlEventTouchUpInside];
+    
+    // 中间点击按钮
+    HSTitleBtn *titleBtn = [HSTitleBtn titleBtn];
+    [titleBtn setTitle:@"当前空闲" forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"navigation_city_fold"]
+              forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"navigation_city_unfold"]
+              forState:UIControlStateSelected];
+    NSString *titleStr = titleBtn.titleLabel.text;
+    CGSize titleSize = [titleStr sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:titleBtn.titleLabel.font.fontName size:titleBtn.titleLabel.font.pointSize]}];
+    titleSize.height = 20;
+    titleSize.width += 20;
+    titleBtn.frame = CGRectMake(0, 0, titleSize.width, titleSize.height);
+    [titleBtn addTarget:self
+                 action:@selector(titleBtnClicked)
+       forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = titleBtn;
+    self.titleBtn = titleBtn;
+
 }
 
+/**
+ *  导航栏中部按钮被点击
+ */
+- (void)titleBtnClicked{
+    self.titleBtn.selected = !self.titleBtn.selected;
+//    if (self.rightNavBtn.selected) {
+//        [self navBtnClicked:self.rightNavBtn];
+//        [self.regionCollectionView removeFromSuperview];
+//    }
+//    if (self.leftNavBtn.selected) {
+//        [self navBtnClicked:self.leftNavBtn];
+//        [self.serviceCollectionView removeFromSuperview];
+//    }
+//    [self.bgBtn removeFromSuperview];
+    if (!self.titleBtn.selected) {
+        [self.bgImgView removeFromSuperview];
+    }else{
+        [self.navigationController.view addSubview:self.bgImgView];
+    }
+    
+}
 /**
  *  导航栏按钮被点击
  *
@@ -392,6 +476,12 @@
  */
 - (void)navBtnClicked:(HSNavBarBtn *)button {
     [self.refreshLab removeFromSuperview];
+    [self.bgImgView removeFromSuperview];
+    
+    // 如果titleBtn选中
+    if (self.titleBtn.selected) {
+        [self titleBtnClicked];
+    }
   button.selected = !button.selected;
   // 左边的被点击，选择地区
   if (button.selected && button == self.leftNavBtn) {
@@ -400,12 +490,12 @@
     self.rightNavBtn.selected = NO;
     [self.bgBtn removeFromSuperview];
     [self.serviceCollectionView removeFromSuperview];
-
     self.tableView.scrollEnabled = NO;
     // 创建背景半透明按钮
     [self setupBgButton];
     [self setupRegionCollectionView];
     [self loadRegions];
+      
 
   } else if (button.selected &&
              button == self.rightNavBtn) { // 右边的被点击选择服务
@@ -446,6 +536,7 @@
   [self.bgBtn removeFromSuperview];
   [self.regionCollectionView removeFromSuperview];
   [self.serviceCollectionView removeFromSuperview];
+    [self.bgImgView removeFromSuperview];
   self.tableView.scrollEnabled = YES;
   self.leftNavBtn.selected = NO;
   self.rightNavBtn.selected = NO;
@@ -656,6 +747,143 @@
                            }];
 }
 
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView == self.statusTableView) {
+        return 1;
+    }else{
+        return [super numberOfSectionsInTableView:tableView];
+    }
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == self.statusTableView) {
+        return 2;
+    }else{
+        return [super tableView:tableView numberOfRowsInSection:section];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.statusTableView) {
+        NSString *ID = @"cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        // 如果缓存池中没有该ID的cell，则创建一个新的cell
+        if (cell == nil) {
+            // 创建一个新的cell
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                          reuseIdentifier:ID];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.backgroundColor = [UIColor clearColor];
+            cell.textLabel.textColor = [UIColor whiteColor];
+            UIView *selectedView = [[UIView alloc]initWithFrame:cell.frame];
+            selectedView.backgroundColor = [UIColor grayColor];
+            cell.selectedBackgroundView = selectedView;
+            
+            cell.layer.cornerRadius = 5;
+            cell.layer.masksToBounds = YES;
+
+            // 添加lable
+            UILabel *statusLab = [[UILabel alloc]init];
+            CGFloat labW = 50;
+            CGFloat labH = 20;
+            CGFloat labY = cell.contentView.frame.size.height * 0.5 - 0.5 * labH;
+            CGFloat labX = self.statusTableView.frame.size.width * 0.5 - 0.5 * labW;
+            statusLab.frame = CGRectMake(labX, labY, labW, labH);
+            statusLab.textColor = [UIColor whiteColor];
+            statusLab.textAlignment = NSTextAlignmentCenter;
+            [cell.contentView addSubview:statusLab];
+            
+            self.statusLab = statusLab;
+            if (indexPath.row == 0) {
+                self.statusLab.text = @"空闲";
+            }else{
+                self.statusLab.text = @"忙碌";
+            }
+        }
+        return cell;
+    }else{
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.statusTableView) {
+        __weak __typeof(self) weakSelf = self;
+        // 访问服务器
+        AFHTTPRequestOperationManager *manager =
+        (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
+        NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+        attrDict[@"servantID"] = self.servant.servantID;
+        attrDict[@"servantStatus"] = [NSString string];
+        if (indexPath.row == 0) {
+            attrDict[@"servantStatus"] = @"空闲";
+        }else{
+            attrDict[@"servantStatus"] = @"忙碌";
+        }
+        NSString *urlStr = [NSString
+                            stringWithFormat:
+                            @"%@/MobileServantInfoAction?operation=_modifyStatus",
+                            kHSBaseURL];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+        [manager POST:urlStr
+           parameters:attrDict
+              success:^(AFHTTPRequestOperation *_Nonnull operation,
+                        id _Nonnull responseObject) {
+                  if ([kServiceResponse isEqualToString:@"Success"]) {
+                      NSString *titleStr = [NSString stringWithFormat:@"当前%@", attrDict[@"servantStatus"]];
+                      // 存储状态
+                      [defaults setObject:titleStr forKey:StatusStrKey];
+                      [defaults synchronize];
+                      // 设置状态标题
+                      [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
+                  } else {
+                      // 创建hud
+                      hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                      hud.mode = MBProgressHUDModeCustomView;
+                      hud.labelText = @"状态更改失败";
+                      hud.customView = MBProgressHUDErrorView;
+                      [hud hide:YES afterDelay:1.0];
+                      NSString *titleStr = [defaults objectForKey:StatusStrKey];
+                      [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
+
+
+                }
+              }
+              failure:^(AFHTTPRequestOperation *_Nonnull operation,
+                        NSError *_Nonnull error) {
+                  XBLog(@"failure:%@", error);
+                  // 创建hud
+                  hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                  hud.mode = MBProgressHUDModeCustomView;
+                  hud.labelText = @"网络错误";
+                  hud.customView = MBProgressHUDErrorView;
+                  [hud hide:YES afterDelay:2.0];
+                  NSString *titleStr = [defaults objectForKey:StatusStrKey];
+                  [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
+              }];
+
+        [self titleBtnClicked];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView == self.statusTableView) {
+        return 0;
+    }else{
+        return [super tableView:tableView heightForHeaderInSection:section];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (tableView == self.statusTableView) {
+        return 0;
+    }else{
+        return [super tableView:tableView heightForFooterInSection:section];
+    }
+}
 #pragma mark - 表格刷新
 
 /**
