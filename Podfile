@@ -2,4 +2,5 @@
 pod "AFNetworking", "~> 2.0"
 pod 'MJExtension'
 pod 'MBProgressHUD', '~> 0.9.1'
+pod 'SDWebImage', '~>3.7'
 pod 'MJRefresh'

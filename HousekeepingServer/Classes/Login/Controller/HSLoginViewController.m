@@ -26,6 +26,7 @@
 #import "HSServant.h"
 #import "HSServantTool.h"
 #import "UIImageView+AFNetworking.h"
+#import "BPush.h"
 @interface HSLoginViewController () <UIGestureRecognizerDelegate,
                                      UITextFieldDelegate,
                                      HSLoginFooterViewDelegate> {
@@ -250,4 +251,24 @@
   [nav addChildViewController:registVc];
   [self presentViewController:nav animated:YES completion:nil];
 }
+
+//- (void)application:(UIApplication *)application
+//didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//    XBLog(@"---token---%@", deviceToken);
+//    //  向云推送注册 device token
+//    [BPush registerDeviceToken:deviceToken];
+//    // 绑定channel.将会在回调中看获得channnelid appid userid 等
+//    [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
+//        // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
+//        if (result) {
+//            [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
+//                if (result) {
+//                    NSLog(@"设置tag成功");
+//                }
+//            }];
+//        }
+//    }];
+//    
+//}
+
 @end

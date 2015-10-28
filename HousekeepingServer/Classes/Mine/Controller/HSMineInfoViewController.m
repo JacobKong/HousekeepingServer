@@ -32,6 +32,7 @@
 #import "HSVerify.h"
 #import <CoreLocation/CoreLocation.h>
 #import "MJExtension.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface HSMineInfoViewController () <
     HSHeadPictureViewDelegate, UIAlertViewDelegate, HSPickerViewDelegate,
@@ -48,6 +49,7 @@
   HSInfoTextFieldItem *_contactAddress;
   HSInfoTextFieldItem *_qqNumber;
   HSInfoTextFieldItem *_emailAddress;
+  HSInfoLableItem *_serviceItem;
 
   CLLocationManager *_manager;
   NSString *_realLongtitude; // 经度
@@ -58,6 +60,7 @@
   NSString *_servantCounty;
 
   NSAttributedString *_locationDefaultText;
+  NSAttributedString *_serviceItemDeaultText;
 
   NSString *_fullPath;
   NSString *_headPicture;
@@ -75,7 +78,7 @@
 @property(weak, nonatomic) UIBarButtonItem *rightBtn;
 @property(strong, nonatomic) HSInfoGroup *g0;
 @property(weak, nonatomic) UIImage *oldheadPicture;
-
+@property (assign, nonatomic)  int isSuccess;
 @end
 
 @implementation HSMineInfoViewController
@@ -144,15 +147,14 @@
   [self setupHeadPictureWithServant:self.servant];
   // 通过地图获取经纬度
   [self setupLongAndLati];
-  // 使headerView禁止交互
-  self.headerPictureView.userInteractionEnabled = NO;
   // 设置敲击手势，取消键盘
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
       initWithTarget:self
               action:@selector(dismissKeyboard)];
   tap.delegate = self;
   [self.view addGestureRecognizer:tap];
-
+  // 设置头部可互动
+  self.headerPictureView.userInteractionEnabled = YES;
   // 设置通知，文本框文字变化则收到通知，调用textChange方法
   [[NSNotificationCenter defaultCenter]
       addObserver:self
@@ -166,8 +168,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [self setupOriginData];
-    // 加载头像
-    [self setupHeadPictureWithServant:self.servant];
+  // 加载头像
+  [self setupHeadPictureWithServant:self.servant];
   [super viewWillAppear:animated];
 }
 
@@ -223,6 +225,10 @@
       [[NSAttributedString alloc] initWithString:@"电子邮箱"
                                       attributes:titleAttr];
 
+  NSAttributedString *serviceItemStr =
+      [[NSAttributedString alloc] initWithString:@"服务项目"
+                                      attributes:titleAttr];
+
   NSAttributedString *loginPasswordStr =
       [[NSAttributedString alloc] initWithString:@"登录密码"
                                       attributes:titleAttr];
@@ -249,15 +255,6 @@
       [[NSAttributedString alloc] initWithString:@"请输入联系电话"
                                       attributes:placeholderAttr];
 
-  NSString *locationAddress = [NSString
-      stringWithFormat:@"%@%@%@", self.servant.servantProvince,
-                       self.servant.servantCity, self.servant.servantCounty];
-
-  NSAttributedString *locationDefaultText =
-      [[NSAttributedString alloc] initWithString:locationAddress
-                                      attributes:labelAttr];
-  _locationDefaultText = locationDefaultText;
-
   NSAttributedString *servantMobilPh =
       [[NSAttributedString alloc] initWithString:@"请输入手机号码"
                                       attributes:placeholderAttr];
@@ -282,6 +279,20 @@
       [[NSAttributedString alloc] initWithString:@"请输入相同密码"
                                       attributes:placeholderAttr];
 
+  NSString *locationAddress = [NSString
+      stringWithFormat:@"%@%@%@", self.servant.servantProvince,
+                       self.servant.servantCity, self.servant.servantCounty];
+
+  NSAttributedString *locationDefaultText =
+      [[NSAttributedString alloc] initWithString:locationAddress
+                                      attributes:labelAttr];
+  _locationDefaultText = locationDefaultText;
+
+  NSAttributedString *serviceItemDefaultText =
+      [[NSAttributedString alloc] initWithString:self.servant.serviceItems
+                                      attributes:labelAttr];
+  _serviceItemDeaultText = serviceItemDefaultText;
+
   // item
   HSInfoTextFieldItem *servantID =
       [HSInfoTextFieldItem itemWithTitle:servantIDStr
@@ -296,6 +307,10 @@
                                     text:self.servant.servantName];
   servantName.mineInfoDelegateVc = self;
   _servantName = servantName;
+
+  HSInfoLableItem *serviceItem = [HSInfoLableItem itemWithTitle:serviceItemStr];
+  serviceItem.attrText = serviceItemDefaultText;
+  _serviceItem = serviceItem;
 
   NSString *phoneNoString =
       [NSString stringWithFormat:@"%ld", self.servant.phoneNo];
@@ -403,21 +418,38 @@
   NSString *pictureURLStr =
       [NSString stringWithFormat:@"%@/%@", kHSBaseURL, headPicture];
   NSURL *pictureURL = [NSURL URLWithString:pictureURLStr];
-  NSURLRequest *request =
-      [NSURLRequest requestWithURL:pictureURL
-                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                   timeoutInterval:5.0];
-  [self.headerPictureView.iconImg setImageWithURLRequest:request
-      placeholderImage:[UIImage imageNamed:@"icon"]
-      success:^(NSURLRequest *_Nonnull request,
-                NSHTTPURLResponse *_Nonnull response, UIImage *_Nonnull image) {
-        NSString *picName = @"headPicture.png";
-        [weakSelf saveImage:image withName:picName];
-        _headPicture = picName;
-      }
-      failure:^(NSURLRequest *_Nonnull request,
-                NSHTTPURLResponse *_Nonnull response, NSError *_Nonnull error){
-      }];
+  //  NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL
+  //                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+  //                                       timeoutInterval:5.0];
+
+  [self.headerPictureView.iconImg
+      sd_setImageWithURL:pictureURL
+        placeholderImage:[UIImage imageNamed:@"icon"]
+                 options:SDWebImageRetryFailed
+               completed:^(UIImage *image, NSError *error,
+                           SDImageCacheType cacheType, NSURL *imageURL) {
+                 NSString *picName = @"headPicture.png";
+                 [weakSelf saveImage:image
+                            withName:picName
+                          completion:^{
+                              [weakSelf.tableView reloadData];
+                          }];
+                 _headPicture = picName;
+               }];
+
+  //  [self.headerPictureView.iconImg setImageWithURLRequest:request
+  //      placeholderImage:[UIImage imageNamed:@"icon"]
+  //      success:^(NSURLRequest *_Nonnull request,
+  //                NSHTTPURLResponse *_Nonnull response, UIImage *_Nonnull
+  //                image) {
+  //        NSString *picName = @"headPicture.png";
+  //        [weakSelf saveImage:image withName:picName];
+  //        _headPicture = picName;
+  //      }
+  //      failure:^(NSURLRequest *_Nonnull request,
+  //                NSHTTPURLResponse *_Nonnull response, NSError *_Nonnull
+  //                error){
+  //      }];
 }
 
 /**
@@ -448,7 +480,9 @@
  *  保存按钮点击
  */
 - (void)saveBtnClicked {
-  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+  MBProgressHUD *hud =
+      [MBProgressHUD showHUDAddedTo:self.navigationController.view
+                           animated:YES];
   hud.labelText = @"正在保存并上传";
   if (![HSVerify verifyPhoneNumber:_servantMobil.text]) {
     hud.mode = MBProgressHUDModeCustomView;
@@ -466,84 +500,93 @@
     hud.customView = MBProgressHUDErrorView;
     [hud hide:YES afterDelay:1.0];
   } else {
-
-    // 访问服务器
-    AFHTTPRequestOperationManager *manager = (AFHTTPRequestOperationManager *)
-        [HSHTTPRequestOperationManager manager];
-    // 数据体
-    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-    attrDict[@"id"] = [NSString stringWithFormat:@"%d", self.servant.ID];
-    attrDict[@"servantID"] = _servantID.text;
-    attrDict[@"servantName"] = _servantName.text;
-    attrDict[@"loginPassword"] = _loginPassword.text;
-    attrDict[@"phoneNo"] = _phoneNo.text;
-    attrDict[@"servantMobil"] = _servantMobil.text;
-    attrDict[@"servantProvince"] = _servantProvince;
-    attrDict[@"servantCity"] = _servantCity;
-    attrDict[@"servantCounty"] = _servantCounty;
-    attrDict[@"contactAddress"] = _contactAddress.text;
-    attrDict[@"qqNumber"] = _qqNumber.text;
-    attrDict[@"emailAddress"] = @"无";
-    attrDict[@"realLongitude"] = _realLongtitude;
-    attrDict[@"realLatitude"] = _realLatitude;
-
-    NSString *urlStr = [NSString
-        stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_update",
-                         kHSBaseURL];
-
-    [manager POST:urlStr
-        parameters:attrDict
-        constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
-          XBLog(@"%@", _iconImageFilePath);
-          [formData appendPartWithFileURL:_iconImageFilePath
-                                     name:@"headPicture"
-                                    error:nil];
-        }
-        success:^(AFHTTPRequestOperation *_Nonnull operation,
-                  id _Nonnull responseObject) {
-          NSString *serverResponse = responseObject[@"serverResponse"];
-          if ([serverResponse isEqualToString:@"Success"]) {
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"保存并上传成功";
-            hud.customView = MBProgressHUDSuccessView;
-            [hud hide:YES afterDelay:1.0];
-            // 存档
-            hud.completionBlock = ^{
-              _servantArray =
-                  [HSServant objectArrayWithKeyValuesArray:kDataResponse];
-
-              // 创建模型
-              HSServant *servant = _servantArray.lastObject;
-              // 存档
-              [HSServantTool saveServant:servant];
-            };
-          } else {
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"保存上传失败";
-            hud.customView = MBProgressHUDErrorView;
-            [hud hide:YES afterDelay:1.0];
-          }
-          XBLog(@"success%@", responseObject);
-
-        }
-        failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                  NSError *_Nonnull error) {
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"网络错误，请重新操作";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-          XBLog(@"error%@", error);
-        }];
+    hud.hidden = YES;
+    [self updateInfo];
     // 禁止按钮点击
     [self setCellDisable];
     // 重载tableView
     [self.tableView reloadData];
 
     self.rightBtn.title = @"编辑";
-
     self.saveBtn.enabled = NO;
     self.saveBtn.hidden = YES;
   }
+}
+
+- (int)updateInfo {
+  _isSuccess = 0;
+  MBProgressHUD *hud =
+      [MBProgressHUD showHUDAddedTo:self.navigationController.view
+                           animated:YES];
+  // 访问服务器
+  AFHTTPRequestOperationManager *manager =
+      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
+  // 数据体
+  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+  attrDict[@"id"] = [NSString stringWithFormat:@"%d", self.servant.ID];
+  attrDict[@"servantID"] = _servantID.text;
+  attrDict[@"servantName"] = _servantName.text;
+  attrDict[@"loginPassword"] = _loginPassword.text;
+  attrDict[@"phoneNo"] = _phoneNo.text;
+  attrDict[@"servantMobil"] = _servantMobil.text;
+  attrDict[@"servantProvince"] = _servantProvince;
+  attrDict[@"servantCity"] = _servantCity;
+  attrDict[@"servantCounty"] = _servantCounty;
+  attrDict[@"contactAddress"] = _contactAddress.text;
+  attrDict[@"qqNumber"] = _qqNumber.text;
+  attrDict[@"emailAddress"] = @"无";
+  attrDict[@"realLongitude"] = _realLongtitude;
+  attrDict[@"realLatitude"] = _realLatitude;
+
+  NSString *urlStr = [NSString
+      stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_update",
+                       kHSBaseURL];
+
+  [manager POST:urlStr
+      parameters:attrDict
+      constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        XBLog(@"%@", _iconImageFilePath);
+        [formData appendPartWithFileURL:_iconImageFilePath
+                                   name:@"headPicture"
+                                  error:nil];
+      }
+      success:^(AFHTTPRequestOperation *_Nonnull operation,
+                id _Nonnull responseObject) {
+        NSString *serverResponse = responseObject[@"serverResponse"];
+        if ([serverResponse isEqualToString:@"Success"]) {
+          hud.mode = MBProgressHUDModeCustomView;
+          hud.labelText = @"保存并上传成功";
+          hud.customView = MBProgressHUDSuccessView;
+          [hud hide:YES afterDelay:1.0];
+          // 存档
+          hud.completionBlock = ^{
+            _servantArray =
+                [HSServant objectArrayWithKeyValuesArray:kDataResponse];
+
+            // 创建模型
+            HSServant *servant = _servantArray.lastObject;
+            // 存档
+            [HSServantTool saveServant:servant];
+          };
+          _isSuccess = 1;
+        } else {
+          hud.mode = MBProgressHUDModeCustomView;
+          hud.labelText = @"保存上传失败";
+          hud.customView = MBProgressHUDErrorView;
+          [hud hide:YES afterDelay:1.0];
+          _isSuccess = 0;
+        }
+      }
+      failure:^(AFHTTPRequestOperation *_Nonnull operation,
+                NSError *_Nonnull error) {
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.labelText = @"网络错误，请重新操作";
+        hud.customView = MBProgressHUDErrorView;
+        [hud hide:YES afterDelay:1.0];
+        XBLog(@"error%@", error);
+        _isSuccess = -1;
+      }];
+  return _isSuccess;
 }
 #pragma mark - 获取经纬度
 - (void)setupLongAndLati {
@@ -603,14 +646,13 @@
   if ([self.rightBtn.title isEqualToString:@"取消"]) {
     self.rightBtn.title = @"编辑";
 
-    self.headerPictureView.userInteractionEnabled = NO;
     [self setupOriginData];
     [self setCellDisable];
     [self pickerView:self.servantPicker
         cancelButtonDidClickedOnToolBar:self.servantPicker.toolBar];
     [self.tableView reloadData];
   } else {
-    self.headerPictureView.userInteractionEnabled = YES;
+
     self.rightBtn.title = @"取消";
     [self setCellEnable];
     [self.tableView reloadData];
@@ -961,18 +1003,52 @@ rowHeightForComponent:(NSInteger)component {
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
+    MBProgressHUD *hud =
+    [MBProgressHUD showHUDAddedTo:picker.view
+                         animated:YES];
+    hud.labelText = @"正在上传";
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
   NSString *picName = @"headPicture.png";
   _headPicture = picName;
-  [self saveImage:image withName:_headPicture];
+  [self saveImage:image
+         withName:_headPicture
+       completion:^{
+           [self updateInfo];
+           [hud hide:YES afterDelay:2];
+           hud.completionBlock = ^{
+               [picker dismissViewControllerAnimated:YES
+                                          completion:^{
+                                              MBProgressHUD *hud =
+                                              [MBProgressHUD showHUDAddedTo:self.navigationController.view
+                                                                   animated:YES];
+//                                              [hud hide:YES];
+                                              if (_isSuccess == 1) {
+                                                  
+                                                  hud.mode = MBProgressHUDModeCustomView;
+                                                  hud.labelText = @"上传成功";
+                                                  hud.customView = MBProgressHUDSuccessView;
+                                                  [hud hide:YES afterDelay:1.0];
+                                              }else if (_isSuccess == 0){
+                                                  hud.mode = MBProgressHUDModeCustomView;
+                                                  hud.labelText = @"上传失败";
+                                                  hud.customView = MBProgressHUDErrorView;
+                                                  [hud hide:YES afterDelay:1.0];
+                                              }else{
+                                                  hud.mode = MBProgressHUDModeCustomView;
+                                                  hud.labelText = @"网络错误，请重新操作";
+                                                  hud.customView = MBProgressHUDErrorView;
+                                                  [hud hide:YES afterDelay:1.0];
+                                              }
+                                          }];
 
-  [picker dismissViewControllerAnimated:YES
-                             completion:^{
-                             }];
+           };
+       }];
 }
 
 #pragma mark - 保存图片至沙盒
-- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName {
+- (void)saveImage:(UIImage *)currentImage
+         withName:(NSString *)imageName
+       completion:(void (^)(void))completion {
   UIImage *squareImage =
       [UIImage scaleFromImage:currentImage toSize:CGSizeMake(100, 100)];
   NSData *imageData = UIImagePNGRepresentation(squareImage);
@@ -984,12 +1060,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   [imageData writeToFile:_fullPath atomically:NO];
   NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];
 
-  _headerPictureView.iconImg.image =
+  UIImage *clipedImg =
       [UIImage clipImageWithData:imageData
                      borderWidth:5
                      borderColor:XBMakeColorWithRGB(234, 103, 7, 1)];
 
+  _headerPictureView.iconImg.image = clipedImg;
   _iconImageFilePath = iconImageFilePath;
+  completion();
 }
 
 @end

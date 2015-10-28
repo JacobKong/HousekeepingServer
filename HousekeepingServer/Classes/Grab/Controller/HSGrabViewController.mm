@@ -524,7 +524,7 @@
 - (void)setupBgButton {
   UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   bgBtn.frame = self.view.bounds;
-  [bgBtn setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+  [bgBtn setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
   [self.tableView addSubview:bgBtn];
   self.bgBtn = bgBtn;
   [bgBtn addTarget:self
@@ -546,7 +546,7 @@
 - (void)setupRegionCollectionView {
   CGFloat regionCollectionViewW = self.view.frame.size.width;
   CGFloat regionCollectionViewH = self.view.frame.size.height * 0.5;
-  CGFloat regionCollectionViewY = self.tableView.contentOffset.y + 64;
+  CGFloat regionCollectionViewY = self.tableView.contentOffset.y;
   CGRect collectionViewF = CGRectMake(
       0, regionCollectionViewY, regionCollectionViewW, regionCollectionViewH);
   self.regionCollectionView.frame = collectionViewF;
@@ -562,7 +562,7 @@
 - (void)setupServiceCollectionView {
   CGFloat serviceCollectionViewW = self.view.frame.size.width;
   CGFloat serviceCollectionViewH = self.view.frame.size.height * 0.5;
-  CGFloat serviceCollectionViewY = self.tableView.contentOffset.y + 64;
+  CGFloat serviceCollectionViewY = self.tableView.contentOffset.y;
   CGRect collectionViewF =
       CGRectMake(0, serviceCollectionViewY, serviceCollectionViewW,
                  serviceCollectionViewH);

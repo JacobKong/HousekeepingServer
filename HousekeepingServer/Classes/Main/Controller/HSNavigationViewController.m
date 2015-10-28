@@ -45,6 +45,8 @@
     [navBar setBarTintColor:HSColor(234, 103, 7)];
     // 设置返回按钮颜色
     [navBar setTintColor:[UIColor whiteColor]];
+    //设置navigationbar的半透明
+    [navBar setTranslucent:NO];
 //   设置indicator
     [navBar setBackIndicatorImage:[UIImage imageNamed:@"navgation_back_arrow"]];
     [navBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"navgation_back_arrow"]];
@@ -59,7 +61,9 @@
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     textAttrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
     textAttrs[NSFontAttributeName] = [UIFont boldSystemFontOfSize:15];
-    textAttrs[UITextAttributeTextShadowOffset] = [NSValue valueWithUIOffset:UIOffsetZero];
+    NSShadow *shadow = [[NSShadow alloc]init];
+    shadow.shadowColor = [UIColor clearColor];
+    textAttrs[NSShadowAttributeName] = shadow;
     [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:textAttrs forState:UIControlStateHighlighted];
     

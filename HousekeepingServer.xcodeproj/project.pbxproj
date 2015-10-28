@@ -7,38 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18081BF41BC15E5A000011AE /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF31BC15E5A000011AE /* Test.rtf */; settings = {ASSET_TAGS = (); }; };
+		18081BF41BC15E5A000011AE /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF31BC15E5A000011AE /* Test.rtf */; };
 		18081BF61BC24702000011AE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18081BF51BC24702000011AE /* CoreLocation.framework */; };
-		18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF71BC256FD000011AE /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
-		18081BFE1BC26764000011AE /* HSHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */; settings = {ASSET_TAGS = (); }; };
+		18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF71BC256FD000011AE /* LaunchScreen.xib */; };
+		18081BFE1BC26764000011AE /* HSHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */; };
 		1810BF7A1BB6DC8300D33FA0 /* HSInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF731BB6DC8300D33FA0 /* HSInfoTableViewCell.m */; };
 		1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF761BB6DC8300D33FA0 /* HSInfoHeaderView.m */; };
 		1810BF7C1BB6DC8300D33FA0 /* HSNoBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF791BB6DC8300D33FA0 /* HSNoBorderTextField.m */; };
 		1810BF851BB6DDC800D33FA0 /* UIImage+HSResizingImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF841BB6DDC800D33FA0 /* UIImage+HSResizingImage.m */; };
 		1810BF881BB6DE0F00D33FA0 /* HSInfoFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF871BB6DE0F00D33FA0 /* HSInfoFooterView.m */; };
 		18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18151CAC1BAFC0700040CA80 /* HSTabBar.m */; };
-		1821618C1BC4B27100EAA41A /* citydata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1821618B1BC4B27100EAA41A /* citydata.plist */; settings = {ASSET_TAGS = (); }; };
+		1821618C1BC4B27100EAA41A /* citydata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1821618B1BC4B27100EAA41A /* citydata.plist */; };
 		183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398141BB968C5002EAC65 /* HSMineKeys.m */; };
 		183398181BB968C5002EAC65 /* HSMineTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 183398161BB968C5002EAC65 /* HSMineTool.m */; };
 		1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */; };
 		1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */; };
-		1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E31BD86C1E00B4196B /* HSGrabButton.m */; settings = {ASSET_TAGS = (); }; };
-		1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */; settings = {ASSET_TAGS = (); }; };
+		18363B651BDB8E94005A8689 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18363B631BDB8E94005A8689 /* libBPush.a */; };
+		18363B661BDB8E94005A8689 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 18363B641BDB8E94005A8689 /* test.caf */; };
+		18363B6D1BDBA11E005A8689 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18363B6A1BDBA11E005A8689 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E31BD86C1E00B4196B /* HSGrabButton.m */; };
+		1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */; };
 		184324171BBAB011001E2F69 /* HSToolBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324161BBAB011001E2F69 /* HSToolBarButton.m */; };
 		1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843241E1BBAB338001E2F69 /* HSDatePickerView.m */; };
 		1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245A1BBB83E3001E2F69 /* HSLoginViewController.m */; };
 		1843245E1BBB9178001E2F69 /* HSLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */; };
 		184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324601BBB9370001E2F69 /* HSLoginFooterView.m */; };
-		184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */; settings = {ASSET_TAGS = (); }; };
-		184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E869F1BCF363A00BD087E /* HSOrderComment.m */; settings = {ASSET_TAGS = (); }; };
-		184E86A61BCFA2CD00BD087E /* HSMineInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18518DBE1BD1F57E00A0A46E /* HSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DAE1BD1F57E00A0A46E /* HSCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		18518DBF1BD1F57E00A0A46E /* HSDeclareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB01BD1F57E00A0A46E /* HSDeclareCell.m */; settings = {ASSET_TAGS = (); }; };
-		18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18518DB11BD1F57E00A0A46E /* HSDeclareCell.xib */; settings = {ASSET_TAGS = (); }; };
-		18518DC11BD1F57E00A0A46E /* HSRegionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB31BD1F57E00A0A46E /* HSRegionCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		18518DC21BD1F57E00A0A46E /* HSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB61BD1F57E00A0A46E /* HSCollectionView.m */; settings = {ASSET_TAGS = (); }; };
-		18518DC41BD1F57E00A0A46E /* HSRefreshButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBB1BD1F57E00A0A46E /* HSRefreshButton.m */; settings = {ASSET_TAGS = (); }; };
-		18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBD1BD1F57E00A0A46E /* HSRefreshLab.m */; settings = {ASSET_TAGS = (); }; };
+		184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */; };
+		184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E869F1BCF363A00BD087E /* HSOrderComment.m */; };
+		184E86A61BCFA2CD00BD087E /* HSMineInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */; };
+		18518DBE1BD1F57E00A0A46E /* HSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DAE1BD1F57E00A0A46E /* HSCollectionViewCell.m */; };
+		18518DBF1BD1F57E00A0A46E /* HSDeclareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB01BD1F57E00A0A46E /* HSDeclareCell.m */; };
+		18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18518DB11BD1F57E00A0A46E /* HSDeclareCell.xib */; };
+		18518DC11BD1F57E00A0A46E /* HSRegionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB31BD1F57E00A0A46E /* HSRegionCollectionViewCell.m */; };
+		18518DC21BD1F57E00A0A46E /* HSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DB61BD1F57E00A0A46E /* HSCollectionView.m */; };
+		18518DC41BD1F57E00A0A46E /* HSRefreshButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBB1BD1F57E00A0A46E /* HSRefreshButton.m */; };
+		18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */ = {isa = PBXBuildFile; fileRef = 18518DBD1BD1F57E00A0A46E /* HSRefreshLab.m */; };
 		186DEA531BAFF902008C465F /* HSTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA521BAFF902008C465F /* HSTabBarButton.m */; };
 		186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA551BB001B6008C465F /* HSNavigationViewController.m */; };
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
@@ -58,24 +61,28 @@
 		1876312F1BB62C9E0037F124 /* HSInfoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876312E1BB62C9E0037F124 /* HSInfoItem.m */; };
 		187631321BB62CC90037F124 /* HSInfoGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631311BB62CC90037F124 /* HSInfoGroup.m */; };
 		1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876313E1BB6308E0037F124 /* HSInfoArrowItem.m */; };
-		187DC7BA1BC7A56100FF8AAF /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7B61BC7A56100FF8AAF /* MBProgressHUD+MJ.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 187DC7B71BC7A56100FF8AAF /* MBProgressHUD.bundle */; settings = {ASSET_TAGS = (); }; };
-		187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F41BC7F5FE00FF8AAF /* HSCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E51BC7F5FE00FF8AAF /* HSCity.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F51BC7F5FE00FF8AAF /* HSCoveredCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E71BC7F5FE00FF8AAF /* HSCoveredCountry.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E91BC7F5FE00FF8AAF /* HSProvince.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F71BC7F5FE00FF8AAF /* HSRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7EB1BC7F5FE00FF8AAF /* HSRegion.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F81BC7F5FE00FF8AAF /* HSServiceDeclare.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7EE1BC7F5FE00FF8AAF /* HSServiceDeclare.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7F91BC7F5FE00FF8AAF /* HSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7F11BC7F5FE00FF8AAF /* HSService.m */; settings = {ASSET_TAGS = (); }; };
-		187DC7FA1BC7F5FE00FF8AAF /* HSSubService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7F31BC7F5FE00FF8AAF /* HSSubService.m */; settings = {ASSET_TAGS = (); }; };
+		187DC7BA1BC7A56100FF8AAF /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7B61BC7A56100FF8AAF /* MBProgressHUD+MJ.m */; };
+		187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 187DC7B71BC7A56100FF8AAF /* MBProgressHUD.bundle */; };
+		187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */; };
+		187DC7F41BC7F5FE00FF8AAF /* HSCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E51BC7F5FE00FF8AAF /* HSCity.m */; };
+		187DC7F51BC7F5FE00FF8AAF /* HSCoveredCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E71BC7F5FE00FF8AAF /* HSCoveredCountry.m */; };
+		187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E91BC7F5FE00FF8AAF /* HSProvince.m */; };
+		187DC7F71BC7F5FE00FF8AAF /* HSRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7EB1BC7F5FE00FF8AAF /* HSRegion.m */; };
+		187DC7F81BC7F5FE00FF8AAF /* HSServiceDeclare.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7EE1BC7F5FE00FF8AAF /* HSServiceDeclare.m */; };
+		187DC7F91BC7F5FE00FF8AAF /* HSService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7F11BC7F5FE00FF8AAF /* HSService.m */; };
+		187DC7FA1BC7F5FE00FF8AAF /* HSSubService.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7F31BC7F5FE00FF8AAF /* HSSubService.m */; };
 		188A206A1BAF8FCD00E4D570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20691BAF8FCD00E4D570 /* main.m */; };
 		188A20841BAF8FCD00E4D570 /* HousekeepingServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20831BAF8FCD00E4D570 /* HousekeepingServerTests.m */; };
 		188A20B71BAF90A900E4D570 /* HSGrabViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 188A20911BAF90A900E4D570 /* HSGrabViewController.mm */; };
 		188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */; };
 		188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A20A81BAF90A900E4D570 /* AppDelegate.m */; };
+		18A144341BDA697E008D9853 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A144331BDA697E008D9853 /* CFNetwork.framework */; };
+		18A144361BDA698B008D9853 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A144351BDA698B008D9853 /* CoreFoundation.framework */; };
+		18A144381BDA6C57008D9853 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A144371BDA6C57008D9853 /* libz.tbd */; };
+		18A1443A1BDA6CD3008D9853 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18A144391BDA6CD3008D9853 /* BPushConfig.plist */; };
 		18C1505C1BC764CB0033469A /* HSServant.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAA1BC65BA300CDB9E6 /* HSServant.m */; };
 		18C1505D1BC764E40033469A /* HSHeadPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B01BC545D500E67C26 /* HSHeadPictureView.m */; };
-		18C979AB1BD0E05D00841BB6 /* HSServiceMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */; settings = {ASSET_TAGS = (); }; };
+		18C979AB1BD0E05D00841BB6 /* HSServiceMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */; };
 		18C979B31BD0FC5D00841BB6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979B21BD0FC5D00841BB6 /* QuartzCore.framework */; };
 		18C979B51BD0FC6800841BB6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979B41BD0FC6800841BB6 /* OpenGLES.framework */; };
 		18C979B71BD0FC7700841BB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979B61BD0FC7700841BB6 /* SystemConfiguration.framework */; };
@@ -84,31 +91,31 @@
 		18C979BD1BD0FCA100841BB6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979BC1BD0FCA100841BB6 /* libsqlite3.0.tbd */; };
 		18C979BF1BD0FCAE00841BB6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979BE1BD0FCAE00841BB6 /* CoreTelephony.framework */; };
 		18C979C11BD0FCBA00841BB6 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C01BD0FCBA00841BB6 /* libstdc++.6.0.9.tbd */; };
-		18C979C51BD0FD3B00841BB6 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18C979C41BD0FD3B00841BB6 /* mapapi.bundle */; settings = {ASSET_TAGS = (); }; };
-		18C979C91BD0FEA000841BB6 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C61BD0FEA000841BB6 /* BaiduMapAPI_Base.framework */; settings = {ASSET_TAGS = (); }; };
-		18C979CA1BD0FEA000841BB6 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C71BD0FEA000841BB6 /* BaiduMapAPI_Location.framework */; settings = {ASSET_TAGS = (); }; };
-		18C979CB1BD0FEA000841BB6 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C81BD0FEA000841BB6 /* BaiduMapAPI_Map.framework */; settings = {ASSET_TAGS = (); }; };
-		18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F851BBFF3B600BDE6FD /* HSAccount.m */; settings = {ASSET_TAGS = (); }; };
-		18E60F8A1BBFFA3900BDE6FD /* HSAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F891BBFFA3900BDE6FD /* HSAccountTool.m */; settings = {ASSET_TAGS = (); }; };
-		18E60F8D1BC0F90900BDE6FD /* HSOrangeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F8C1BC0F90900BDE6FD /* HSOrangeButton.m */; settings = {ASSET_TAGS = (); }; };
-		18E60F941BC1027800BDE6FD /* HSVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F931BC1027800BDE6FD /* HSVerify.m */; settings = {ASSET_TAGS = (); }; };
-		18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F9A1BC102F900BDE6FD /* XBConst.m */; settings = {ASSET_TAGS = (); }; };
-		18E60F9E1BC10F9200BDE6FD /* HSFinalRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F9D1BC10F9200BDE6FD /* HSFinalRegistViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18E60FA11BC1281500BDE6FD /* HSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60FA01BC1281500BDE6FD /* HSPickerView.m */; settings = {ASSET_TAGS = (); }; };
-		18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */ = {isa = PBXBuildFile; fileRef = 18E6A5AD1BC517EE00E67C26 /* Test2 */; settings = {ASSET_TAGS = (); }; };
-		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; settings = {ASSET_TAGS = (); }; };
-		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; settings = {ASSET_TAGS = (); }; };
-		18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E884FE1BD7C2A9000680C6 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
-		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */; settings = {ASSET_TAGS = (); }; };
-		18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC06091BCD021600039AF0 /* HSOrderCell.xib */; settings = {ASSET_TAGS = (); }; };
-		18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC060F1BCD310400039AF0 /* HSOrderCell.m */; settings = {ASSET_TAGS = (); }; };
-		18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC06221BCEA92B00039AF0 /* HSOrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */; settings = {ASSET_TAGS = (); }; };
-		18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */; settings = {ASSET_TAGS = (); }; };
-		18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */; settings = {ASSET_TAGS = (); }; };
+		18C979C51BD0FD3B00841BB6 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18C979C41BD0FD3B00841BB6 /* mapapi.bundle */; };
+		18C979C91BD0FEA000841BB6 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C61BD0FEA000841BB6 /* BaiduMapAPI_Base.framework */; };
+		18C979CA1BD0FEA000841BB6 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C71BD0FEA000841BB6 /* BaiduMapAPI_Location.framework */; };
+		18C979CB1BD0FEA000841BB6 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C979C81BD0FEA000841BB6 /* BaiduMapAPI_Map.framework */; };
+		18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F851BBFF3B600BDE6FD /* HSAccount.m */; };
+		18E60F8A1BBFFA3900BDE6FD /* HSAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F891BBFFA3900BDE6FD /* HSAccountTool.m */; };
+		18E60F8D1BC0F90900BDE6FD /* HSOrangeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F8C1BC0F90900BDE6FD /* HSOrangeButton.m */; };
+		18E60F941BC1027800BDE6FD /* HSVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F931BC1027800BDE6FD /* HSVerify.m */; };
+		18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F9A1BC102F900BDE6FD /* XBConst.m */; };
+		18E60F9E1BC10F9200BDE6FD /* HSFinalRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60F9D1BC10F9200BDE6FD /* HSFinalRegistViewController.m */; };
+		18E60FA11BC1281500BDE6FD /* HSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E60FA01BC1281500BDE6FD /* HSPickerView.m */; };
+		18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */ = {isa = PBXBuildFile; fileRef = 18E6A5AD1BC517EE00E67C26 /* Test2 */; };
+		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; };
+		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; };
+		18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E884FE1BD7C2A9000680C6 /* Images.xcassets */; };
+		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; };
+		18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */; };
+		18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */; };
+		18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC06091BCD021600039AF0 /* HSOrderCell.xib */; };
+		18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC060F1BCD310400039AF0 /* HSOrderCell.m */; };
+		18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */; };
+		18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */; };
+		18EC06221BCEA92B00039AF0 /* HSOrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */; };
+		18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */; };
+		18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */; };
 		18F5AE551BB68E9500BB5B49 /* HSInfoTextFieldItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5AE541BB68E9500BB5B49 /* HSInfoTextFieldItem.m */; };
 		18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBD9681BBC084E00EC98F5 /* HSRegistViewController.m */; };
 		7467A87A952F060DAB84259B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9BA1B7DA5E229355C79280 /* libPods.a */; };
@@ -152,6 +159,11 @@
 		1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoValueItem.m; sourceTree = "<group>"; };
 		1833981C1BB9A187002EAC65 /* HSInfoLableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoLableItem.h; sourceTree = "<group>"; };
 		1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoLableItem.m; sourceTree = "<group>"; };
+		18363B621BDB8E94005A8689 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
+		18363B631BDB8E94005A8689 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
+		18363B641BDB8E94005A8689 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
+		18363B691BDBA11E005A8689 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		18363B6A1BDBA11E005A8689 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		1841A7E21BD86C1E00B4196B /* HSGrabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSGrabButton.h; sourceTree = "<group>"; };
 		1841A7E31BD86C1E00B4196B /* HSGrabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSGrabButton.m; sourceTree = "<group>"; };
 		1841A7E51BD86C3F00B4196B /* HSTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSTitleBtn.h; sourceTree = "<group>"; };
@@ -256,6 +268,10 @@
 		188A209D1BAF90A900E4D570 /* HSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSTabBarViewController.m; sourceTree = "<group>"; };
 		188A20A71BAF90A900E4D570 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		188A20A81BAF90A900E4D570 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		18A144331BDA697E008D9853 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		18A144351BDA698B008D9853 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		18A144371BDA6C57008D9853 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		18A144391BDA6CD3008D9853 /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
 		18C979A91BD0E05D00841BB6 /* HSServiceMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceMapViewController.h; sourceTree = "<group>"; };
 		18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceMapViewController.m; sourceTree = "<group>"; };
 		18C979B21BD0FC5D00841BB6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -324,12 +340,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18C979C11BD0FCBA00841BB6 /* libstdc++.6.0.9.tbd in Frameworks */,
-				18C979BF1BD0FCAE00841BB6 /* CoreTelephony.framework in Frameworks */,
-				18C979BD1BD0FCA100841BB6 /* libsqlite3.0.tbd in Frameworks */,
+				18A144381BDA6C57008D9853 /* libz.tbd in Frameworks */,
 				18C979BB1BD0FC9400841BB6 /* Security.framework in Frameworks */,
+				18363B651BDB8E94005A8689 /* libBPush.a in Frameworks */,
 				18C979B91BD0FC8800841BB6 /* CoreGraphics.framework in Frameworks */,
 				18C979B71BD0FC7700841BB6 /* SystemConfiguration.framework in Frameworks */,
+				18C979BF1BD0FCAE00841BB6 /* CoreTelephony.framework in Frameworks */,
+				18A144361BDA698B008D9853 /* CoreFoundation.framework in Frameworks */,
+				18A144341BDA697E008D9853 /* CFNetwork.framework in Frameworks */,
+				18C979C11BD0FCBA00841BB6 /* libstdc++.6.0.9.tbd in Frameworks */,
+				18C979BD1BD0FCA100841BB6 /* libsqlite3.0.tbd in Frameworks */,
 				18C979B51BD0FC6800841BB6 /* OpenGLES.framework in Frameworks */,
 				18C979B31BD0FC5D00841BB6 /* QuartzCore.framework in Frameworks */,
 				18C979C91BD0FEA000841BB6 /* BaiduMapAPI_Base.framework in Frameworks */,
@@ -389,6 +409,25 @@
 				183398161BB968C5002EAC65 /* HSMineTool.m */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		18363B611BDB8E94005A8689 /* LibBPush */ = {
+			isa = PBXGroup;
+			children = (
+				18363B621BDB8E94005A8689 /* BPush.h */,
+				18363B631BDB8E94005A8689 /* libBPush.a */,
+				18363B641BDB8E94005A8689 /* test.caf */,
+			);
+			path = LibBPush;
+			sourceTree = "<group>";
+		};
+		18363B671BDBA11E005A8689 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				18363B691BDBA11E005A8689 /* JSONKit.h */,
+				18363B6A1BDBA11E005A8689 /* JSONKit.m */,
+			);
+			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		1841A7E11BD86C1E00B4196B /* Button */ = {
@@ -755,12 +794,15 @@
 		188A20671BAF8FCD00E4D570 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18363B671BDBA11E005A8689 /* JSONKit */,
+				18363B611BDB8E94005A8689 /* LibBPush */,
 				18E884FE1BD7C2A9000680C6 /* Images.xcassets */,
 				18C979C31BD0FD2600841BB6 /* Map */,
 				186DEA5C1BB02A46008C465F /* Data */,
 				188A20681BAF8FCD00E4D570 /* Info.plist */,
 				188A20691BAF8FCD00E4D570 /* main.m */,
 				18081BF71BC256FD000011AE /* LaunchScreen.xib */,
+				18A144391BDA6CD3008D9853 /* BPushConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1049,6 +1091,9 @@
 		9517F05A70494206E2689FB4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18A144371BDA6C57008D9853 /* libz.tbd */,
+				18A144351BDA698B008D9853 /* CoreFoundation.framework */,
+				18A144331BDA697E008D9853 /* CFNetwork.framework */,
 				18C979C01BD0FCBA00841BB6 /* libstdc++.6.0.9.tbd */,
 				18C979BE1BD0FCAE00841BB6 /* CoreTelephony.framework */,
 				18C979BC1BD0FCA100841BB6 /* libsqlite3.0.tbd */,
@@ -1165,6 +1210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18363B661BDB8E94005A8689 /* test.caf in Resources */,
 				18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */,
 				18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */,
 				187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */,
@@ -1177,6 +1223,7 @@
 				18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */,
 				186DEA5A1BB02A02008C465F /* region.plist in Resources */,
 				18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */,
+				18A1443A1BDA6CD3008D9853 /* BPushConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1247,6 +1294,7 @@
 				18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */,
 				18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */,
 				18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */,
+				18363B6D1BDBA11E005A8689 /* JSONKit.m in Sources */,
 				18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */,
 				183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */,
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
@@ -1423,8 +1471,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1434,7 +1484,11 @@
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = /Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Others/Lib/MBProgressHUD;
+				LIBRARY_SEARCH_PATHS = (
+					/Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Others/Lib/MBProgressHUD,
+					"$(PROJECT_DIR)/HousekeepingServer/JPush/lib",
+					"$(PROJECT_DIR)/HousekeepingServer/LibBPush",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1456,7 +1510,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5fd245fa-36bb-4667-a8cc-10d07f8a222b";
+				PROVISIONING_PROFILE = "61c66720-2f41-44ea-aa00-3865e33bea13";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Debug;
 		};
@@ -1466,8 +1521,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1477,7 +1534,11 @@
 				INFOPLIST_FILE = HousekeepingServer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = /Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Others/Lib/MBProgressHUD;
+				LIBRARY_SEARCH_PATHS = (
+					/Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Others/Lib/MBProgressHUD,
+					"$(PROJECT_DIR)/HousekeepingServer/JPush/lib",
+					"$(PROJECT_DIR)/HousekeepingServer/LibBPush",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1499,7 +1560,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5fd245fa-36bb-4667-a8cc-10d07f8a222b";
+				PROVISIONING_PROFILE = "61c66720-2f41-44ea-aa00-3865e33bea13";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Release;
 		};
