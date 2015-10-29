@@ -190,7 +190,7 @@
     }else{
         [self.titleBtn setTitle:@"当前空闲" forState:UIControlStateNormal];
     }
-
+    
   [super viewDidLoad];
 
   // Do any additional setup after loading the view.
@@ -1008,7 +1008,7 @@
                   hud.labelText = @"抢单成功";
                   hud.customView = MBProgressHUDSuccessView;
                   [hud hide:YES afterDelay:1.0];
-                  // 重载数据
+                // 重载数据
                   [self loadNewData];
 
               } else {
@@ -1033,4 +1033,6 @@
 
     
 }
+
+
 @end

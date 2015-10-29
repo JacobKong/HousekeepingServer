@@ -1510,7 +1510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61c66720-2f41-44ea-aa00-3865e33bea13";
+				PROVISIONING_PROFILE = "11385d77-2912-4dc5-bd62-98366c3c4dc0";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Debug;
@@ -1560,7 +1560,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61c66720-2f41-44ea-aa00-3865e33bea13";
+				PROVISIONING_PROFILE = "11385d77-2912-4dc5-bd62-98366c3c4dc0";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Release;

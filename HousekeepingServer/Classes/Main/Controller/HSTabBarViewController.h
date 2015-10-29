@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HSTabBar;
 @interface HSTabBarViewController : UITabBarController
-
+@property (weak, nonatomic) HSTabBar *customTabBar;
+//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 @end

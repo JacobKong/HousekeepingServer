@@ -33,6 +33,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "BPush.h"
 
 @interface HSMineInfoViewController () <
     HSHeadPictureViewDelegate, UIAlertViewDelegate, HSPickerViewDelegate,
@@ -631,7 +632,7 @@
   UIAlertView *alert = [[UIAlertView alloc]
           initWithTitle:@"您确定退出吗？"
                 message:@"退" @"出"
-                @"后您可能无法收到订单消息，您确定退出吗？"
+                @"后您可能无法收到订单消息及推送，您确定退出吗？"
                delegate:self
       cancelButtonTitle:@"取消"
       otherButtonTitles:@"确定退出", nil];
@@ -733,6 +734,13 @@
     // 跳到登录界面
     HSLoginViewController *loginVc = [[HSLoginViewController alloc] init];
     [self presentViewController:loginVc animated:YES completion:nil];
+      //关闭推送通知
+      [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+      [BPush unbindChannelWithCompleteHandler:^(id result, NSError *error) {
+          if (result) {
+              XBLog(@"unbindChannelWithCompleteHandler--%@", result);
+          }
+      }];
   }
 }
 

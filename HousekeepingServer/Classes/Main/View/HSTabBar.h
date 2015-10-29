@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class HSTabBar;
+@class HSTabBarButton;
 @protocol HSTabBarDelegate <NSObject>
 
 @optional
@@ -17,4 +18,5 @@
 @interface HSTabBar : UIView
 @property (weak, nonatomic) id<HSTabBarDelegate> delegate;
 - (void)addTabBarButtonWithItem:(UITabBarItem *)item;
+- (void)tabBarBtnDidSelected:(HSTabBarButton *)button;
 @end

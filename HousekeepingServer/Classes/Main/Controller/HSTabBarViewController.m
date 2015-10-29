@@ -20,7 +20,6 @@
 
 
 @interface HSTabBarViewController ()<HSTabBarDelegate>
-@property (weak, nonatomic) HSTabBar *customTabBar;
 @property (strong, nonatomic) HSLoginViewController *loginVc;
 @property (assign, nonatomic)  BOOL isLoadedChildVc;
 @end

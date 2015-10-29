@@ -17,6 +17,11 @@
 #import "HSAccountTool.h"
 #import "BPush.h"
 #import "HSGrabViewController.h"
+#import "AFNetworking.h"
+#import "HSServant.h"
+#import "HSServantTool.h"
+#import "HSTabBarButton.h"
+#import "HSTabBar.h"
 @interface AppDelegate () <UIAlertViewDelegate>{
   UINavigationController *navigationController;
     HSTabBarViewController *_tabBarVc;
@@ -24,10 +29,16 @@
 }
 
 @property(strong, nonatomic) CLLocationManager *locationManager;
-
+@property (strong, nonatomic) HSServant *servant;
 @end
 
 @implementation AppDelegate
+- (HSServant *)servant{
+    if (!_servant) {
+        _servant = [HSServantTool servant];
+    }
+    return _servant;
+}
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -60,36 +71,36 @@
   BOOL ret =
       [_mapManager start:@"w0eY93GmvqsdIip4rbVrBx3V" generalDelegate:nil];
   if (!ret) {
-    NSLog(@"manager start failed!");
+    XBLog(@"manager start failed!");
   }
 
-  //  // 推送设置
-  //-- Set Notification
-  if ([application
-          respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
-    // iOS 8 Notifications
-    [application registerUserNotificationSettings:
-                     [UIUserNotificationSettings
-                         settingsForTypes:(UIUserNotificationTypeBadge |
-                                           UIUserNotificationTypeAlert |
-                                           UIRemoteNotificationTypeSound)
-                               categories:nil]];
-
-    [application registerForRemoteNotifications];
-  } else {
-    // iOS < 8 Notifications
-    [application
-        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                            UIRemoteNotificationTypeAlert |
-                                            UIRemoteNotificationTypeSound)];
-  }
+//  //  // 推送设置
+//  //-- Set Notification
+//  if ([application
+//          respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
+//    // iOS 8 Notifications
+//    [application registerUserNotificationSettings:
+//                     [UIUserNotificationSettings
+//                         settingsForTypes:(UIUserNotificationTypeBadge |
+//                                           UIUserNotificationTypeAlert |
+//                                           UIRemoteNotificationTypeSound)
+//                               categories:nil]];
+//
+//    [application registerForRemoteNotifications];
+//  } else {
+//    // iOS < 8 Notifications
+//    [application
+//        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+//                                            UIRemoteNotificationTypeAlert |
+//                                            UIRemoteNotificationTypeSound)];
+//  }
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey
     [BPush registerChannel:launchOptions apiKey:@"w0eY93GmvqsdIip4rbVrBx3V" pushMode:BPushModeDevelopment withFirstAction:nil withSecondAction:nil withCategory:nil isDebug:YES];
 
     // App 是用户点击推送消息启动
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
-        NSLog(@"从消息启动:%@",userInfo);
+        XBLog(@"从消息启动:%@",userInfo);
         [BPush handleNotification:userInfo];
     }
     
@@ -117,17 +128,37 @@
     //  向云推送注册 device token
     [BPush registerDeviceToken:deviceToken];
     // 绑定channel.将会在回调中看获得channnelid appid userid 等
-    [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
-        // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
-        NSLog(@"result---------%@", result);
-        if (result) {
-            [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
-                if (result) {
-                    NSLog(@"设置tag成功");
-                }
-            }];
-        }
-    }];
+    // 判断是否登录
+    HSAccount *account = [HSAccountTool account];
+    // 之前登录过
+    if (account) {
+        [BPush bindChannelWithCompleteHandler:^(NSDictionary *result, NSError *error) {
+            // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
+            XBLog(@"result---------%@, %@, %@", result, result[@"user_id"], self.servant.servantID);
+            NSString *baiduUser = result[@"user_id"];
+            NSString *channelID = result[@"channel_id"];
+            if (result) {
+                [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
+                    if (result) {
+                        // 访问服务器
+                        AFHTTPRequestOperationManager *manager =
+                        (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
+                        
+                        // url
+                        NSString *urlStr = [NSString
+                                            stringWithFormat:@"%@/StoreRelationServlet?userID=%@&baiduUser=%@&channelID=%@&identification=ios",
+                                            kHSBaseURL, self.servant.servantID, baiduUser, channelID];
+                        XBLog(@"urlStr%@", urlStr);
+                        [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                            XBLog(@"%@", responseObject);
+                        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+                            XBLog(@"%@", error);
+                        }];
+                    }
+                }];
+            }
+        }];
+    }
     
 }
 
@@ -136,16 +167,16 @@
     didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
     
     completionHandler(UIBackgroundFetchResultNewData);
-    NSLog(@"********** iOS7.0之后 background **********");
+    XBLog(@"********** iOS7.0之后 background **********");
     // 应用在前台 或者后台开启状态下，不跳转页面，让用户选择。
     if (application.applicationState == UIApplicationStateActive || application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"acitve or background");
+        XBLog(@"acitve or background");
         UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
     else//杀死状态下，直接跳转到跳转页面。
     {
-        self.window.rootViewController = _tabBarVc;
+        [self openReceiveVc];
     }
 }
 
@@ -155,41 +186,27 @@
     [application registerForRemoteNotifications];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    // App 收到推送的通知
-    [BPush handleNotification:userInfo];
-    NSLog(@"********** ios7.0之前 **********");
-    // 应用在前台 或者后台开启状态下，不跳转页面，让用户选择。
-    if (application.applicationState == UIApplicationStateActive || application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"acitve or background");
-        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-    }
-    else//杀死状态下，直接跳转到跳转页面。
-    {
-        HSGrabViewController *grabVc = [[HSGrabViewController alloc]init];
-        // 根视图是nav 用push方式跳转
-        [_tabBarVc.selectedViewController pushViewController:grabVc animated:YES];
-
-    }
-    NSLog(@"%@",userInfo);
-}
-
-
 - (void)application:(UIApplication *)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
   XBLog(@"DeviceToken 获取失败，原因：%@",error);
 }
 
-#pragma mark -
+#pragma mark - UIAlerViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        _tabBarVc.selectedIndex = 0;
+        [self openReceiveVc];
     }
 }
 
+- (void)openReceiveVc{
+    for (HSTabBarButton *button in _tabBarVc.customTabBar.subviews) {
+        if (button.tag == 1) {
+            [_tabBarVc.customTabBar tabBarBtnDidSelected:button];
+        }
+    }
+    self.window.rootViewController = _tabBarVc;
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
   // Sent when the application is about to move from active to inactive state.
   // This can occur for certain types of temporary interruptions (such as an
