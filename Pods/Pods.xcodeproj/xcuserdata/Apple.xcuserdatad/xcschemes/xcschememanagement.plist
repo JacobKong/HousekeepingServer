@@ -29,6 +29,26 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>REFormattedNumberField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RETableViewManager-RETableViewManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RETableViewManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>REValidation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,12 +67,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4AFEE98C168B7D2E31B4C9E7401ADAD3</key>
+		<key>410B8657ADB8A2824F501D7F12852251</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E1C7DF8EFCDD515E88BBB4E6A8C3721</key>
+		<key>522E4BE0434B9F4C452F943582C5C2AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A6B5AD472422C4C2C08872E784F2D3A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6F68DD75A201C126F7528250117D0D6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +92,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A367486F797001024FF71D8AE0986AF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A36C5B4A6087B0899C745EA964A19AD5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B23B3D15FFC0FC9893968F478086D58D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DD8B1E6B6A94971792670BA09BEDBEA0</key>
+		<key>B72E2D3DB48702C29D6D64482B46F4F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

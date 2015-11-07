@@ -12,7 +12,7 @@
 #import "HSOrangeButton.h"
 
 @interface HSLoginFooterView ()
-@property (weak, nonatomic) UIButton *registBtn;
+
 @end
 
 @implementation HSLoginFooterView
@@ -21,7 +21,7 @@
         _loginBtn = [HSOrangeButton orangeButtonWithTitle:@"登录"];
         _loginBtn.enabled = NO;
         _loginBtn.alpha = 0.66;
-        [_loginBtn addTarget:self action:@selector(loginBtnClickded) forControlEvents:UIControlEventTouchUpInside];
+//        [_loginBtn addTarget:self action:@selector(loginBtnClickded) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _loginBtn;
@@ -54,7 +54,7 @@
         registBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _registBtn = registBtn;
         [self addSubview:_registBtn];
-        [_registBtn addTarget:self action:@selector(registBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//        [_registBtn addTarget:self action:@selector(registBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return self;
@@ -72,7 +72,7 @@
     CGFloat registBtnX = self.center.x - 40;
     CGFloat registBtnW = self.frame.size.width - 2 * registBtnX;
     CGFloat registBtnH = 40;
-    CGFloat registBtnY = self.frame.size.height - 44;
+    CGFloat registBtnY = self.frame.size.height - 50;
     self.registBtn.frame = CGRectMake(registBtnX, registBtnY, registBtnW, registBtnH);
 
 }
@@ -80,19 +80,19 @@
 /**
  *  登录按钮点击
  */
-- (void)loginBtnClickded{
-    if ([self.delegate respondsToSelector:@selector(loginButtonDidClicked)]) {
-        [self.delegate loginButtonDidClicked];
-    }
-}
+//- (void)loginBtnClickded{
+//    if ([self.delegate respondsToSelector:@selector(loginButtonDidClicked)]) {
+//        [self.delegate loginButtonDidClicked];
+//    }
+//}
 
 /**
  *  注册按钮点击
  */
-- (void)registBtnClicked{
-    if ([self.delegate respondsToSelector:@selector(registButtonDidClicked)]) {
-        [self.delegate registButtonDidClicked];
-    }
-}
+//- (void)registBtnClicked{
+//    if ([self.delegate respondsToSelector:@selector(registButtonDidClicked)]) {
+//        [self.delegate registButtonDidClicked];
+//    }
+//}
 
 @end

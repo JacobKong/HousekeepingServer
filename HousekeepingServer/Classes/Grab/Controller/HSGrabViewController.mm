@@ -27,6 +27,7 @@
 #import "UIImage+HSResizingImage.h"
 #import "HSServiceMapViewController.h"
 #import "HSTitleBtn.h"
+#import "LxDBAnything.h"
 
 #define RegionStrKey @"region"
 #define ServiceStrKey @"service"
@@ -128,7 +129,7 @@
         [_mapBtnView addSubview:blackLineView];
         CGFloat viewX = 0;
         CGFloat viewH = 49;
-        CGFloat viewY = XBScreenHeight - 49 - viewH;
+        CGFloat viewY = XBScreenHeight - 2 * 49 - 64;
         CGFloat viewW = XBScreenWidth;
         _mapBtnView.frame = CGRectMake(viewX, viewY, viewW, viewH);
         

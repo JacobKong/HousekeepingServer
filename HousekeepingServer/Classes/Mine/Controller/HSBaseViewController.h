@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HSMineKeys.h"
 #import "XBConst.h"
-
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @class HSInfoTableViewCell;
 @interface HSBaseViewController : UITableViewController

@@ -23,7 +23,6 @@
 		1833981B1BB969C0002EAC65 /* HSInfoValueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981A1BB969C0002EAC65 /* HSInfoValueItem.m */; };
 		1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */; };
 		18363B651BDB8E94005A8689 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18363B631BDB8E94005A8689 /* libBPush.a */; };
-		18363B661BDB8E94005A8689 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 18363B641BDB8E94005A8689 /* test.caf */; };
 		18363B6D1BDBA11E005A8689 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18363B6A1BDBA11E005A8689 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E31BD86C1E00B4196B /* HSGrabButton.m */; };
 		1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841A7E61BD86C3F00B4196B /* HSTitleBtn.m */; };
@@ -161,7 +160,6 @@
 		1833981D1BB9A187002EAC65 /* HSInfoLableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoLableItem.m; sourceTree = "<group>"; };
 		18363B621BDB8E94005A8689 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		18363B631BDB8E94005A8689 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
-		18363B641BDB8E94005A8689 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		18363B691BDBA11E005A8689 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		18363B6A1BDBA11E005A8689 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		1841A7E21BD86C1E00B4196B /* HSGrabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSGrabButton.h; sourceTree = "<group>"; };
@@ -400,6 +398,13 @@
 			path = TextField;
 			sourceTree = "<group>";
 		};
+		1816E1301BEA619D001C7C64 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		183398121BB968C5002EAC65 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,7 +421,6 @@
 			children = (
 				18363B621BDB8E94005A8689 /* BPush.h */,
 				18363B631BDB8E94005A8689 /* libBPush.a */,
-				18363B641BDB8E94005A8689 /* test.caf */,
 			);
 			path = LibBPush;
 			sourceTree = "<group>";
@@ -464,6 +468,7 @@
 		184324551BBB83A5001E2F69 /* Login&Regist */ = {
 			isa = PBXGroup;
 			children = (
+				1816E1301BEA619D001C7C64 /* ViewModel */,
 				18E60F871BBFFA1E00BDE6FD /* Tool */,
 				184324561BBB83A5001E2F69 /* Controller */,
 				184324571BBB83A5001E2F69 /* Model */,
@@ -1211,7 +1216,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18363B661BDB8E94005A8689 /* test.caf in Resources */,
 				18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */,
 				18518DC01BD1F57E00A0A46E /* HSDeclareCell.xib in Resources */,
 				187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */,
@@ -1488,7 +1492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -1526,7 +1530,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "11385d77-2912-4dc5-bd62-98366c3c4dc0";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Debug;
@@ -1538,7 +1543,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -1576,7 +1581,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "11385d77-2912-4dc5-bd62-98366c3c4dc0";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
 			name = Release;

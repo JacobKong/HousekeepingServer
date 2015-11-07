@@ -11,12 +11,13 @@
 @protocol HSLoginFooterViewDelegate <NSObject>
 
 @optional
-- (void)loginButtonDidClicked;
-- (void)registButtonDidClicked;
+//- (void)loginButtonDidClicked;
+//- (void)registButtonDidClicked;
 
 @end
 @interface HSLoginFooterView : UIView
 + (instancetype)footerView;
 @property (strong, nonatomic) HSOrangeButton *loginBtn;
+@property (strong, nonatomic) UIButton *registBtn;
 @property (weak, nonatomic) id<HSLoginFooterViewDelegate> delegate;
 @end
