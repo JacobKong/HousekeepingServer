@@ -106,7 +106,7 @@
     g0.items = @[ customerID, customerName, contactPhone, contactAddress, remarks];
     g0.header = @"客户信息";
     
-    [self.data addObject:g0];
+//    [self.data addObject:g0];
 }
 
 - (void)setupGroup1{
@@ -160,7 +160,7 @@
     g1.items = @[ serviceType, servicePrice, paidAmount, payType, isSettled];
     g1.header = @"服务信息";
     
-    [self.data addObject:g1];
+//    [self.data addObject:g1];
 
 }
 
@@ -212,7 +212,7 @@
     g2.items = @[ orderNo, orderStatus, orderTime, confirmTime, payTime];
     g2.header = @"订单信息";
     
-    [self.data addObject:g2];
+//    [self.data addObject:g2];
 
 }
 
@@ -231,7 +231,7 @@
     g3.items = @[checkComment];
     g3.header = @"查看评价";
     
-    [self.data addObject:g3];
+//    [self.data addObject:g3];
 }
 
 #pragma mark - UITableViewDelegate

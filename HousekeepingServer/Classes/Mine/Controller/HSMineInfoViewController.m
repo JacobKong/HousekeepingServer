@@ -407,7 +407,7 @@
     confirmPassword
   ];
   self.g0 = g0;
-  [self.data addObject:self.g0];
+//  [self.data addObject:self.g0];
 
   // 表头
   self.tableView.tableHeaderView = self.headerPictureView;

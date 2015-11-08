@@ -132,6 +132,7 @@
         CGFloat viewY = XBScreenHeight - 2 * 49 - 64;
         CGFloat viewW = XBScreenWidth;
         _mapBtnView.frame = CGRectMake(viewX, viewY, viewW, viewH);
+        _mapBtnView.backgroundColor = [UIColor whiteColor];
         
     }
     return  _mapBtnView;

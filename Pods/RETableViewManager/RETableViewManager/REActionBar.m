@@ -42,7 +42,15 @@
     
     [self sizeToFit];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(handleActionBarDone:)];
+    UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneBtn.frame = CGRectMake(0, 0, 50, 50);
+    doneBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [doneBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [doneBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [doneBtn addTarget:self action:@selector(handleActionBarDone:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
+//    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(handleActionBarDone:)];
+//    [doneButton setTintColor:[UIColor colorWithRed:234/255 green:103/255 blue:7/255 alpha:1]];
     
     self.navigationControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Previous", @""), NSLocalizedString(@"Next", @""), nil]];
     self.navigationControl.momentary = YES;

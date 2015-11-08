@@ -10,7 +10,5 @@
 #import <RETableViewManager/RETableViewManager.h>
 #import "RETableViewOptionsController.h"
 
-@interface HSLoginViewController : UITableViewController<RETableViewManagerDelegate>
-@property (strong, readonly, nonatomic) RETableViewManager *manager;
-@property (strong, readonly, nonatomic) RETableViewSection *loginInfoSection;
+@interface HSLoginViewController :HSBaseViewController
 @end

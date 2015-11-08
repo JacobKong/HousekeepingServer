@@ -7,12 +7,9 @@
 //
 
 #import "HSLoginViewController.h"
-#import "HSInfoTextFieldItem.h"
-#import "HSInfoGroup.h"
 #import "HSLoginHeaderView.h"
 #import "HSLoginFooterView.h"
 #import "XBConst.h"
-#import "HSInfoTableViewCell.h"
 #import "HSTabBarViewController.h"
 #import "HSRegistViewController.h"
 #import "HSNavigationViewController.h"
@@ -20,7 +17,6 @@
 #import "HSAccount.h"
 #import "HSAccountTool.h"
 #import "MJExtension.h"
-#import "HSTabBar.h"
 #import "HSHTTPRequestOperationManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "HSServant.h"
@@ -36,11 +32,11 @@
   HSLoginFooterView *_footerView;
 }
 
-@property(strong, readwrite, nonatomic) RETableViewManager *manager;
-@property(strong, readwrite, nonatomic) RETableViewSection *loginInfoSection;
+@property(strong, nonatomic) RETextItem *userNum;
+@property(strong, nonatomic) RETextItem *userPwd;
+@property (strong, readwrite, nonatomic) REPickerItem *pickerItem;
 
-@property(strong, readwrite, nonatomic) RETextItem *userNum;
-@property(strong, readwrite, nonatomic) RETextItem *userPwd;
+@property (strong, nonatomic) RETableViewSection *loginInfoSection;
 
 @property(strong, nonatomic) HSServant *servant;
 @end
@@ -48,19 +44,12 @@
 @implementation HSLoginViewController
 - (void)viewDidLoad {
   [super viewDidLoad];
-  // 设置背景
-  self.tableView.backgroundColor =
-      [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_wallpaper"]];
-  // 取消滚动
+    // 取消滚动
   self.tableView.scrollEnabled = NO;
-  // Create manager
-  //
-  self.manager = [[RETableViewManager alloc] initWithTableView:self.tableView
-                                                      delegate:self];
   self.loginInfoSection = [self addLoginInfo];
-  // 设置actionBar的颜色
-  [[REActionBar appearance] setTintColor:XBMakeColorWithRGB(234, 103, 7, 1)];
-  // 取消键盘
+    
+
+    // 取消键盘
   // 设置敲击手势，取消键盘
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
       initWithTarget:self
@@ -115,6 +104,7 @@
       [RACObserve(self.userPwd, value) map:^id(id value) {
         return @([self isPwdVaild:value]);
       }];
+
 
   [section addItem:self.userNum];
   [section addItem:self.userPwd];

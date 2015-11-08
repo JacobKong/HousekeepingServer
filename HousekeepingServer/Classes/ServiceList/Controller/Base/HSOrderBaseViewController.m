@@ -242,7 +242,6 @@
 
     NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
     attrDict[@"orderNo"] = serviceOrder.orderNo;
-    XBLog(@"%@", attrDict[@"id"]);
     NSString *urlStr = [NSString
         stringWithFormat:@"%@/MobileServiceOrderAction?operation=_vetifyCash",
                          kHSBaseURL];
