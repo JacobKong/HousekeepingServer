@@ -90,11 +90,13 @@
       [RETextItem itemWithTitle:nil value:nil
                     placeholder:@"请输入用户名"];
   self.userNum.image = [UIImage imageNamed:@"login_user"];
-
+    self.userNum.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
   self.userPwd =
       [RETextItem itemWithTitle:nil value:nil placeholder:@"请输入密码"];
   self.userPwd.secureTextEntry = YES;
   self.userPwd.image = [UIImage imageNamed:@"login_key"];
+    self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
   // 创建信号
   RACSignal *validUserNumSignal =
       [RACObserve(self.userNum, value) map:^id(id value) {

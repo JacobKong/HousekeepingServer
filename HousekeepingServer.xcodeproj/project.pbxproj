@@ -11,6 +11,7 @@
 		18081BF61BC24702000011AE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18081BF51BC24702000011AE /* CoreLocation.framework */; };
 		18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF71BC256FD000011AE /* LaunchScreen.xib */; };
 		18081BFE1BC26764000011AE /* HSHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */; };
+		180E2C601BF19A0500CEA511 /* HSServiceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2C5F1BF19A0500CEA511 /* HSServiceTableViewController.m */; };
 		1810BF7A1BB6DC8300D33FA0 /* HSInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF731BB6DC8300D33FA0 /* HSInfoTableViewCell.m */; };
 		1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF761BB6DC8300D33FA0 /* HSInfoHeaderView.m */; };
 		1810BF7C1BB6DC8300D33FA0 /* HSNoBorderTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF791BB6DC8300D33FA0 /* HSNoBorderTextField.m */; };
@@ -62,7 +63,6 @@
 		1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1876313E1BB6308E0037F124 /* HSInfoArrowItem.m */; };
 		187DC7BA1BC7A56100FF8AAF /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7B61BC7A56100FF8AAF /* MBProgressHUD+MJ.m */; };
 		187DC7BB1BC7A56100FF8AAF /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 187DC7B71BC7A56100FF8AAF /* MBProgressHUD.bundle */; };
-		187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */; };
 		187DC7F41BC7F5FE00FF8AAF /* HSCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E51BC7F5FE00FF8AAF /* HSCity.m */; };
 		187DC7F51BC7F5FE00FF8AAF /* HSCoveredCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E71BC7F5FE00FF8AAF /* HSCoveredCountry.m */; };
 		187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DC7E91BC7F5FE00FF8AAF /* HSProvince.m */; };
@@ -105,6 +105,7 @@
 		18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */; };
 		18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */; };
 		18E884FF1BD7C2A9000680C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E884FE1BD7C2A9000680C6 /* Images.xcassets */; };
+		18E9ADE01BF2F2A200B1F9D9 /* HSSubServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9ADDF1BF2F2A200B1F9D9 /* HSSubServiceViewController.m */; };
 		18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */; };
 		18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC05FE1BCCB46A00039AF0 /* HSServiceOrder.m */; };
 		18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06021BCCB87B00039AF0 /* HSReceiveViewController.m */; };
@@ -136,6 +137,8 @@
 		18081BF71BC256FD000011AE /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		18081BFC1BC26764000011AE /* HSHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSHTTPRequestOperationManager.h; sourceTree = "<group>"; };
 		18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		180E2C5E1BF19A0500CEA511 /* HSServiceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceTableViewController.h; sourceTree = "<group>"; };
+		180E2C5F1BF19A0500CEA511 /* HSServiceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceTableViewController.m; sourceTree = "<group>"; };
 		1810BF721BB6DC8300D33FA0 /* HSInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoTableViewCell.h; sourceTree = "<group>"; };
 		1810BF731BB6DC8300D33FA0 /* HSInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoTableViewCell.m; sourceTree = "<group>"; };
 		1810BF751BB6DC8300D33FA0 /* HSInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoHeaderView.h; sourceTree = "<group>"; };
@@ -238,8 +241,6 @@
 		187DC7B71BC7A56100FF8AAF /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		187DC7B81BC7A56100FF8AAF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		187DC7B91BC7A56100FF8AAF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		187DC7C31BC7BAE900FF8AAF /* HSSubServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSubServiceViewController.h; sourceTree = "<group>"; };
-		187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSubServiceViewController.m; sourceTree = "<group>"; };
 		187DC7E41BC7F5FE00FF8AAF /* HSCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCity.h; sourceTree = "<group>"; };
 		187DC7E51BC7F5FE00FF8AAF /* HSCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSCity.m; sourceTree = "<group>"; };
 		187DC7E61BC7F5FE00FF8AAF /* HSCoveredCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCoveredCountry.h; sourceTree = "<group>"; };
@@ -306,6 +307,8 @@
 		18E6A5B81BC6188B00E67C26 /* UIImage+SquareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SquareImage.h"; sourceTree = "<group>"; };
 		18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
 		18E884FE1BD7C2A9000680C6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		18E9ADDE1BF2F2A200B1F9D9 /* HSSubServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSubServiceViewController.h; sourceTree = "<group>"; };
+		18E9ADDF1BF2F2A200B1F9D9 /* HSSubServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSubServiceViewController.m; sourceTree = "<group>"; };
 		18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSFatherTableViewController.h; sourceTree = "<group>"; };
 		18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSFatherTableViewController.m; sourceTree = "<group>"; };
 		18EC05FD1BCCB46A00039AF0 /* HSServiceOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceOrder.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 				18FBD9681BBC084E00EC98F5 /* HSRegistViewController.m */,
 				18E60F9C1BC10F9200BDE6FD /* HSFinalRegistViewController.h */,
 				18E60F9D1BC10F9200BDE6FD /* HSFinalRegistViewController.m */,
+				180E2C5E1BF19A0500CEA511 /* HSServiceTableViewController.h */,
+				180E2C5F1BF19A0500CEA511 /* HSServiceTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -859,12 +864,12 @@
 			children = (
 				188A20901BAF90A900E4D570 /* HSGrabViewController.h */,
 				188A20911BAF90A900E4D570 /* HSGrabViewController.mm */,
-				187DC7C31BC7BAE900FF8AAF /* HSSubServiceViewController.h */,
-				187DC7C41BC7BAE900FF8AAF /* HSSubServiceViewController.m */,
 				18C979A91BD0E05D00841BB6 /* HSServiceMapViewController.h */,
 				18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */,
 				18EC05DE1BCB601E00039AF0 /* HSFatherTableViewController.h */,
 				18EC05DF1BCB601E00039AF0 /* HSFatherTableViewController.m */,
+				18E9ADDE1BF2F2A200B1F9D9 /* HSSubServiceViewController.h */,
+				18E9ADDF1BF2F2A200B1F9D9 /* HSSubServiceViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1188,6 +1193,7 @@
 					};
 					188A207C1BAF8FCD00E4D570 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 63DDTS8PP5;
 						TestTargetID = 188A20631BAF8FCD00E4D570;
 					};
 				};
@@ -1310,6 +1316,7 @@
 				187DC7FA1BC7F5FE00FF8AAF /* HSSubService.m in Sources */,
 				187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */,
 				18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */,
+				180E2C601BF19A0500CEA511 /* HSServiceTableViewController.m in Sources */,
 				184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */,
 				18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */,
 				18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */,
@@ -1344,10 +1351,10 @@
 				1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */,
 				18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
-				187DC7C51BC7BAE900FF8AAF /* HSSubServiceViewController.m in Sources */,
 				18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */,
 				1833981E1BB9A187002EAC65 /* HSInfoLableItem.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
+				18E9ADE01BF2F2A200B1F9D9 /* HSSubServiceViewController.m in Sources */,
 				18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */,
 				1876313F1BB6308E0037F124 /* HSInfoArrowItem.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
@@ -1440,6 +1447,7 @@
 					"-all_load",
 					"-w",
 				);
+				PROVISIONING_PROFILE = "5c05aacf-44ac-492f-92a8-9ff50413a849";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1480,6 +1488,7 @@
 					"-all_load",
 					"-w",
 				);
+				PROVISIONING_PROFILE = "5c05aacf-44ac-492f-92a8-9ff50413a849";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1591,6 +1600,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1603,6 +1614,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-47124563-qq.com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HousekeepingServer.app/HousekeepingServer";
 			};
 			name = Debug;
@@ -1611,6 +1623,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1619,6 +1633,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-47124563-qq.com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HousekeepingServer.app/HousekeepingServer";
 			};
 			name = Release;

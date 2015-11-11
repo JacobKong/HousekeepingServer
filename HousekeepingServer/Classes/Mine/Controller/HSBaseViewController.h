@@ -21,4 +21,7 @@
 //@property (strong, nonatomic) HSInfoTableViewCell *cell;
 @property (strong, nonatomic) RETableViewManager *manager;
 
+// textfield长度是否正确
+- (BOOL)isValidTextlength:(NSString *)text;
+- (BOOL)isVaildPickerValue:(NSString *)text;
 @end

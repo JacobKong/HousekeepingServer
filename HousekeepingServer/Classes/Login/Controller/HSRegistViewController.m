@@ -31,7 +31,7 @@
 @property(strong, readwrite, nonatomic) RETextItem *confirmPwd;
 @property(strong, readwrite, nonatomic) RETextItem *location;
 
-@property (strong, nonatomic) HSOrangeButton *nextBtn;
+@property(strong, nonatomic) HSOrangeButton *nextBtn;
 @end
 
 @implementation HSRegistViewController
@@ -40,29 +40,30 @@
   [super viewDidLoad];
   // 设置标题
   self.title = @"快速注册";
-  // 添加第一组
-  self.basicRegisterInfoSection = [self addBasicRegisterInfoSection];
     // 设置导航蓝按钮
     [self setupNavBtn];
-  // 取消键盘
-//  // 设置敲击手势，取消键盘
-//  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-//      initWithTarget:self
-//              action:@selector(dismissKeyboard)];
-//  tap.delegate = self;
-//  [self.view addGestureRecognizer:tap];
+  // 添加第一组
+  self.basicRegisterInfoSection = [self addBasicRegisterInfoSection];
+    // 下一步按钮状态
+//    [self nextBtnStateChange];
 }
 
+- (void)setupNavBtn {
+  self.navigationItem.leftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                       style:UIBarButtonItemStyleDone
+                                      target:self
+                                      action:@selector(backBtnClicked)];
+}
 /**
- *  取消键盘
+ *  取消按钮点击
  */
-//- (void)dismissKeyboard {
-//  [self.view endEditing:YES];
-//  [self.sexPicker removeFromSuperview];
-//  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
-//}
+- (void)backBtnClicked {
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (RETableViewSection *)addBasicRegisterInfoSection {
+    __typeof (&*self) __weak weakSelf = self;
   RETableViewSection *section =
       [RETableViewSection sectionWithHeaderTitle:@"基本信息填写"
                                      footerTitle:nil];
@@ -72,79 +73,53 @@
       [RETextItem itemWithTitle:@"用户名"
                           value:nil
                     placeholder:@"请输入20位以内的用户名"];
+  self.servantID.clearButtonMode = UITextFieldViewModeWhileEditing;
+
   self.idCardNo = [RETextItem itemWithTitle:@"身份证号"
                                       value:nil
                                 placeholder:@"请输入18位身份证号"];
   self.idCardNo.keyboardType = UIKeyboardTypeNumberPad;
+  self.idCardNo.clearButtonMode = UITextFieldViewModeWhileEditing;
 
   self.servantName = [RETextItem itemWithTitle:@"用户姓名"
                                          value:nil
                                    placeholder:@"请输入姓名"];
+  self.servantName.clearButtonMode = UITextFieldViewModeWhileEditing;
 
   self.sex = [REPickerItem itemWithTitle:@"性别"
                                    value:nil
                              placeholder:@"请选择您的性别"
                                  options:@[ @[ @"女", @"男" ] ]];
   self.sex.inlinePicker = YES;
+    self.sex.selectionHandler = ^(REPickerItem *item){
+        [weakSelf.view endEditing:YES];
+    };
 
   self.servantMobil = [RETextItem itemWithTitle:@"手机号码"
                                           value:nil
                                     placeholder:@"请输入您的联系电话"];
   self.servantMobil.keyboardType = UIKeyboardTypePhonePad;
+  self.servantMobil.clearButtonMode = UITextFieldViewModeWhileEditing;
 
   self.qqNumber = [RETextItem itemWithTitle:@"QQ帐号"
                                       value:nil
                                 placeholder:@"请输入您的QQ帐号"];
   self.qqNumber.keyboardType = UIKeyboardTypeNumberPad;
+  self.qqNumber.clearButtonMode = UITextFieldViewModeWhileEditing;
 
   self.userPwd =
       [RETextItem itemWithTitle:@"登录密码"
                           value:nil
                     placeholder:@"请输入6~18位字母数字组合密码"];
   self.userPwd.secureTextEntry = YES;
+  self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+
   self.confirmPwd = [RETextItem itemWithTitle:@"确认密码"
                                         value:nil
                                   placeholder:@"请再次输入密码"];
   self.confirmPwd.secureTextEntry = YES;
-  // 创建信号
-  RACSignal *validservantID =
-      [RACObserve(self.servantID, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-   
-  RACSignal *validIdCardNo =
-      [RACObserve(self.idCardNo, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-    
-  RACSignal *validServantName =
-      [RACObserve(self.servantName, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-    
-  RACSignal *validSex = [RACObserve(self.sex, value) map:^id(id value) {
-    return @([self isVaildSex:value]);
-  }];
+  self.confirmPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
 
-  RACSignal *validServantMobil =
-      [RACObserve(self.servantMobil, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-   
-  RACSignal *validQQNumber =
-      [RACObserve(self.qqNumber, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-   
-  RACSignal *validUserPwd =
-      [RACObserve(self.userPwd, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
-   
-  RACSignal *validConfirmPwd =
-      [RACObserve(self.confirmPwd, value) map:^id(id value) {
-        return @([self isValidTextlength:value]);
-      }];
 
   [section addItem:self.servantID];
   [section addItem:self.idCardNo];
@@ -165,8 +140,8 @@
   CGFloat buttonH = 50;
   CGFloat buttonY = blankView.frame.size.height * 0.5 - buttonH * 0.5;
   nextBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
-  nextBtn.enabled = NO;
-  nextBtn.alpha = 0.66;
+  nextBtn.enabled = YES;
+  nextBtn.alpha = 1;
   [nextBtn addTarget:self
                 action:@selector(nextBtnClicked)
       forControlEvents:UIControlEventTouchUpInside];
@@ -175,6 +150,49 @@
   self.tableView.tableFooterView = footerView;
   _nextBtn = nextBtn;
 
+  return section;
+}
+
+- (void)nextBtnStateChange{
+    // 创建信号
+    RACSignal *validservantID =
+    [RACObserve(self.servantID, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validIdCardNo =
+    [RACObserve(self.idCardNo, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validServantName =
+    [RACObserve(self.servantName, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validSex = [RACObserve(self.sex, value) map:^id(id value) {
+        return @([self isVaildPickerValue:value]);
+    }];
+    
+    RACSignal *validServantMobil =
+    [RACObserve(self.servantMobil, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validQQNumber =
+    [RACObserve(self.qqNumber, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validUserPwd = [RACObserve(self.userPwd, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
+    RACSignal *validConfirmPwd =
+    [RACObserve(self.confirmPwd, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+    }];
+    
   RACSignal *nextBtnActiveSignal = [RACSignal combineLatest:@[
     validservantID,
     validIdCardNo,
@@ -193,33 +211,18 @@
              [servantMobilValid boolValue] && [qqNumberValid boolValue] &&
              [userPwdValid boolValue] && [confirmPwdValid boolValue]);
   }];
-    
-    [nextBtnActiveSignal subscribeNext:^(NSNumber *loginActive) {
-        _nextBtn.enabled = [loginActive boolValue];
-        _nextBtn.alpha = 1;
-    }];
-  return section;
+
+  [nextBtnActiveSignal subscribeNext:^(NSNumber *loginActive) {
+    _nextBtn.enabled = [loginActive boolValue];
+    _nextBtn.alpha = 1;
+  }];
+
+
 }
-
 #pragma mark - UITableViewDelegate
-
 - (void)tableView:(UITableView *)tableView
     willLayoutCellSubviews:(UITableViewCell *)cell
          forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[RETableViewPickerCell class]]) {
-        for (UIView *view in cell.contentView.subviews){
-            UILabel *lable = (UILabel *)view;
-            if (![lable.text isEqualToString:@"性别"]) {
-                CGRect temp = lable.frame;
-                temp.origin.x = 86;
-                lable.frame = temp;
-            }
-            
-            if ([lable.text isEqualToString:@"请选择您的性别"]) {
-                lable.textColor = [UIColor lightGrayColor];
-            }
-        }
-    }
   for (UIView *view in cell.contentView.subviews) {
     if ([view isKindOfClass:[UILabel class]] ||
         [view isKindOfClass:[UITextField class]]) {
@@ -233,141 +236,117 @@
       }
     }
   }
+  if ([cell isKindOfClass:[RETableViewPickerCell class]]) {
+      RETableViewPickerCell *pickerCell = (RETableViewPickerCell *)cell;
+      pickerCell.placeholderLabel.textColor = XBMakeColorWithRGB(194, 194, 200, 1);
+    for (UIView *view in cell.contentView.subviews) {
+      UILabel *lable = (UILabel *)view;
+      if (lable.frame.origin.x > 90.0) {
+        CGRect temp = lable.frame;
+        temp.origin.x = 86;
+        lable.frame = temp;
+      }
+    }
+  }
 }
 
-- (BOOL)isValidTextlength:(NSString *)text {
-  return text.length > 0;
-}
-
-- (BOOL)isVaildSex:(NSString *)text {
-  return text != nil;
-}
 /**
  *  下一步按钮点击
  */
 - (void)nextBtnClicked {
-  NSArray *basicInfoArray = @[
-    self.servantID.value,
-    self.idCardNo.value,
-    self.servantName.value,
-    self.sex.value,
-    self.servantMobil.value,
-    self.qqNumber.value,
-    self.userPwd.value,
-    self.confirmPwd.value
-  ];
-  MBProgressHUD *hud = [MBProgressHUD showMessage:@"请稍等"];
-  //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
-  //    animated:YES];
-  //    hud.labelText = @"请稍等";
+//  NSArray *basicInfoArray = @[
+//    self.servantID.value,
+//    self.idCardNo.value,
+//    self.servantName.value,
+//    self.sex.value,
+//    self.servantMobil.value,
+//    self.qqNumber.value,
+//    self.userPwd.value,
+//    self.confirmPwd.value
+//  ];
+//      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
+//      animated:YES];
+//      hud.labelText = @"请稍等";
 
-  // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  // 数据体
-  NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
-  attrParams[@"servantID"] = self.servantID.value;
-  NSString *urlStr = [NSString
-      stringWithFormat:@"%@/MobileServantInfoAction?operation=_checkServantID",
-                       kHSBaseURL];
-  // POST，判断用户名是否被占用
-  [manager POST:urlStr
-      parameters:attrParams
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        NSString *serverResponse = responseObject[@"serverResponse"];
-        if ([serverResponse isEqualToString:@"Failed"]) {
-          hud.labelText = @"用户名被占用";
-          [hud hide:YES];
-          [MBProgressHUD showError:@"用户名被占用"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyIDCardNumber:self.idCardNo
-                                                     .value]) { //身份证号不正确
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入正确的身份证号码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyPhoneNumber:self.servantMobil.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入正确的手机号码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyPassword:self.userPwd.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"输入6-18位数字和字母组合密码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![self.userPwd.value
-                       isEqualToString:self.confirmPwd.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入相同的密码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-
-        } else {
-          [hud hide:YES];
+//  // 访问服务器
+//  AFHTTPRequestOperationManager *manager =
+//      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
+//  // 数据体
+//  NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
+//  attrParams[@"servantID"] = self.servantID.value;
+//  NSString *urlStr = [NSString
+//      stringWithFormat:@"%@/MobileServantInfoAction?operation=_checkServantID",
+//                       kHSBaseURL];
+//  // POST，判断用户名是否被占用
+//  [manager POST:urlStr
+//      parameters:attrParams
+//      success:^(AFHTTPRequestOperation *_Nonnull operation,
+//                id _Nonnull responseObject) {
+//        NSString *serverResponse = responseObject[@"serverResponse"];
+//        if ([serverResponse isEqualToString:@"Failed"]) {
+//          hud.labelText = @"用户名被占用";
+//          [hud hide:YES];
+//          [MBProgressHUD showError:@"用户名被占用"];
+//          dispatch_after(
+//              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+//              dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//              });
+//        } else if (![HSVerify verifyIDCardNumber:self.idCardNo
+//                                                     .value]) { //身份证号不正确
+//          [hud hide:YES];
+//          [MBProgressHUD showError:@"请输入正确的身份证号码"];
+//          dispatch_after(
+//              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+//              dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//              });
+//        } else if (![HSVerify verifyPhoneNumber:self.servantMobil.value]) {
+//          [hud hide:YES];
+//          [MBProgressHUD showError:@"请输入正确的手机号码"];
+//          dispatch_after(
+//              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+//              dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//              });
+//        } else if (![HSVerify verifyPassword:self.userPwd.value]) {
+//          [hud hide:YES];
+//          [MBProgressHUD showError:@"输入6-18位数字和字母组合密码"];
+//          dispatch_after(
+//              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+//              dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//              });
+//        } else if (![self.userPwd.value
+//                       isEqualToString:self.confirmPwd.value]) {
+//          [hud hide:YES];
+//          [MBProgressHUD showError:@"请输入相同的密码"];
+//          dispatch_after(
+//              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+//              dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//              });
+//
+//        } else {
+//          [hud hide:YES];
           HSFinalRegistViewController *finalRegistVc =
               [[HSFinalRegistViewController alloc] init];
-          finalRegistVc.basicInfoArray = basicInfoArray;
+//          finalRegistVc.basicInfoArray = basicInfoArray;
           [self.navigationController pushViewController:finalRegistVc
                                                animated:YES];
-        }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        [hud hide:YES];
-        [MBProgressHUD showError:@"网络错误,请检查网络情况"];
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),
-            dispatch_get_main_queue(), ^{
-              [MBProgressHUD hideHUD];
-            });
-
-      }];
-}
-- (void)setupNavBtn {
-  self.navigationItem.leftBarButtonItem =
-      [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                       style:UIBarButtonItemStyleDone
-                                      target:self
-                                      action:@selector(backBtnClicked)];
-}
-/**
- *  取消按钮点击
- */
-- (void)backBtnClicked {
-  [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-/**
- *  重写UIGestureRecognizerDelegate解决tap手势与didSelectRowAtIndexPath的冲突
- */
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-       shouldReceiveTouch:(UITouch *)touch {
-  NSString *tapPlace = NSStringFromClass([touch.view class]);
-    LxDBAnyVar(tapPlace);
-  // 若为UITableView（即点击了UITableView），则截获Touch事件
-  if ([tapPlace isEqualToString:@"UITableView"]) {
-    return YES;
-  }
-  return NO;
+//        }
+//      }
+//      failure:^(AFHTTPRequestOperation *_Nonnull operation,
+//                NSError *_Nonnull error) {
+//        [hud hide:YES];
+//        [MBProgressHUD showError:@"网络错误,请检查网络情况"];
+//        dispatch_after(
+//            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),
+//            dispatch_get_main_queue(), ^{
+//              [MBProgressHUD hideHUD];
+//            });
+//
+//      }];
 }
 
 @end

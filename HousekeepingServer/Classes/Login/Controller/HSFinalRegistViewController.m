@@ -29,25 +29,18 @@
 #import "UIImage+SquareImage.h"
 #import "HSServant.h"
 #import "HSServantTool.h"
+#import "HSService.h"
+#import "MBProgressHUD.h"
+#import "HSServiceTableViewController.h"
 
 @interface HSFinalRegistViewController () <
     HSRegistViewContrllerDelegate, UIGestureRecognizerDelegate,
     HSPickerViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
-    UITextFieldDelegate, CLLocationManagerDelegate, HSHeadPictureViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+    UITextFieldDelegate, CLLocationManagerDelegate, HSHeadPictureViewDelegate,
+    UIActionSheetDelegate, UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate> {
   HSOrangeButton *_registBtn;
-  HSInfoLableItem *_location;
-  HSInfoTextFieldItem *_contactAddress;
-  // 第二组
-  HSInfoTextFieldItem *_educationLevel;
-  HSInfoTextFieldItem *_trainingIntro;
-  HSInfoTextFieldItem *_workYears;
-  HSInfoTextFieldItem *_servantIntro;
-  HSInfoTextFieldItem *_serviceItems;
-  HSInfoTextFieldItem *_careerType;
-  HSInfoTextFieldItem *_servantHonors;
-  // 第三组
-  HSInfoTextFieldItem *_holidayInMonth;
-  HSInfoTextFieldItem *_isStayHome;
+
   CLLocationManager *_manager;
   NSString *_registerLongitude; // 经度
   NSString *_registerLatitude;  // 纬度
@@ -57,19 +50,39 @@
   NSString *_servantCounty;
 
   NSAttributedString *_locationDefaultText;
-        
-        NSString *_fullPath;
-        NSString *_headPicture;
-        
-        NSURL *_iconImageFilePath;
+
+  NSString *_fullPath;
+  NSString *_headPicture;
+
+  NSURL *_iconImageFilePath;
 }
 /**
  *  区县
  */
 @property(strong, nonatomic) NSArray *provinces;
+
+@property(strong, readwrite, nonatomic) RETableViewSection *workInfoSection;
+
+@property(strong, nonatomic) RETableViewItem *location;
+@property(strong, nonatomic) RETextItem *contactAddress;
+@property(strong, nonatomic) REPickerItem *educationLevel;
+@property(strong, nonatomic) RETextItem *workYears;
+@property(strong, nonatomic) RETextItem *servantIntro;
+@property(strong, nonatomic) REMultipleChoiceItem *serviceItems;
+@property(strong, nonatomic) RETextItem *servantHonors;
+@property(strong, nonatomic) REPickerItem *isStayHome;
+@property(strong, nonatomic) REPickerItem *holidayInMonth;
+
 @property(strong, nonatomic) HSPickerView *servantPicker;
 @property(strong, nonatomic) UIPickerView *servantPickerView;
-@property (strong, nonatomic) HSHeadPictureView *headerPictureView;
+@property(strong, nonatomic) HSHeadPictureView *headerPictureView;
+
+@property(strong, nonatomic) NSArray *service;
+@property(strong, nonatomic) NSArray *subService;
+
+@property(strong, nonatomic) MBProgressHUD *hud;
+
+@property(strong, nonatomic) HSServiceTableViewController *serviceOptionVc;
 @end
 
 @implementation HSFinalRegistViewController
@@ -118,16 +131,23 @@
   return _servantPickerView;
 }
 
-- (HSHeadPictureView *)headerPictureView{
-    if (!_headerPictureView) {
-        _headerPictureView = [HSHeadPictureView headPictureView];
-        _headerPictureView.delegate = self;
-    }
-    return _headerPictureView;
+- (HSHeadPictureView *)headerPictureView {
+  if (!_headerPictureView) {
+    _headerPictureView = [HSHeadPictureView headPictureView];
+    _headerPictureView.delegate = self;
+  }
+  return _headerPictureView;
 }
 
+- (HSServiceTableViewController *)serviceOptionVc {
+  if (!_serviceOptionVc) {
+    _serviceOptionVc = [[HSServiceTableViewController alloc] init];
+  }
+  return _serviceOptionVc;
+}
 #pragma mark - 设置界面
 - (void)viewDidLoad {
+  [super viewDidLoad];
   // 标题
   self.title = @"详细信息";
   // 设置导航栏按钮
@@ -135,25 +155,10 @@
   // 通过地图获取经纬度
   [self setupLongAndLati];
   // 设置第一组
-  [self setupGroup0];
-
-  // 取消键盘
-  // 设置敲击手势，取消键盘
-  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-      initWithTarget:self
-              action:@selector(dismissKeyboard)];
-  tap.delegate = self;
-  [self.view addGestureRecognizer:tap];
-  [super viewDidLoad];
-}
-
-/**
- *  取消键盘
- */
-- (void)dismissKeyboard {
-  [self.servantPicker removeFromSuperview];
-  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
-  [self.view endEditing:YES];
+  self.workInfoSection = [self addWorkInfoSection];
+  // 注册按钮状态
+  [self registerBtnStateChange];
+  //  [self setupGroup0];
 }
 
 #pragma mark - 导航栏
@@ -196,240 +201,303 @@
 }
 
 #pragma mark - 第一组
-/**
- *  设置第一组
- */
-- (void)setupGroup0 {
-  // title
-  NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-  titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
+- (RETableViewSection *)addWorkInfoSection {
+  __typeof(&*self) __weak weakSelf = self;
+  // 表头
+  self.tableView.tableHeaderView = self.headerPictureView;
+  RETableViewSection *section =
+      [RETableViewSection sectionWithHeaderTitle:@"工作信息填写"];
+  [self.manager addSection:section];
 
-  NSAttributedString *locationStr =
-      [[NSAttributedString alloc] initWithString:@"省、市、区"
-                                      attributes:titleAttr];
-
-  NSAttributedString *contactAddressStr =
-      [[NSAttributedString alloc] initWithString:@"通讯地址"
-                                      attributes:titleAttr];
-  NSAttributedString *educationLevelStr =
-      [[NSAttributedString alloc] initWithString:@"教育程度"
-                                      attributes:titleAttr];
-
-  NSAttributedString *trainingIntroStr =
-      [[NSAttributedString alloc] initWithString:@"培训经历"
-                                      attributes:titleAttr];
-
-  NSAttributedString *workYearsStr =
-      [[NSAttributedString alloc] initWithString:@"从业年限"
-                                      attributes:titleAttr];
-
-  NSAttributedString *servantIntroStr =
-      [[NSAttributedString alloc] initWithString:@"工作介绍"
-                                      attributes:titleAttr];
-
-  NSAttributedString *serviceItemsStr =
-      [[NSAttributedString alloc] initWithString:@"服务项目"
-                                      attributes:titleAttr];
-
-  NSAttributedString *careerTypeStr =
-      [[NSAttributedString alloc] initWithString:@"职业头衔"
-                                      attributes:titleAttr];
-
-  NSAttributedString *servantHonorsStr =
-      [[NSAttributedString alloc] initWithString:@"所获奖项"
-                                      attributes:titleAttr];
-
-  NSAttributedString *isStayHomeStr =
-      [[NSAttributedString alloc] initWithString:@"是否住家"
-                                      attributes:titleAttr];
-
-  NSAttributedString *holidayInMonthStr =
-      [[NSAttributedString alloc] initWithString:@"休息天数"
-                                      attributes:titleAttr];
-
-  // placeholder
-  NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];
-  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-
-  NSAttributedString *contactAddressPh =
-      [[NSAttributedString alloc] initWithString:@"请填写详细通讯地址"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *educationLevelPh = [[NSAttributedString alloc]
-      initWithString:@"请填写您的受教育程度"
-          attributes:placeholderAttr];
-
-  NSAttributedString *trainingIntroPh =
-      [[NSAttributedString alloc] initWithString:@"请简要填写培训经历"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *workYearsPh =
-      [[NSAttributedString alloc] initWithString:@"请填写从业年限"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *servantIntroPh =
-      [[NSAttributedString alloc] initWithString:@"请简述自己的工作"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *serviceItemsPh =
-      [[NSAttributedString alloc] initWithString:@"可多项，用“|”分割"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *careerTypePh = [[NSAttributedString alloc]
-      initWithString:@"如果没有，请填“无”"
-          attributes:placeholderAttr];
-
-  NSAttributedString *servantHonorsPh = [[NSAttributedString alloc]
-      initWithString:@"如果没有，请填“无”"
-          attributes:placeholderAttr];
-
-  NSAttributedString *isStayHomePh =
-      [[NSAttributedString alloc] initWithString:@"请填写是/否"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *holidayInMonthPh = [[NSAttributedString alloc]
-      initWithString:@"请填写每月休息天数(数字即可)"
-          attributes:placeholderAttr];
-
-  NSMutableDictionary *labelAttr = [NSMutableDictionary dictionary];
-  labelAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-  labelAttr[NSForegroundColorAttributeName] =
-      XBMakeColorWithRGB(197, 197, 204, 1);
-
-  NSAttributedString *locationDefaultText =
-      [[NSAttributedString alloc] initWithString:@"请选择省、市、区"
-                                      attributes:labelAttr];
-  _locationDefaultText = locationDefaultText;
-
-  HSInfoLableItem *location = [HSInfoLableItem itemWithTitle:locationStr];
-  location.attrText = locationDefaultText;
-  location.enable = YES;
-  location.option = ^{
-    // 改变tableView的frame
-    self.tableView.frame =
-        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
+  self.location = [RETableViewItem itemWithTitle:@"省市区"];
+  self.location.selectionHandler = ^(RETableViewItem *item) {
+    [weakSelf.view endEditing:YES];
+    //         改变tableView的frame
+    //            weakSelf.tableView.frame =
+    //                CGRectMake(0, 64, XBScreenWidth, XBScreenHeight * 0.6);
     // 增加pickerView
-    [self.tableView.superview addSubview:self.servantPicker];
+    [weakSelf.tableView.superview addSubview:weakSelf.servantPicker];
     // 设置代理
-    self.servantPicker.delegate = self;
+    weakSelf.servantPicker.delegate = weakSelf;
 
-    self.servantPickerView.delegate = self;
-    self.servantPickerView.dataSource = self;
+    weakSelf.servantPickerView.delegate = weakSelf;
+    weakSelf.servantPickerView.dataSource = weakSelf;
 
     // 选中第一个
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:0];
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:1];
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:2];
+    [weakSelf pickerView:weakSelf.servantPickerView
+            didSelectRow:0
+             inComponent:0];
+    [weakSelf pickerView:weakSelf.servantPickerView
+            didSelectRow:0
+             inComponent:1];
+    [weakSelf pickerView:weakSelf.servantPickerView
+            didSelectRow:0
+             inComponent:2];
 
   };
-  _location = location;
 
-  HSInfoTextFieldItem *contactAddress =
-      [HSInfoTextFieldItem itemWithTitle:contactAddressStr
-                             placeholder:contactAddressPh];
-  contactAddress.finalRegistDelegateVc = self;
-  contactAddress.enable = YES;
-  _contactAddress = contactAddress;
+  self.contactAddress =
+      [RETextItem itemWithTitle:@"通讯地址"
+                          value:nil
+                    placeholder:@"请填写详细通讯地址"];
 
-  HSInfoTextFieldItem *educationLevel =
-      [HSInfoTextFieldItem itemWithTitle:educationLevelStr
-                             placeholder:educationLevelPh];
-  educationLevel.finalRegistDelegateVc = self;
-  educationLevel.enable = YES;
-  _educationLevel = educationLevel;
+  self.educationLevel = [REPickerItem
+      itemWithTitle:@"教育程度"
+              value:nil
+        placeholder:@"请选择您的受教育程度"
+            options:@[
+              @[ @"小学", @"初中", @"高中", @"本科", @"硕士" ]
+            ]];
+  self.educationLevel.inlinePicker = YES;
+  self.educationLevel.selectionHandler = ^(REPickerItem *item) {
+    [weakSelf.view endEditing:YES];
+  };
 
-  HSInfoTextFieldItem *trainingIntro =
-      [HSInfoTextFieldItem itemWithTitle:trainingIntroStr
-                             placeholder:trainingIntroPh];
-  trainingIntro.finalRegistDelegateVc = self;
-  trainingIntro.enable = YES;
-  _trainingIntro = trainingIntro;
+  self.workYears = [RETextItem itemWithTitle:@"从业年限"
+                                       value:nil
+                                 placeholder:@"请填写从业年限"];
+  self.workYears.keyboardType = UIKeyboardTypeNumberPad;
 
-  HSInfoTextFieldItem *workYears =
-      [HSInfoTextFieldItem itemWithTitle:workYearsStr placeholder:workYearsPh];
-  workYears.finalRegistDelegateVc = self;
-  workYears.enable = YES;
-  workYears.keyboardtype = UIKeyboardTypeNumberPad;
-  _workYears = workYears;
+  self.servantIntro = [RETextItem itemWithTitle:@"工作介绍"
+                                          value:nil
+                                    placeholder:@"请简述自己的工作"];
 
-  HSInfoTextFieldItem *servantIntro =
-      [HSInfoTextFieldItem itemWithTitle:servantIntroStr
-                             placeholder:servantIntroPh];
-  servantIntro.finalRegistDelegateVc = self;
-  servantIntro.enable = YES;
-  _servantIntro = servantIntro;
+  self.serviceItems = [REMultipleChoiceItem
+         itemWithTitle:@"服务项目"
+                 value:@[ @"请选择服务项目" ]
+      selectionHandler:^(REMultipleChoiceItem *item) {
+        [item deselectRowAnimated:YES];
+        self.serviceOptionVc.item = item;
+        self.serviceOptionVc.parentVc = self;
+        [weakSelf.navigationController pushViewController:self.serviceOptionVc
+                                                 animated:YES];
+      }];
 
-  HSInfoTextFieldItem *serviceItems =
-      [HSInfoTextFieldItem itemWithTitle:serviceItemsStr
-                             placeholder:serviceItemsPh];
-  serviceItems.finalRegistDelegateVc = self;
-  serviceItems.enable = YES;
-  _serviceItems = serviceItems;
+  self.servantHonors =
+      [RETextItem itemWithTitle:@"所获奖项"
+                          value:nil
+                    placeholder:@"如果没有，请填“无"];
 
-  HSInfoTextFieldItem *careerType =
-      [HSInfoTextFieldItem itemWithTitle:careerTypeStr
-                             placeholder:careerTypePh];
-  careerType.finalRegistDelegateVc = self;
-  careerType.enable = YES;
-  _careerType = careerType;
+  self.isStayHome = [REPickerItem itemWithTitle:@"是否住家"
+                                          value:nil
+                                    placeholder:@"请选择是/否"
+                                        options:@[ @[ @"是", @"否" ] ]];
+  self.isStayHome.inlinePicker = YES;
+  self.isStayHome.selectionHandler = ^(REPickerItem *item) {
+    [weakSelf.view endEditing:YES];
+  };
 
-  HSInfoTextFieldItem *servantHonors =
-      [HSInfoTextFieldItem itemWithTitle:servantHonorsStr
-                             placeholder:servantHonorsPh];
-  servantHonors.finalRegistDelegateVc = self;
-  servantHonors.enable = YES;
-  _servantHonors = servantHonors;
+  self.holidayInMonth =
+      [REPickerItem itemWithTitle:@"休息天数"
+                            value:nil
+                      placeholder:@"请选择每月休息天数"
+                          options:@[
+                            @[
+                              @"0",
+                              @"1",
+                              @"2",
+                              @"3",
+                              @"4",
+                              @"5",
+                              @"6",
+                              @"7",
+                              @"8",
+                              @"9",
+                              @"10",
+                              @"11",
+                              @"12",
+                              @"13",
+                              @"14",
+                              @"15",
+                              @"16",
+                              @"17",
+                              @"18",
+                              @"19",
+                              @"20"
+                            ]
+                          ]];
+  self.holidayInMonth.inlinePicker = YES;
+  self.holidayInMonth.selectionHandler = ^(REPickerItem *item) {
+    [weakSelf.view endEditing:YES];
+  };
 
-  HSInfoTextFieldItem *isStayHome =
-      [HSInfoTextFieldItem itemWithTitle:isStayHomeStr
-                             placeholder:isStayHomePh];
-  isStayHome.finalRegistDelegateVc = self;
-  isStayHome.enable = YES;
-  _isStayHome = isStayHome;
-
-  HSInfoTextFieldItem *holidayInMonth =
-      [HSInfoTextFieldItem itemWithTitle:holidayInMonthStr
-                             placeholder:holidayInMonthPh];
-  holidayInMonth.finalRegistDelegateVc = self;
-  holidayInMonth.enable = YES;
-  holidayInMonth.keyboardtype = UIKeyboardTypeNumberPad;
-  _holidayInMonth = holidayInMonth;
-
-  HSInfoGroup *g0 = [[HSInfoGroup alloc] init];
-  g0.items = @[
-    location,
-    contactAddress,
-    educationLevel,
-    workYears,
-    servantIntro,
-    serviceItems,
-    servantHonors,
-    isStayHome,
-    holidayInMonth
-  ];
-//  [self.data addObject:g0];
-    
-    // 表头
-    self.tableView.tableHeaderView = self.headerPictureView;
+  [section addItem:self.location];
+  [section addItem:self.contactAddress];
+  [section addItem:self.educationLevel];
+  [section addItem:self.workYears];
+  [section addItem:self.servantIntro];
+  [section addItem:self.serviceItems];
+  [section addItem:self.servantHonors];
+  [section addItem:self.isStayHome];
+  [section addItem:self.holidayInMonth];
 
   // 表尾
   HSInfoFooterView *footerView = [HSInfoFooterView footerView];
+  UIView *blankView =
+      [[UIView alloc] initWithFrame:CGRectMake(0, 0, XBScreenWidth, 90)];
   HSOrangeButton *registBtn = [HSOrangeButton orangeButtonWithTitle:@"注册"];
   CGFloat buttonX = 10;
-  CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;
+  CGFloat buttonW = blankView.frame.size.width - 2 * buttonX;
   CGFloat buttonH = 50;
-  CGFloat buttonY = footerView.frame.size.height * 0.5 - buttonH * 0.5;
+  CGFloat buttonY = blankView.frame.size.height * 0.5 - buttonH * 0.5;
   registBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
   registBtn.enabled = NO;
   registBtn.alpha = 0.66;
   [registBtn addTarget:self
                 action:@selector(registBtnClicked)
       forControlEvents:UIControlEventTouchUpInside];
-  [footerView addSubview:registBtn];
+  [blankView addSubview:registBtn];
+  [footerView addSubview:blankView];
   self.tableView.tableFooterView = footerView;
   _registBtn = registBtn;
+
+  return section;
 }
+
+- (void)registerBtnStateChange {
+  // 创建信号
+  RACSignal *validLocation =
+      [RACObserve(self.location, title) map:^id(id value) {
+        return @([self isValidLocation:value]);
+      }];
+
+  RACSignal *validContactAddress =
+      [RACObserve(self.contactAddress, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+      }];
+
+  RACSignal *validEducationLevel =
+      [RACObserve(self.educationLevel, value) map:^id(id value) {
+        return @([self isVaildPickerValue:value]);
+      }];
+
+  RACSignal *validWorkYears =
+      [RACObserve(self.workYears, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+      }];
+
+  RACSignal *validServantIntro =
+      [RACObserve(self.servantIntro, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+      }];
+
+  RACSignal *validServiceItem =
+      [RACObserve(self.serviceItems, detailLabelText) map:^id(id value) {
+        return @([self isValidServiceItem:value]);
+      }];
+
+  RACSignal *validServantHonors =
+      [RACObserve(self.servantHonors, value) map:^id(id value) {
+        return @([self isValidTextlength:value]);
+      }];
+
+  RACSignal *validIsStayHome =
+      [RACObserve(self.isStayHome, value) map:^id(id value) {
+        return @([self isVaildPickerValue:value]);
+      }];
+
+  RACSignal *validHolidayInMonth =
+      [RACObserve(self.holidayInMonth, value) map:^id(id value) {
+        return @([self isVaildPickerValue:value]);
+      }];
+
+  RACSignal *registerBtnActiveSignal = [RACSignal combineLatest:@[
+    validLocation,
+    validContactAddress,
+    validEducationLevel,
+    validWorkYears,
+    validServantIntro,
+    validServiceItem,
+    validServantHonors,
+    validIsStayHome,
+    validHolidayInMonth
+  ] reduce:^id(NSNumber *locationValid, NSNumber *contactAddressValid,
+               NSNumber *educationLevelValid, NSNumber *workYearsValid,
+               NSNumber *servantIntroValid, NSNumber *serviceItemsValid,
+               NSNumber *servantHonorsValid, NSNumber *isStayHomeValid,
+               NSNumber *holidayInMonthValid) {
+    return @([locationValid boolValue] && [contactAddressValid boolValue] &&
+             [educationLevelValid boolValue] && [workYearsValid boolValue] &&
+             [servantIntroValid boolValue] && [serviceItemsValid boolValue] &&
+             [servantHonorsValid boolValue] && [isStayHomeValid boolValue] &&
+             [holidayInMonthValid boolValue]);
+  }];
+
+  [registerBtnActiveSignal subscribeNext:^(NSNumber *loginActive) {
+    _registBtn.enabled = [loginActive boolValue];
+    _registBtn.alpha = 1;
+  }];
+}
+// 省市区是否正确
+- (BOOL)isValidLocation:(NSString *)value {
+  return ![value isEqualToString:@"省市区"];
+}
+
+// 服务项目是否正确
+- (BOOL)isValidServiceItem:(NSString *)value {
+  return ![value isEqualToString:@"请选择服务项目"];
+}
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+  for (UIView *view in cell.contentView.subviews) {
+    if ([view isKindOfClass:[UILabel class]]) {
+      UILabel *label = (UILabel *)view;
+      if ([label.text isEqualToString:@"省市区"]) {
+        label.textColor = [UIColor darkGrayColor];
+        label.font = [UIFont systemFontOfSize:14];
+      }
+    }
+  }
+}
+
+- (void)tableView:(UITableView *)tableView
+    willLayoutCellSubviews:(UITableViewCell *)cell
+         forRowAtIndexPath:(NSIndexPath *)indexPath {
+  for (UIView *view in cell.contentView.subviews) {
+    if ([view isKindOfClass:[UILabel class]] ||
+        [view isKindOfClass:[UITextField class]]) {
+      ((UILabel *)view).font = [UIFont systemFontOfSize:14];
+      ((UILabel *)view).textColor = [UIColor darkGrayColor];
+      ((UILabel *)view).textAlignment = NSTextAlignmentLeft;
+      if ([view isKindOfClass:[UITextField class]]) {
+        CGRect temp = ((UILabel *)view).frame;
+        temp.origin.x = 86;
+        ((UILabel *)view).frame = temp;
+      }
+    }
+  }
+  if ([cell isKindOfClass:[RETableViewPickerCell class]]) {
+    RETableViewPickerCell *pickerCell = (RETableViewPickerCell *)cell;
+    pickerCell.placeholderLabel.textColor =
+        XBMakeColorWithRGB(194, 194, 200, 1);
+
+    for (UIView *view in cell.contentView.subviews) {
+      UILabel *lable = (UILabel *)view;
+      if (lable.frame.origin.x > 90.0) {
+        CGRect temp = lable.frame;
+        temp.origin.x = 86;
+        lable.frame = temp;
+      }
+    }
+  }
+  if ([cell isKindOfClass:[RETableViewOptionCell class]]) {
+    for (UIView *view in cell.contentView.subviews) {
+      UILabel *lable = (UILabel *)view;
+      if (lable.frame.origin.x > 90.0) {
+        CGRect temp = lable.frame;
+        temp.origin.x = 86;
+        lable.frame = temp;
+      }
+
+      if ([lable.text isEqualToString:@"请选择服务项目"]) {
+        lable.textColor = XBMakeColorWithRGB(194, 194, 200, 1);
+      }
+    }
+  }
+}
+
 - (void)registBtnClicked {
   MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在注册"];
 
@@ -446,76 +514,80 @@
   attrDict[@"servantMobil"] = self.basicInfoArray[4];
   attrDict[@"servantNationality"] = @"汉";
   attrDict[@"isMarried"] = @"1";
-  attrDict[@"educationLevel"] = _educationLevel.text;
+  attrDict[@"educationLevel"] = [self.educationLevel.value lastObject];
   attrDict[@"trainingIntro"] = @"无";
   attrDict[@"servantProvince"] = _servantProvince;
   attrDict[@"servantCity"] = _servantCity;
   attrDict[@"servantCounty"] = _servantCounty;
-  attrDict[@"contactAddress"] = _contactAddress.text;
+  attrDict[@"contactAddress"] = self.contactAddress.value;
   attrDict[@"registerLongitude"] = _registerLongitude;
   attrDict[@"registerLatitude"] = _registerLatitude;
   attrDict[@"qqNumber"] = self.basicInfoArray[5];
   attrDict[@"emailAddress"] = @"无";
   attrDict[@"servantGender"] = self.basicInfoArray[3];
-  attrDict[@"workYears"] = _workYears.text;
-  attrDict[@"servantHonors"] = _servantHonors.text;
-  attrDict[@"servantIntro"] = _servantIntro.text;
-  if ([_isStayHome.text isEqualToString:@"是"]) {
-    attrDict[@"isStayHome"] = @"1";
-  } else {
-    attrDict[@"isStayHome"] = @"0";
-  }
-  attrDict[@"holidayInMonth"] = _holidayInMonth.text;
-  attrDict[@"serviceItems"] = _serviceItems.text;
+  attrDict[@"workYears"] = self.workYears.value;
+  attrDict[@"servantHonors"] = self.servantHonors.value;
+  attrDict[@"servantIntro"] = self.servantIntro.value;
+  attrDict[@"isStayHome"] = [self.isStayHome.value lastObject];
+  attrDict[@"holidayInMonth"] = [self.holidayInMonth.value lastObject];
+  attrDict[@"serviceItems"] = self.serviceItems.detailLabelText;
   attrDict[@"careerType"] = @"无";
-    
+
   NSString *urlStr = [NSString
       stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_register",
                        kHSBaseURL];
-    
-    [manager POST:urlStr parameters:attrDict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+
+  [manager POST:urlStr
+      parameters:attrDict
+      constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         XBLog(@"%@", _iconImageFilePath);
-        [formData appendPartWithFileURL:_iconImageFilePath name:@"headPicture" error:nil];
-    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [formData appendPartWithFileURL:_iconImageFilePath
+                                   name:@"headPicture"
+                                  error:nil];
+      }
+      success:^(AFHTTPRequestOperation *_Nonnull operation,
+                id _Nonnull responseObject) {
         NSString *serverResponse = responseObject[@"serverResponse"];
         if ([serverResponse isEqualToString:@"Success"]) {
-            [hud hide:YES];
-            [MBProgressHUD showSuccess:@"注册成功，请登录"];
-            dispatch_after(
-                           dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-                           dispatch_get_main_queue(), ^{
-                               // 创建模型
-                               HSServant *servant = [HSServant objectWithKeyValues:attrDict];
-                               // 存档
-                               [HSServantTool saveServant:servant];
-                               
-                               [MBProgressHUD hideHUD];
-                               [self dismissViewControllerAnimated:YES completion:nil];
-                           });
+          [hud hide:YES];
+          [MBProgressHUD showSuccess:@"注册成功，请登录"];
+          dispatch_after(
+              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
+              dispatch_get_main_queue(), ^{
+                // 创建模型
+                HSServant *servant = [HSServant objectWithKeyValues:attrDict];
+                // 存档
+                [HSServantTool saveServant:servant];
+
+                [MBProgressHUD hideHUD];
+                [self dismissViewControllerAnimated:YES completion:nil];
+              });
         } else {
-            [hud hide:YES];
-            [MBProgressHUD showError:@"注册失败，请重新注册"];
-            dispatch_after(
-                           dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-                           dispatch_get_main_queue(), ^{
-                               [MBProgressHUD hideHUD];
-                               [self dismissViewControllerAnimated:YES completion:nil];
-                           });
+          [hud hide:YES];
+          [MBProgressHUD showError:@"注册失败，请重新注册"];
+          dispatch_after(
+              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
+              dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUD];
+                [self dismissViewControllerAnimated:YES completion:nil];
+              });
         }
         XBLog(@"success%@", responseObject);
 
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+      }
+      failure:^(AFHTTPRequestOperation *_Nonnull operation,
+                NSError *_Nonnull error) {
         [hud hide:YES];
         [MBProgressHUD showError:@"网络错误，请重新注册"];
         dispatch_after(
-                       dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(), ^{
-                           [MBProgressHUD hideHUD];
-                           [self dismissViewControllerAnimated:YES completion:nil];
-                       });
-        
+            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
+            dispatch_get_main_queue(), ^{
+              [MBProgressHUD hideHUD];
+              [self dismissViewControllerAnimated:YES completion:nil];
+            });
+
         XBLog(@"error%@", error);
-    }];
+      }];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -526,9 +598,9 @@
        shouldReceiveTouch:(UITouch *)touch {
   NSString *tapPlace = NSStringFromClass([touch.view class]);
   // 若为UITableView（即点击了UITableView），则截获Touch事件
-    if ([tapPlace isEqualToString:@"UITableView"]||
-        [tapPlace isEqualToString:@"UIImageView"]||
-        [tapPlace isEqualToString:@"HSHeadPictureView"]) {
+  if ([tapPlace isEqualToString:@"UITableView"] ||
+      [tapPlace isEqualToString:@"UIImageView"] ||
+      [tapPlace isEqualToString:@"HSHeadPictureView"]) {
     return YES;
   }
   return NO;
@@ -556,6 +628,7 @@ numberOfRowsInComponent:(NSInteger)component {
     return city.arealist.count;
   }
 }
+
 #pragma mark - UIPickerViewDelegate
 - (NSString *)pickerView:(UIPickerView *)pickerView
              titleForRow:(NSInteger)row
@@ -583,6 +656,7 @@ numberOfRowsInComponent:(NSInteger)component {
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
+
   if (component == 0) {
     [pickerView reloadComponent:1];
     [pickerView reloadComponent:2];
@@ -614,7 +688,7 @@ numberOfRowsInComponent:(NSInteger)component {
     NSString *locationString =
         [NSString stringWithFormat:@"%@%@%@", _servantProvince, _servantCity,
                                    _servantCounty];
-    _location.text = locationString;
+    self.location.title = locationString;
     [self.tableView reloadData];
   }
 }
@@ -628,83 +702,13 @@ rowHeightForComponent:(NSInteger)component {
 - (void)pickerView:(HSPickerView *)pickerView
     cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar {
   [self.servantPicker removeFromSuperview];
-  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
+  //  self.tableView.frame = CGRectMake(0, 64, XBScreenWidth, XBScreenHeight);
 }
 
 - (void)pickerView:(HSPickerView *)pickerView
     confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar {
   [self.servantPicker removeFromSuperview];
-  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
-}
-
-#pragma mark - UITextFieldDelegate
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-  UITableViewCell *cell = (UITableViewCell *)[textField superview];
-  NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-  if (![textField.text isEqualToString:@""]) {
-    switch (indexPath.row) {
-    case 1:
-      _contactAddress.text = textField.text;
-      break;
-    case 2:
-      _educationLevel.text = textField.text;
-      break;
-    case 3:
-      _workYears.text = textField.text;
-      break;
-    case 4:
-      _servantIntro.text = textField.text;
-      break;
-    case 5:
-      _serviceItems.text = textField.text;
-      break;
-    case 6:
-      _servantHonors.text = textField.text;
-      break;
-    case 7:
-      _isStayHome.text = textField.text;
-      break;
-    case 8:
-      _holidayInMonth.text = textField.text;
-      break;
-    }
-  } else {
-    switch (indexPath.row) {
-    case 1:
-      _contactAddress.text = NULL;
-      break;
-    case 2:
-      _educationLevel.text = NULL;
-      break;
-    case 3:
-      _workYears.text = NULL;
-      break;
-    case 4:
-      _servantIntro.text = NULL;
-      break;
-    case 5:
-      _serviceItems.text = NULL;
-      break;
-    case 6:
-      _servantHonors.text = NULL;
-      break;
-    case 7:
-      _isStayHome.text = NULL;
-      break;
-    case 8:
-      _holidayInMonth.text = NULL;
-      break;
-    }
-  }
-  if (_location.text && _contactAddress.text && _educationLevel.text &&
-      _workYears.text && _servantIntro.text && _serviceItems.text &&
-      _servantHonors.text && _isStayHome.text && _holidayInMonth.text) {
-    _registBtn.enabled = YES;
-    _registBtn.alpha = 1;
-  } else {
-    _registBtn.enabled = NO;
-    _registBtn.alpha = 0.66;
-  }
+  //  self.tableView.frame = CGRectMake(0, 64, XBScreenWidth, XBScreenHeight);
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -720,88 +724,107 @@ rowHeightForComponent:(NSInteger)component {
 }
 
 #pragma mark - HSHeadPictureViewDelegate
-- (void)uploadButtonDidClicked{
-    [self whenClickHeadImage];
+- (void)uploadButtonDidClicked {
+  [self whenClickHeadImage];
 }
 
--(void)whenClickHeadImage{
-    
-    UIActionSheet *sheet;
-    sheet = [[UIActionSheet alloc] initWithTitle:@"选择头像上传" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"从相册选择" otherButtonTitles:@"从相机中选择", nil];
-    sheet.tag = 255;
-    sheet.actionSheetStyle = UIBarStyleBlackOpaque;
-    [sheet showInView:self.view];
+- (void)whenClickHeadImage {
+
+  UIActionSheet *sheet;
+  sheet = [[UIActionSheet alloc] initWithTitle:@"选择头像上传"
+                                      delegate:self
+                             cancelButtonTitle:@"取消"
+                        destructiveButtonTitle:@"从相册选择"
+                             otherButtonTitles:@"从相机中选择", nil];
+  sheet.tag = 255;
+  sheet.actionSheetStyle = UIBarStyleBlackOpaque;
+  [sheet showInView:self.view];
 }
 
 #pragma mark - actionsheet delegate
--(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet.tag == 255) {
-        NSUInteger sourceType = 0;
-        switch (buttonIndex) {
-            case 0:
-                // 相册  或者 UIImagePickerControllerSourceTypePhotoLibrary
-                sourceType =  UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                XBLog(@"选择相册图片");
-                break;
-                //相机
-            case 1:
-            {
-                sourceType = UIImagePickerControllerSourceTypeCamera;
-                if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"Test on real device, camera is not available in simulator" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                    [alert show];
-                    return;
-                }
-            }
-                break;
-            case 2:
-                return;
-        }
-        // 跳转到相机或相册页面
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate =self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = sourceType;
-        [self presentViewController:imagePickerController animated:YES completion:^{}];
-        
+- (void)actionSheet:(UIActionSheet *)actionSheet
+    clickedButtonAtIndex:(NSInteger)buttonIndex {
+  if (actionSheet.tag == 255) {
+    NSUInteger sourceType = 0;
+    switch (buttonIndex) {
+    case 0:
+      // 相册  或者 UIImagePickerControllerSourceTypePhotoLibrary
+      sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+      XBLog(@"选择相册图片");
+      break;
+    //相机
+    case 1: {
+      sourceType = UIImagePickerControllerSourceTypeCamera;
+      if (![UIImagePickerController
+              isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIAlertView *alert =
+            [[UIAlertView alloc] initWithTitle:nil
+                                       message:@"Test on real device, camera "
+                                       @"is not available in simulator"
+                                      delegate:nil
+                             cancelButtonTitle:nil
+                             otherButtonTitles:@"OK", nil];
+        [alert show];
+        return;
+      }
+    } break;
+    case 2:
+      return;
     }
+    // 跳转到相机或相册页面
+    UIImagePickerController *imagePickerController =
+        [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController
+                       animated:YES
+                     completion:^{
+                     }];
+  }
 }
 
 #pragma mark - PickerController delegate
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:^{}];
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+  [self dismissViewControllerAnimated:YES
+                           completion:^{
+                           }];
 }
 
 #pragma mark - image picker delegte
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    NSString *picName = @"headPicture.png";
-    _headPicture = picName;
-    [self saveImage:image withName:_headPicture];
-    
-    [picker dismissViewControllerAnimated:YES completion:^{}];
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info {
+
+  UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+  NSString *picName = @"headPicture.png";
+  _headPicture = picName;
+  [self saveImage:image withName:_headPicture];
+
+  [picker dismissViewControllerAnimated:YES
+                             completion:^{
+                             }];
 }
 
 #pragma mark - 保存图片至沙盒
-- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName
-{
-    //读取图片数据，设置压缩系数为0.5.
-    UIImage *squareImage = [UIImage scaleFromImage:currentImage toSize:CGSizeMake(100, 100)];
-    NSData *imageData = UIImagePNGRepresentation(squareImage);
-    // 获取沙盒目录
-    _fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
-    // 将图片写入文件
-    XBLog(@"图片保存path:%@",_fullPath);
-    [imageData writeToFile:_fullPath atomically:NO];
-    NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];
-    
-    _headerPictureView.iconImg.image = [UIImage clipImageWithData:imageData borderWidth:5 borderColor:XBMakeColorWithRGB(234, 103, 7, 1)];
-    
-    _iconImageFilePath = iconImageFilePath;
+- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName {
+  //读取图片数据，设置压缩系数为0.5.
+  UIImage *squareImage =
+      [UIImage scaleFromImage:currentImage toSize:CGSizeMake(100, 100)];
+  NSData *imageData = UIImagePNGRepresentation(squareImage);
+  // 获取沙盒目录
+  _fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+      stringByAppendingPathComponent:imageName];
+  // 将图片写入文件
+  XBLog(@"图片保存path:%@", _fullPath);
+  [imageData writeToFile:_fullPath atomically:NO];
+  NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];
+
+  _headerPictureView.iconImg.image =
+      [UIImage clipImageWithData:imageData
+                     borderWidth:5
+                     borderColor:XBMakeColorWithRGB(234, 103, 7, 1)];
+
+  _iconImageFilePath = iconImageFilePath;
 }
 
 @end

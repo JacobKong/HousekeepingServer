@@ -11576,21 +11576,21 @@
 				<key>ID</key>
 				<string>422800</string>
 			</dict>
-            <dict>
-                <key>arealist</key>
-                <array>
-                    <dict>
-                        <key>areaName</key>
-                        <string>神农架林区</string>
-                        <key>ID</key>
-                        <string>429021</string>
-                    </dict>
-                </array>
-                <key>cityName</key>
-                <string>神农架</string>
-                <key>ID</key>
-                <string>429021</string>
-            </dict>
+			<dict>
+				<key>arealist</key>
+				<array>
+					<dict>
+						<key>areaName</key>
+						<string>神农架林区</string>
+						<key>ID</key>
+						<string>429021</string>
+					</dict>
+				</array>
+				<key>cityName</key>
+				<string>神农架</string>
+				<key>ID</key>
+				<string>429021</string>
+			</dict>
 			<dict>
 				<key>arealist</key>
 				<array>
@@ -20603,30 +20603,29 @@
 		<key>provinceName</key>
 		<string>澳门特别行政区</string>
 	</dict>
-    <dict>
-        <key>citylist</key>
-        <array>
-            <dict>
-                <key>arealist</key>
-                <array>
-                    <dict>
-                        <key>areaName</key>
-                        <string>台北</string>
-                        <key>ID</key>
-                        <string>710001</string>
-                    </dict>
-                </array>
-                <key>cityName</key>
-                <string>台北</string>
-                <key>ID</key>
-                <string>710001</string>
-            </dict>
-        </array>
-        <key>ID</key>
-        <string>204</string>
-        <key>provinceName</key>
-        <string>台湾省</string>
-    </dict>
-
+	<dict>
+		<key>citylist</key>
+		<array>
+			<dict>
+				<key>arealist</key>
+				<array>
+					<dict>
+						<key>areaName</key>
+						<string>台北</string>
+						<key>ID</key>
+						<string>710001</string>
+					</dict>
+				</array>
+				<key>cityName</key>
+				<string>台北</string>
+				<key>ID</key>
+				<string>710001</string>
+			</dict>
+		</array>
+		<key>ID</key>
+		<string>204</string>
+		<key>provinceName</key>
+		<string>台湾省</string>
+	</dict>
 </array>
 </plist>

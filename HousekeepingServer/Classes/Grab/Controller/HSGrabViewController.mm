@@ -302,73 +302,7 @@
         XBLog(@"failure:%@", error);
       }];
 }
-/**
- *   加载服务
- */
-- (void)loadService {
-  // 将原来加载按钮取消
-  [self.serviceRefreshButton removeFromSuperview];
-  // weak self,否则block中循环引用
-  __weak HSGrabViewController *grabSelf = self;
-  // 将_region置空
-  _service = nil;
-  [self.serviceCollectionView reloadData];
-  // 隐藏所有HUD
-  [MBProgressHUD hideAllHUDsForView:self.serviceCollectionView animated:YES];
-  // 创建hud
-  hud = [MBProgressHUD showHUDAddedTo:self.serviceCollectionView animated:YES];
-  hud.labelText = @"正在加载";
-  //    hud.dimBackground = YES;
 
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  NSMutableDictionary *serviceAttrDict = [NSMutableDictionary dictionary];
-  serviceAttrDict[@"typeName"] = @"";
-  NSString *serviceUrlStr =
-      [NSString stringWithFormat:@"%@/MobileServiceTypeAction?operation=_query",
-                                 kHSBaseURL];
-  [manager POST:serviceUrlStr
-      parameters:serviceAttrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          [hud hide:YES afterDelay:1.0];
-          hud.completionBlock = ^{
-            _service = [HSService objectArrayWithKeyValuesArray:kDataResponse];
-            [grabSelf.serviceCollectionView reloadData];
-          };
-
-        } else {
-          _service = nil;
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"加载失败";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-          hud.completionBlock = ^{
-            grabSelf.serviceRefreshButton.center =
-                grabSelf.serviceCollectionView.center;
-            grabSelf.serviceRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
-            [grabSelf.serviceCollectionView
-                addSubview:grabSelf.serviceRefreshButton];
-          };
-        }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        _service = nil;
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:1.0];
-        hud.completionBlock = ^{
-          grabSelf.serviceRefreshButton.center =
-              grabSelf.serviceCollectionView.center;
-          grabSelf.serviceRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
-          [grabSelf.serviceCollectionView
-              addSubview:grabSelf.serviceRefreshButton];
-        };
-      }];
-}
 /**
  *  view消失时调用
  */

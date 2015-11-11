@@ -56,6 +56,16 @@
     
 }
 
+// textfield长度是否正确
+- (BOOL)isValidTextlength:(NSString *)text {
+    return text.length > 0;
+}
+
+- (BOOL)isVaildPickerValue:(NSString *)text {
+    return text != nil;
+}
+
+
 //
 //- (void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:animated];

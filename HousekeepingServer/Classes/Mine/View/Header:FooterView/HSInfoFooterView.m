@@ -28,7 +28,7 @@
 
 + (instancetype)footerView{
     HSInfoFooterView *footerView = [[HSInfoFooterView alloc]init];
-    footerView.frame = CGRectMake(0, 0, XBScreenWidth, 50);
+    footerView.frame = CGRectMake(0, 0, XBScreenWidth, 100);
     return footerView;
 }
 
