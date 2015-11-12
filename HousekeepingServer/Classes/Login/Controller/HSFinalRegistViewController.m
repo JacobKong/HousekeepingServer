@@ -83,10 +83,20 @@
 @property(strong, nonatomic) MBProgressHUD *hud;
 
 @property(strong, nonatomic) HSServiceTableViewController *serviceOptionVc;
+@property (assign, nonatomic, getter=isUploadHeadPicture)  BOOL uploadHeadPicture;
+//@property(strong, nonatomic) NSNumber *uploadHeadPicture;
+
 @end
 
 @implementation HSFinalRegistViewController
 #pragma mark - getter
+//- (NSNumber *)uploadHeadPicture{
+//    if (!_uploadHeadPicture) {
+//        _uploadHeadPicture = [[NSNumber alloc]initWithBool:NO];
+//    }
+//    return _uploadHeadPicture;
+//}
+
 - (NSArray *)provinces {
   if (!_provinces) {
     NSArray *dictArray =
@@ -356,6 +366,11 @@
 
 - (void)registerBtnStateChange {
   // 创建信号
+  RACSignal *isupload =
+      [RACObserve(self, uploadHeadPicture) map:^id(id value) {
+        return value;
+      }];
+
   RACSignal *validLocation =
       [RACObserve(self.location, title) map:^id(id value) {
         return @([self isValidLocation:value]);
@@ -402,6 +417,7 @@
       }];
 
   RACSignal *registerBtnActiveSignal = [RACSignal combineLatest:@[
+    isupload,
     validLocation,
     validContactAddress,
     validEducationLevel,
@@ -411,16 +427,17 @@
     validServantHonors,
     validIsStayHome,
     validHolidayInMonth
-  ] reduce:^id(NSNumber *locationValid, NSNumber *contactAddressValid,
-               NSNumber *educationLevelValid, NSNumber *workYearsValid,
-               NSNumber *servantIntroValid, NSNumber *serviceItemsValid,
-               NSNumber *servantHonorsValid, NSNumber *isStayHomeValid,
-               NSNumber *holidayInMonthValid) {
-    return @([locationValid boolValue] && [contactAddressValid boolValue] &&
-             [educationLevelValid boolValue] && [workYearsValid boolValue] &&
-             [servantIntroValid boolValue] && [serviceItemsValid boolValue] &&
-             [servantHonorsValid boolValue] && [isStayHomeValid boolValue] &&
-             [holidayInMonthValid boolValue]);
+  ] reduce:^id(NSNumber *uploadValid, NSNumber *locationValid,
+               NSNumber *contactAddressValid, NSNumber *educationLevelValid,
+               NSNumber *workYearsValid, NSNumber *servantIntroValid,
+               NSNumber *serviceItemsValid, NSNumber *servantHonorsValid,
+               NSNumber *isStayHomeValid, NSNumber *holidayInMonthValid) {
+    return
+        @([uploadValid boolValue] && [locationValid boolValue] &&
+          [contactAddressValid boolValue] && [educationLevelValid boolValue] &&
+          [workYearsValid boolValue] && [servantIntroValid boolValue] &&
+          [serviceItemsValid boolValue] && [servantHonorsValid boolValue] &&
+          [isStayHomeValid boolValue] && [holidayInMonthValid boolValue]);
   }];
 
   [registerBtnActiveSignal subscribeNext:^(NSNumber *loginActive) {
@@ -802,6 +819,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
   [picker dismissViewControllerAnimated:YES
                              completion:^{
+                                 self.uploadHeadPicture = YES;
                              }];
 }
 

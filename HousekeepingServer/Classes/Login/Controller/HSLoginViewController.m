@@ -47,7 +47,7 @@
     // 取消滚动
   self.tableView.scrollEnabled = NO;
   self.loginInfoSection = [self addLoginInfo];
-    
+    [self loginBtnStateChange];
 
     // 取消键盘
   // 设置敲击手势，取消键盘
@@ -97,17 +97,6 @@
   self.userPwd.secureTextEntry = YES;
   self.userPwd.image = [UIImage imageNamed:@"login_key"];
     self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
-  // 创建信号
-  RACSignal *validUserNumSignal =
-      [RACObserve(self.userNum, value) map:^id(id value) {
-        return @([self isUserNumVaild:value]);
-      }];
-  RACSignal *validUserPwdSignal =
-      [RACObserve(self.userPwd, value) map:^id(id value) {
-        return @([self isPwdVaild:value]);
-      }];
-
-
   [section addItem:self.userNum];
   [section addItem:self.userPwd];
 
@@ -125,25 +114,38 @@
   _registBtn = footerView.registBtn;
   self.tableView.tableFooterView = footerView;
 
-  RACSignal *loginActiveSignal = [RACSignal
-      combineLatest:@[ validUserNumSignal, validUserPwdSignal ]
-             reduce:^id(NSNumber *usernameValid, NSNumber *passwordValid) {
-               return @([usernameValid boolValue] && [passwordValid boolValue]);
-             }];
-
-  [loginActiveSignal subscribeNext:^(NSNumber *loginActive) {
-    _loginBtn.enabled = [loginActive boolValue];
-    _loginBtn.alpha = 1;
-  }];
   return section;
 }
 
+- (void)loginBtnStateChange{
+    // 创建信号
+    RACSignal *validUserNumSignal =
+    [RACObserve(self.userNum, value) map:^id(id value) {
+        return @([self isUserNumVaild:value]);
+    }];
+    RACSignal *validUserPwdSignal =
+    [RACObserve(self.userPwd, value) map:^id(id value) {
+        return @([self isPwdVaild:value]);
+    }];
+    RACSignal *loginActiveSignal = [RACSignal
+                                    combineLatest:@[ validUserNumSignal, validUserPwdSignal ]
+                                    reduce:^id(NSNumber *usernameValid, NSNumber *passwordValid) {
+                                        return @([usernameValid boolValue] && [passwordValid boolValue]);
+                                    }];
+    
+    [loginActiveSignal subscribeNext:^(NSNumber *loginActive) {
+        _loginBtn.enabled = [loginActive boolValue];
+        _loginBtn.alpha = 1;
+    }];
+
+
+}
 - (BOOL)isUserNumVaild:(NSString *)userNum {
-  return userNum.length > 3;
+  return userNum.length > 1;
 }
 
 - (BOOL)isPwdVaild:(NSString *)userPwd {
-  return userPwd.length > 3;
+  return userPwd.length > 5;
 }
 
 #pragma mark - UITableViewDelegate
