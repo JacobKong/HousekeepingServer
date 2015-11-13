@@ -34,9 +34,9 @@
 
 @property(strong, nonatomic) RETextItem *userNum;
 @property(strong, nonatomic) RETextItem *userPwd;
-@property (strong, readwrite, nonatomic) REPickerItem *pickerItem;
+@property(strong, readwrite, nonatomic) REPickerItem *pickerItem;
 
-@property (strong, nonatomic) RETableViewSection *loginInfoSection;
+@property(strong, nonatomic) RETableViewSection *loginInfoSection;
 
 @property(strong, nonatomic) HSServant *servant;
 @end
@@ -44,12 +44,13 @@
 @implementation HSLoginViewController
 - (void)viewDidLoad {
   [super viewDidLoad];
-    // 取消滚动
+    __typeof (&*self) __weak weakSelf = self;
+  // 取消滚动
   self.tableView.scrollEnabled = NO;
   self.loginInfoSection = [self addLoginInfo];
-    [self loginBtnStateChange];
+  [self loginBtnStateChange];
 
-    // 取消键盘
+  // 取消键盘
   // 设置敲击手势，取消键盘
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
       initWithTarget:self
@@ -60,12 +61,12 @@
   // footerView按钮点击
   [[_loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside]
       subscribeNext:^(id x) {
-        [self loginButtonDidClicked];
+        [weakSelf loginButtonDidClicked];
       }];
 
   [[_registBtn rac_signalForControlEvents:UIControlEventTouchUpInside]
       subscribeNext:^(id x) {
-        [self registButtonDidClicked];
+        [weakSelf registButtonDidClicked];
       }];
 }
 
@@ -73,6 +74,10 @@
   [super viewDidAppear:animated];
 }
 
+- (void)dealloc
+{
+    NSLog(@"LoginDealloc------"); 
+}
 /**
  *  取消键盘
  */
@@ -90,13 +95,13 @@
       [RETextItem itemWithTitle:nil value:nil
                     placeholder:@"请输入用户名"];
   self.userNum.image = [UIImage imageNamed:@"login_user"];
-    self.userNum.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
+  self.userNum.clearButtonMode = UITextFieldViewModeWhileEditing;
+
   self.userPwd =
       [RETextItem itemWithTitle:nil value:nil placeholder:@"请输入密码"];
   self.userPwd.secureTextEntry = YES;
   self.userPwd.image = [UIImage imageNamed:@"login_key"];
-    self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+  self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
   [section addItem:self.userNum];
   [section addItem:self.userPwd];
 
@@ -117,28 +122,27 @@
   return section;
 }
 
-- (void)loginBtnStateChange{
-    // 创建信号
-    RACSignal *validUserNumSignal =
-    [RACObserve(self.userNum, value) map:^id(id value) {
-        return @([self isUserNumVaild:value]);
-    }];
-    RACSignal *validUserPwdSignal =
-    [RACObserve(self.userPwd, value) map:^id(id value) {
-        return @([self isPwdVaild:value]);
-    }];
-    RACSignal *loginActiveSignal = [RACSignal
-                                    combineLatest:@[ validUserNumSignal, validUserPwdSignal ]
-                                    reduce:^id(NSNumber *usernameValid, NSNumber *passwordValid) {
-                                        return @([usernameValid boolValue] && [passwordValid boolValue]);
-                                    }];
-    
-    [loginActiveSignal subscribeNext:^(NSNumber *loginActive) {
-        _loginBtn.enabled = [loginActive boolValue];
-        _loginBtn.alpha = 1;
-    }];
+- (void)loginBtnStateChange {
+    __typeof (&*self) __weak weakSelf = self;
+  // 创建信号
+  RACSignal *validUserNumSignal =
+      [RACObserve(self.userNum, value) map:^id(id value) {
+        return @([weakSelf isUserNumVaild:value]);
+      }];
+  RACSignal *validUserPwdSignal =
+      [RACObserve(self.userPwd, value) map:^id(id value) {
+        return @([weakSelf isPwdVaild:value]);
+      }];
+  RACSignal *loginActiveSignal = [RACSignal
+      combineLatest:@[ validUserNumSignal, validUserPwdSignal ]
+             reduce:^id(NSNumber *usernameValid, NSNumber *passwordValid) {
+               return @([usernameValid boolValue] && [passwordValid boolValue]);
+             }];
 
-
+  [loginActiveSignal subscribeNext:^(NSNumber *loginActive) {
+    _loginBtn.enabled = [loginActive boolValue];
+    _loginBtn.alpha = 1;
+  }];
 }
 - (BOOL)isUserNumVaild:(NSString *)userNum {
   return userNum.length > 1;
@@ -230,6 +234,7 @@
 }
 
 - (void)saveServantWithServantID:(NSString *)servantID {
+    __typeof (&*self) __weak weakSelf = self;
   // 访问服务器
   AFHTTPRequestOperationManager *manager =
       (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
@@ -249,9 +254,9 @@
         NSString *response = responseObject[@"serverResponse"];
         if ([response isEqualToString:@"Success"]) {
           // 创建模型
-          self.servant = [HSServant objectWithKeyValues:kDataResponse];
+          weakSelf.servant = [HSServant objectWithKeyValues:kDataResponse];
           // 存储模型
-          [HSServantTool saveServant:self.servant];
+          [HSServantTool saveServant:weakSelf.servant];
           hud1.mode = MBProgressHUDModeCustomView;
           hud1.labelText = @"存储成功";
           hud1.customView = MBProgressHUDSuccessView;
@@ -259,9 +264,9 @@
           hud1.completionBlock = ^{
             HSTabBarViewController *tabVc =
                 [[HSTabBarViewController alloc] init];
-            self.view.window.rootViewController = tabVc;
+            weakSelf.view.window.rootViewController = tabVc;
             // 注册推送
-            [self registNotification];
+            [weakSelf registNotification];
           };
         } else {
           hud1.mode = MBProgressHUDModeCustomView;

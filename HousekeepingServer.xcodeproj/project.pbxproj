@@ -1455,7 +1455,7 @@
 					"-all_load",
 					"-w",
 				);
-				PROVISIONING_PROFILE = "5c05aacf-44ac-492f-92a8-9ff50413a849";
+				PROVISIONING_PROFILE = "9aaaaf0f-d50a-4da1-9789-45828889d955";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1496,7 +1496,7 @@
 					"-all_load",
 					"-w",
 				);
-				PROVISIONING_PROFILE = "5c05aacf-44ac-492f-92a8-9ff50413a849";
+				PROVISIONING_PROFILE = "9aaaaf0f-d50a-4da1-9789-45828889d955";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -40,18 +40,6 @@
     UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate,
     UINavigationControllerDelegate, UIImagePickerControllerDelegate,
     UIActionSheetDelegate, CLLocationManagerDelegate> {
-  HSInfoTextFieldItem *_servantID;
-  HSInfoTextFieldItem *_servantName;
-  HSInfoTextFieldItem *_loginPassword;
-  HSInfoTextFieldItem *_confirmPassword;
-  HSInfoTextFieldItem *_phoneNo;
-  HSInfoTextFieldItem *_servantMobil;
-  HSInfoLableItem *_location;
-  HSInfoTextFieldItem *_contactAddress;
-  HSInfoTextFieldItem *_qqNumber;
-  HSInfoTextFieldItem *_emailAddress;
-  HSInfoLableItem *_serviceItem;
-
   CLLocationManager *_manager;
   NSString *_realLongtitude; // 经度
   NSString *_realLatitude;   // 纬度
@@ -68,6 +56,20 @@
 
   NSURL *_iconImageFilePath;
 }
+@property(strong, nonatomic) RETableViewSection *personnalInfoSection;
+
+@property(strong, nonatomic) RETableViewItem *location;
+@property(strong, nonatomic) RETextItem *servantID;
+@property(strong, nonatomic) RETextItem *servantName;
+@property(strong, nonatomic) RETextItem *loginPassword;
+@property(strong, nonatomic) RETextItem *confirmPassword;
+@property(strong, nonatomic) RETextItem *phoneNo;
+@property(strong, nonatomic) RETextItem *servantMobil;
+@property(strong, nonatomic) RETextItem *contactAddress;
+@property(strong, nonatomic) RETextItem *qqNumber;
+@property(strong, nonatomic) RETextItem *emailAddress;
+@property(strong, nonatomic) RETextItem *serviceItem;
+
 @property(strong, nonatomic) NSArray *provinces;
 @property(strong, nonatomic) HSPickerView *servantPicker;
 @property(strong, nonatomic) UIPickerView *servantPickerView;
@@ -79,7 +81,7 @@
 @property(weak, nonatomic) UIBarButtonItem *rightBtn;
 @property(strong, nonatomic) HSInfoGroup *g0;
 @property(weak, nonatomic) UIImage *oldheadPicture;
-@property (assign, nonatomic)  int isSuccess;
+@property(assign, nonatomic) int isSuccess;
 @end
 
 @implementation HSMineInfoViewController
@@ -103,9 +105,9 @@
 
 - (HSPickerView *)servantPicker {
   if (!_servantPicker) {
-    CGFloat servantPickerY = XBScreenHeight * 0.6;
     CGFloat servantPickerW = XBScreenWidth;
     CGFloat servantPickerH = XBScreenHeight * 0.4;
+    CGFloat servantPickerY = XBScreenHeight - servantPickerH - 49;
     // 创建pickerView
     _servantPicker = [HSPickerView picker];
     self.servantPicker.frame =
@@ -138,8 +140,9 @@
 
 #pragma mark - view加载
 - (void)viewDidLoad {
+  [super viewDidLoad];
   // 添加第一组
-  [self setupGroup0];
+  self.personnalInfoSection = [self addPersonnalInfoSection];
   // 设置表尾
   [self setupfooterView];
   // 设置导航栏按钮
@@ -148,12 +151,6 @@
   [self setupHeadPictureWithServant:self.servant];
   // 通过地图获取经纬度
   [self setupLongAndLati];
-  // 设置敲击手势，取消键盘
-  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-      initWithTarget:self
-              action:@selector(dismissKeyboard)];
-  tap.delegate = self;
-  [self.view addGestureRecognizer:tap];
   // 设置头部可互动
   self.headerPictureView.userInteractionEnabled = YES;
   // 设置通知，文本框文字变化则收到通知，调用textChange方法
@@ -162,8 +159,6 @@
          selector:@selector(textChange)
              name:UITextFieldTextDidChangeNotification
            object:nil];
-
-  [super viewDidLoad];
   // Do any additional setup after loading the view.
 }
 
@@ -171,6 +166,7 @@
   [self setupOriginData];
   // 加载头像
   [self setupHeadPictureWithServant:self.servant];
+  self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
   [super viewWillAppear:animated];
 }
 
@@ -181,247 +177,132 @@
 - (void)textChange {
   self.saveBtn.enabled = YES;
 }
-
+#pragma mark - 自定义view加载
 /**
- *  取消键盘
+ *  创建section
  */
-- (void)dismissKeyboard {
-  [self pickerView:self.servantPicker
-      confirmButtonDidClickedOnToolBar:self.servantPicker.toolBar];
-  [self.view endEditing:YES];
-}
-
-- (void)setupGroup0 {
-  NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-  titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
-
-  NSAttributedString *servantIDStr =
-      [[NSAttributedString alloc] initWithString:@"您的ID"
-                                      attributes:titleAttr];
-  NSAttributedString *servantNameStr =
-      [[NSAttributedString alloc] initWithString:@"您的姓名"
-                                      attributes:titleAttr];
-  NSAttributedString *phoneNoStr =
-      [[NSAttributedString alloc] initWithString:@"联系电话"
-                                      attributes:titleAttr];
-
-  NSAttributedString *servantMobilStr =
-      [[NSAttributedString alloc] initWithString:@"手机号码"
-                                      attributes:titleAttr];
-
-  NSAttributedString *locationStr =
-      [[NSAttributedString alloc] initWithString:@"省市区"
-                                      attributes:titleAttr];
-
-  NSAttributedString *contactAddressStr =
-      [[NSAttributedString alloc] initWithString:@"通讯地址"
-                                      attributes:titleAttr];
-
-  NSAttributedString *qqNumberStr =
-      [[NSAttributedString alloc] initWithString:@"QQ 帐号"
-                                      attributes:titleAttr];
-
-  NSAttributedString *emailAddressStr =
-      [[NSAttributedString alloc] initWithString:@"电子邮箱"
-                                      attributes:titleAttr];
-
-  NSAttributedString *serviceItemStr =
-      [[NSAttributedString alloc] initWithString:@"服务项目"
-                                      attributes:titleAttr];
-
-  NSAttributedString *loginPasswordStr =
-      [[NSAttributedString alloc] initWithString:@"登录密码"
-                                      attributes:titleAttr];
-
-  NSAttributedString *confirmPwdStr =
-      [[NSAttributedString alloc] initWithString:@"确认密码"
-                                      attributes:titleAttr];
-
-  NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];
-  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-
-  NSMutableDictionary *labelAttr = [NSMutableDictionary dictionary];
-  labelAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-
-  // placeholder
-
-  NSAttributedString *servantIDPh = [[NSAttributedString alloc]
-      initWithString:@"请输入20位以内的用户名"
-          attributes:placeholderAttr];
-  NSAttributedString *servantNamePh =
-      [[NSAttributedString alloc] initWithString:@"请输入姓名"
-                                      attributes:placeholderAttr];
-  NSAttributedString *phoneNoPh =
-      [[NSAttributedString alloc] initWithString:@"请输入联系电话"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *servantMobilPh =
-      [[NSAttributedString alloc] initWithString:@"请输入手机号码"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *contactAddressPh =
-      [[NSAttributedString alloc] initWithString:@"请输入详细通讯地址"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *qqNumberPh =
-      [[NSAttributedString alloc] initWithString:@"请输入QQ 帐号"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *emailAddressPh =
-      [[NSAttributedString alloc] initWithString:@"请输入电子邮箱"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *loginPasswordPh =
-      [[NSAttributedString alloc] initWithString:@"请输入登录密码"
-                                      attributes:placeholderAttr];
-
-  NSAttributedString *confirmPwdPh =
-      [[NSAttributedString alloc] initWithString:@"请输入相同密码"
-                                      attributes:placeholderAttr];
+- (RETableViewSection *)addPersonnalInfoSection {
+  __typeof(&*self) __weak weakSelf = self;
+  // 表头
+  self.tableView.tableHeaderView = self.headerPictureView;
+  RETableViewSection *section =
+      [RETableViewSection sectionWithHeaderTitle:@"个人信息修改"];
+  [self.manager addSection:section];
 
   NSString *locationAddress = [NSString
       stringWithFormat:@"%@%@%@", self.servant.servantProvince,
                        self.servant.servantCity, self.servant.servantCounty];
+  self.location = [RETableViewItem itemWithTitle:locationAddress];
+  self.location.enabled = NO;
+  self.location.selectionHandler = ^(RETableViewItem *item) {
+    [item deselectRowAnimated:YES];
+    if (weakSelf.location.enabled) {
+      [weakSelf.view endEditing:YES];
+      [weakSelf.tableView.superview addSubview:weakSelf.servantPicker];
+      // 设置代理
+      weakSelf.servantPicker.delegate = weakSelf;
 
-  NSAttributedString *locationDefaultText =
-      [[NSAttributedString alloc] initWithString:locationAddress
-                                      attributes:labelAttr];
-  _locationDefaultText = locationDefaultText;
+      weakSelf.servantPickerView.delegate = weakSelf;
+      weakSelf.servantPickerView.dataSource = weakSelf;
 
-  NSAttributedString *serviceItemDefaultText =
-      [[NSAttributedString alloc] initWithString:self.servant.serviceItems
-                                      attributes:labelAttr];
-  _serviceItemDeaultText = serviceItemDefaultText;
+      // 选中第一个
+      [weakSelf pickerView:weakSelf.servantPickerView
+              didSelectRow:0
+               inComponent:0];
+      [weakSelf pickerView:weakSelf.servantPickerView
+              didSelectRow:0
+               inComponent:1];
+      [weakSelf pickerView:weakSelf.servantPickerView
+              didSelectRow:0
+               inComponent:2];
+    }
 
-  // item
-  HSInfoTextFieldItem *servantID =
-      [HSInfoTextFieldItem itemWithTitle:servantIDStr
-                             placeholder:servantIDPh
-                                    text:self.servant.servantID];
-  servantID.mineInfoDelegateVc = self;
-  _servantID = servantID;
-
-  HSInfoTextFieldItem *servantName =
-      [HSInfoTextFieldItem itemWithTitle:servantNameStr
-                             placeholder:servantNamePh
-                                    text:self.servant.servantName];
-  servantName.mineInfoDelegateVc = self;
-  _servantName = servantName;
-
-  HSInfoLableItem *serviceItem = [HSInfoLableItem itemWithTitle:serviceItemStr];
-  serviceItem.attrText = serviceItemDefaultText;
-  _serviceItem = serviceItem;
-
-  NSString *phoneNoString =
-      [NSString stringWithFormat:@"%ld", self.servant.phoneNo];
-  HSInfoTextFieldItem *phoneNo =
-      [HSInfoTextFieldItem itemWithTitle:phoneNoStr
-                             placeholder:phoneNoPh
-                                    text:phoneNoString];
-  phoneNo.mineInfoDelegateVc = self;
-  phoneNo.keyboardtype = UIKeyboardTypePhonePad;
-  _phoneNo = phoneNo;
-
-  NSString *servantMobilString =
-      [NSString stringWithFormat:@"%ld", self.servant.servantMobil];
-  HSInfoTextFieldItem *servantMobil =
-      [HSInfoTextFieldItem itemWithTitle:servantMobilStr
-                             placeholder:servantMobilPh
-                                    text:servantMobilString];
-  servantMobil.mineInfoDelegateVc = self;
-  servantMobil.keyboardtype = UIKeyboardTypePhonePad;
-  _servantMobil = servantMobil;
-
-  HSInfoLableItem *location = [HSInfoLableItem itemWithTitle:locationStr];
-  location.attrText = locationDefaultText;
-  location.option = ^{
-    // 改变tableView的frame
-    self.tableView.frame =
-        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);
-    // 增加pickerView
-    [self.tableView.superview addSubview:self.servantPicker];
-    // 设置代理
-    self.servantPicker.delegate = self;
-
-    self.servantPickerView.delegate = self;
-    self.servantPickerView.dataSource = self;
-
-    // 选中第一个
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:0];
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:1];
-    [self pickerView:self.servantPickerView didSelectRow:0 inComponent:2];
   };
-  _location = location;
 
-  HSInfoTextFieldItem *contactAddress =
-      [HSInfoTextFieldItem itemWithTitle:contactAddressStr
-                             placeholder:contactAddressPh
-                                    text:self.servant.contactAddress];
-  contactAddress.mineInfoDelegateVc = self;
-  _contactAddress = contactAddress;
+  self.servantID =
+      [RETextItem itemWithTitle:@"用户名" value:self.servant.servantID];
+  self.servantID.enabled = NO;
 
-  NSString *qqNumberString =
-      [NSString stringWithFormat:@"%ld", self.servant.qqNumber];
-  HSInfoTextFieldItem *qqNumber =
-      [HSInfoTextFieldItem itemWithTitle:qqNumberStr
-                             placeholder:qqNumberPh
-                                    text:qqNumberString];
-  qqNumber.mineInfoDelegateVc = self;
-  qqNumber.keyboardtype = UIKeyboardTypeNumberPad;
-  _qqNumber = qqNumber;
+  self.servantName = [RETextItem itemWithTitle:@"用户姓名"
+                                         value:self.servant.servantName
+                                   placeholder:@"请输入姓名"];
+  self.servantName.enabled = NO;
 
-  HSInfoTextFieldItem *emailAddress =
-      [HSInfoTextFieldItem itemWithTitle:emailAddressStr
-                             placeholder:emailAddressPh
-                                    text:self.servant.emailAddress];
-  emailAddress.mineInfoDelegateVc = self;
-  _emailAddress = emailAddress;
+  self.serviceItem = [RETextItem itemWithTitle:@"服务项目"
+                                         value:self.servant.serviceItems];
+  self.serviceItem.enabled = NO;
 
-  HSInfoTextFieldItem *loginPassword =
-      [HSInfoTextFieldItem itemWithTitle:loginPasswordStr
-                             placeholder:loginPasswordPh
-                                    text:self.servant.loginPassword];
-  loginPassword.secure = YES;
-  loginPassword.mineInfoDelegateVc = self;
-  _loginPassword = loginPassword;
+  self.phoneNo = [RETextItem
+      itemWithTitle:@"联系电话"
+              value:[NSString stringWithFormat:@"%ld", self.servant.phoneNo]
+        placeholder:@"请输入您的联系电话"];
+  self.phoneNo.keyboardType = UIKeyboardTypePhonePad;
+  self.phoneNo.enabled = NO;
 
-  HSInfoTextFieldItem *confirmPassword =
-      [HSInfoTextFieldItem itemWithTitle:confirmPwdStr
-                             placeholder:confirmPwdPh
-                                    text:self.servant.loginPassword];
-  confirmPassword.secure = YES;
-  confirmPassword.mineInfoDelegateVc = self;
-  _confirmPassword = confirmPassword;
+  self.servantMobil = [RETextItem
+      itemWithTitle:@"手机号码"
+              value:[NSString
+                        stringWithFormat:@"%ld", self.servant.servantMobil]
+        placeholder:@"请输入您的手机号码"];
+  self.servantMobil.keyboardType = UIKeyboardTypePhonePad;
+  self.servantMobil.enabled = NO;
 
-  HSInfoGroup *g0 = [[HSInfoGroup alloc] init];
-  g0.items = @[
-    location,
-    servantID,
-    servantName,
-    phoneNo,
-    servantMobil,
-    contactAddress,
-    qqNumber,
-    loginPassword,
-    confirmPassword
-  ];
-  self.g0 = g0;
-//  [self.data addObject:self.g0];
+  self.contactAddress =
+      [RETextItem itemWithTitle:@"通讯地址"
+                          value:self.servant.contactAddress
+                    placeholder:@"请填写详细通讯地址"];
+  self.contactAddress.enabled = NO;
 
-  // 表头
-  self.tableView.tableHeaderView = self.headerPictureView;
+  self.qqNumber = [RETextItem
+      itemWithTitle:@"QQ帐号"
+              value:[NSString stringWithFormat:@"%ld", self.servant.qqNumber]
+        placeholder:@"请输入您的QQ帐号"];
+  self.qqNumber.keyboardType = UIKeyboardTypeNumberPad;
+  self.qqNumber.enabled = NO;
+
+  self.emailAddress =
+      [RETextItem itemWithTitle:@"电子邮件"
+                          value:self.servant.emailAddress
+                    placeholder:@"请输入正确的电子邮件地址"];
+  self.emailAddress.enabled = NO;
+
+  self.loginPassword =
+      [RETextItem itemWithTitle:@"登录密码"
+                          value:self.servant.loginPassword
+                    placeholder:@"请输入6~18位字母数字组合密码"];
+  self.loginPassword.secureTextEntry = YES;
+  self.loginPassword.enabled = NO;
+
+  self.confirmPassword = [RETextItem itemWithTitle:@"确认密码"
+                                             value:self.servant.loginPassword
+                                       placeholder:@"请再次输入密码"];
+  self.confirmPassword.secureTextEntry = YES;
+  self.confirmPassword.enabled = NO;
+
+  [section addItem:self.location];
+  [section addItem:self.servantID];
+  [section addItem:self.servantName];
+  [section addItem:self.serviceItem];
+  [section addItem:self.phoneNo];
+  [section addItem:self.servantMobil];
+  [section addItem:self.contactAddress];
+  [section addItem:self.qqNumber];
+  [section addItem:self.emailAddress];
+  [section addItem:self.loginPassword];
+  [section addItem:self.confirmPassword];
+
+  return section;
 }
 
+/**
+ *  创建头像
+ */
 - (void)setupHeadPictureWithServant:(HSServant *)servant {
   __weak __typeof(self) weakSelf = self;
   NSString *headPicture = servant.headPicture;
   NSString *pictureURLStr =
       [NSString stringWithFormat:@"%@/%@", kHSBaseURL, headPicture];
   NSURL *pictureURL = [NSURL URLWithString:pictureURLStr];
-  //  NSURLRequest *request = [NSURLRequest requestWithURL:pictureURL
-  //                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-  //                                       timeoutInterval:5.0];
 
   [self.headerPictureView.iconImg
       sd_setImageWithURL:pictureURL
@@ -433,24 +314,10 @@
                  [weakSelf saveImage:image
                             withName:picName
                           completion:^{
-                              [weakSelf.tableView reloadData];
+                            [weakSelf.tableView reloadData];
                           }];
                  _headPicture = picName;
                }];
-
-  //  [self.headerPictureView.iconImg setImageWithURLRequest:request
-  //      placeholderImage:[UIImage imageNamed:@"icon"]
-  //      success:^(NSURLRequest *_Nonnull request,
-  //                NSHTTPURLResponse *_Nonnull response, UIImage *_Nonnull
-  //                image) {
-  //        NSString *picName = @"headPicture.png";
-  //        [weakSelf saveImage:image withName:picName];
-  //        _headPicture = picName;
-  //      }
-  //      failure:^(NSURLRequest *_Nonnull request,
-  //                NSHTTPURLResponse *_Nonnull response, NSError *_Nonnull
-  //                error){
-  //      }];
 }
 
 /**
@@ -478,6 +345,25 @@
 }
 
 /**
+ *  导航栏按钮
+ */
+- (void)setupNavBarBtn {
+  self.navigationItem.leftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:@"注销登录"
+                                       style:UIBarButtonItemStyleDone
+                                      target:self
+                                      action:@selector(logoutBtnClicked)];
+
+  self.navigationItem.rightBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:@"编辑"
+                                       style:UIBarButtonItemStyleDone
+                                      target:self
+                                      action:@selector(editBtnClicked)];
+  self.rightBtn = self.navigationItem.rightBarButtonItem;
+}
+
+#pragma mark - 按钮点击
+/**
  *  保存按钮点击
  */
 - (void)saveBtnClicked {
@@ -485,17 +371,17 @@
       [MBProgressHUD showHUDAddedTo:self.navigationController.view
                            animated:YES];
   hud.labelText = @"正在保存并上传";
-  if (![HSVerify verifyPhoneNumber:_servantMobil.text]) {
+  if (![HSVerify verifyPhoneNumber:_servantMobil.value]) {
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = @"请输入正确的手机号码";
     hud.customView = MBProgressHUDErrorView;
     [hud hide:YES afterDelay:1.0];
-  } else if (![HSVerify verifyPassword:_loginPassword.text]) {
+  } else if (![HSVerify verifyPassword:_loginPassword.value]) {
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = @"输入6-18位数字和字母组合密码";
     hud.customView = MBProgressHUDErrorView;
     [hud hide:YES afterDelay:1.0];
-  } else if (![_loginPassword.text isEqualToString:_confirmPassword.text]) {
+  } else if (![_loginPassword.value isEqualToString:_confirmPassword.value]) {
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = @"请输入相同的密码";
     hud.customView = MBProgressHUDErrorView;
@@ -513,7 +399,6 @@
     self.saveBtn.hidden = YES;
   }
 }
-
 - (int)updateInfo {
   _isSuccess = 0;
   MBProgressHUD *hud =
@@ -525,17 +410,17 @@
   // 数据体
   NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
   attrDict[@"id"] = [NSString stringWithFormat:@"%d", self.servant.ID];
-  attrDict[@"servantID"] = _servantID.text;
-  attrDict[@"servantName"] = _servantName.text;
-  attrDict[@"loginPassword"] = _loginPassword.text;
-  attrDict[@"phoneNo"] = _phoneNo.text;
-  attrDict[@"servantMobil"] = _servantMobil.text;
+  attrDict[@"servantID"] = self.servantID.value;
+  attrDict[@"servantName"] = self.servantName.value;
+  attrDict[@"loginPassword"] = self.loginPassword.value;
+  attrDict[@"phoneNo"] = self.phoneNo.value;
+  attrDict[@"servantMobil"] = self.servantMobil.value;
   attrDict[@"servantProvince"] = _servantProvince;
   attrDict[@"servantCity"] = _servantCity;
   attrDict[@"servantCounty"] = _servantCounty;
-  attrDict[@"contactAddress"] = _contactAddress.text;
-  attrDict[@"qqNumber"] = _qqNumber.text;
-  attrDict[@"emailAddress"] = @"无";
+  attrDict[@"contactAddress"] = self.contactAddress.value;
+  attrDict[@"qqNumber"] = self.qqNumber.value;
+  attrDict[@"emailAddress"] = self.emailAddress.value;
   attrDict[@"realLongitude"] = _realLongtitude;
   attrDict[@"realLatitude"] = _realLatitude;
 
@@ -589,7 +474,64 @@
       }];
   return _isSuccess;
 }
-#pragma mark - 获取经纬度
+/**
+ *  注销按钮点击
+ */
+- (void)logoutBtnClicked {
+  // 删除本地账户
+  [HSAccountTool removeAccount];
+  UIAlertView *alert = [[UIAlertView alloc]
+          initWithTitle:@"您确定退出吗？"
+                message:@"退" @"出" @"后"
+                                      @"您可能无法收到订单消息及推送，您确定退"
+                                      @"出吗？"
+               delegate:self
+      cancelButtonTitle:@"取消"
+      otherButtonTitles:@"确定退出", nil];
+  alert.delegate = self;
+  [alert show];
+}
+/**
+ *  编辑按钮点击
+ */
+- (void)editBtnClicked {
+  self.saveBtn.hidden = !self.saveBtn.hidden;
+  self.saveBtn.enabled = !self.saveBtn.enabled;
+
+  if ([self.rightBtn.title isEqualToString:@"取消"]) {
+    self.rightBtn.title = @"编辑";
+    [self setupOriginData];
+    [self setCellDisable];
+    [self pickerView:self.servantPicker
+        cancelButtonDidClickedOnToolBar:self.servantPicker.toolBar];
+    [self.tableView reloadData];
+  } else {
+
+    self.rightBtn.title = @"取消";
+    [self setCellEnable];
+    [self.tableView reloadData];
+  }
+}
+/**
+ *  头像点击
+ */
+- (void)whenClickHeadImage {
+
+  UIActionSheet *sheet;
+  sheet = [[UIActionSheet alloc] initWithTitle:@"选择头像上传"
+                                      delegate:self
+                             cancelButtonTitle:@"取消"
+                        destructiveButtonTitle:@"从相册选择"
+                             otherButtonTitles:@"从相机中选择", nil];
+  sheet.tag = 255;
+  sheet.actionSheetStyle = UIBarStyleBlackOpaque;
+  [sheet showInView:self.view];
+}
+
+#pragma mark - 数据相关
+/**
+ *  定位，经纬度
+ */
 - (void)setupLongAndLati {
   // 初始化定位器管理器
   CLLocationManager *manager = [[CLLocationManager alloc] init];
@@ -610,59 +552,14 @@
   }
 }
 
-#pragma mark - 导航栏按钮创建及点击
-- (void)setupNavBarBtn {
-  self.navigationItem.leftBarButtonItem =
-      [[UIBarButtonItem alloc] initWithTitle:@"注销登录"
-                                       style:UIBarButtonItemStyleDone
-                                      target:self
-                                      action:@selector(logoutBtnClicked)];
-
-  self.navigationItem.rightBarButtonItem =
-      [[UIBarButtonItem alloc] initWithTitle:@"编辑"
-                                       style:UIBarButtonItemStyleDone
-                                      target:self
-                                      action:@selector(editBtnClicked)];
-  self.rightBtn = self.navigationItem.rightBarButtonItem;
-}
-
-- (void)logoutBtnClicked {
-  // 删除本地账户
-  [HSAccountTool removeAccount];
-  UIAlertView *alert = [[UIAlertView alloc]
-          initWithTitle:@"您确定退出吗？"
-                message:@"退" @"出"
-                @"后您可能无法收到订单消息及推送，您确定退出吗？"
-               delegate:self
-      cancelButtonTitle:@"取消"
-      otherButtonTitles:@"确定退出", nil];
-  alert.delegate = self;
-  [alert show];
-}
-
-- (void)editBtnClicked {
-  self.saveBtn.hidden = !self.saveBtn.hidden;
-  self.saveBtn.enabled = !self.saveBtn.enabled;
-
-  if ([self.rightBtn.title isEqualToString:@"取消"]) {
-    self.rightBtn.title = @"编辑";
-
-    [self setupOriginData];
-    [self setCellDisable];
-    [self pickerView:self.servantPicker
-        cancelButtonDidClickedOnToolBar:self.servantPicker.toolBar];
-    [self.tableView reloadData];
-  } else {
-
-    self.rightBtn.title = @"取消";
-    [self setCellEnable];
-    [self.tableView reloadData];
-  }
-}
 /**
  *  设置为原始数据
  */
 - (void)setupOriginData {
+    [self.rightBtn setTitle:@"编辑"];
+    self.saveBtn.enabled = NO;
+    self.saveBtn.hidden = YES;
+
   _servantProvince = self.servant.servantProvince;
   _servantCity = self.servant.servantCity;
   _servantCounty = self.servant.servantCounty;
@@ -670,80 +567,52 @@
       [NSString stringWithFormat:@"%@%@%@", _servantProvince, _servantCity,
                                  _servantCounty];
 
-  _location.text = locationAddress;
-  _servantID.text = self.servant.servantID;
-  _servantName.text = self.servant.servantName;
+  self.location.title = locationAddress;
+  self.servantID.value = self.servant.servantID;
+  self.servantName.value = self.servant.servantName;
 
   NSString *phoneNoString =
       [NSString stringWithFormat:@"%ld", self.servant.phoneNo];
-  _phoneNo.text = phoneNoString;
+  self.phoneNo.value = phoneNoString;
 
   NSString *servantMobilString =
       [NSString stringWithFormat:@"%ld", self.servant.servantMobil];
-  _servantMobil.text = servantMobilString;
-  _contactAddress.text = self.servant.contactAddress;
-  _qqNumber.text = [NSString stringWithFormat:@"%ld", self.servant.qqNumber];
-  _loginPassword.text = self.servant.loginPassword;
-  _confirmPassword.text = self.servant.loginPassword;
+  self.servantMobil.value = servantMobilString;
+  self.contactAddress.value = self.servant.contactAddress;
+  self.qqNumber.value =
+      [NSString stringWithFormat:@"%ld", self.servant.qqNumber];
+    self.emailAddress.value = self.servant.emailAddress;
+  self.loginPassword.value = self.servant.loginPassword;
+  self.confirmPassword.value = self.servant.loginPassword;
 
   [self.tableView reloadData];
 }
 
 - (void)setCellEnable {
-  _servantName.enable = YES;
-  //  _servantID.enable = YES;
-  _phoneNo.enable = YES;
-  _servantMobil.enable = YES;
-  _location.enable = YES;
-  _contactAddress.enable = YES;
-  _qqNumber.enable = YES;
-  _emailAddress.enable = YES;
-  _loginPassword.enable = YES;
-  _confirmPassword.enable = YES;
+  _servantName.enabled = YES;
+  _phoneNo.enabled = YES;
+  _servantMobil.enabled = YES;
+  _location.enabled = YES;
+  _contactAddress.enabled = YES;
+  _qqNumber.enabled = YES;
+  _emailAddress.enabled = YES;
+  _loginPassword.enabled = YES;
+  _confirmPassword.enabled = YES;
 }
 
 - (void)setCellDisable {
-  _servantName.enable = NO;
-  _servantID.enable = NO;
-  _phoneNo.enable = NO;
-  _servantMobil.enable = NO;
-  _location.enable = NO;
-  _contactAddress.enable = NO;
-  _qqNumber.enable = NO;
-  _emailAddress.enable = NO;
-  _loginPassword.enable = NO;
-  _confirmPassword.enable = NO;
+  _servantName.enabled = NO;
+  _phoneNo.enabled = NO;
+  _servantMobil.enabled = NO;
+  _location.enabled = NO;
+  _contactAddress.enabled = NO;
+  _qqNumber.enabled = NO;
+  _emailAddress.enabled = NO;
+  _loginPassword.enabled = NO;
+  _confirmPassword.enabled = NO;
 }
 
-#pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(nonnull NSArray<CLLocation *> *)locations {
-  CLLocation *newLocaltion = locations.lastObject;
-  // 记录经度
-  _realLongtitude =
-      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.longitude];
-  // 记录纬度
-  _realLatitude =
-      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.latitude];
-}
-
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView
-    clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if (buttonIndex == 1) {
-    // 跳到登录界面
-    HSLoginViewController *loginVc = [[HSLoginViewController alloc] init];
-    [self presentViewController:loginVc animated:YES completion:nil];
-      //关闭推送通知
-      [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-      [BPush unbindChannelWithCompleteHandler:^(id result, NSError *error) {
-          if (result) {
-              XBLog(@"unbindChannelWithCompleteHandler--%@", result);
-          }
-      }];
-  }
-}
-
+#pragma mark - datasouce
 #pragma mark - UIPickerViewDataSource
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
   return 3;
@@ -764,6 +633,67 @@ numberOfRowsInComponent:(NSInteger)component {
         [self.servantPickerView selectedRowInComponent:1];
     HSCity *city = province.citylist[citySelectedIndex];
     return city.arealist.count;
+  }
+}
+
+#pragma mark - delegate
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(nonnull NSArray<CLLocation *> *)locations {
+  CLLocation *newLocaltion = locations.lastObject;
+  // 记录经度
+  _realLongtitude =
+      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.longitude];
+  // 记录纬度
+  _realLatitude =
+      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.latitude];
+}
+
+#pragma mark - RETableViewManagerDelegate
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+  for (UIView *view in cell.contentView.subviews) {
+    if ([view isKindOfClass:[UILabel class]]) {
+      UILabel *label = (UILabel *)view;
+      label.textColor = [UIColor darkGrayColor];
+      label.font = [UIFont systemFontOfSize:14];
+    }
+  }
+}
+
+- (void)tableView:(UITableView *)tableView
+    willLayoutCellSubviews:(UITableViewCell *)cell
+         forRowAtIndexPath:(NSIndexPath *)indexPath {
+  for (UIView *view in cell.contentView.subviews) {
+    if ([view isKindOfClass:[UILabel class]] ||
+        [view isKindOfClass:[UITextField class]]) {
+      ((UILabel *)view).font = [UIFont systemFontOfSize:14];
+      ((UILabel *)view).textColor = [UIColor darkGrayColor];
+      ((UILabel *)view).textAlignment = NSTextAlignmentLeft;
+      if ([view isKindOfClass:[UITextField class]]) {
+        CGRect temp = ((UILabel *)view).frame;
+        temp.origin.x = 86;
+        ((UILabel *)view).frame = temp;
+      }
+    }
+  }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView
+    clickedButtonAtIndex:(NSInteger)buttonIndex {
+  if (buttonIndex == 1) {
+    // 跳到登录界面
+    HSLoginViewController *loginVc = [[HSLoginViewController alloc] init];
+    [self presentViewController:loginVc animated:YES completion:nil];
+    //关闭推送通知
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    [BPush unbindChannelWithCompleteHandler:^(id result, NSError *error) {
+      if (result) {
+        XBLog(@"unbindChannelWithCompleteHandler--%@", result);
+      }
+    }];
   }
 }
 
@@ -825,7 +755,7 @@ numberOfRowsInComponent:(NSInteger)component {
     NSString *locationString =
         [NSString stringWithFormat:@"%@%@%@", _servantProvince, _servantCity,
                                    _servantCounty];
-    _location.text = locationString;
+    _location.title = locationString;
     [self.tableView reloadData];
   }
 }
@@ -839,102 +769,11 @@ rowHeightForComponent:(NSInteger)component {
 - (void)pickerView:(HSPickerView *)pickerView
     cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar {
   [self.servantPicker removeFromSuperview];
-  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
 }
 
 - (void)pickerView:(HSPickerView *)pickerView
     confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar {
   [self.servantPicker removeFromSuperview];
-  self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-/**
- *  重写UIGestureRecognizerDelegate解决tap手势与didSelectRowAtIndexPath的冲突
- */
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-       shouldReceiveTouch:(UITouch *)touch {
-  NSString *tapPlace = NSStringFromClass([touch.view class]);
-  // 若为UITableView（即点击了UITableView），则截获Touch事件
-  if ([tapPlace isEqualToString:@"UITableView"] ||
-      [tapPlace isEqualToString:@"UIImageView"] ||
-      [tapPlace isEqualToString:@"HSHeadPictureView"]) {
-    return YES;
-  }
-  return NO;
-}
-
-#pragma mark - UITextFieldDelegate
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-  UITableViewCell *cell = (UITableViewCell *)[textField superview];
-  NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-  if (![textField.text isEqualToString:@""]) {
-    switch (indexPath.row) {
-    case 1:
-      _servantID.text = textField.text;
-      break;
-    case 2:
-      _servantName.text = textField.text;
-      break;
-    case 3:
-      _phoneNo.text = textField.text;
-      break;
-    case 4:
-      _servantMobil.text = textField.text;
-      break;
-    case 5:
-      _contactAddress.text = textField.text;
-      break;
-    case 6:
-      _qqNumber.text = textField.text;
-      break;
-    case 7:
-      _loginPassword.text = textField.text;
-      break;
-    case 8:
-      _confirmPassword.text = textField.text;
-      break;
-    }
-  } else {
-    switch (indexPath.row) {
-    case 1:
-      _servantID.text = NULL;
-      break;
-    case 2:
-      _servantName.text = NULL;
-      break;
-    case 3:
-      _phoneNo.text = NULL;
-      break;
-    case 4:
-      _servantMobil.text = NULL;
-      break;
-    case 5:
-      _contactAddress.text = NULL;
-      break;
-    case 6:
-      _qqNumber.text = NULL;
-      break;
-    case 7:
-      _emailAddress.text = NULL;
-      break;
-    case 8:
-      _loginPassword.text = NULL;
-      break;
-    case 9:
-      _confirmPassword.text = NULL;
-      break;
-    }
-  }
-  if (_servantID.text && _servantName.text && _phoneNo.text &&
-      _servantMobil.text && _contactAddress.text && _qqNumber.text &&
-      _emailAddress.text && _loginPassword.text && _confirmPassword) {
-    _saveBtn.enabled = YES;
-    _saveBtn.alpha = 1;
-  } else {
-    _saveBtn.enabled = NO;
-    _saveBtn.alpha = 0.66;
-  }
 }
 
 #pragma mark - HSHeadPictureViewDelegate
@@ -944,20 +783,7 @@ rowHeightForComponent:(NSInteger)component {
   [self whenClickHeadImage];
 }
 
-- (void)whenClickHeadImage {
-
-  UIActionSheet *sheet;
-  sheet = [[UIActionSheet alloc] initWithTitle:@"选择头像上传"
-                                      delegate:self
-                             cancelButtonTitle:@"取消"
-                        destructiveButtonTitle:@"从相册选择"
-                             otherButtonTitles:@"从相机中选择", nil];
-  sheet.tag = 255;
-  sheet.actionSheetStyle = UIBarStyleBlackOpaque;
-  [sheet showInView:self.view];
-}
-
-#pragma mark - actionsheet delegate
+#pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet
     clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (actionSheet.tag == 255) {
@@ -1000,56 +826,53 @@ rowHeightForComponent:(NSInteger)component {
   }
 }
 
-#pragma mark - PickerController delegate
+#pragma mark - UIPickerViewDelegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
   [self dismissViewControllerAnimated:YES
                            completion:^{
                            }];
 }
 
-#pragma mark - image picker delegte
+#pragma mark - UIImagePickerDelegte
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
-    MBProgressHUD *hud =
-    [MBProgressHUD showHUDAddedTo:picker.view
-                         animated:YES];
-    hud.labelText = @"正在上传";
+  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:picker.view animated:YES];
+  hud.labelText = @"正在上传";
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
   NSString *picName = @"headPicture.png";
   _headPicture = picName;
   [self saveImage:image
          withName:_headPicture
        completion:^{
-           [self updateInfo];
-           [hud hide:YES afterDelay:2];
-           hud.completionBlock = ^{
-               [picker dismissViewControllerAnimated:YES
-                                          completion:^{
-                                              MBProgressHUD *hud =
-                                              [MBProgressHUD showHUDAddedTo:self.navigationController.view
-                                                                   animated:YES];
-//                                              [hud hide:YES];
-                                              if (_isSuccess == 1) {
-                                                  
-                                                  hud.mode = MBProgressHUDModeCustomView;
-                                                  hud.labelText = @"上传成功";
-                                                  hud.customView = MBProgressHUDSuccessView;
-                                                  [hud hide:YES afterDelay:1.0];
-                                              }else if (_isSuccess == 0){
-                                                  hud.mode = MBProgressHUDModeCustomView;
-                                                  hud.labelText = @"上传失败";
-                                                  hud.customView = MBProgressHUDErrorView;
-                                                  [hud hide:YES afterDelay:1.0];
-                                              }else{
-                                                  hud.mode = MBProgressHUDModeCustomView;
-                                                  hud.labelText = @"网络错误，请重新操作";
-                                                  hud.customView = MBProgressHUDErrorView;
-                                                  [hud hide:YES afterDelay:1.0];
-                                              }
-                                          }];
+         [self updateInfo];
+         [hud hide:YES afterDelay:2];
+         hud.completionBlock = ^{
+           [picker dismissViewControllerAnimated:
+                       YES completion:^{
+             MBProgressHUD *hud =
+                 [MBProgressHUD showHUDAddedTo:self.navigationController.view
+                                      animated:YES];
+             if (_isSuccess == 1) {
 
-           };
+               hud.mode = MBProgressHUDModeCustomView;
+               hud.labelText = @"上传成功";
+               hud.customView = MBProgressHUDSuccessView;
+               [hud hide:YES afterDelay:1.0];
+             } else if (_isSuccess == 0) {
+               hud.mode = MBProgressHUDModeCustomView;
+               hud.labelText = @"上传失败";
+               hud.customView = MBProgressHUDErrorView;
+               [hud hide:YES afterDelay:1.0];
+             } else {
+               hud.mode = MBProgressHUDModeCustomView;
+               hud.labelText = @"网络错误，请重新操作";
+               hud.customView = MBProgressHUDErrorView;
+               [hud hide:YES afterDelay:1.0];
+             }
+           }];
+
+         };
        }];
 }
 
@@ -1064,7 +887,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
       stringByAppendingPathComponent:imageName];
   // 将图片写入文件
-  XBLog(@"图片保存path:%@", _fullPath);
   [imageData writeToFile:_fullPath atomically:NO];
   NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];
 
