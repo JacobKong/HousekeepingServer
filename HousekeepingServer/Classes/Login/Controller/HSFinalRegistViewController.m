@@ -84,8 +84,6 @@
 
 @property(strong, nonatomic) HSServiceTableViewController *serviceOptionVc;
 @property (assign, nonatomic, getter=isUploadHeadPicture)  BOOL uploadHeadPicture;
-//@property(strong, nonatomic) NSNumber *uploadHeadPicture;
-
 @end
 
 @implementation HSFinalRegistViewController

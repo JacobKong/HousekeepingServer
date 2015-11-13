@@ -27,11 +27,11 @@
 @implementation HSTabBarViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     // 添加tabbar
     [self setupTabbar];
     [self setupChildViewController];
     self.view.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
