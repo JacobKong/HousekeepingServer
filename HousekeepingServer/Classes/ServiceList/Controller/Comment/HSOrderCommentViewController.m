@@ -148,7 +148,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return _orderComment.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -158,12 +158,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HSOrderCommentCell *cell = [HSOrderCommentCell cellWithTableView:tableView];
     if (self.orderComment.count) {
-        cell.orderComment = self.orderComment[0];
+        cell.orderComment = self.orderComment[indexPath.section];
         cell.delegate = self;
     }
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 5;
+}
 #pragma mark - HSOrderCommentCellDelegate
 - (void)confirmButtonDidClicked{
     [self.navigationController popViewControllerAnimated:YES];
@@ -172,4 +179,5 @@
 - (void)reloadCommentButtonDidClicked{
     [self loadComment];
 }
+
 @end

@@ -126,6 +126,19 @@
 - (HSHeadPictureView *)headerPictureView {
   if (!_headerPictureView) {
     _headerPictureView = [HSHeadPictureView headPictureView];
+      _headerPictureView.backgroundColor = [UIColor whiteColor];
+//      UILabel *servantIDLabel = [[UILabel alloc]init];
+//      CGFloat labelW = 150;
+//      CGFloat labelX = (XBScreenWidth - labelW) * 0.5;
+//      CGFloat labelH = 20;
+//      CGFloat labelY = 10;
+//      servantIDLabel.frame = CGRectMake(labelX, labelY, labelW, labelH);
+//      servantIDLabel.text = self.servant.servantID;
+//      servantIDLabel.textAlignment = NSTextAlignmentCenter;
+//      servantIDLabel.textColor = [UIColor darkGrayColor];
+//      servantIDLabel.font = [UIFont systemFontOfSize:19];
+////      servantIDLabel.backgroundColor = [UIColor redColor];
+//      [_headerPictureView addSubview:servantIDLabel];
     _headerPictureView.delegate = self;
   }
   return _headerPictureView;
@@ -892,7 +905,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
   UIImage *clipedImg =
       [UIImage clipImageWithData:imageData
-                     borderWidth:5
+                     borderWidth:0
                      borderColor:XBMakeColorWithRGB(234, 103, 7, 1)];
 
   _headerPictureView.iconImg.image = clipedImg;

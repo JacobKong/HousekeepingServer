@@ -12,116 +12,83 @@
 #import "XBConst.h"
 #import "HSInfoArrowItem.h"
 #import "HSOrderCommentViewController.h"
+#import "MBProgressHUD.h"
 
 @interface HSOrderDetailsViewController ()
+@property (strong, nonatomic) RETableViewSection *customerInfoSection;
+@property (strong, nonatomic) RETableViewSection *serviceInfoSection;
+@property (strong, nonatomic) RETableViewSection *orderInfoSection;
+@property (strong, nonatomic) RETableViewSection *commentSection;
+
 @property (strong, nonatomic) NSMutableDictionary *titleAttr;
 @property (strong, nonatomic) NSMutableDictionary *labelAttr;
 @end
 
 @implementation HSOrderDetailsViewController
 
-- (NSMutableDictionary *)titleAttr{
-    if (_titleAttr) {
-        _titleAttr = [NSMutableDictionary dictionary];
-        _titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-        _titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
-        _titleAttr[NSForegroundColorAttributeName] =
-        XBMakeColorWithRGB(28, 21, 80, 1);
-    }
-    return _titleAttr;
-}
-
-- (NSMutableDictionary *)labelAttr{
-    if (_labelAttr) {
-        _labelAttr = [NSMutableDictionary dictionary];
-        _labelAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-        _labelAttr[NSForegroundColorAttributeName] =
-        XBMakeColorWithRGB(28, 21, 80, 1);
-    }
-    return _labelAttr;
-}
-
 - (void)viewDidLoad {
-    // 添加第一组
-    [self setupGroup0];
-
-    // 添加第二组
-    [self setupGroup1];
-
-    // 添加第三组
-    [self setupGroup2];
-
-    // 添加第四组
-    [self setupGroup3];
+    [super viewDidLoad];
 
     // 标题
     self.title = @"订单详情";
     self.clearsSelectionOnViewWillAppear = NO;
-
-    [super viewDidLoad];
-    
 }
 
-- (void)setupGroup0{
-    NSAttributedString *customerIDStr = [[NSAttributedString alloc]initWithString:@"客户ID" attributes:self.titleAttr];
-    NSAttributedString *customerNameStr = [[NSAttributedString alloc]initWithString:@"客户姓名" attributes:self.titleAttr];
-    NSAttributedString *contactPhoneStr = [[NSAttributedString alloc]initWithString:@"联系电话" attributes:self.titleAttr];
-    NSAttributedString *contactAddressStr = [[NSAttributedString alloc]initWithString:@"通讯地址" attributes:self.titleAttr];
-    NSAttributedString *remarksStr = [[NSAttributedString alloc]initWithString:@"备注" attributes:self.titleAttr];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    // 添加第一组
+    self.customerInfoSection = [self addCustomerInfoSection];
     
+    // 添加第二组
+    self.serviceInfoSection = [self addServiceInfoSection];
     
-    NSAttributedString *customerIDText = [[NSAttributedString alloc]initWithString:self.serviceOrder.customerID attributes:self.labelAttr];
+    // 添加第三组
+    self.orderInfoSection = [self addOrderInfoSection];
     
-    NSAttributedString *customerNameText = [[NSAttributedString alloc]initWithString:self.serviceOrder.customerName attributes:self.labelAttr];
-    
-    NSString *paidAmountString = [NSString stringWithFormat:@"%ld", self.serviceOrder.contactPhone];
-    NSAttributedString *contactPhoneText = [[NSAttributedString alloc]initWithString:paidAmountString attributes:self.labelAttr];
-    
-    NSAttributedString *contactAddressText = [[NSAttributedString alloc]initWithString:self.serviceOrder.contactAddress attributes:self.labelAttr];
+    // 添加第四组
+    self.commentSection = [self addCommentSection];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在加载";
+    [hud hide:YES afterDelay:1.0];
+    hud.completionBlock = ^{
+        [self.tableView reloadData];
+    };
+
+}
+
+- (RETableViewSection *)addCustomerInfoSection{
+    RETableViewSection *section =
+    [RETableViewSection sectionWithHeaderTitle:@"客户信息"];
+    [self.manager addSection:section];
     
     NSString *remarksString = [NSString string];
     if (![self.serviceOrder.remarks isEqualToString:@""]) {
         remarksString = self.serviceOrder.remarks;
     }else{
-        remarksString = @"客户尚未付款";
+        remarksString = @"该客户无备注";
     }
-    NSAttributedString *remarksText = [[NSAttributedString alloc]initWithString:remarksString attributes:self.labelAttr];
     
-    HSInfoLableItem *customerID = [HSInfoLableItem itemWithTitle:customerIDStr];
-    customerID.attrText = customerIDText;
+    RETextItem *customerID = [RETextItem itemWithTitle:@"客户ID" value:self.serviceOrder.customerID];
+    RETextItem *customerName = [RETextItem itemWithTitle:@"客户姓名" value:self.serviceOrder.customerName];
+    RETextItem *contactPhone = [RETextItem itemWithTitle:@"联系电话" value:[NSString stringWithFormat:@"%ld", self.serviceOrder.contactPhone]];
+    RETextItem *contactAddress = [RETextItem itemWithTitle:@"通讯地址" value:self.serviceOrder.contactAddress];
+    RETextItem *remarks = [RETextItem itemWithTitle:@"备注" value:remarksString];
+
+    [section addItem:customerID];
+    [section addItem:customerName];
+    [section addItem:contactPhone];
+    [section addItem:contactAddress];
+    [section addItem:remarks];
     
-    HSInfoLableItem *customerName = [HSInfoLableItem itemWithTitle:customerNameStr];
-    customerName.attrText = customerNameText;
-    
-    HSInfoLableItem *contactPhone = [HSInfoLableItem itemWithTitle:contactPhoneStr];
-    contactPhone.attrText = contactPhoneText;
-    
-    HSInfoLableItem *contactAddress = [HSInfoLableItem itemWithTitle:contactAddressStr];
-    contactAddress.attrText = contactAddressText;
-    
-    HSInfoLableItem *remarks = [HSInfoLableItem itemWithTitle:remarksStr];
-    remarks.attrText = remarksText;
-    
-    HSInfoGroup *g0 = [[HSInfoGroup alloc] init];
-    g0.items = @[ customerID, customerName, contactPhone, contactAddress, remarks];
-    g0.header = @"客户信息";
-    
-//    [self.data addObject:g0];
+    return section;
 }
 
-- (void)setupGroup1{
-    NSAttributedString *serviceTypeStr = [[NSAttributedString alloc]initWithString:@"服务类型" attributes:self.titleAttr];
-    NSAttributedString *servicePriceStr = [[NSAttributedString alloc]initWithString:@"服务金额" attributes:self.titleAttr];
-    NSAttributedString *paidAmountStr = [[NSAttributedString alloc]initWithString:@"实付金额" attributes:self.titleAttr];
-    NSAttributedString *payTypeStr = [[NSAttributedString alloc]initWithString:@"付款类型" attributes:self.titleAttr];
-    NSAttributedString *isSettledStr = [[NSAttributedString alloc]initWithString:@"是否结算" attributes:self.titleAttr];
-    
-    NSAttributedString *serviceTypeText = [[NSAttributedString alloc]initWithString:self.serviceOrder.serviceType attributes:self.labelAttr];
-    
-    NSAttributedString *servicePriceText = [[NSAttributedString alloc]initWithString:self.serviceOrder.servicePrice attributes:self.labelAttr];
+- (RETableViewSection *)addServiceInfoSection{
+    RETableViewSection *section =
+    [RETableViewSection sectionWithHeaderTitle:@"服务信息"];
+    [self.manager addSection:section];
     
     NSString *paidAmountString = [NSString stringWithFormat:@"%d元", self.serviceOrder.paidAmount];
-    NSAttributedString *paidAmountText = [[NSAttributedString alloc]initWithString:paidAmountString attributes:self.labelAttr];
     
     NSString *payTypeString = [NSString string];
     if ([self.serviceOrder.payType isEqualToString:@""]) {
@@ -129,8 +96,6 @@
     }else{
         payTypeString = self.serviceOrder.payType;
     }
-
-    NSAttributedString *payTypeText = [[NSAttributedString alloc]initWithString:payTypeString attributes:self.labelAttr];
     
     NSString *isSettledString = [NSString string];
     if (self.serviceOrder.isSettled) {
@@ -138,44 +103,26 @@
     }else{
         isSettledString = @"未结算";
     }
-    
-    NSAttributedString *isSettledText = [[NSAttributedString alloc]initWithString:isSettledString attributes:self.labelAttr];
-    
-    HSInfoLableItem *serviceType = [HSInfoLableItem itemWithTitle:serviceTypeStr];
-    serviceType.attrText = serviceTypeText;
-    
-    HSInfoLableItem *servicePrice = [HSInfoLableItem itemWithTitle:servicePriceStr];
-    servicePrice.attrText = servicePriceText;
-    
-    HSInfoLableItem *paidAmount = [HSInfoLableItem itemWithTitle:paidAmountStr];
-    paidAmount.attrText = paidAmountText;
-    
-    HSInfoLableItem *payType = [HSInfoLableItem itemWithTitle:payTypeStr];
-    payType.attrText = payTypeText;
-    
-    HSInfoLableItem *isSettled = [HSInfoLableItem itemWithTitle:isSettledStr];
-    isSettled.attrText = isSettledText;
-    
-    HSInfoGroup *g1 = [[HSInfoGroup alloc] init];
-    g1.items = @[ serviceType, servicePrice, paidAmount, payType, isSettled];
-    g1.header = @"服务信息";
-    
-//    [self.data addObject:g1];
 
+    RETextItem *serviceType = [RETextItem itemWithTitle:@"服务类型" value:self.serviceOrder.serviceType];
+    RETextItem *servicePrice= [RETextItem itemWithTitle:@"服务金额" value:self.serviceOrder.servicePrice];
+    RETextItem *paidAmount = [RETextItem itemWithTitle:@"实付金额" value:paidAmountString];
+    RETextItem *payType = [RETextItem itemWithTitle:@"付款类型" value:payTypeString];
+    RETextItem *isSettled = [RETextItem itemWithTitle:@"是否结算" value:isSettledString];
+
+    [section addItem:serviceType];
+    [section addItem:servicePrice];
+    [section addItem:paidAmount];
+    [section addItem:payType];
+    [section addItem:isSettled];
+    
+    return section;
 }
 
-- (void)setupGroup2{
-    NSAttributedString *orderNoStr = [[NSAttributedString alloc]initWithString:@"订单编号" attributes:self.titleAttr];
-    NSAttributedString *orderStatusStr = [[NSAttributedString alloc]initWithString:@"订单状态" attributes:self.titleAttr];
-    NSAttributedString *orderTimeStr = [[NSAttributedString alloc]initWithString:@"订单时间" attributes:self.titleAttr];
-    NSAttributedString *confirmTimeStr = [[NSAttributedString alloc]initWithString:@"确认时间" attributes:self.titleAttr];
-    NSAttributedString *payTimeStr = [[NSAttributedString alloc]initWithString:@"付款时间" attributes:self.titleAttr];
-    
-    NSAttributedString *orderNoText = [[NSAttributedString alloc]initWithString:self.serviceOrder.orderNo attributes:self.labelAttr];
-    
-    NSAttributedString *orderStatusText = [[NSAttributedString alloc]initWithString:self.serviceOrder.orderStatus attributes:self.labelAttr];
-    
-    NSAttributedString *orderTimeText = [[NSAttributedString alloc]initWithString:self.serviceOrder.orderTime attributes:self.labelAttr];
+- (RETableViewSection *)addOrderInfoSection{
+    RETableViewSection *section =
+    [RETableViewSection sectionWithHeaderTitle:@"订单信息"];
+    [self.manager addSection:section];
     
     NSString *confirmTimeString = [NSString string];
     if (![self.serviceOrder.confirmTime isEqualToString:@""]) {
@@ -183,7 +130,6 @@
     }else{
         confirmTimeString = @"客户尚未确认订单";
     }
-    NSAttributedString *confirmTimeText = [[NSAttributedString alloc]initWithString:confirmTimeString attributes:self.labelAttr];
     
     NSString *payTimeString = [NSString string];
     if (![self.serviceOrder.confirmTime isEqualToString:@""]) {
@@ -191,56 +137,53 @@
     }else{
         payTimeString = @"客户尚未付款";
     }
-    NSAttributedString *payTimeText = [[NSAttributedString alloc]initWithString:payTimeString attributes:self.labelAttr];
-    
-    HSInfoLableItem *orderNo = [HSInfoLableItem itemWithTitle:orderNoStr];
-    orderNo.attrText = orderNoText;
-    
-    HSInfoLableItem *orderStatus = [HSInfoLableItem itemWithTitle:orderStatusStr];
-    orderStatus.attrText = orderStatusText;
-    
-    HSInfoLableItem *orderTime = [HSInfoLableItem itemWithTitle:orderTimeStr];
-    orderTime.attrText = orderTimeText;
-    
-    HSInfoLableItem *confirmTime = [HSInfoLableItem itemWithTitle:confirmTimeStr];
-    confirmTime.attrText = confirmTimeText;
-    
-    HSInfoLableItem *payTime = [HSInfoLableItem itemWithTitle:payTimeStr];
-    payTime.attrText = payTimeText;
 
-    HSInfoGroup *g2 = [[HSInfoGroup alloc] init];
-    g2.items = @[ orderNo, orderStatus, orderTime, confirmTime, payTime];
-    g2.header = @"订单信息";
+    RETextItem *orderNo = [RETextItem itemWithTitle:@"订单编号" value:self.serviceOrder.orderNo];
+    RETextItem *orderStatus= [RETextItem itemWithTitle:@"订单状态" value:self.serviceOrder.orderStatus];
+    RETextItem *orderTime = [RETextItem itemWithTitle:@"订单时间" value:self.serviceOrder.orderTime];
+    RETextItem *confirmTime = [RETextItem itemWithTitle:@"确认时间" value:confirmTimeString];
+    RETextItem *payTime = [RETextItem itemWithTitle:@"付款时间" value:payTimeString];
     
-//    [self.data addObject:g2];
-
+    [section addItem:orderNo];
+    [section addItem:orderStatus];
+    [section addItem:orderTime];
+    [section addItem:confirmTime];
+    [section addItem:payTime];
+    return section;
 }
 
-- (void)setupGroup3{
-    NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];
-    titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-    titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
-    titleAttr[NSForegroundColorAttributeName] =
-    XBMakeColorWithRGB(234, 103, 7, 1);
-    
-    NSAttributedString *checkCommentStr = [[NSAttributedString alloc]initWithString:@"查看该客户评论对您的服务评价" attributes:titleAttr];
-    
-    HSInfoArrowItem *checkComment = [HSInfoArrowItem itemWithAttrTitle:checkCommentStr];
-    
-    HSInfoGroup *g3 = [[HSInfoGroup alloc] init];
-    g3.items = @[checkComment];
-    g3.header = @"查看评价";
-    
-//    [self.data addObject:g3];
-}
-
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    if (indexPath.section == 3 && indexPath.row == 0) {
+- (RETableViewSection *)addCommentSection{
+    RETableViewSection *section =
+    [RETableViewSection sectionWithHeaderTitle:@"客户评价"];
+    [self.manager addSection:section];
+    RETableViewItem *checkComment = [RETableViewItem itemWithTitle:@"查看客户评论对您的服务评价" accessoryType:UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
+        [item deselectRowAnimated:YES];
         HSOrderCommentViewController *orderCommentVc = [[HSOrderCommentViewController alloc]init];
         orderCommentVc.servantID = self.serviceOrder.servantID;
         [self.navigationController pushViewController:orderCommentVc animated:YES];
+    }];
+    
+    [section addItem:checkComment];
+    return section;
+}
+
+- (void)tableView:(UITableView *)tableView
+willLayoutCellSubviews:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+        for (UIView *view in cell.contentView.subviews) {
+        if ([view isKindOfClass:[UILabel class]] ||
+            [view isKindOfClass:[UITextField class]]) {
+            ((UILabel *)view).font = [UIFont systemFontOfSize:14];
+            ((UILabel *)view).textColor = [UIColor darkGrayColor];
+            ((UILabel *)view).textAlignment = NSTextAlignmentLeft;
+            if ([view isKindOfClass:[UITextField class]]) {
+                CGRect temp = ((UILabel *)view).frame;
+                temp.origin.x = 86;
+                ((UILabel *)view).frame = temp;
+            }
+            ((UITextField *)view).enabled = NO;
+        }
     }
 }
+
 @end
