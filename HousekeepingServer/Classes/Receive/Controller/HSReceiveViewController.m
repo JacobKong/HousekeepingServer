@@ -59,9 +59,10 @@
                 id _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
-          NSArray *declareArray =
-              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-            self.serviceDeclare = declareArray;
+//          NSArray *declareArray =
+//              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+            self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
 //              [[declareArray reverseObjectEnumerator] allObjects];
           [self.tableView reloadData];
           if (self.serviceDeclare.count == 0) {

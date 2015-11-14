@@ -72,6 +72,8 @@
 		18A144361BDA698B008D9853 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A144351BDA698B008D9853 /* CoreFoundation.framework */; };
 		18A144381BDA6C57008D9853 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A144371BDA6C57008D9853 /* libz.tbd */; };
 		18A1443A1BDA6CD3008D9853 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18A144391BDA6CD3008D9853 /* BPushConfig.plist */; };
+		18ABE8791BF71F120081D5AC /* WBBadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE8781BF71F120081D5AC /* WBBadgeButton.m */; };
+		18ABE87C1BF7520F0081D5AC /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE87B1BF7520F0081D5AC /* M13BadgeView.m */; };
 		18C1505C1BC764CB0033469A /* HSServant.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAA1BC65BA300CDB9E6 /* HSServant.m */; };
 		18C1505D1BC764E40033469A /* HSHeadPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B01BC545D500E67C26 /* HSHeadPictureView.m */; };
 		18C979AB1BD0E05D00841BB6 /* HSServiceMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */; };
@@ -249,6 +251,10 @@
 		18A144351BDA698B008D9853 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		18A144371BDA6C57008D9853 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		18A144391BDA6CD3008D9853 /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
+		18ABE8771BF71F120081D5AC /* WBBadgeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBBadgeButton.h; sourceTree = "<group>"; };
+		18ABE8781BF71F120081D5AC /* WBBadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBBadgeButton.m; sourceTree = "<group>"; };
+		18ABE87A1BF7520F0081D5AC /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
+		18ABE87B1BF7520F0081D5AC /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
 		18C979A91BD0E05D00841BB6 /* HSServiceMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceMapViewController.h; sourceTree = "<group>"; };
 		18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceMapViewController.m; sourceTree = "<group>"; };
 		18C979B21BD0FC5D00841BB6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -834,6 +840,10 @@
 		188A209F1BAF90A900E4D570 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18ABE87A1BF7520F0081D5AC /* M13BadgeView.h */,
+				18ABE87B1BF7520F0081D5AC /* M13BadgeView.m */,
+				18ABE8771BF71F120081D5AC /* WBBadgeButton.h */,
+				18ABE8781BF71F120081D5AC /* WBBadgeButton.m */,
 				18151CAB1BAFC0700040CA80 /* HSTabBar.h */,
 				18151CAC1BAFC0700040CA80 /* HSTabBar.m */,
 				186DEA511BAFF902008C465F /* HSTabBarButton.h */,
@@ -1245,6 +1255,7 @@
 				187DC7F51BC7F5FE00FF8AAF /* HSCoveredCountry.m in Sources */,
 				1876311A1BB56E150037F124 /* HSAllViewController.m in Sources */,
 				18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */,
+				18ABE8791BF71F120081D5AC /* WBBadgeButton.m in Sources */,
 				187631201BB56E150037F124 /* XBTagTitleModel.m in Sources */,
 				186DEA561BB001B6008C465F /* HSNavigationViewController.m in Sources */,
 				18518DC21BD1F57E00A0A46E /* HSCollectionView.m in Sources */,
@@ -1283,6 +1294,7 @@
 				1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */,
 				18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
+				18ABE87C1BF7520F0081D5AC /* M13BadgeView.m in Sources */,
 				18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */,

@@ -73,9 +73,11 @@
  */
 - (void)setupChildViewController{
     HSGrabViewController *grabVc = [[HSGrabViewController alloc]init];
+    grabVc.tabBarItem.badgeValue = @"0";
     [self addTabBarItemWithViewController:grabVc title:@"我的抢单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
     
     HSReceiveViewController *receiveVc = [[HSReceiveViewController alloc]init];
+    receiveVc.tabBarItem.badgeValue = @"0";
     [self addTabBarItemWithViewController:receiveVc title:@"我的接单" image:@"tabbar_receive_os7" selectedImage:@"tabbar_receive_selected_os7"];
     
     HSServiceListViewController *serviceListVc = [[HSServiceListViewController alloc]init];

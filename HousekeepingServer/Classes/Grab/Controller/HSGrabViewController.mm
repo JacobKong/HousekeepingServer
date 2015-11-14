@@ -617,10 +617,10 @@
         [MBProgressHUD hideHUDForView:self.regionCollectionView animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
           [self.refreshLab removeFromSuperview];
-          NSArray *declareArray =
-              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
           self.serviceDeclare =
-              [[declareArray reverseObjectEnumerator] allObjects];
+            [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+            // 设置badgeValue
+            self.tabBarItem.badgeValue =[NSString stringWithFormat:@"%d",(int)self.serviceDeclare.count];
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
         } else {

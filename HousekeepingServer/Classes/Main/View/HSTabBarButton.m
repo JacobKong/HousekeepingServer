@@ -7,7 +7,17 @@
 //
 
 #import "HSTabBarButton.h"
+#import "WBBadgeButton.h"
+#import "M13BadgeView.h"
 #define HSColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+@interface HSTabBarButton ()
+//@property (weak, nonatomic) WBBadgeButton *badgeButton;
+
+@property (weak, nonatomic) WBBadgeButton *badgeButton;
+
+@end
+
 @implementation HSTabBarButton
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -19,6 +29,12 @@
         self.titleLabel.font = [UIFont systemFontOfSize:11];
         [self setTitleColor:HSColor(234, 103, 7) forState:UIControlStateSelected];
         [self setTitleColor:HSColor(117, 117, 117) forState:UIControlStateNormal];
+        
+        // 添加一个提醒数字按钮
+        WBBadgeButton *badgeBtn = [[WBBadgeButton alloc]init];
+        badgeBtn.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+        [self addSubview:badgeBtn];
+        self.badgeButton = badgeBtn;
 
     }
     
@@ -48,6 +64,8 @@
     [item addObserver:self forKeyPath:@"title" options:0 context:nil];
     [item addObserver:self forKeyPath:@"image" options:0 context:nil];
     [item addObserver:self forKeyPath:@"selectedImage" options:0 context:nil];
+    [item addObserver:self forKeyPath:@"badgeValue" options:0 context:nil];
+
     
     [self observeValueForKeyPath:nil ofObject:nil change:nil context:nil];
     
@@ -57,6 +75,8 @@
     [self.item removeObserver:self forKeyPath:@"title"];
     [self.item removeObserver:self forKeyPath:@"image"];
     [self.item removeObserver:self forKeyPath:@"selectedImage"];
+    [self.item removeObserver:self forKeyPath:@"badgeValue"];
+
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -67,6 +87,18 @@
     // 设置图片
     [self setImage:self.item.image forState:UIControlStateNormal];
     [self setImage:self.item.selectedImage forState:UIControlStateSelected];
+    
+    // 设置badgeValue
+    self.badgeButton.badgeValue = self.item.badgeValue;
+    
+    CGFloat badgeX = self.frame.size.width - self.badgeButton.frame.size.width - 10;
+    CGFloat badgeY = 3;
+    
+    CGRect badgeF = self.badgeButton.frame;
+    badgeF.origin.x = badgeX;
+    badgeF.origin.y = badgeY;
+    
+    self.badgeButton.frame = badgeF;
     
 }
 
