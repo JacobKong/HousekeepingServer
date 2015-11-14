@@ -54,7 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.orderComment = nil;
-    self.tableView.rowHeight = 210;
+    self.tableView.rowHeight = 170;
     self.title = @"客户评价";
     self.clearsSelectionOnViewWillAppear = NO;
 }

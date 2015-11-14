@@ -27,7 +27,7 @@
 /**
  *  服务清单
  */
-@property (strong, nonatomic) NSArray *serviceOrder;
+@property (strong, nonatomic) NSMutableArray *serviceOrder;
 /**
  *  刷新失败后的label
  */

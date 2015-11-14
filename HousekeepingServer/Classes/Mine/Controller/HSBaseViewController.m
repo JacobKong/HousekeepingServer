@@ -7,13 +7,13 @@
 //
 
 #import "HSBaseViewController.h"
-#import "HSInfoItem.h"
-#import "HSInfoGroup.h"
-#import "HSInfoTableViewCell.h"
-#import "HSInfoArrowItem.h"
+//#import "HSInfoItem.h"
+//#import "HSInfoGroup.h"
+//#import "HSInfoTableViewCell.h"
+//#import "HSInfoArrowItem.h"
 #import "XBConst.h"
-#import "HSNoBorderTextField.h"
-#import "HSInfoTextFieldItem.h"
+//#import "HSNoBorderTextField.h"
+//#import "HSInfoTextFieldItem.h"
 
 
 @interface HSBaseViewController ()<UIGestureRecognizerDelegate>

@@ -7,3 +7,4 @@ pod 'MJRefresh'
 pod 'LxDBAnything', '~> 1.0.0'
 pod "ReactiveCocoa", "~> 2.5"
 pod 'RETableViewManager', '~> 1.6'
+pod 'RDVTabBarController'

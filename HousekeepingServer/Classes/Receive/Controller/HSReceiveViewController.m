@@ -24,6 +24,9 @@
 
 - (void)viewDidLoad {
   self.tableView.rowHeight = 330;
+    CGRect tempFrame = self.tableView.frame;
+    tempFrame.size.height = XBScreenHeight - 66;
+    self.tableView.frame = tempFrame;
   self.rightBtnTitle = @"接单";
   [super viewDidLoad];
   // Do any additional setup after loading the view.
@@ -58,8 +61,8 @@
         if ([kServiceResponse isEqualToString:@"Success"]) {
           NSArray *declareArray =
               [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-          self.serviceDeclare =
-              [[declareArray reverseObjectEnumerator] allObjects];
+            self.serviceDeclare = declareArray;
+//              [[declareArray reverseObjectEnumerator] allObjects];
           [self.tableView reloadData];
           if (self.serviceDeclare.count == 0) {
             HSRefreshLab *refreshLab = [HSRefreshLab

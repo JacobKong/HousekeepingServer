@@ -8,8 +8,6 @@
 
 #import "HSMineInfoViewController.h"
 #import "HSPickerView.h"
-#import "HSInfoTextFieldItem.h"
-#import "HSInfoLableItem.h"
 #import "HSDatePickerView.h"
 #import "HSHeadPictureView.h"
 #import "HSProvince.h"
@@ -21,7 +19,6 @@
 #import "HSServantTool.h"
 #import "HSRegion.h"
 #import "HSCity.h"
-#import "HSInfoGroup.h"
 #import "AFHTTPSessionManager.h"
 #import "UIImageView+AFNetworking.h"
 #import "UIImage+CircleCilp.h"
@@ -34,6 +31,7 @@
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "BPush.h"
+#import "HSLoginViewController.h"
 
 @interface HSMineInfoViewController () <
     HSHeadPictureViewDelegate, UIAlertViewDelegate, HSPickerViewDelegate,
@@ -79,7 +77,6 @@
 @property(weak, nonatomic) UIButton *saveBtn;
 @property(weak, nonatomic) HSInfoFooterView *footerView;
 @property(weak, nonatomic) UIBarButtonItem *rightBtn;
-@property(strong, nonatomic) HSInfoGroup *g0;
 @property(weak, nonatomic) UIImage *oldheadPicture;
 @property(assign, nonatomic) int isSuccess;
 @end

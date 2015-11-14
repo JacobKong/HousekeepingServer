@@ -39,6 +39,12 @@
   return _servant;
 }
 
+- (NSMutableArray *)serviceOrder{
+    if (!_serviceOrder) {
+        _serviceOrder = [NSMutableArray array];
+    }
+    return _serviceOrder;
+}
 - (void)viewDidLoad {
   [self setupRefreshView];
   [super viewDidLoad];
@@ -120,6 +126,13 @@
   [self.tableView.header beginRefreshing];
 }
 
+- (void)setupFooterRefreshView{
+      __weak __typeof(self) weakSelf = self;
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf loadNewDataloadNewDataWithOrderStatus:self.orderStatus refreshLabText:self.refreshLabText];
+    }];
+}
+
 - (void)loadNewDataloadNewDataWithOrderStatus:(NSString *)orderStatus
                                refreshLabText:(NSString *)refreshLabText {
   __weak __typeof(self) weakSelf = self;
@@ -148,8 +161,8 @@
                 id _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
-            NSArray *orderArray = [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
-            self.serviceOrder = [[orderArray reverseObjectEnumerator]allObjects];
+
+            self.serviceOrder = [HSServiceOrder objectArrayWithKeyValuesArray:kDataResponse];
             if (self.serviceOrder.count == 0) {
                 HSRefreshLab *refreshLab =
                 [HSRefreshLab refreshLabelWithText:@"当前项目无任何订单，请刷新重试"];

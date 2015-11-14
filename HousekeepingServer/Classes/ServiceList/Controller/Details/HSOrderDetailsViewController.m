@@ -7,10 +7,7 @@
 //
 
 #import "HSOrderDetailsViewController.h"
-#import "HSInfoLableItem.h"
-#import "HSInfoGroup.h"
 #import "XBConst.h"
-#import "HSInfoArrowItem.h"
 #import "HSOrderCommentViewController.h"
 #import "MBProgressHUD.h"
 
