@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>RDVTabBarController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>REFormattedNumberField.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,27 +62,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>137C650E96FD214235E7AD08A507730D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5BA32A7F43D24F6848126C640AD3686C</key>
+		<key>410B8657ADB8A2824F501D7F12852251</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6FB4D80AC8AF33D335EF5963D2715B3A</key>
+		<key>522E4BE0434B9F4C452F943582C5C2AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C70D62A617F5D1283835A35716F09A6</key>
+		<key>5A6B5AD472422C4C2C08872E784F2D3A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6F68DD75A201C126F7528250117D0D6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,17 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91C3FDF78FF6031F07DAFC577DE8048E</key>
+		<key>A367486F797001024FF71D8AE0986AF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E78DDE92DB57B97C75A537C6D5EABB0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A8765E3A37C0158FD9C96BC76C6699FB</key>
+		<key>A36C5B4A6087B0899C745EA964A19AD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,7 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD32FDCC7CFE44C695199AE295C4CB51</key>
+		<key>B72E2D3DB48702C29D6D64482B46F4F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
