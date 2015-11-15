@@ -1,451 +1,1152 @@
-{\rtf1\ansi\ansicpg936\cocoartf1404\cocoasubrtf110
+{\rtf1\ansi\ansicpg936\cocoartf1404\cocoasubrtf130
 {\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset134 PingFangSC-Regular;}
 {\colortbl;\red255\green255\blue255;}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f0\fs26 \cf0 //\
-//  HSFinalRegistViewController.m\
+//  HSMineInfoViewController.m\
 //  HousekeepingServer\
 //\
-//  Created by Jacob on 15/10/4.\
+//  Created by Jacob on 15/10/15.\
 //  Copyright \'a9 2015
 \f1 \'c4\'ea
 \f0  com.jacob. All rights reserved.\
 //\
 \
-#import "HSFinalRegistViewController.h"\
-#import "HSRegistViewController.h"\
-#import "HSInfoGroup.h"\
+#import "HSMineInfoViewController.h"\
+#import "HSPickerView.h"\
+#import "HSDatePickerView.h"\
+#import "HSHeadPictureView.h"\
+#import "HSProvince.h"\
+#import "HSAccount.h"\
+#import "HSAccountTool.h"\
 #import "HSInfoFooterView.h"\
 #import "HSOrangeButton.h"\
-#import "HSInfoTextFieldItem.h"\
-#import "HSInfoLableItem.h"\
-#import "XBConst.h"\
-#import "HSPickerView.h"\
+#import "HSServant.h"\
+#import "HSServantTool.h"\
 #import "HSRegion.h"\
+#import "HSCity.h"\
+#import "AFHTTPSessionManager.h"\
+#import "UIImageView+AFNetworking.h"\
+#import "UIImage+CircleCilp.h"\
+#import "UIImage+SquareImage.h"\
+#import "MBProgressHUD+MJ.h"\
+#import "AFNetworking.h"\
+#import "HSHTTPRequestOperationManager.h"\
+#import "HSVerify.h"\
+#import <CoreLocation/CoreLocation.h>\
 #import "MJExtension.h"\
+#import <SDWebImage/UIImageView+WebCache.h>\
+#import "BPush.h"\
+#import "HSLoginViewController.h"\
 \
-\
-@interface HSFinalRegistViewController () <\
-    HSRegistViewContrllerDelegate, UIGestureRecognizerDelegate,HSPickerViewDelegate,\
-    UIPickerViewDelegate, UIPickerViewDataSource> \{\
-  HSOrangeButton *_registBtn;\
-  HSInfoTextFieldItem *_servantProvince;\
-  HSInfoTextFieldItem *_servantCity;\
-  HSInfoLableItem *_servantCounty;\
-  HSInfoLableItem *_sex;\
-  HSInfoTextFieldItem *_trainingIntro;\
-  HSPickerView *_sexPicker;\
-  UIPickerView *_sexPickerView;\
-        HSPickerView *_servantPicker;\
-        UIPickerView *_servantPickerView;\
-\}\
-/**\
- *  
-\f1 \'c7\'f8\'cf\'d8
+@interface HSMineInfoViewController () <\
+    HSHeadPictureViewDelegate, UIAlertViewDelegate, HSPickerViewDelegate,\
+    UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate,\
+    UINavigationControllerDelegate, UIImagePickerControllerDelegate,\
+    UIActionSheetDelegate, CLLocationManagerDelegate> \{\
+  CLLocationManager *_manager;\
+  NSString *_realLongtitude; // 
+\f1 \'be\'ad\'b6\'c8
 \f0 \
- */\
-@property (strong, nonatomic) NSArray *regions;\
+  NSString *_realLatitude;   // 
+\f1 \'ce\'b3\'b6\'c8
+\f0 \
+\
+  NSString *_servantProvince;\
+  NSString *_servantCity;\
+  NSString *_servantCounty;\
+\
+  NSAttributedString *_locationDefaultText;\
+  NSAttributedString *_serviceItemDeaultText;\
+\
+  NSString *_fullPath;\
+  NSString *_headPicture;\
+\
+  NSURL *_iconImageFilePath;\
+\}\
+@property(strong, nonatomic) RETableViewSection *personnalInfoSection;\
+\
+@property(strong, nonatomic) RETableViewItem *location;\
+@property(strong, nonatomic) RETextItem *servantID;\
+@property(strong, nonatomic) RETextItem *servantName;\
+@property(strong, nonatomic) RETextItem *loginPassword;\
+@property(strong, nonatomic) RETextItem *confirmPassword;\
+@property(strong, nonatomic) RETextItem *phoneNo;\
+@property(strong, nonatomic) RETextItem *servantMobil;\
+@property(strong, nonatomic) RETextItem *contactAddress;\
+@property(strong, nonatomic) RETextItem *qqNumber;\
+@property(strong, nonatomic) RETextItem *emailAddress;\
+@property(strong, nonatomic) RETextItem *serviceItem;\
+\
+@property(strong, nonatomic) NSArray *provinces;\
+@property(strong, nonatomic) HSPickerView *servantPicker;\
+@property(strong, nonatomic) UIPickerView *servantPickerView;\
+@property(strong, nonatomic) NSArray *servantArray;\
+@property(strong, nonatomic) HSHeadPictureView *headerPictureView;\
+@property(strong, nonatomic) HSServant *servant;\
+@property(weak, nonatomic) UIButton *saveBtn;\
+@property(weak, nonatomic) HSInfoFooterView *footerView;\
+@property(weak, nonatomic) UIBarButtonItem *rightBtn;\
+@property(weak, nonatomic) UIImage *oldheadPicture;\
+@property(assign, nonatomic) int isSuccess;\
 @end\
 \
-@implementation HSFinalRegistViewController\
-- (NSArray *)regions\{\
-    if (!_regions) \{\
-        NSString *file = [[NSBundle mainBundle]pathForResource:@"citydata.plist" ofType:nil];\
-        NSArray *dictArray = [NSArray arrayWithContentsOfFile:file];\
-        _regions = [HSRegion objectArrayWithKeyValuesArray:dictArray];\
+@implementation HSMineInfoViewController\
+#pragma mark - getter\
+- (NSArray *)provinces \{\
+  if (!_provinces) \{\
+    NSArray *dictArray =\
+        [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle]\
+                                             pathForResource:@"citydata.plist"\
+                                                      ofType:nil]];\
+    NSMutableArray *provinceDictArray = [NSMutableArray array];\
+    for (NSDictionary *dict in dictArray) \{\
+      HSProvince *province = [HSProvince provinceWithDict:dict];\
+      [provinceDictArray addObject:province];\
     \}\
-    return _regions;\
-\}\
 \
-- (NSArray *)basicInfoArray \{\
-  if (!_basicInfoArray) \{\
-    _basicInfoArray = [NSArray array];\
+    _provinces = provinceDictArray;\
   \}\
-  return _basicInfoArray;\
+  return _provinces;\
 \}\
 \
+- (HSPickerView *)servantPicker \{\
+  if (!_servantPicker) \{\
+    CGFloat servantPickerW = XBScreenWidth;\
+    CGFloat servantPickerH = XBScreenHeight * 0.4;\
+    CGFloat servantPickerY = XBScreenHeight - servantPickerH - 49;\
+    // 
+\f1 \'b4\'b4\'bd\'a8
+\f0 pickerView\
+    _servantPicker = [HSPickerView picker];\
+    self.servantPicker.frame =\
+        CGRectMake(0, servantPickerY, servantPickerW, servantPickerH);\
+  \}\
+  return _servantPicker;\
+\}\
+\
+- (UIPickerView *)servantPickerView \{\
+  if (!_servantPickerView) \{\
+    _servantPickerView = self.servantPicker.picker;\
+  \}\
+  return _servantPickerView;\
+\}\
+\
+- (HSHeadPictureView *)headerPictureView \{\
+  if (!_headerPictureView) \{\
+    _headerPictureView = [HSHeadPictureView headPictureView];\
+      _headerPictureView.backgroundColor = [UIColor whiteColor];\
+//      UILabel *servantIDLabel = [[UILabel alloc]init];\
+//      CGFloat labelW = 150;\
+//      CGFloat labelX = (XBScreenWidth - labelW) * 0.5;\
+//      CGFloat labelH = 20;\
+//      CGFloat labelY = 10;\
+//      servantIDLabel.frame = CGRectMake(labelX, labelY, labelW, labelH);\
+//      servantIDLabel.text = self.servant.servantID;\
+//      servantIDLabel.textAlignment = NSTextAlignmentCenter;\
+//      servantIDLabel.textColor = [UIColor darkGrayColor];\
+//      servantIDLabel.font = [UIFont systemFontOfSize:19];\
+////      servantIDLabel.backgroundColor = [UIColor redColor];\
+//      [_headerPictureView addSubview:servantIDLabel];\
+    _headerPictureView.delegate = self;\
+  \}\
+  return _headerPictureView;\
+\}\
+\
+- (HSServant *)servant \{\
+  if (!_servant) \{\
+    _servant = [HSServantTool servant];\
+  \}\
+  return _servant;\
+\}\
+\
+#pragma mark - view
+\f1 \'bc\'d3\'d4\'d8
+\f0 \
 - (void)viewDidLoad \{\
-  // 
-\f1 \'b1\'ea\'cc\'e2
-\f0 \
-  self.title = @"
-\f1 \'cf\'ea\'cf\'b8\'d0\'c5\'cf\'a2
-\f0 ";\
-  // 
-\f1 \'c9\'e8\'d6\'c3\'b5\'bc\'ba\'bd\'c0\'b8\'b0\'b4\'c5\'a5
-\f0 \
-  [self setupNavBtn];\
-  // 
-\f1 \'c9\'e8\'d6\'c3\'b5\'da\'d2\'bb\'d7\'e9
-\f0 \
-  [self setupGroup0];\
-  // 
-\f1 \'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
-\f0 \
-  // 
-\f1 \'c9\'e8\'d6\'c3\'c7\'c3\'bb\'f7\'ca\'d6\'ca\'c6\'a3\'ac\'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
-\f0 \
-  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]\
-      initWithTarget:self\
-              action:@selector(dismissKeyboard)];\
-  tap.delegate = self;\
-  [self.view addGestureRecognizer:tap];\
   [super viewDidLoad];\
-\}\
-\
-/**\
- *  
-\f1 \'c8\'a1\'cf\'fb\'bc\'fc\'c5\'cc
+  // 
+\f1 \'cc\'ed\'bc\'d3\'b5\'da\'d2\'bb\'d7\'e9
 \f0 \
- */\
-- (void)dismissKeyboard \{\
-  [self.view endEditing:YES];\
-    [_sexPicker removeFromSuperview];\
-    [_servantPicker removeFromSuperview];\
-    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
-\}\
-\
-/**\
- *
+  self.personnalInfoSection = [self addPersonnalInfoSection];\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b1\'ed\'ce\'b2
+\f0 \
+  [self setupfooterView];\
+  // 
 \f1 \'c9\'e8\'d6\'c3\'b5\'bc\'ba\'bd\'c0\'b8\'b0\'b4\'c5\'a5
 \f0 \
- */\
-- (void)setupNavBtn \{\
-  self.navigationItem.leftBarButtonItem =\
-      [[UIBarButtonItem alloc] initWithTitle:@"
-\f1 \'c8\'a1\'cf\'fb
-\f0 "\
-                                       style:UIBarButtonItemStyleDone\
-                                      target:self\
-                                      action:@selector(backBtnClicked)];\
+  [self setupNavBarBtn];\
+  // 
+\f1 \'bc\'d3\'d4\'d8\'cd\'b7\'cf\'f1
+\f0 \
+  [self setupHeadPictureWithServant:self.servant];\
+  // 
+\f1 \'cd\'a8\'b9\'fd\'b5\'d8\'cd\'bc\'bb\'f1\'c8\'a1\'be\'ad\'ce\'b3\'b6\'c8
+\f0 \
+  [self setupLongAndLati];\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'cd\'b7\'b2\'bf\'bf\'c9\'bb\'a5\'b6\'af
+\f0 \
+  self.headerPictureView.userInteractionEnabled = YES;\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'cd\'a8\'d6\'aa\'a3\'ac\'ce\'c4\'b1\'be\'bf\'f2\'ce\'c4\'d7\'d6\'b1\'e4\'bb\'af\'d4\'f2\'ca\'d5\'b5\'bd\'cd\'a8\'d6\'aa\'a3\'ac\'b5\'f7\'d3\'c3
+\f0 textChange
+\f1 \'b7\'bd\'b7\'a8
+\f0 \
+  [[NSNotificationCenter defaultCenter]\
+      addObserver:self\
+         selector:@selector(textChange)\
+             name:UITextFieldTextDidChangeNotification\
+           object:nil];\
+  // Do any additional setup after loading the view.\
 \}\
+\
+- (void)viewWillAppear:(BOOL)animated \{\
+  [self setupOriginData];\
+  // 
+\f1 \'bc\'d3\'d4\'d8\'cd\'b7\'cf\'f1
+\f0 \
+  [self setupHeadPictureWithServant:self.servant];\
+  self.tableView.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);\
+  [super viewWillAppear:animated];\
+\}\
+\
+- (void)dealloc \{\
+  [[NSNotificationCenter defaultCenter] removeObserver:self];\
+\}\
+\
+- (void)textChange \{\
+  self.saveBtn.enabled = YES;\
+\}\
+#pragma mark - 
+\f1 \'d7\'d4\'b6\'a8\'d2\'e5
+\f0 view
+\f1 \'bc\'d3\'d4\'d8
+\f0 \
 /**\
  *  
-\f1 \'c8\'a1\'cf\'fb\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
-\f0 \
- */\
-- (void)backBtnClicked \{\
-  [self dismissViewControllerAnimated:YES completion:nil];\
-\}\
-/**\
- *  
-\f1 \'c9\'e8\'d6\'c3\'b5\'da\'d2\'bb\'d7\'e9
-\f0 \
- */\
-- (void)setupGroup0 \{\
-  NSMutableDictionary *titleAttr = [NSMutableDictionary dictionary];\
-  titleAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];\
-  titleAttr[NSForegroundColorAttributeName] = [UIColor darkGrayColor];\
-\
-  NSAttributedString *servantProvinceStr =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'ca\'a1\'b7\'dd
-\f0 "\
-                                      attributes:titleAttr];\
-\
-  NSAttributedString *servantCityStr =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'b3\'c7\'ca\'d0
-\f0 "\
-                                      attributes:titleAttr];\
-\
-  NSAttributedString *servantCountyStr =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'cf\'d8\'c7\'f8
-\f0 "\
-                                      attributes:titleAttr];\
-\
-  NSAttributedString *servantGenderStr =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'d0\'d4\'b1\'f0
-\f0 "\
-                                      attributes:titleAttr];\
-\
-  NSAttributedString *trainingIntroStr =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'c5\'e0\'d1\'b5\'be\'ad\'c0\'fa
-\f0 "\
-                                      attributes:titleAttr];\
-\
-  NSMutableDictionary *placeholderAttr = [NSMutableDictionary dictionary];\
-  placeholderAttr[NSFontAttributeName] = [UIFont systemFontOfSize:15];\
-\
-  NSAttributedString *servantProvincePh =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'ca\'a1\'b7\'dd
-\f0 "\
-                                      attributes:placeholderAttr];\
-\
-  NSAttributedString *servantCityPh =\
-      [[NSAttributedString alloc] initWithString:@"
-\f1 \'b3\'c7\'ca\'d0
-\f0 "\
-                                      attributes:placeholderAttr];\
-\
-  NSAttributedString *trainingIntroPh = [[NSAttributedString alloc]\
-      initWithString:@"
-\f1 \'c7\'eb\'bc\'f2\'d2\'aa\'cc\'ee\'d0\'b4\'c5\'e0\'d1\'b5\'be\'ad\'c0\'fa\'a3\'ac\'c8\'e7\'c3\'bb\'d3\'d0\'c7\'eb\'d0\'b4\'ce\'de
-\f0 "\
-          attributes:placeholderAttr];\
-\
-  HSInfoTextFieldItem *servantProvince =\
-      [HSInfoTextFieldItem itemWithTitle:servantProvinceStr\
-                             placeholder:servantProvincePh\
-                                    text:@"
-\f1 \'c1\'c9\'c4\'fe\'ca\'a1
-\f0 "];\
-  _servantProvince = servantProvince;\
-\
-  HSInfoTextFieldItem *servantCity =\
-      [HSInfoTextFieldItem itemWithTitle:servantCityStr\
-                             placeholder:servantCityPh\
-                                    text:@"
-\f1 \'c9\'f2\'d1\'f4\'ca\'d0
-\f0 "];\
-  _servantCity = servantCity;\
-\
-  HSInfoLableItem *servantCounty =\
-      [HSInfoLableItem itemWithTitle:servantCountyStr];\
-  servantCounty.text = @"
-\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'cb\'f9\'d4\'da\'cf\'d8\'c7\'f8
-\f0 ";\
-  servantCounty.enable = YES;\
-    _servantCounty = servantCounty;\
-    servantCounty.option = ^\{\
-        // 
-\f1 \'bd\'ab\'d6\'ae\'c7\'b0\'b5\'c4
-\f0 picker
-\f1 \'c9\'be\'b5\'f4
-\f0 \
-        [_sexPicker removeFromSuperview];\
-        // 
-\f1 \'b8\'c4\'b1\'e4
-\f0 tableView
-\f1 \'b5\'c4
-\f0 frame\
-        self.tableView.frame =\
-        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);\
-        // 
 \f1 \'b4\'b4\'bd\'a8
-\f0 pickerView\
-        CGFloat servantPickerY = XBScreenHeight * 0.6;\
-        CGFloat servantPickerW = XBScreenWidth;\
-        CGFloat servantPickerH = XBScreenHeight * 0.4;\
-        HSPickerView *servantPicker = [HSPickerView picker];\
-        servantPicker.frame = CGRectMake(0, servantPickerY, servantPickerW, servantPickerH);\
-        [self.tableView.superview addSubview:servantPicker];\
-        // 
-\f1 \'c9\'e8\'d6\'c3\'b4\'fa\'c0\'ed
+\f0 section\
+ */\
+- (RETableViewSection *)addPersonnalInfoSection \{\
+  __typeof(&*self) __weak weakSelf = self;\
+  // 
+\f1 \'b1\'ed\'cd\'b7
 \f0 \
-        servantPicker.delegate = self;\
-        _servantPicker = servantPicker;\
-        _servantPickerView = servantPicker.picker;\
-        \
-        _servantPickerView.delegate = self;\
-        _servantPickerView.dataSource = self;\
-        \
-        // 
-\f1 \'d1\'a1\'d6\'d0\'b5\'da\'d2\'bb\'b8\'f6
-\f0 \
-        [self pickerView:_servantPickerView didSelectRow:0 inComponent:1];\
-    \};\
+  self.tableView.tableHeaderView = self.headerPictureView;\
+  RETableViewSection *section =\
+      [RETableViewSection sectionWithHeaderTitle:@"
+\f1 \'b8\'f6\'c8\'cb\'d0\'c5\'cf\'a2\'d0\'de\'b8\'c4
+\f0 "];\
+  [self.manager addSection:section];\
 \
-  \
-\
-  HSInfoLableItem *sex = [HSInfoLableItem itemWithTitle:servantGenderStr];\
-  sex.text = @"
-\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'b5\'c4\'d0\'d4\'b1\'f0
-\f0 ";\
-    sex.enable = YES;\
-  _sex = sex;\
-  sex.option = ^\{\
+  NSString *locationAddress = [NSString\
+      stringWithFormat:@"%@%@%@", self.servant.servantProvince,\
+                       self.servant.servantCity, self.servant.servantCounty];\
+  self.location = [RETableViewItem itemWithTitle:locationAddress];\
+  self.location.enabled = NO;\
+  self.location.selectionHandler = ^(RETableViewItem *item) \{\
+    [item deselectRowAnimated:YES];\
+    if (weakSelf.location.enabled) \{\
+      [weakSelf.view endEditing:YES];\
+      [weakSelf.tableView.superview addSubview:weakSelf.servantPicker];\
       // 
-\f1 \'bd\'ab\'d6\'ae\'c7\'b0\'b5\'c4
-\f0 picker
-\f1 \'c9\'be\'b5\'f4
-\f0 \
-      [_servantPicker removeFromSuperview];\
-    // 
-\f1 \'b8\'c4\'b1\'e4
-\f0 tableView
-\f1 \'b5\'c4
-\f0 frame\
-    self.tableView.frame =\
-        CGRectMake(0, 0, XBScreenWidth, XBScreenHeight * 0.6);\
-    // 
-\f1 \'b4\'b4\'bd\'a8
-\f0 pickerView\
-    CGFloat sexPickerY = XBScreenHeight * 0.6;\
-    CGFloat sexPickerW = XBScreenWidth;\
-    CGFloat sexPickerH = XBScreenHeight * 0.4;\
-    HSPickerView *sexPicker = [HSPickerView picker];\
-    sexPicker.frame = CGRectMake(0, sexPickerY, sexPickerW, sexPickerH);\
-    [self.tableView.superview addSubview:sexPicker];\
-    // 
 \f1 \'c9\'e8\'d6\'c3\'b4\'fa\'c0\'ed
 \f0 \
-    sexPicker.delegate = self;\
+      weakSelf.servantPicker.delegate = weakSelf;\
 \
-    _sexPicker = sexPicker;\
-    _sexPickerView = sexPicker.picker;\
+      weakSelf.servantPickerView.delegate = weakSelf;\
+      weakSelf.servantPickerView.dataSource = weakSelf;\
 \
-    _sexPickerView.delegate = self;\
-    _sexPickerView.dataSource = self;\
-      \
       // 
 \f1 \'d1\'a1\'d6\'d0\'b5\'da\'d2\'bb\'b8\'f6
 \f0 \
-      [self pickerView:_sexPickerView didSelectRow:0 inComponent:1];\
-\
+      [weakSelf pickerView:weakSelf.servantPickerView\
+              didSelectRow:0\
+               inComponent:0];\
+      [weakSelf pickerView:weakSelf.servantPickerView\
+              didSelectRow:0\
+               inComponent:1];\
+      [weakSelf pickerView:weakSelf.servantPickerView\
+              didSelectRow:0\
+               inComponent:2];\
+    \}\
 \
   \};\
 \
-  HSInfoTextFieldItem *trainingIntro =\
-      [HSInfoTextFieldItem itemWithTitle:trainingIntroStr\
-                             placeholder:trainingIntroPh];\
-  trainingIntro.enable = YES;\
-  _trainingIntro = trainingIntro;\
+  self.servantID =\
+      [RETextItem itemWithTitle:@"
+\f1 \'d3\'c3\'bb\'a7\'c3\'fb
+\f0 " value:self.servant.servantID];\
+  self.servantID.enabled = NO;\
 \
-  HSInfoGroup *g0 = [[HSInfoGroup alloc] init];\
-  g0.items =\
-      @[ servantProvince, servantCity, servantCounty, trainingIntro ];\
-  [self.data addObject:g0];\
+  self.servantName = [RETextItem itemWithTitle:@"
+\f1 \'d3\'c3\'bb\'a7\'d0\'d5\'c3\'fb
+\f0 "\
+                                         value:self.servant.servantName\
+                                   placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'d0\'d5\'c3\'fb
+\f0 "];\
+  self.servantName.enabled = NO;\
 \
-  // 
-\f1 \'b1\'ed\'ce\'b2
+  self.serviceItem = [RETextItem itemWithTitle:@"
+\f1 \'b7\'fe\'ce\'f1\'cf\'ee\'c4\'bf
+\f0 "\
+                                         value:self.servant.serviceItems];\
+  self.serviceItem.enabled = NO;\
+\
+  self.phoneNo = [RETextItem\
+      itemWithTitle:@"
+\f1 \'c1\'aa\'cf\'b5\'b5\'e7\'bb\'b0
+\f0 "\
+              value:[NSString stringWithFormat:@"%ld", self.servant.phoneNo]\
+        placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'c4\'fa\'b5\'c4\'c1\'aa\'cf\'b5\'b5\'e7\'bb\'b0
+\f0 "];\
+  self.phoneNo.keyboardType = UIKeyboardTypePhonePad;\
+  self.phoneNo.enabled = NO;\
+\
+  self.servantMobil = [RETextItem\
+      itemWithTitle:@"
+\f1 \'ca\'d6\'bb\'fa\'ba\'c5\'c2\'eb
+\f0 "\
+              value:[NSString\
+                        stringWithFormat:@"%ld", self.servant.servantMobil]\
+        placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'c4\'fa\'b5\'c4\'ca\'d6\'bb\'fa\'ba\'c5\'c2\'eb
+\f0 "];\
+  self.servantMobil.keyboardType = UIKeyboardTypePhonePad;\
+  self.servantMobil.enabled = NO;\
+\
+  self.contactAddress =\
+      [RETextItem itemWithTitle:@"
+\f1 \'cd\'a8\'d1\'b6\'b5\'d8\'d6\'b7
+\f0 "\
+                          value:self.servant.contactAddress\
+                    placeholder:@"
+\f1 \'c7\'eb\'cc\'ee\'d0\'b4\'cf\'ea\'cf\'b8\'cd\'a8\'d1\'b6\'b5\'d8\'d6\'b7
+\f0 "];\
+  self.contactAddress.enabled = NO;\
+\
+  self.qqNumber = [RETextItem\
+      itemWithTitle:@"QQ
+\f1 \'d5\'ca\'ba\'c5
+\f0 "\
+              value:[NSString stringWithFormat:@"%ld", self.servant.qqNumber]\
+        placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'c4\'fa\'b5\'c4
+\f0 QQ
+\f1 \'d5\'ca\'ba\'c5
+\f0 "];\
+  self.qqNumber.keyboardType = UIKeyboardTypeNumberPad;\
+  self.qqNumber.enabled = NO;\
+\
+  self.emailAddress =\
+      [RETextItem itemWithTitle:@"
+\f1 \'b5\'e7\'d7\'d3\'d3\'ca\'bc\'fe
+\f0 "\
+                          value:self.servant.emailAddress\
+                    placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'d5\'fd\'c8\'b7\'b5\'c4\'b5\'e7\'d7\'d3\'d3\'ca\'bc\'fe\'b5\'d8\'d6\'b7
+\f0 "];\
+  self.emailAddress.enabled = NO;\
+\
+  self.loginPassword =\
+      [RETextItem itemWithTitle:@"
+\f1 \'b5\'c7\'c2\'bc\'c3\'dc\'c2\'eb
+\f0 "\
+                          value:self.servant.loginPassword\
+                    placeholder:@"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb
+\f0 6~18
+\f1 \'ce\'bb\'d7\'d6\'c4\'b8\'ca\'fd\'d7\'d6\'d7\'e9\'ba\'cf\'c3\'dc\'c2\'eb
+\f0 "];\
+  self.loginPassword.secureTextEntry = YES;\
+  self.loginPassword.enabled = NO;\
+\
+  self.confirmPassword = [RETextItem itemWithTitle:@"
+\f1 \'c8\'b7\'c8\'cf\'c3\'dc\'c2\'eb
+\f0 "\
+                                             value:self.servant.loginPassword\
+                                       placeholder:@"
+\f1 \'c7\'eb\'d4\'d9\'b4\'ce\'ca\'e4\'c8\'eb\'c3\'dc\'c2\'eb
+\f0 "];\
+  self.confirmPassword.secureTextEntry = YES;\
+  self.confirmPassword.enabled = NO;\
+\
+  [section addItem:self.location];\
+  [section addItem:self.servantID];\
+  [section addItem:self.servantName];\
+  [section addItem:self.serviceItem];\
+  [section addItem:self.phoneNo];\
+  [section addItem:self.servantMobil];\
+  [section addItem:self.contactAddress];\
+  [section addItem:self.qqNumber];\
+  [section addItem:self.emailAddress];\
+  [section addItem:self.loginPassword];\
+  [section addItem:self.confirmPassword];\
+\
+  return section;\
+\}\
+\
+/**\
+ *  
+\f1 \'b4\'b4\'bd\'a8\'cd\'b7\'cf\'f1
 \f0 \
+ */\
+- (void)setupHeadPictureWithServant:(HSServant *)servant \{\
+  __weak __typeof(self) weakSelf = self;\
+  NSString *headPicture = servant.headPicture;\
+  NSString *pictureURLStr =\
+      [NSString stringWithFormat:@"%@/%@", kHSBaseURL, headPicture];\
+  NSURL *pictureURL = [NSURL URLWithString:pictureURLStr];\
+\
+  [self.headerPictureView.iconImg\
+      sd_setImageWithURL:pictureURL\
+        placeholderImage:[UIImage imageNamed:@"icon"]\
+                 options:SDWebImageRetryFailed\
+               completed:^(UIImage *image, NSError *error,\
+                           SDImageCacheType cacheType, NSURL *imageURL) \{\
+                 NSString *picName = @"headPicture.png";\
+                 [weakSelf saveImage:image\
+                            withName:picName\
+                          completion:^\{\
+                            [weakSelf.tableView reloadData];\
+                          \}];\
+                 _headPicture = picName;\
+               \}];\
+\}\
+\
+/**\
+ *  
+\f1 \'b4\'b4\'bd\'a8
+\f0 footerView\
+ */\
+- (void)setupfooterView \{\
   HSInfoFooterView *footerView = [HSInfoFooterView footerView];\
-  HSOrangeButton *registBtn = [HSOrangeButton orangeButtonWithTitle:@"
-\f1 \'d7\'a2\'b2\'e1
+  HSOrangeButton *saveBtn =\
+      [HSOrangeButton orangeButtonWithTitle:@"
+\f1 \'b1\'a3\'b4\'e6\'b2\'a2\'c9\'cf\'b4\'ab\'cd\'b7\'cf\'f1
 \f0 "];\
   CGFloat buttonX = 10;\
   CGFloat buttonW = footerView.frame.size.width - 2 * buttonX;\
   CGFloat buttonH = 50;\
-  CGFloat buttonY = footerView.frame.size.height * 0.5 - buttonH * 0.5;\
-  registBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);\
-  registBtn.enabled = NO;\
-  registBtn.alpha = 0.66;\
-  [registBtn addTarget:self\
-                action:@selector(registBtnClicked)\
+  CGFloat buttonY = footerView.center.y - buttonH * 0.5;\
+  saveBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);\
+  [saveBtn setTitle:@"
+\f1 \'b1\'a3\'b4\'e6\'b2\'a2\'c9\'cf\'b4\'ab\'cd\'b7\'cf\'f1
+\f0 " forState:UIControlStateNormal];\
+  [footerView addSubview:saveBtn];\
+\
+  self.footerView = footerView;\
+  self.saveBtn = saveBtn;\
+  saveBtn.hidden = YES;\
+  [saveBtn addTarget:self\
+                action:@selector(saveBtnClicked)\
       forControlEvents:UIControlEventTouchUpInside];\
-  [footerView addSubview:registBtn];\
   self.tableView.tableFooterView = footerView;\
-  _registBtn = registBtn;\
 \}\
 \
-- (void)registBtnClicked \{\
-\}\
-\
-#pragma mark - UIGestureRecognizerDelegate\
 /**\
  *  
-\f1 \'d6\'d8\'d0\'b4
-\f0 UIGestureRecognizerDelegate
-\f1 \'bd\'e2\'be\'f6
-\f0 tap
-\f1 \'ca\'d6\'ca\'c6\'d3\'eb
-\f0 didSelectRowAtIndexPath
-\f1 \'b5\'c4\'b3\'e5\'cd\'bb
+\f1 \'b5\'bc\'ba\'bd\'c0\'b8\'b0\'b4\'c5\'a5
 \f0 \
  */\
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer\
-       shouldReceiveTouch:(UITouch *)touch \{\
-  NSString *tapPlace = NSStringFromClass([touch.view class]);\
-  // 
-\f1 \'c8\'f4\'ce\'aa
-\f0 UITableView
-\f1 \'a3\'a8\'bc\'b4\'b5\'e3\'bb\'f7\'c1\'cb
-\f0 UITableView
-\f1 \'a3\'a9\'a3\'ac\'d4\'f2\'bd\'d8\'bb\'f1
-\f0 Touch
-\f1 \'ca\'c2\'bc\'fe
-\f0 \
-  if ([tapPlace isEqualToString:@"UITableView"]) \{\
-    return YES;\
-  \}\
-  return NO;\
+- (void)setupNavBarBtn \{\
+  self.navigationItem.leftBarButtonItem =\
+      [[UIBarButtonItem alloc] initWithTitle:@"
+\f1 \'d7\'a2\'cf\'fa\'b5\'c7\'c2\'bc
+\f0 "\
+                                       style:UIBarButtonItemStyleDone\
+                                      target:self\
+                                      action:@selector(logoutBtnClicked)];\
+\
+  self.navigationItem.rightBarButtonItem =\
+      [[UIBarButtonItem alloc] initWithTitle:@"
+\f1 \'b1\'e0\'bc\'ad
+\f0 "\
+                                       style:UIBarButtonItemStyleDone\
+                                      target:self\
+                                      action:@selector(editBtnClicked)];\
+  self.rightBtn = self.navigationItem.rightBarButtonItem;\
 \}\
 \
-#pragma mark - UIPickerViewDataSource\
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView\{\
-    return 1;\
+#pragma mark - 
+\f1 \'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+/**\
+ *  
+\f1 \'b1\'a3\'b4\'e6\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+ */\
+- (void)saveBtnClicked \{\
+  MBProgressHUD *hud =\
+      [MBProgressHUD showHUDAddedTo:self.navigationController.view\
+                           animated:YES];\
+  hud.labelText = @"
+\f1 \'d5\'fd\'d4\'da\'b1\'a3\'b4\'e6\'b2\'a2\'c9\'cf\'b4\'ab
+\f0 ";\
+  if (![HSVerify verifyPhoneNumber:_servantMobil.value]) \{\
+    hud.mode = MBProgressHUDModeCustomView;\
+    hud.labelText = @"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'d5\'fd\'c8\'b7\'b5\'c4\'ca\'d6\'bb\'fa\'ba\'c5\'c2\'eb
+\f0 ";\
+    hud.customView = MBProgressHUDErrorView;\
+    [hud hide:YES afterDelay:1.0];\
+  \} else if (![HSVerify verifyPassword:_loginPassword.value]) \{\
+    hud.mode = MBProgressHUDModeCustomView;\
+    hud.labelText = @"
+\f1 \'ca\'e4\'c8\'eb
+\f0 6-18
+\f1 \'ce\'bb\'ca\'fd\'d7\'d6\'ba\'cd\'d7\'d6\'c4\'b8\'d7\'e9\'ba\'cf\'c3\'dc\'c2\'eb
+\f0 ";\
+    hud.customView = MBProgressHUDErrorView;\
+    [hud hide:YES afterDelay:1.0];\
+  \} else if (![_loginPassword.value isEqualToString:_confirmPassword.value]) \{\
+    hud.mode = MBProgressHUDModeCustomView;\
+    hud.labelText = @"
+\f1 \'c7\'eb\'ca\'e4\'c8\'eb\'cf\'e0\'cd\'ac\'b5\'c4\'c3\'dc\'c2\'eb
+\f0 ";\
+    hud.customView = MBProgressHUDErrorView;\
+    [hud hide:YES afterDelay:1.0];\
+  \} else \{\
+    hud.hidden = YES;\
+    [self updateInfo];\
+    // 
+\f1 \'bd\'fb\'d6\'b9\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+    [self setCellDisable];\
+    // 
+\f1 \'d6\'d8\'d4\'d8
+\f0 tableView\
+    [self.tableView reloadData];\
+\
+    self.rightBtn.title = @"
+\f1 \'b1\'e0\'bc\'ad
+\f0 ";\
+    self.saveBtn.enabled = NO;\
+    self.saveBtn.hidden = YES;\
+  \}\
 \}\
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component\{\
-    if (pickerView == _sexPickerView) \{\
-        return 2;\
-    \}else\{\
-        return self.regions.count;\
+- (int)updateInfo \{\
+  _isSuccess = 0;\
+  MBProgressHUD *hud =\
+      [MBProgressHUD showHUDAddedTo:self.navigationController.view\
+                           animated:YES];\
+  // 
+\f1 \'b7\'c3\'ce\'ca\'b7\'fe\'ce\'f1\'c6\'f7
+\f0 \
+  AFHTTPRequestOperationManager *manager =\
+      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];\
+  // 
+\f1 \'ca\'fd\'be\'dd\'cc\'e5
+\f0 \
+  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];\
+  attrDict[@"id"] = [NSString stringWithFormat:@"%d", self.servant.ID];\
+  attrDict[@"servantID"] = self.servantID.value;\
+  attrDict[@"servantName"] = self.servantName.value;\
+  attrDict[@"loginPassword"] = self.loginPassword.value;\
+  attrDict[@"phoneNo"] = self.phoneNo.value;\
+  attrDict[@"servantMobil"] = self.servantMobil.value;\
+  attrDict[@"servantProvince"] = _servantProvince;\
+  attrDict[@"servantCity"] = _servantCity;\
+  attrDict[@"servantCounty"] = _servantCounty;\
+  attrDict[@"contactAddress"] = self.contactAddress.value;\
+  attrDict[@"qqNumber"] = self.qqNumber.value;\
+  attrDict[@"emailAddress"] = self.emailAddress.value;\
+  attrDict[@"realLongitude"] = _realLongtitude;\
+  attrDict[@"realLatitude"] = _realLatitude;\
+\
+  NSString *urlStr = [NSString\
+      stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_update",\
+                       kHSBaseURL];\
+\
+  [manager POST:urlStr\
+      parameters:attrDict\
+      constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) \{\
+        XBLog(@"%@", _iconImageFilePath);\
+        [formData appendPartWithFileURL:_iconImageFilePath\
+                                   name:@"headPicture"\
+                                  error:nil];\
+      \}\
+      success:^(AFHTTPRequestOperation *_Nonnull operation,\
+                id _Nonnull responseObject) \{\
+        NSString *serverResponse = responseObject[@"serverResponse"];\
+        if ([serverResponse isEqualToString:@"Success"]) \{\
+          hud.mode = MBProgressHUDModeCustomView;\
+          hud.labelText = @"
+\f1 \'b1\'a3\'b4\'e6\'b2\'a2\'c9\'cf\'b4\'ab\'b3\'c9\'b9\'a6
+\f0 ";\
+          hud.customView = MBProgressHUDSuccessView;\
+          [hud hide:YES afterDelay:1.0];\
+          // 
+\f1 \'b4\'e6\'b5\'b5
+\f0 \
+          hud.completionBlock = ^\{\
+            _servantArray =\
+                [HSServant objectArrayWithKeyValuesArray:kDataResponse];\
+\
+            // 
+\f1 \'b4\'b4\'bd\'a8\'c4\'a3\'d0\'cd
+\f0 \
+            HSServant *servant = _servantArray.lastObject;\
+            // 
+\f1 \'b4\'e6\'b5\'b5
+\f0 \
+            [HSServantTool saveServant:servant];\
+          \};\
+          _isSuccess = 1;\
+        \} else \{\
+          hud.mode = MBProgressHUDModeCustomView;\
+          hud.labelText = @"
+\f1 \'b1\'a3\'b4\'e6\'c9\'cf\'b4\'ab\'ca\'a7\'b0\'dc
+\f0 ";\
+          hud.customView = MBProgressHUDErrorView;\
+          [hud hide:YES afterDelay:1.0];\
+          _isSuccess = 0;\
+        \}\
+      \}\
+      failure:^(AFHTTPRequestOperation *_Nonnull operation,\
+                NSError *_Nonnull error) \{\
+        hud.mode = MBProgressHUDModeCustomView;\
+        hud.labelText = @"
+\f1 \'cd\'f8\'c2\'e7\'b4\'ed\'ce\'f3\'a3\'ac\'c7\'eb\'d6\'d8\'d0\'c2\'b2\'d9\'d7\'f7
+\f0 ";\
+        hud.customView = MBProgressHUDErrorView;\
+        [hud hide:YES afterDelay:1.0];\
+        XBLog(@"error%@", error);\
+        _isSuccess = -1;\
+      \}];\
+  return _isSuccess;\
+\}\
+/**\
+ *  
+\f1 \'d7\'a2\'cf\'fa\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+ */\
+- (void)logoutBtnClicked \{\
+  // 
+\f1 \'c9\'be\'b3\'fd\'b1\'be\'b5\'d8\'d5\'cb\'bb\'a7
+\f0 \
+  [HSAccountTool removeAccount];\
+  UIAlertView *alert = [[UIAlertView alloc]\
+          initWithTitle:@"
+\f1 \'c4\'fa\'c8\'b7\'b6\'a8\'cd\'cb\'b3\'f6\'c2\'f0\'a3\'bf
+\f0 "\
+                message:@"
+\f1 \'cd\'cb
+\f0 " @"
+\f1 \'b3\'f6
+\f0 " @"
+\f1 \'ba\'f3
+\f0 "\
+                                      @"
+\f1 \'c4\'fa\'bf\'c9\'c4\'dc\'ce\'de\'b7\'a8\'ca\'d5\'b5\'bd\'b6\'a9\'b5\'a5\'cf\'fb\'cf\'a2\'bc\'b0\'cd\'c6\'cb\'cd\'a3\'ac\'c4\'fa\'c8\'b7\'b6\'a8\'cd\'cb
+\f0 "\
+                                      @"
+\f1 \'b3\'f6\'c2\'f0\'a3\'bf
+\f0 "\
+               delegate:self\
+      cancelButtonTitle:@"
+\f1 \'c8\'a1\'cf\'fb
+\f0 "\
+      otherButtonTitles:@"
+\f1 \'c8\'b7\'b6\'a8\'cd\'cb\'b3\'f6
+\f0 ", nil];\
+  alert.delegate = self;\
+  [alert show];\
+\}\
+/**\
+ *  
+\f1 \'b1\'e0\'bc\'ad\'b0\'b4\'c5\'a5\'b5\'e3\'bb\'f7
+\f0 \
+ */\
+- (void)editBtnClicked \{\
+  self.saveBtn.hidden = !self.saveBtn.hidden;\
+  self.saveBtn.enabled = !self.saveBtn.enabled;\
+\
+  if ([self.rightBtn.title isEqualToString:@"
+\f1 \'c8\'a1\'cf\'fb
+\f0 "]) \{\
+    self.rightBtn.title = @"
+\f1 \'b1\'e0\'bc\'ad
+\f0 ";\
+    [self setupOriginData];\
+    [self setCellDisable];\
+    [self pickerView:self.servantPicker\
+        cancelButtonDidClickedOnToolBar:self.servantPicker.toolBar];\
+    [self.tableView reloadData];\
+  \} else \{\
+\
+    self.rightBtn.title = @"
+\f1 \'c8\'a1\'cf\'fb
+\f0 ";\
+    [self setCellEnable];\
+    [self.tableView reloadData];\
+  \}\
+\}\
+/**\
+ *  
+\f1 \'cd\'b7\'cf\'f1\'b5\'e3\'bb\'f7
+\f0 \
+ */\
+- (void)whenClickHeadImage \{\
+\
+  UIActionSheet *sheet;\
+  sheet = [[UIActionSheet alloc] initWithTitle:@"
+\f1 \'d1\'a1\'d4\'f1\'cd\'b7\'cf\'f1\'c9\'cf\'b4\'ab
+\f0 "\
+                                      delegate:self\
+                             cancelButtonTitle:@"
+\f1 \'c8\'a1\'cf\'fb
+\f0 "\
+                        destructiveButtonTitle:@"
+\f1 \'b4\'d3\'cf\'e0\'b2\'e1\'d1\'a1\'d4\'f1
+\f0 "\
+                             otherButtonTitles:@"
+\f1 \'b4\'d3\'cf\'e0\'bb\'fa\'d6\'d0\'d1\'a1\'d4\'f1
+\f0 ", nil];\
+  sheet.tag = 255;\
+  sheet.actionSheetStyle = UIBarStyleBlackOpaque;\
+  [sheet showInView:self.view];\
+\}\
+\
+#pragma mark - 
+\f1 \'ca\'fd\'be\'dd\'cf\'e0\'b9\'d8
+\f0 \
+/**\
+ *  
+\f1 \'b6\'a8\'ce\'bb\'a3\'ac\'be\'ad\'ce\'b3\'b6\'c8
+\f0 \
+ */\
+- (void)setupLongAndLati \{\
+  // 
+\f1 \'b3\'f5\'ca\'bc\'bb\'af\'b6\'a8\'ce\'bb\'c6\'f7\'b9\'dc\'c0\'ed\'c6\'f7
+\f0 \
+  CLLocationManager *manager = [[CLLocationManager alloc] init];\
+  _manager = manager;\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b4\'fa\'c0\'ed
+\f0 \
+  _manager.delegate = self;\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b6\'a8\'ce\'bb\'be\'ab\'c8\'b7\'b6\'c8\'b5\'bd\'c3\'d7
+\f0 \
+  _manager.desiredAccuracy = kCLLocationAccuracyBest;\
+  // 
+\f1 \'c9\'e8\'d6\'c3\'b9\'fd\'c2\'cb\'c6\'f7\'ce\'aa\'ce\'de
+\f0 \
+  _manager.distanceFilter = kCLLocationAccuracyBest;\
+  // 
+\f1 \'bf\'aa\'ca\'bc\'b6\'a8\'ce\'bb
+\f0 \
+  if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) \{\
+\
+    [_manager requestWhenInUseAuthorization];\
+    [_manager startUpdatingLocation];\
+  \} else \{\
+    [_manager startUpdatingLocation];\
+  \}\
+\}\
+\
+/**\
+ *  
+\f1 \'c9\'e8\'d6\'c3\'ce\'aa\'d4\'ad\'ca\'bc\'ca\'fd\'be\'dd
+\f0 \
+ */\
+- (void)setupOriginData \{\
+    [self.rightBtn setTitle:@"
+\f1 \'b1\'e0\'bc\'ad
+\f0 "];\
+    self.saveBtn.enabled = NO;\
+    self.saveBtn.hidden = YES;\
+\
+  _servantProvince = self.servant.servantProvince;\
+  _servantCity = self.servant.servantCity;\
+  _servantCounty = self.servant.servantCounty;\
+  NSString *locationAddress =\
+      [NSString stringWithFormat:@"%@%@%@", _servantProvince, _servantCity,\
+                                 _servantCounty];\
+\
+  self.location.title = locationAddress;\
+  self.servantID.value = self.servant.servantID;\
+  self.servantName.value = self.servant.servantName;\
+\
+  NSString *phoneNoString =\
+      [NSString stringWithFormat:@"%ld", self.servant.phoneNo];\
+  self.phoneNo.value = phoneNoString;\
+\
+  NSString *servantMobilString =\
+      [NSString stringWithFormat:@"%ld", self.servant.servantMobil];\
+  self.servantMobil.value = servantMobilString;\
+  self.contactAddress.value = self.servant.contactAddress;\
+  self.qqNumber.value =\
+      [NSString stringWithFormat:@"%ld", self.servant.qqNumber];\
+    self.emailAddress.value = self.servant.emailAddress;\
+  self.loginPassword.value = self.servant.loginPassword;\
+  self.confirmPassword.value = self.servant.loginPassword;\
+\
+  [self.tableView reloadData];\
+\}\
+\
+- (void)setCellEnable \{\
+  _servantName.enabled = YES;\
+  _phoneNo.enabled = YES;\
+  _servantMobil.enabled = YES;\
+  _location.enabled = YES;\
+  _contactAddress.enabled = YES;\
+  _qqNumber.enabled = YES;\
+  _emailAddress.enabled = YES;\
+  _loginPassword.enabled = YES;\
+  _confirmPassword.enabled = YES;\
+\}\
+\
+- (void)setCellDisable \{\
+  _servantName.enabled = NO;\
+  _phoneNo.enabled = NO;\
+  _servantMobil.enabled = NO;\
+  _location.enabled = NO;\
+  _contactAddress.enabled = NO;\
+  _qqNumber.enabled = NO;\
+  _emailAddress.enabled = NO;\
+  _loginPassword.enabled = NO;\
+  _confirmPassword.enabled = NO;\
+\}\
+\
+#pragma mark - datasouce\
+#pragma mark - UIPickerViewDataSource\
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView \{\
+  return 3;\
+\}\
+- (NSInteger)pickerView:(UIPickerView *)pickerView\
+numberOfRowsInComponent:(NSInteger)component \{\
+  if (component == 0) \{\
+    return self.provinces.count;\
+  \} else if (component == 1) \{\
+    NSInteger selectedIndex = [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[selectedIndex];\
+    return province.citylist.count;\
+  \} else \{\
+    NSInteger proSelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[proSelectedIndex];\
+    NSInteger citySelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:1];\
+    HSCity *city = province.citylist[citySelectedIndex];\
+    return city.arealist.count;\
+  \}\
+\}\
+\
+#pragma mark - delegate\
+#pragma mark - CLLocationManagerDelegate\
+- (void)locationManager:(CLLocationManager *)manager\
+     didUpdateLocations:(nonnull NSArray<CLLocation *> *)locations \{\
+  CLLocation *newLocaltion = locations.lastObject;\
+  // 
+\f1 \'bc\'c7\'c2\'bc\'be\'ad\'b6\'c8
+\f0 \
+  _realLongtitude =\
+      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.longitude];\
+  // 
+\f1 \'bc\'c7\'c2\'bc\'ce\'b3\'b6\'c8
+\f0 \
+  _realLatitude =\
+      [NSString stringWithFormat:@"%lf", newLocaltion.coordinate.latitude];\
+\}\
+\
+#pragma mark - RETableViewManagerDelegate\
+- (void)tableView:(UITableView *)tableView\
+  willDisplayCell:(UITableViewCell *)cell\
+forRowAtIndexPath:(NSIndexPath *)indexPath \{\
+  for (UIView *view in cell.contentView.subviews) \{\
+    if ([view isKindOfClass:[UILabel class]]) \{\
+      UILabel *label = (UILabel *)view;\
+      label.textColor = [UIColor darkGrayColor];\
+      label.font = [UIFont systemFontOfSize:14];\
     \}\
+  \}\
+\}\
+\
+- (void)tableView:(UITableView *)tableView\
+    willLayoutCellSubviews:(UITableViewCell *)cell\
+         forRowAtIndexPath:(NSIndexPath *)indexPath \{\
+  for (UIView *view in cell.contentView.subviews) \{\
+    if ([view isKindOfClass:[UILabel class]] ||\
+        [view isKindOfClass:[UITextField class]]) \{\
+      ((UILabel *)view).font = [UIFont systemFontOfSize:14];\
+      ((UILabel *)view).textColor = [UIColor darkGrayColor];\
+      ((UILabel *)view).textAlignment = NSTextAlignmentLeft;\
+      if ([view isKindOfClass:[UITextField class]]) \{\
+        CGRect temp = ((UILabel *)view).frame;\
+        temp.origin.x = 86;\
+        ((UILabel *)view).frame = temp;\
+      \}\
+    \}\
+  \}\
+\}\
+\
+#pragma mark - UIAlertViewDelegate\
+- (void)alertView:(UIAlertView *)alertView\
+    clickedButtonAtIndex:(NSInteger)buttonIndex \{\
+  if (buttonIndex == 1) \{\
+    // 
+\f1 \'cc\'f8\'b5\'bd\'b5\'c7\'c2\'bc\'bd\'e7\'c3\'e6
+\f0 \
+    HSLoginViewController *loginVc = [[HSLoginViewController alloc] init];\
+    [self presentViewController:loginVc animated:YES completion:nil];\
+    //
+\f1 \'b9\'d8\'b1\'d5\'cd\'c6\'cb\'cd\'cd\'a8\'d6\'aa
+\f0 \
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];\
+    [BPush unbindChannelWithCompleteHandler:^(id result, NSError *error) \{\
+      if (result) \{\
+        XBLog(@"unbindChannelWithCompleteHandler--%@", result);\
+      \}\
+    \}];\
+  \}\
 \}\
 \
 #pragma mark - UIPickerViewDelegate\
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component\{\
-    if (pickerView == _sexPickerView) \{\
-        if (row == 0) \{\
-            return @"
-\f1 \'c5\'ae
-\f0 ";\
-        \}else\{\
-            return @"
-\f1 \'c4\'d0
-\f0 ";\
-        \}\
-    \}else\{\
-        HSRegion *region = self.regions[row];\
-        return region.areaName;\
-    \}\
-    return nil;\
+- (NSString *)pickerView:(UIPickerView *)pickerView\
+             titleForRow:(NSInteger)row\
+            forComponent:(NSInteger)component \{\
+  if (component == 0) \{\
+    HSProvince *province = self.provinces[row];\
+    return province.provinceName;\
+  \} else if (component == 1) \{\
+    NSInteger selectedIndex = [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[selectedIndex];\
+    HSCity *city = province.citylist[row];\
+    return city.cityName;\
+  \} else \{\
+    NSInteger proSelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[proSelectedIndex];\
+    NSInteger citySelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:1];\
+    HSCity *city = province.citylist[citySelectedIndex];\
+    HSRegion *region = city.arealist[row];\
+    return region.areaName;\
+  \}\
 \}\
 \
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component\{\
-    if (pickerView == _sexPickerView) \{\
-        if (row == 0) \{\
-            _sex.text = @"
-\f1 \'c5\'ae
-\f0 ";\
-        \}else\{\
-            _sex.text = @"
-\f1 \'c4\'d0
-\f0 ";\
-        \}\
-    \}else\{\
-        HSRegion *region = self.regions[row];\
-        _servantCounty.text = region.areaName;\
-    \}\
+- (void)pickerView:(UIPickerView *)pickerView\
+      didSelectRow:(NSInteger)row\
+       inComponent:(NSInteger)component \{\
+  if (component == 0) \{\
+    [pickerView reloadComponent:1];\
+    [pickerView reloadComponent:2];\
+\
+    HSProvince *province = self.provinces[row];\
+    _servantProvince = province.provinceName;\
+\
+    // 
+\f1 \'c8\'c3\'b5\'da
+\f0 1
+\f1 \'c1\'d0\'b9\'f6\'b6\'af\'b5\'bd\'b5\'da
+\f0 0
+\f1 \'d0\'d0
+\f0 \
+    [pickerView selectRow:0 inComponent:1 animated:YES];\
+    [self pickerView:pickerView didSelectRow:0 inComponent:1];\
+  \} else if (component == 1) \{\
+    [pickerView reloadComponent:2];\
+    NSInteger selectedIndex = [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[selectedIndex];\
+    HSCity *city = province.citylist[row];\
+    _servantCity = city.cityName;\
+    // 
+\f1 \'c8\'c3\'b5\'da
+\f0 2
+\f1 \'c1\'d0\'b9\'f6\'b6\'af\'b5\'bd\'b5\'da
+\f0 0
+\f1 \'d0\'d0
+\f0 \
+    [pickerView selectRow:0 inComponent:2 animated:YES];\
+    [self pickerView:pickerView didSelectRow:0 inComponent:2];\
+  \} else \{\
+    NSInteger proSelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:0];\
+    HSProvince *province = self.provinces[proSelectedIndex];\
+    NSInteger citySelectedIndex =\
+        [self.servantPickerView selectedRowInComponent:1];\
+    HSCity *city = province.citylist[citySelectedIndex];\
+    HSRegion *region = city.arealist[row];\
+    _servantCounty = region.areaName;\
+    NSString *locationString =\
+        [NSString stringWithFormat:@"%@%@%@", _servantProvince, _servantCity,\
+                                   _servantCounty];\
+    _location.title = locationString;\
     [self.tableView reloadData];\
+  \}\
 \}\
 \
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component\{\
-    return 50;\
+- (CGFloat)pickerView:(UIPickerView *)pickerView\
+rowHeightForComponent:(NSInteger)component \{\
+  return 30;\
 \}\
 \
 #pragma mark - HSPickerViewDelegate\
-- (void)pickerView:(HSPickerView *)pickerView cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar\{\
-    if (pickerView == _sexPicker) \{\
-        _sex.text = @"
-\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'b5\'c4\'d0\'d4\'b1\'f0
-\f0 ";\
-        [_sexPicker removeFromSuperview];\
-    \}else\{\
-        _servantCounty.text = @"
-\f1 \'c7\'eb\'d1\'a1\'d4\'f1\'c4\'fa\'cb\'f9\'d4\'da\'cf\'d8\'c7\'f8
-\f0 ";\
-        [_servantPicker removeFromSuperview];\
+- (void)pickerView:(HSPickerView *)pickerView\
+    cancelButtonDidClickedOnToolBar:(UIToolbar *)toolBar \{\
+  [self.servantPicker removeFromSuperview];\
+\}\
+\
+- (void)pickerView:(HSPickerView *)pickerView\
+    confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar \{\
+  [self.servantPicker removeFromSuperview];\
+\}\
+\
+#pragma mark - HSHeadPictureViewDelegate\
+- (void)uploadButtonDidClicked \{\
+  _saveBtn.enabled = YES;\
+  _saveBtn.alpha = 1;\
+  [self whenClickHeadImage];\
+\}\
+\
+#pragma mark - UIActionSheetDelegate\
+- (void)actionSheet:(UIActionSheet *)actionSheet\
+    clickedButtonAtIndex:(NSInteger)buttonIndex \{\
+  if (actionSheet.tag == 255) \{\
+    NSUInteger sourceType = 0;\
+    switch (buttonIndex) \{\
+    case 0:\
+      // 
+\f1 \'cf\'e0\'b2\'e1
+\f0   
+\f1 \'bb\'f2\'d5\'df
+\f0  UIImagePickerControllerSourceTypePhotoLibrary\
+      sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;\
+      XBLog(@"
+\f1 \'d1\'a1\'d4\'f1\'cf\'e0\'b2\'e1\'cd\'bc\'c6\'ac
+\f0 ");\
+      break;\
+    //
+\f1 \'cf\'e0\'bb\'fa
+\f0 \
+    case 1: \{\
+      sourceType = UIImagePickerControllerSourceTypeCamera;\
+      if (![UIImagePickerController\
+              isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) \{\
+        UIAlertView *alert =\
+            [[UIAlertView alloc] initWithTitle:nil\
+                                       message:@"Test on real device, camera "\
+                                       @"is not available in simulator"\
+                                      delegate:nil\
+                             cancelButtonTitle:nil\
+                             otherButtonTitles:@"OK", nil];\
+        [alert show];\
+        return;\
+      \}\
+    \} break;\
+    case 2:\
+      return;\
     \}\
-    \
-    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
-    [self.tableView reloadData];\
+    // 
+\f1 \'cc\'f8\'d7\'aa\'b5\'bd\'cf\'e0\'bb\'fa\'bb\'f2\'cf\'e0\'b2\'e1\'d2\'b3\'c3\'e6
+\f0 \
+    UIImagePickerController *imagePickerController =\
+        [[UIImagePickerController alloc] init];\
+    imagePickerController.delegate = self;\
+    imagePickerController.allowsEditing = YES;\
+    imagePickerController.sourceType = sourceType;\
+    [self presentViewController:imagePickerController\
+                       animated:YES\
+                     completion:^\{\
+                     \}];\
+  \}\
 \}\
 \
-- (void)pickerView:(HSPickerView *)pickerView confirmButtonDidClickedOnToolBar:(UIToolbar *)toolBar\{\
-    [_sexPicker removeFromSuperview];\
-    [_servantPicker removeFromSuperview];\
-    self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, XBScreenHeight);\
+#pragma mark - UIPickerViewDelegate\
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker \{\
+  [self dismissViewControllerAnimated:YES\
+                           completion:^\{\
+                           \}];\
 \}\
 \
+#pragma mark - UIImagePickerDelegte\
+- (void)imagePickerController:(UIImagePickerController *)picker\
+didFinishPickingMediaWithInfo:(NSDictionary *)info \{\
 \
+  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:picker.view animated:YES];\
+  hud.labelText = @"
+\f1 \'d5\'fd\'d4\'da\'c9\'cf\'b4\'ab
+\f0 ";\
+  UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];\
+  NSString *picName = @"headPicture.png";\
+  _headPicture = picName;\
+  [self saveImage:image\
+         withName:_headPicture\
+       completion:^\{\
+         [self updateInfo];\
+         [hud hide:YES afterDelay:2];\
+         hud.completionBlock = ^\{\
+           [picker dismissViewControllerAnimated:\
+                       YES completion:^\{\
+             MBProgressHUD *hud =\
+                 [MBProgressHUD showHUDAddedTo:self.navigationController.view\
+                                      animated:YES];\
+             if (_isSuccess == 1) \{\
+\
+               hud.mode = MBProgressHUDModeCustomView;\
+               hud.labelText = @"
+\f1 \'c9\'cf\'b4\'ab\'b3\'c9\'b9\'a6
+\f0 ";\
+               hud.customView = MBProgressHUDSuccessView;\
+               [hud hide:YES afterDelay:1.0];\
+             \} else if (_isSuccess == 0) \{\
+               hud.mode = MBProgressHUDModeCustomView;\
+               hud.labelText = @"
+\f1 \'c9\'cf\'b4\'ab\'ca\'a7\'b0\'dc
+\f0 ";\
+               hud.customView = MBProgressHUDErrorView;\
+               [hud hide:YES afterDelay:1.0];\
+             \} else \{\
+               hud.mode = MBProgressHUDModeCustomView;\
+               hud.labelText = @"
+\f1 \'cd\'f8\'c2\'e7\'b4\'ed\'ce\'f3\'a3\'ac\'c7\'eb\'d6\'d8\'d0\'c2\'b2\'d9\'d7\'f7
+\f0 ";\
+               hud.customView = MBProgressHUDErrorView;\
+               [hud hide:YES afterDelay:1.0];\
+             \}\
+           \}];\
+\
+         \};\
+       \}];\
+\}\
+\
+#pragma mark - 
+\f1 \'b1\'a3\'b4\'e6\'cd\'bc\'c6\'ac\'d6\'c1\'c9\'b3\'ba\'d0
+\f0 \
+- (void)saveImage:(UIImage *)currentImage\
+         withName:(NSString *)imageName\
+       completion:(void (^)(void))completion \{\
+  UIImage *squareImage =\
+      [UIImage scaleFromImage:currentImage toSize:CGSizeMake(100, 100)];\
+  NSData *imageData = UIImagePNGRepresentation(squareImage);\
+  // 
+\f1 \'bb\'f1\'c8\'a1\'c9\'b3\'ba\'d0\'c4\'bf\'c2\'bc
+\f0 \
+  _fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]\
+      stringByAppendingPathComponent:imageName];\
+  // 
+\f1 \'bd\'ab\'cd\'bc\'c6\'ac\'d0\'b4\'c8\'eb\'ce\'c4\'bc\'fe
+\f0 \
+  [imageData writeToFile:_fullPath atomically:NO];\
+  NSURL *iconImageFilePath = [NSURL fileURLWithPath:_fullPath];\
+\
+  UIImage *clipedImg =\
+      [UIImage clipImageWithData:imageData\
+                     borderWidth:0\
+                     borderColor:XBMakeColorWithRGB(234, 103, 7, 1)];\
+\
+  _headerPictureView.iconImg.image = clipedImg;\
+  _iconImageFilePath = iconImageFilePath;\
+  completion();\
+\}\
 \
 @end\
 }

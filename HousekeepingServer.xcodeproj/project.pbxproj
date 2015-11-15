@@ -12,7 +12,6 @@
 		18081BF81BC256FD000011AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18081BF71BC256FD000011AE /* LaunchScreen.xib */; };
 		18081BFE1BC26764000011AE /* HSHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */; };
 		180E2C601BF19A0500CEA511 /* HSServiceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2C5F1BF19A0500CEA511 /* HSServiceTableViewController.m */; };
-		1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF761BB6DC8300D33FA0 /* HSInfoHeaderView.m */; };
 		1810BF851BB6DDC800D33FA0 /* UIImage+HSResizingImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF841BB6DDC800D33FA0 /* UIImage+HSResizingImage.m */; };
 		1810BF881BB6DE0F00D33FA0 /* HSInfoFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810BF871BB6DE0F00D33FA0 /* HSInfoFooterView.m */; };
 		18151CAD1BAFC0700040CA80 /* HSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18151CAC1BAFC0700040CA80 /* HSTabBar.m */; };
@@ -74,6 +73,11 @@
 		18A1443A1BDA6CD3008D9853 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18A144391BDA6CD3008D9853 /* BPushConfig.plist */; };
 		18ABE8791BF71F120081D5AC /* WBBadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE8781BF71F120081D5AC /* WBBadgeButton.m */; };
 		18ABE87C1BF7520F0081D5AC /* M13BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE87B1BF7520F0081D5AC /* M13BadgeView.m */; };
+		18ABE87F1BF76DBA0081D5AC /* HSInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE87E1BF76DBA0081D5AC /* HSInfoHeaderView.m */; };
+		18ABE8821BF76DF40081D5AC /* HSProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE8811BF76DF40081D5AC /* HSProfileView.m */; };
+		18ABE8841BF76E090081D5AC /* HSProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18ABE8831BF76E090081D5AC /* HSProfileView.xib */; };
+		18ABE8871BF785ED0081D5AC /* HSProfileInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE8861BF785ED0081D5AC /* HSProfileInfoViewController.m */; };
+		18ABE88B1BF799D90081D5AC /* HSOrderCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABE88A1BF799D90081D5AC /* HSOrderCommentViewController.m */; };
 		18C1505C1BC764CB0033469A /* HSServant.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAA1BC65BA300CDB9E6 /* HSServant.m */; };
 		18C1505D1BC764E40033469A /* HSHeadPictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6A5B01BC545D500E67C26 /* HSHeadPictureView.m */; };
 		18C979AB1BD0E05D00841BB6 /* HSServiceMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */; };
@@ -107,7 +111,6 @@
 		18EC060A1BCD021600039AF0 /* HSOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC06091BCD021600039AF0 /* HSOrderCell.xib */; };
 		18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC060F1BCD310400039AF0 /* HSOrderCell.m */; };
 		18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */; };
-		18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */; };
 		18EC06221BCEA92B00039AF0 /* HSOrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */; };
 		18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC06271BCEA99200039AF0 /* HSOrderBaseViewController.m */; };
 		18EC062C1BCEB0E000039AF0 /* HSOrderCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC062B1BCEB0E000039AF0 /* HSOrderCommentCell.xib */; };
@@ -133,8 +136,6 @@
 		18081BFD1BC26764000011AE /* HSHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSHTTPRequestOperationManager.m; sourceTree = "<group>"; };
 		180E2C5E1BF19A0500CEA511 /* HSServiceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceTableViewController.h; sourceTree = "<group>"; };
 		180E2C5F1BF19A0500CEA511 /* HSServiceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceTableViewController.m; sourceTree = "<group>"; };
-		1810BF751BB6DC8300D33FA0 /* HSInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoHeaderView.h; sourceTree = "<group>"; };
-		1810BF761BB6DC8300D33FA0 /* HSInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoHeaderView.m; sourceTree = "<group>"; };
 		1810BF831BB6DDC800D33FA0 /* UIImage+HSResizingImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HSResizingImage.h"; sourceTree = "<group>"; };
 		1810BF841BB6DDC800D33FA0 /* UIImage+HSResizingImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HSResizingImage.m"; sourceTree = "<group>"; };
 		1810BF861BB6DE0F00D33FA0 /* HSInfoFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoFooterView.h; sourceTree = "<group>"; };
@@ -255,6 +256,15 @@
 		18ABE8781BF71F120081D5AC /* WBBadgeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBBadgeButton.m; sourceTree = "<group>"; };
 		18ABE87A1BF7520F0081D5AC /* M13BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13BadgeView.h; sourceTree = "<group>"; };
 		18ABE87B1BF7520F0081D5AC /* M13BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13BadgeView.m; sourceTree = "<group>"; };
+		18ABE87D1BF76DBA0081D5AC /* HSInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSInfoHeaderView.h; sourceTree = "<group>"; };
+		18ABE87E1BF76DBA0081D5AC /* HSInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSInfoHeaderView.m; sourceTree = "<group>"; };
+		18ABE8801BF76DF40081D5AC /* HSProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSProfileView.h; sourceTree = "<group>"; };
+		18ABE8811BF76DF40081D5AC /* HSProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSProfileView.m; sourceTree = "<group>"; };
+		18ABE8831BF76E090081D5AC /* HSProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HSProfileView.xib; sourceTree = "<group>"; };
+		18ABE8851BF785ED0081D5AC /* HSProfileInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSProfileInfoViewController.h; sourceTree = "<group>"; };
+		18ABE8861BF785ED0081D5AC /* HSProfileInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSProfileInfoViewController.m; sourceTree = "<group>"; };
+		18ABE8891BF799D90081D5AC /* HSOrderCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCommentViewController.h; sourceTree = "<group>"; };
+		18ABE88A1BF799D90081D5AC /* HSOrderCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCommentViewController.m; sourceTree = "<group>"; };
 		18C979A91BD0E05D00841BB6 /* HSServiceMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServiceMapViewController.h; sourceTree = "<group>"; };
 		18C979AA1BD0E05D00841BB6 /* HSServiceMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServiceMapViewController.m; sourceTree = "<group>"; };
 		18C979B21BD0FC5D00841BB6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -304,8 +314,6 @@
 		18EC060F1BCD310400039AF0 /* HSOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCell.m; sourceTree = "<group>"; };
 		18EC06151BCE6ED100039AF0 /* HSOrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderDetailsViewController.h; sourceTree = "<group>"; };
 		18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderDetailsViewController.m; sourceTree = "<group>"; };
-		18EC061C1BCEA2AA00039AF0 /* HSOrderCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCommentViewController.h; sourceTree = "<group>"; };
-		18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCommentViewController.m; sourceTree = "<group>"; };
 		18EC061F1BCEA92B00039AF0 /* HSOrderCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderCommentCell.h; sourceTree = "<group>"; };
 		18EC06201BCEA92B00039AF0 /* HSOrderCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSOrderCommentCell.m; sourceTree = "<group>"; };
 		18EC06261BCEA99200039AF0 /* HSOrderBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSOrderBaseViewController.h; sourceTree = "<group>"; };
@@ -356,10 +364,11 @@
 		1810BF741BB6DC8300D33FA0 /* Header/FooterView */ = {
 			isa = PBXGroup;
 			children = (
-				1810BF751BB6DC8300D33FA0 /* HSInfoHeaderView.h */,
-				1810BF761BB6DC8300D33FA0 /* HSInfoHeaderView.m */,
 				1810BF861BB6DE0F00D33FA0 /* HSInfoFooterView.h */,
 				1810BF871BB6DE0F00D33FA0 /* HSInfoFooterView.m */,
+				18ABE8801BF76DF40081D5AC /* HSProfileView.h */,
+				18ABE8811BF76DF40081D5AC /* HSProfileView.m */,
+				18ABE8831BF76E090081D5AC /* HSProfileView.xib */,
 			);
 			name = Header/FooterView;
 			path = "Header:FooterView";
@@ -474,6 +483,8 @@
 		184324581BBB83A5001E2F69 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18ABE87D1BF76DBA0081D5AC /* HSInfoHeaderView.h */,
+				18ABE87E1BF76DBA0081D5AC /* HSInfoHeaderView.m */,
 				1843245C1BBB9178001E2F69 /* HSLoginHeaderView.h */,
 				1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */,
 				1843245F1BBB9370001E2F69 /* HSLoginFooterView.h */,
@@ -551,7 +562,6 @@
 		187630FE1BB56E140037F124 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				18EC061B1BCEA29000039AF0 /* Comment */,
 				18EC06141BCE6EB700039AF0 /* Details */,
 				187630FF1BB56E150037F124 /* All(全部) */,
 				187631041BB56E150037F124 /* Served(服务完成) */,
@@ -870,10 +880,13 @@
 		188A20A11BAF90A900E4D570 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18ABE8881BF799D90081D5AC /* Comment */,
 				184E86A41BCFA2CD00BD087E /* HSMineInfoViewController.h */,
 				184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */,
 				187631241BB628260037F124 /* HSBaseViewController.h */,
 				187631251BB628260037F124 /* HSBaseViewController.m */,
+				18ABE8851BF785ED0081D5AC /* HSProfileInfoViewController.h */,
+				18ABE8861BF785ED0081D5AC /* HSProfileInfoViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -947,6 +960,15 @@
 				187631121BB56E150037F124 /* View */,
 			);
 			path = ServiceList;
+			sourceTree = "<group>";
+		};
+		18ABE8881BF799D90081D5AC /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				18ABE8891BF799D90081D5AC /* HSOrderCommentViewController.h */,
+				18ABE88A1BF799D90081D5AC /* HSOrderCommentViewController.m */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		18C979C31BD0FD2600841BB6 /* Map */ = {
@@ -1024,15 +1046,6 @@
 				18EC06161BCE6ED100039AF0 /* HSOrderDetailsViewController.m */,
 			);
 			path = Details;
-			sourceTree = "<group>";
-		};
-		18EC061B1BCEA29000039AF0 /* Comment */ = {
-			isa = PBXGroup;
-			children = (
-				18EC061C1BCEA2AA00039AF0 /* HSOrderCommentViewController.h */,
-				18EC061D1BCEA2AA00039AF0 /* HSOrderCommentViewController.m */,
-			);
-			path = Comment;
 			sourceTree = "<group>";
 		};
 		18EC06251BCEA99200039AF0 /* Base */ = {
@@ -1181,6 +1194,7 @@
 				186DEA5A1BB02A02008C465F /* region.plist in Resources */,
 				18E6A5AE1BC517EE00E67C26 /* Test2 in Resources */,
 				18A1443A1BDA6CD3008D9853 /* BPushConfig.plist in Resources */,
+				18ABE8841BF76E090081D5AC /* HSProfileView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1261,18 +1275,17 @@
 				18518DC21BD1F57E00A0A46E /* HSCollectionView.m in Sources */,
 				18E9ADE41BF43E7A00B1F9D9 /* HSPopoverView.m in Sources */,
 				187DC7FA1BC7F5FE00FF8AAF /* HSSubService.m in Sources */,
+				18ABE88B1BF799D90081D5AC /* HSOrderCommentViewController.m in Sources */,
 				187DC7F61BC7F5FE00FF8AAF /* HSProvince.m in Sources */,
 				18EC06101BCD310400039AF0 /* HSOrderCell.m in Sources */,
 				180E2C601BF19A0500CEA511 /* HSServiceTableViewController.m in Sources */,
 				184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */,
 				18518DC51BD1F57E00A0A46E /* HSRefreshLab.m in Sources */,
-				18EC061E1BCEA2AA00039AF0 /* HSOrderCommentViewController.m in Sources */,
 				18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */,
 				18363B6D1BDBA11E005A8689 /* JSONKit.m in Sources */,
 				18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */,
 				183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */,
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
-				1810BF7B1BB6DC8300D33FA0 /* HSInfoHeaderView.m in Sources */,
 				184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */,
 				18E60F941BC1027800BDE6FD /* HSVerify.m in Sources */,
 				18E6A5BA1BC6188B00E67C26 /* UIImage+SquareImage.m in Sources */,
@@ -1280,6 +1293,7 @@
 				1876311E1BB56E150037F124 /* HSUnpayedViewController.m in Sources */,
 				18518DBE1BD1F57E00A0A46E /* HSCollectionViewCell.m in Sources */,
 				187DC7F81BC7F5FE00FF8AAF /* HSServiceDeclare.m in Sources */,
+				18ABE8821BF76DF40081D5AC /* HSProfileView.m in Sources */,
 				188A20B91BAF90A900E4D570 /* HSTabBarViewController.m in Sources */,
 				18EC06281BCEA99200039AF0 /* HSOrderBaseViewController.m in Sources */,
 				187631221BB56E150037F124 /* XBTagTitleCell.m in Sources */,
@@ -1298,6 +1312,7 @@
 				18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
 				18E60F861BBFF3B600BDE6FD /* HSAccount.m in Sources */,
+				18ABE8871BF785ED0081D5AC /* HSProfileInfoViewController.m in Sources */,
 				188A206A1BAF8FCD00E4D570 /* main.m in Sources */,
 				18E6A5B71BC55B8900E67C26 /* UIImage+CircleCilp.m in Sources */,
 				18E60F9E1BC10F9200BDE6FD /* HSFinalRegistViewController.m in Sources */,
@@ -1318,6 +1333,7 @@
 				187DC7BA1BC7A56100FF8AAF /* MBProgressHUD+MJ.m in Sources */,
 				18E60FA11BC1281500BDE6FD /* HSPickerView.m in Sources */,
 				187DC7F41BC7F5FE00FF8AAF /* HSCity.m in Sources */,
+				18ABE87F1BF76DBA0081D5AC /* HSInfoHeaderView.m in Sources */,
 				18E60F8D1BC0F90900BDE6FD /* HSOrangeButton.m in Sources */,
 				1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */,
 				1841A7E71BD86C3F00B4196B /* HSTitleBtn.m in Sources */,

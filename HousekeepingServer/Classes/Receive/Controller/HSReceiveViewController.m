@@ -13,6 +13,7 @@
 #import "MJExtension.h"
 #import "HSServiceDeclare.h"
 
+#define ReceiveBadgeValueKey @"receive"
 @interface HSReceiveViewController () <HSDeclareCellDelegate,
                                        UIAlertViewDelegate> {
   MBProgressHUD *hud;
@@ -28,6 +29,13 @@
     tempFrame.size.height = XBScreenHeight - 66;
     self.tableView.frame = tempFrame;
   self.rightBtnTitle = @"接单";
+    // 设置badgeValue
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *receiveBadgeValue = [userDefaults objectForKey:ReceiveBadgeValueKey];
+    if (receiveBadgeValue) {
+        self.tabBarItem.badgeValue = receiveBadgeValue;
+    }
+
   [super viewDidLoad];
   // Do any additional setup after loading the view.
 }
@@ -59,11 +67,13 @@
                 id _Nonnull responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([kServiceResponse isEqualToString:@"Success"]) {
-//          NSArray *declareArray =
-//              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
             self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+            
+            // 存储badgeValue
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count] forKey:ReceiveBadgeValueKey];
+            [defaults synchronize];
             self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
-//              [[declareArray reverseObjectEnumerator] allObjects];
           [self.tableView reloadData];
           if (self.serviceDeclare.count == 0) {
             HSRefreshLab *refreshLab = [HSRefreshLab

@@ -42,8 +42,6 @@
     // 添加第三组
     self.orderInfoSection = [self addOrderInfoSection];
     
-    // 添加第四组
-    self.commentSection = [self addCommentSection];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在加载";
     [hud hide:YES afterDelay:1.0];
@@ -154,11 +152,7 @@
     [RETableViewSection sectionWithHeaderTitle:@"客户评价"];
     [self.manager addSection:section];
     RETableViewItem *checkComment = [RETableViewItem itemWithTitle:@"查看客户评论对您的服务评价" accessoryType:UITableViewCellAccessoryDisclosureIndicator selectionHandler:^(RETableViewItem *item) {
-        [item deselectRowAnimated:YES];
-        HSOrderCommentViewController *orderCommentVc = [[HSOrderCommentViewController alloc]init];
-        orderCommentVc.servantID = self.serviceOrder.servantID;
-        [self.navigationController pushViewController:orderCommentVc animated:YES];
-    }];
+            }];
     
     [section addItem:checkComment];
     return section;

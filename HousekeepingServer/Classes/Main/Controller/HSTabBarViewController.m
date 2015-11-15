@@ -74,33 +74,37 @@
 - (void)setupChildViewController{
     HSGrabViewController *grabVc = [[HSGrabViewController alloc]init];
     grabVc.tabBarItem.badgeValue = @"0";
-    [self addTabBarItemWithViewController:grabVc title:@"我的抢单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7"];
+    [self addTabBarItemWithViewController:grabVc title:@"我的抢单" image:@"tabbar_grab_os7" selectedImage:@"tabbar_grab_selected_os7" isWapperedByNavigationController:YES];
     
     HSReceiveViewController *receiveVc = [[HSReceiveViewController alloc]init];
     receiveVc.tabBarItem.badgeValue = @"0";
-    [self addTabBarItemWithViewController:receiveVc title:@"我的接单" image:@"tabbar_receive_os7" selectedImage:@"tabbar_receive_selected_os7"];
+    [self addTabBarItemWithViewController:receiveVc title:@"我的接单" image:@"tabbar_receive_os7" selectedImage:@"tabbar_receive_selected_os7" isWapperedByNavigationController:YES];
     
     HSServiceListViewController *serviceListVc = [[HSServiceListViewController alloc]init];
-    [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_service_list_os7" selectedImage:@"tabbar_service_list_selected_os7"];
+    [self addTabBarItemWithViewController:serviceListVc title:@"服务清单" image:@"tabbar_service_list_os7" selectedImage:@"tabbar_service_list_selected_os7" isWapperedByNavigationController:YES];
 
     
     HSMineInfoViewController *mineInfoVc = [[HSMineInfoViewController alloc]init];
-    [self addTabBarItemWithViewController:mineInfoVc title:@"个人中心" image:@"tabbar_profile_os7" selectedImage:@"tabbar_profile_selected_os7"];
+    [self addTabBarItemWithViewController:mineInfoVc title:@"个人中心" image:@"tabbar_profile_os7" selectedImage:@"tabbar_profile_selected_os7" isWapperedByNavigationController:NO];
     
 }
 
 /**
  *  设置子控制器的tabbarItem
  */
-- (void)addTabBarItemWithViewController:(UIViewController *)vc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedimage{
+- (void)addTabBarItemWithViewController:(UIViewController *)vc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedimage isWapperedByNavigationController:(BOOL) wappered{
     // 1.设置控制器的属性
     vc.title = title;
     vc.tabBarItem.image = [UIImage imageNamed:image];
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedimage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     // 2.包装导航控制器
-    HSNavigationViewController *nav = [[HSNavigationViewController alloc]initWithRootViewController:vc];
-    [self addChildViewController:nav];
+    if (wappered) {
+        HSNavigationViewController *nav = [[HSNavigationViewController alloc]initWithRootViewController:vc];
+        [self addChildViewController:nav];
+    }else{
+        [self addChildViewController:vc];
+    }
     
     // 3.添加tabber内部按钮
     [self.customTabBar addTabBarButtonWithItem:vc.tabBarItem];

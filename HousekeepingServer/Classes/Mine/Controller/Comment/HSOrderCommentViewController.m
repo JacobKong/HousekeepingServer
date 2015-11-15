@@ -57,6 +57,7 @@
     self.tableView.rowHeight = 170;
     self.title = @"客户评价";
     self.clearsSelectionOnViewWillAppear = NO;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigation_common_icon_close_white"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnClicked)];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -145,6 +146,11 @@
          }];
     
 }
+
+- (void)cancelBtnClicked{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

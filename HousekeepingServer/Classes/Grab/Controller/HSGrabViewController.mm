@@ -32,6 +32,7 @@
 #define RegionStrKey @"region"
 #define ServiceStrKey @"service"
 #define StatusStrKey @"status"
+#define GrabBadgeValueKey @"grab"
 @interface HSGrabViewController () <
     UICollectionViewDataSource, UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate,
@@ -193,7 +194,7 @@
 #pragma mark - 系统view加载于显示
 - (void)viewDidLoad {
   // 更改tableView的frame
-  CGFloat tableViewH = XBScreenHeight - 49 - self.mapBtnView.frame.size.height;
+  CGFloat tableViewH = XBScreenHeight - 49 - self.mapBtnView.frame.size.height - 20;
   self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, tableViewH);
 
   // 设置tableView样式
@@ -221,6 +222,12 @@
   if (self.regionStr && self.serviceStr) {
     [self setupRefreshView];
   }
+    // 设置badgeValue
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *grabBadgeValueKey = [userDefaults objectForKey:GrabBadgeValueKey];
+    if (grabBadgeValueKey) {
+        self.tabBarItem.badgeValue = grabBadgeValueKey;
+    }
   [super viewDidLoad];
 
   // Do any additional setup after loading the view.
@@ -619,8 +626,13 @@
           [self.refreshLab removeFromSuperview];
           self.serviceDeclare =
             [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+            // 存储badgeValue
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count] forKey:GrabBadgeValueKey];
+            [defaults synchronize];
             // 设置badgeValue
-            self.tabBarItem.badgeValue =[NSString stringWithFormat:@"%d",(int)self.serviceDeclare.count];
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
+            
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
         } else {
