@@ -46,6 +46,7 @@
     return _serviceOrder;
 }
 - (void)viewDidLoad {
+    self.tableView.rowHeight = 300;
   [self setupRefreshView];
   [super viewDidLoad];
 }

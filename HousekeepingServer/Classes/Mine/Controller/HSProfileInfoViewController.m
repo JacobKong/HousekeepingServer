@@ -165,7 +165,7 @@ UIActionSheetDelegate, CLLocationManagerDelegate>{
     self.personnalInfoSection = [self addPersonnalInfoSection];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在加载";
-    [hud hide:YES afterDelay:2.0];
+    [hud hide:YES afterDelay:1.0];
     hud.completionBlock = ^{
         [self.tableView reloadData];
     };

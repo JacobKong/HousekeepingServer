@@ -17,9 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneNoLab;
 @property (weak, nonatomic) IBOutlet UILabel *serviceTimeLab;
 @property (weak, nonatomic) IBOutlet UILabel *salaryLab;
-@property (weak, nonatomic) IBOutlet UITextView *addressTextView;
-@property (weak, nonatomic) IBOutlet UIView *remarksView;
-@property (weak, nonatomic) IBOutlet UITextView *remarksTextView;
+@property (weak, nonatomic) IBOutlet UILabel *addressLab;
+@property (weak, nonatomic) IBOutlet UILabel *remarkLab;
 @property (strong, nonatomic) UIWebView *webView;
 - (IBAction)leftBtnClicked:(id)sender;
 - (IBAction)showLocation:(id)sender;
@@ -82,12 +81,12 @@
     self.phoneNoLab.text = self.serviceDeclare.phoneNo;
     // 详细地址
     NSString *addressStr = [NSString stringWithFormat:@"%@%@%@%@", self.serviceDeclare.serviceProvince, self.serviceDeclare.serviceCity, self.serviceDeclare.serviceCounty, self.serviceDeclare.serviceAddress];
-    self.addressTextView.text = addressStr;
+    self.addressLab.text = addressStr;
     // 备注
     if (![self.serviceDeclare.remarks isEqualToString:@""]) {
-        self.remarksTextView.text = self.serviceDeclare.remarks;
+        self.remarkLab.text = self.serviceDeclare.remarks;
     }else{
-        self.remarksTextView.text = @"该客户没有留下备注。";
+        self.remarkLab.text = @"该客户没有留下备注。";
     }
     self.serviceTypeLab.text = self.serviceDeclare.serviceType;
 }

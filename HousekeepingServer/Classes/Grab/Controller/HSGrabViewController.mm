@@ -198,7 +198,7 @@
   self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, tableViewH);
 
   // 设置tableView样式
-  self.tableView.rowHeight = 330;
+  self.tableView.rowHeight = 310;
 
   // 隐藏按钮
   self.leftBtnHiddn = YES;

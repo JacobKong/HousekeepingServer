@@ -38,7 +38,7 @@
     // 设置导航栏字体
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    dict[NSFontAttributeName] = [UIFont boldSystemFontOfSize:19];
+    dict[NSFontAttributeName] = [UIFont systemFontOfSize:19 weight:11.0];
 //    dict[UITextAttributeTextShadowOffset] = [NSValue valueWithUIOffset:UIOffsetZero];
     [navBar setTitleTextAttributes:dict];
     // 设置导航栏颜色

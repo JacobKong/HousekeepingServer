@@ -24,7 +24,7 @@
 @implementation HSReceiveViewController
 
 - (void)viewDidLoad {
-  self.tableView.rowHeight = 330;
+  self.tableView.rowHeight = 310;
     CGRect tempFrame = self.tableView.frame;
     tempFrame.size.height = XBScreenHeight - 66;
     self.tableView.frame = tempFrame;
