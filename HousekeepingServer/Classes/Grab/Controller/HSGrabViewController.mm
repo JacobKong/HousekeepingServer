@@ -67,7 +67,7 @@
 @property(strong, nonatomic) UITableView *serviceItemTableView;
 
 @property(weak, nonatomic) UILabel *statusLab;
-@property (assign, nonatomic, getter=bgBtnDidAdded)  BOOL bgBtnDidAdded;
+@property(assign, nonatomic, getter=bgBtnDidAdded) BOOL bgBtnDidAdded;
 
 @end
 
@@ -133,15 +133,16 @@
  */
 - (HSPopoverView *)statusView {
   if (!_statusView) {
-      _statusView = [HSPopoverView popoverView];
-      _statusView.image =[UIImage resizeableImage:@"navigation_popover_background"];
-      CGFloat viewW = 217;
-      CGFloat viewH = 110;
-      CGFloat viewY = 64;
-      CGFloat viewX = 0.5 * (XBScreenWidth - viewW);
-      _statusView.frame = CGRectMake(viewX, viewY, viewW, viewH);
+    _statusView = [HSPopoverView popoverView];
+    _statusView.image =
+        [UIImage resizeableImage:@"navigation_popover_background"];
+    CGFloat viewW = 217;
+    CGFloat viewH = 110;
+    CGFloat viewY = 64;
+    CGFloat viewX = 0.5 * (XBScreenWidth - viewW);
+    _statusView.frame = CGRectMake(viewX, viewY, viewW, viewH);
 
-      CGFloat tableY = 15;
+    CGFloat tableY = 15;
     CGFloat tableX = 10;
     CGFloat tableW = _statusView.frame.size.width - 2 * tableX;
     CGFloat tableH = 90;
@@ -159,13 +160,14 @@
 
 - (HSPopoverView *)serviceItemView {
   if (!_serviceItemView) {
-      _serviceItemView = [HSPopoverView popoverView];
-      _serviceItemView.image =[UIImage resizeableImage:@"navigation_more_service_name"];
-      CGFloat viewW = 110;
-      CGFloat viewH = 150;
-      CGFloat viewY = 64;
-      CGFloat viewX = XBScreenWidth - viewW - 10;
-      _serviceItemView.frame = CGRectMake(viewX, viewY, viewW, viewH);
+    _serviceItemView = [HSPopoverView popoverView];
+    _serviceItemView.image =
+        [UIImage resizeableImage:@"navigation_more_service_name"];
+    CGFloat viewW = 110;
+    CGFloat viewH = 150;
+    CGFloat viewY = 64;
+    CGFloat viewX = XBScreenWidth - viewW - 10;
+    _serviceItemView.frame = CGRectMake(viewX, viewY, viewW, viewH);
 
     CGFloat tableY = 15;
     CGFloat tableX = 10;
@@ -194,7 +196,8 @@
 #pragma mark - 系统view加载于显示
 - (void)viewDidLoad {
   // 更改tableView的frame
-  CGFloat tableViewH = XBScreenHeight - 49 - self.mapBtnView.frame.size.height - 20;
+  CGFloat tableViewH =
+      XBScreenHeight - 49 - self.mapBtnView.frame.size.height - 20;
   self.tableView.frame = CGRectMake(0, 0, XBScreenWidth, tableViewH);
 
   // 设置tableView样式
@@ -210,24 +213,22 @@
   [self setupNavBarTitle];
 
   // 刷新表格
-    if (self.serviceStr == nil) {
-        self.serviceStr = self.serviceArray[0];
-        // 存储所选服务项目名称
-        NSUserDefaults *defaults =
-        [NSUserDefaults standardUserDefaults];
-        [defaults setObject:self.serviceStr
-                     forKey:ServiceStrKey];
-        [defaults synchronize];
-    }
+  if (self.serviceStr == nil) {
+    self.serviceStr = self.serviceArray[0];
+    // 存储所选服务项目名称
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.serviceStr forKey:ServiceStrKey];
+    [defaults synchronize];
+  }
   if (self.regionStr && self.serviceStr) {
     [self setupRefreshView];
   }
-    // 设置badgeValue
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *grabBadgeValueKey = [userDefaults objectForKey:GrabBadgeValueKey];
-    if (grabBadgeValueKey) {
-        self.tabBarItem.badgeValue = grabBadgeValueKey;
-    }
+  // 设置badgeValue
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString *grabBadgeValueKey = [userDefaults objectForKey:GrabBadgeValueKey];
+  if (grabBadgeValueKey) {
+    self.tabBarItem.badgeValue = grabBadgeValueKey;
+  }
   [super viewDidLoad];
 
   // Do any additional setup after loading the view.
@@ -252,12 +253,12 @@
   [self setupMapBtn];
   // 提示label
   if (!self.regionStr) {
-    UIAlertView *alertView = [[UIAlertView alloc]
-            initWithTitle:@"提示"
-                  message:@"请先选择所在地区"
-                 delegate:self
-        cancelButtonTitle:@"确定"
-        otherButtonTitles:nil, nil];
+    UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"提示"
+                                   message:@"请先选择所在地区"
+                                  delegate:self
+                         cancelButtonTitle:@"确定"
+                         otherButtonTitles:nil, nil];
     [alertView show];
   } else {
     [self.refreshLab removeFromSuperview];
@@ -312,12 +313,12 @@
        forControlEvents:UIControlEventTouchUpInside];
 
   // 右边选区的按钮
-    NSString *rightStr = [defaults objectForKey:ServiceStrKey];
+  NSString *rightStr = [defaults objectForKey:ServiceStrKey];
   self.serviceStr = rightStr;
-    if (!rightStr) {
-        rightStr = self.serviceArray[0];
-    }
-    
+  if (!rightStr) {
+    rightStr = self.serviceArray[0];
+  }
+
   HSNavBarBtn *rightNavBtn =
       [HSNavBarBtn navBarBtnWithTitle:rightStr
                                 image:@"navigation_city_fold"
@@ -358,17 +359,20 @@
  *  设置背景按钮
  */
 - (void)setupBgButton {
-    if (!self.bgBtnDidAdded) {
-        UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        bgBtn.frame = self.view.bounds;
-        [bgBtn setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
-        [self.tableView addSubview:bgBtn];
-        self.bgBtn = bgBtn;
-        [bgBtn addTarget:self
+  if (!self.bgBtnDidAdded) {
+    self.tableView.scrollEnabled = NO;
+
+    UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bgBtn.frame = self.view.bounds;
+    [bgBtn
+        setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
+    [self.tableView addSubview:bgBtn];
+    self.bgBtn = bgBtn;
+    [bgBtn addTarget:self
                   action:@selector(bgBtnClicked)
         forControlEvents:UIControlEventTouchUpInside];
-        self.bgBtnDidAdded = YES;
-    }
+    self.bgBtnDidAdded = YES;
+  }
 }
 
 /**
@@ -426,12 +430,15 @@
  *  导航栏中部按钮被点击
  */
 - (void)titleBtnClicked {
+  if (self.leftNavBtn.selected || self.rightNavBtn.selected) {
+    [self bgBtnClicked];
+  }
   self.titleBtn.selected = !self.titleBtn.selected;
   if (!self.titleBtn.selected) {
-      [self bgBtnClicked];
+    [self bgBtnClicked];
     [self.statusView removeFromSuperview];
   } else {
-      [self setupBgButton];
+    [self setupBgButton];
     [self.navigationController.view addSubview:self.statusView];
   }
 }
@@ -453,11 +460,8 @@
   // 左边的被点击，选择地区
   if (button.selected && button == self.leftNavBtn) {
     [self.refreshLab removeFromSuperview];
-    // 关闭右边按钮
-    self.rightNavBtn.selected = NO;
-    [self.bgBtn removeFromSuperview];
-    [self.serviceItemView removeFromSuperview];
-    self.tableView.scrollEnabled = NO;
+    [self bgBtnClicked];
+    self.leftNavBtn.selected = YES;
     // 创建背景半透明按钮
     [self setupBgButton];
     [self setupRegionCollectionView];
@@ -466,21 +470,13 @@
   } else if (button.selected &&
              button == self.rightNavBtn) { // 右边的被点击选择服务
     [self.refreshLab removeFromSuperview];
-    // 关闭左边按钮
-    [self.bgBtn removeFromSuperview];
-    [self.regionCollectionView removeFromSuperview];
-      // 添加view
-    [self.navigationController.view addSubview:self.serviceItemView];
-    self.tableView.scrollEnabled = NO;
-    self.leftNavBtn.selected = NO;
+    [self bgBtnClicked];
+    self.rightNavBtn.selected = YES;
     // 创建背景半透明按钮
     [self setupBgButton];
+    [self.navigationController.view addSubview:self.serviceItemView];
   } else { // 取消点击
-    [self.bgBtn removeFromSuperview];
-    [self.regionCollectionView removeFromSuperview];
-      [self.serviceItemView removeFromSuperview];
-      [self.statusView removeFromSuperview];
-    self.tableView.scrollEnabled = YES;
+    [self bgBtnClicked];
   }
 }
 
@@ -489,13 +485,17 @@
  */
 - (void)bgBtnClicked {
   [self.bgBtn removeFromSuperview];
+  self.bgBtnDidAdded = NO;
+
   [self.regionCollectionView removeFromSuperview];
-    [self.serviceItemView removeFromSuperview];
+  [self.serviceItemView removeFromSuperview];
   [self.statusView removeFromSuperview];
+
   self.tableView.scrollEnabled = YES;
+
+  self.titleBtn.selected = NO;
   self.leftNavBtn.selected = NO;
   self.rightNavBtn.selected = NO;
-    self.bgBtnDidAdded = YES;
 }
 
 /**
@@ -625,14 +625,19 @@
         if ([kServiceResponse isEqualToString:@"Success"]) {
           [self.refreshLab removeFromSuperview];
           self.serviceDeclare =
-            [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-            // 存储badgeValue
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:[NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count] forKey:GrabBadgeValueKey];
-            [defaults synchronize];
-            // 设置badgeValue
-            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
-            
+              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
+          // 存储badgeValue
+          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+          [defaults
+              setObject:[NSString
+                            stringWithFormat:@"%d",
+                                             (int)self.serviceDeclare.count]
+                 forKey:GrabBadgeValueKey];
+          [defaults synchronize];
+          // 设置badgeValue
+          self.tabBarItem.badgeValue =
+              [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
+
           [self.tableView reloadData];
           [self.tableView.header endRefreshing];
         } else {
@@ -689,9 +694,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   if (tableView == self.statusTableView) {
     return 1;
-  }else if (tableView == self.serviceItemTableView){
-      return 1;
-  }else {
+  } else if (tableView == self.serviceItemTableView) {
+    return 1;
+  } else {
     return [super numberOfSectionsInTableView:tableView];
   }
 }
@@ -699,16 +704,17 @@
  numberOfRowsInSection:(NSInteger)section {
   if (tableView == self.statusTableView) {
     return 2;
-  }else if (tableView == self.serviceItemTableView){
-      return self.serviceArray.count;
-  }else {
+  } else if (tableView == self.serviceItemTableView) {
+    return self.serviceArray.count;
+  } else {
     return [super tableView:tableView numberOfRowsInSection:section];
   }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  if (tableView == self.statusTableView || tableView == self.serviceItemTableView) {
+  if (tableView == self.statusTableView ||
+      tableView == self.serviceItemTableView) {
     NSString *ID = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     // 如果缓存池中没有该ID的cell，则创建一个新的cell
@@ -737,15 +743,15 @@
       cellLabel.textAlignment = NSTextAlignmentCenter;
       [cell.contentView addSubview:cellLabel];
 
-        if (tableView == self.statusTableView) {
-            if (indexPath.row == 0) {
-                cellLabel.text = @"空闲";
-            } else {
-                cellLabel.text = @"忙碌";
-            }
-        }else{
-            cellLabel.text = self.serviceArray[indexPath.row];
+      if (tableView == self.statusTableView) {
+        if (indexPath.row == 0) {
+          cellLabel.text = @"空闲";
+        } else {
+          cellLabel.text = @"忙碌";
         }
+      } else {
+        cellLabel.text = self.serviceArray[indexPath.row];
+      }
     }
     return cell;
   } else {
@@ -857,24 +863,23 @@
         }];
 
     [self titleBtnClicked];
-  }else if (tableView == self.serviceItemTableView){
-      [self navBtnClicked:self.rightNavBtn];
-      self.serviceStr = self.serviceArray[indexPath.row];
-      [self.rightNavBtn setTitle:self.serviceStr forState:UIControlStateNormal];
-      // 存储所选服务项目名称
-      NSUserDefaults *defaults =
-      [NSUserDefaults standardUserDefaults];
-      [defaults setObject:self.serviceStr
-                   forKey:ServiceStrKey];
-      [defaults synchronize];
+  } else if (tableView == self.serviceItemTableView) {
+    [self navBtnClicked:self.rightNavBtn];
+    self.serviceStr = self.serviceArray[indexPath.row];
+    [self.rightNavBtn setTitle:self.serviceStr forState:UIControlStateNormal];
+    // 存储所选服务项目名称
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.serviceStr forKey:ServiceStrKey];
+    [defaults synchronize];
 
-      [self setupRefreshView];
+    [self setupRefreshView];
   }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
     heightForHeaderInSection:(NSInteger)section {
-  if (tableView == self.statusTableView || tableView == self.serviceItemTableView) {
+  if (tableView == self.statusTableView ||
+      tableView == self.serviceItemTableView) {
     return 0;
   } else {
     return [super tableView:tableView heightForHeaderInSection:section];
@@ -883,7 +888,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView
     heightForFooterInSection:(NSInteger)section {
-  if (tableView == self.statusTableView || tableView == self.serviceItemTableView) {
+  if (tableView == self.statusTableView ||
+      tableView == self.serviceItemTableView) {
     return 0;
   } else {
     return [super tableView:tableView heightForFooterInSection:section];

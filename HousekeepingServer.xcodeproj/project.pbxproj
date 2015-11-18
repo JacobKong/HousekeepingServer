@@ -26,6 +26,8 @@
 		1843245B1BBB83E3001E2F69 /* HSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245A1BBB83E3001E2F69 /* HSLoginViewController.m */; };
 		1843245E1BBB9178001E2F69 /* HSLoginHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */; };
 		184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184324601BBB9370001E2F69 /* HSLoginFooterView.m */; };
+		184B70F71BFB6B5D00ACDEEA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 184B70F51BFB6B5D00ACDEEA /* Fabric.framework */; };
+		184B70F81BFB6B5D00ACDEEA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 184B70F61BFB6B5D00ACDEEA /* Crashlytics.framework */; };
 		184DFFAE1BC662C500CDB9E6 /* HSServantTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184DFFAD1BC662C500CDB9E6 /* HSServantTool.m */; };
 		184E86A01BCF363A00BD087E /* HSOrderComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E869F1BCF363A00BD087E /* HSOrderComment.m */; };
 		184E86A61BCFA2CD00BD087E /* HSMineInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E86A51BCFA2CD00BD087E /* HSMineInfoViewController.m */; };
@@ -164,6 +166,8 @@
 		1843245D1BBB9178001E2F69 /* HSLoginHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSLoginHeaderView.m; sourceTree = "<group>"; };
 		1843245F1BBB9370001E2F69 /* HSLoginFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSLoginFooterView.h; sourceTree = "<group>"; };
 		184324601BBB9370001E2F69 /* HSLoginFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSLoginFooterView.m; sourceTree = "<group>"; };
+		184B70F51BFB6B5D00ACDEEA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		184B70F61BFB6B5D00ACDEEA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		184DFFA91BC65BA300CDB9E6 /* HSServant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServant.h; sourceTree = "<group>"; };
 		184DFFAA1BC65BA300CDB9E6 /* HSServant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSServant.m; sourceTree = "<group>"; };
 		184DFFAC1BC662C500CDB9E6 /* HSServantTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSServantTool.h; sourceTree = "<group>"; };
@@ -331,9 +335,11 @@
 			files = (
 				18A144381BDA6C57008D9853 /* libz.tbd in Frameworks */,
 				18C979BB1BD0FC9400841BB6 /* Security.framework in Frameworks */,
+				184B70F81BFB6B5D00ACDEEA /* Crashlytics.framework in Frameworks */,
 				18363B651BDB8E94005A8689 /* libBPush.a in Frameworks */,
 				18C979B91BD0FC8800841BB6 /* CoreGraphics.framework in Frameworks */,
 				18C979B71BD0FC7700841BB6 /* SystemConfiguration.framework in Frameworks */,
+				184B70F71BFB6B5D00ACDEEA /* Fabric.framework in Frameworks */,
 				18C979BF1BD0FCAE00841BB6 /* CoreTelephony.framework in Frameworks */,
 				18A144361BDA698B008D9853 /* CoreFoundation.framework in Frameworks */,
 				18A144341BDA697E008D9853 /* CFNetwork.framework in Frameworks */,
@@ -779,13 +785,13 @@
 		188A208D1BAF90A900E4D570 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				188A209A1BAF90A900E4D570 /* Main */,
 				184324551BBB83A5001E2F69 /* Login&Regist */,
 				188A208E1BAF90A900E4D570 /* Grab(抢单) */,
-				188A209A1BAF90A900E4D570 /* Main */,
-				188A20A01BAF90A900E4D570 /* Mine */,
-				188A20A61BAF90A900E4D570 /* Others */,
 				188A20AB1BAF90A900E4D570 /* Receive */,
 				188A20B11BAF90A900E4D570 /* ServiceList */,
+				188A20A01BAF90A900E4D570 /* Mine */,
+				188A20A61BAF90A900E4D570 /* Others */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1057,6 +1063,8 @@
 		9517F05A70494206E2689FB4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				184B70F51BFB6B5D00ACDEEA /* Fabric.framework */,
+				184B70F61BFB6B5D00ACDEEA /* Crashlytics.framework */,
 				18A144371BDA6C57008D9853 /* libz.tbd */,
 				18A144351BDA698B008D9853 /* CoreFoundation.framework */,
 				18A144331BDA697E008D9853 /* CFNetwork.framework */,
@@ -1097,6 +1105,7 @@
 				188A20621BAF8FCD00E4D570 /* Resources */,
 				FED610B2B6F9BF8024D6114F /* Copy Pods Resources */,
 				3F790D985D42440CADAD3218 /* Embed Pods Frameworks */,
+				184B70F31BFB6B4500ACDEEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1114,6 +1123,7 @@
 				188A20791BAF8FCD00E4D570 /* Sources */,
 				188A207A1BAF8FCD00E4D570 /* Frameworks */,
 				188A207B1BAF8FCD00E4D570 /* Resources */,
+				184B70F41BFB6B4D00ACDEEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1204,6 +1214,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		184B70F31BFB6B4500ACDEEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 926a314fccc5ae54c067fc12dc0ed0c5c3e0f501 a85218785f0b3309e79abcd24d67ce5f44f6b389f65e49bdbc4471a8ad96699a";
+		};
+		184B70F41BFB6B4D00ACDEEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 926a314fccc5ae54c067fc12dc0ed0c5c3e0f501 a85218785f0b3309e79abcd24d67ce5f44f6b389f65e49bdbc4471a8ad96699a";
+		};
 		3F790D985D42440CADAD3218 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1491,7 +1527,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a644c294-c614-4db3-a705-3331f8a1dd15";
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
@@ -1542,7 +1579,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a644c294-c614-4db3-a705-3331f8a1dd15";
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
 			};
@@ -1554,6 +1592,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1577,6 +1616,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

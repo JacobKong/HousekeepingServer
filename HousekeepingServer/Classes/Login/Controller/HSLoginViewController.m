@@ -74,10 +74,6 @@
   [super viewDidAppear:animated];
 }
 
-- (void)dealloc
-{
-    NSLog(@"LoginDealloc------"); 
-}
 /**
  *  取消键盘
  */

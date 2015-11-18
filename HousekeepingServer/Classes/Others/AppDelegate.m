@@ -22,6 +22,9 @@
 #import "HSServantTool.h"
 #import "HSTabBarButton.h"
 #import "HSTabBar.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @interface AppDelegate () <UIAlertViewDelegate>{
   UINavigationController *navigationController;
     HSTabBarViewController *_tabBarVc;
@@ -118,6 +121,8 @@
     [[UIApplication sharedApplication]
      setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window makeKeyAndVisible];
+// fabric
+    [Fabric with:@[[Crashlytics class]]];
 
   return YES;
 }
