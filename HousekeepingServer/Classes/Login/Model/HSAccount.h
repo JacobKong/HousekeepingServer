@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface HSAccount : NSObject<NSCoding>
-//@property (copy, nonatomic) NSString *servantID; // 用户名
-//@property (copy, nonatomic) NSString *loginPassword; // 密码
-@property (copy, nonatomic) NSString *servantName; // 用户姓名
+@property (copy, nonatomic) NSString *servantItems; // 用户服务项目
+@property (assign, nonatomic) int state; // 状态
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype)accountWithDict:(NSDictionary *)dict;
 

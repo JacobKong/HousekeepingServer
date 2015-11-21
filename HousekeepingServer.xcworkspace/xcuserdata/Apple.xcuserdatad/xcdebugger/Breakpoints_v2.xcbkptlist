@@ -71,5 +71,149 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+            timestampString = "469792247.864729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-requestJsonDataWithPath:withParams:withMethodType:autoShowError:andBlock:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HS_NetAPIClient requestJsonDataWithPath:withParams:withMethodType:autoShowError:andBlock:]"
+                  moduleName = "HousekeepingServer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+                  timestampString = "469791350.270838"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "996">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__92-[HS_NetAPIClient requestJsonDataWithPath:withParams:withMethodType:autoShowError:andBlock:]_block_invoke77"
+                  moduleName = "HousekeepingServer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+                  timestampString = "469791350.271219"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+            timestampString = "469792247.864729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "-requestJsonDataWithPath:withParams:withMethodType:autoShowError:andBlock:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+            timestampString = "469790005.522327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-initWithBaseURL:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+            timestampString = "469790007.668444"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "+sharedJsonClient"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[HS_NetAPIClient sharedJsonClient]"
+                  moduleName = "HousekeepingServer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+                  timestampString = "469791350.279149"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35+[HS_NetAPIClient sharedJsonClient]_block_invoke"
+                  moduleName = "HousekeepingServer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Apple/Documents/Xcode/Project/HousekeepingServer/HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+                  timestampString = "469791350.279699"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HousekeepingServer/Classes/Main/Manager/HS_NetAPIClient.m"
+            timestampString = "469792247.864729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-requestJsonDataWithPath:withParams:withMethodType:autoShowError:andBlock:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

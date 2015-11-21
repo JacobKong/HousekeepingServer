@@ -14,7 +14,7 @@
     HSLoginHeaderView *iconView = [[HSLoginHeaderView alloc]init];
     iconView.backgroundColor = [UIColor clearColor];
     CGFloat iconViewW = XBScreenWidth;
-    CGFloat iconViewH = XBScreenHeight * 0.3;
+    CGFloat iconViewH = XBScreenHeight * 0.4;
     iconView.frame = CGRectMake(0, 0, iconViewW, iconViewH);
     
     UIImageView *iconImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon"]];

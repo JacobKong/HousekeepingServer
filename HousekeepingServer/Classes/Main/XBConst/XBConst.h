@@ -31,6 +31,8 @@
 #define kHSBaseURL @"http://219.216.65.182:8080/NationalService"
 #define kServiceResponse responseObject[@"serverResponse"]
 #define kDataResponse responseObject[@"data"]
+#define kServerResponse data[@"serverResponse"]
+#define kServerDataResponse data[@"data"]
 // HUD View
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 #define MBProgressHUDSuccessView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"success"]]

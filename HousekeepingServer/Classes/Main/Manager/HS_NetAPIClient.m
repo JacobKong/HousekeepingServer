@@ -31,7 +31,8 @@ static dispatch_once_t onceToken;
   if (!self) {
     return nil;
   }
-  self.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.requestSerializer = [AFJSONRequestSerializer serializer]; 
+  self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
   self.responseSerializer.acceptableContentTypes = [NSSet
       setWithObjects:@"application/json", @"text/plain", @"text/javascript",
                      @"text/json", @"text/html", nil];
@@ -42,7 +43,7 @@ static dispatch_once_t onceToken;
                 forHTTPHeaderField:@"Referer"];
 
   self.securityPolicy.allowInvalidCertificates = YES;
-
+    
   return self;
 }
 

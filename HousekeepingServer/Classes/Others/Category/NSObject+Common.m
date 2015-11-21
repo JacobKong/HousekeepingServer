@@ -57,7 +57,7 @@
 
 #pragma mark BaseURL
 + (NSString *)baseURLStr{
-    NSString *baseURLStr = @"http://192.168.23.6:8080/NationalService";
+    NSString *baseURLStr = @"http://219.216.65.182:8080/";
     return baseURLStr;
 }
 

@@ -23,14 +23,16 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
-        _servantName = [aDecoder decodeObjectForKey:@"servantName"];
+        _servantItems = [aDecoder decodeObjectForKey:@"servantItems"];
+        _state = (int)[aDecoder decodeIntegerForKey:@"state"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:self.servantName forKey:@"servantName"];
+    [coder encodeObject:self.servantItems forKey:@"servantItems"];
+    [coder encodeInteger:self.state forKey:@"state"];
 }
 
 
