@@ -24,6 +24,7 @@
 #import "HSTabBar.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>{
   UINavigationController *navigationController;
@@ -76,27 +77,6 @@
   if (!ret) {
     XBLog(@"manager start failed!");
   }
-
-//  //  // 推送设置
-//  //-- Set Notification
-//  if ([application
-//          respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
-//    // iOS 8 Notifications
-//    [application registerUserNotificationSettings:
-//                     [UIUserNotificationSettings
-//                         settingsForTypes:(UIUserNotificationTypeBadge |
-//                                           UIUserNotificationTypeAlert |
-//                                           UIRemoteNotificationTypeSound)
-//                               categories:nil]];
-//
-//    [application registerForRemoteNotifications];
-//  } else {
-//    // iOS < 8 Notifications
-//    [application
-//        registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-//                                            UIRemoteNotificationTypeAlert |
-//                                            UIRemoteNotificationTypeSound)];
-//  }
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey
     [BPush registerChannel:launchOptions apiKey:@"w0eY93GmvqsdIip4rbVrBx3V" pushMode:BPushModeDevelopment withFirstAction:nil withSecondAction:nil withCategory:nil isDebug:YES];
 
@@ -123,6 +103,8 @@
     [self.window makeKeyAndVisible];
 // fabric
     [Fabric with:@[[Crashlytics class]]];
+    // 状态栏菊花显示
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
   return YES;
 }

@@ -43,6 +43,9 @@
 		186DEA591BB02A02008C465F /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA571BB02A02008C465F /* city.plist */; };
 		186DEA5A1BB02A02008C465F /* region.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186DEA581BB02A02008C465F /* region.plist */; };
 		186DEA601BB02B24008C465F /* HSNavBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */; };
+		18732F6C1C004A2600ACA12E /* HS_NetAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18732F6B1C004A2600ACA12E /* HS_NetAPIManager.m */; };
+		18732F721C004AC400ACA12E /* HS_NetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18732F711C004AC400ACA12E /* HS_NetAPIClient.m */; };
+		18732F751C004D6F00ACA12E /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 18732F741C004D6F00ACA12E /* NSObject+Common.m */; };
 		187630B11BB546670037F124 /* UIView+SetFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 187630B01BB546670037F124 /* UIView+SetFrame.m */; };
 		1876311A1BB56E150037F124 /* HSAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631011BB56E150037F124 /* HSAllViewController.m */; };
 		1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187631031BB56E150037F124 /* HSServiceListViewController.m */; };
@@ -197,6 +200,12 @@
 		186DEA581BB02A02008C465F /* region.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = region.plist; path = ../../region.plist; sourceTree = "<group>"; };
 		186DEA5E1BB02B24008C465F /* HSNavBarBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSNavBarBtn.h; sourceTree = "<group>"; };
 		186DEA5F1BB02B24008C465F /* HSNavBarBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSNavBarBtn.m; sourceTree = "<group>"; };
+		18732F6A1C004A2600ACA12E /* HS_NetAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HS_NetAPIManager.h; sourceTree = "<group>"; };
+		18732F6B1C004A2600ACA12E /* HS_NetAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HS_NetAPIManager.m; sourceTree = "<group>"; };
+		18732F701C004AC400ACA12E /* HS_NetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HS_NetAPIClient.h; sourceTree = "<group>"; };
+		18732F711C004AC400ACA12E /* HS_NetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HS_NetAPIClient.m; sourceTree = "<group>"; };
+		18732F731C004D6F00ACA12E /* NSObject+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Common.h"; sourceTree = "<group>"; };
+		18732F741C004D6F00ACA12E /* NSObject+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Common.m"; sourceTree = "<group>"; };
 		187630AF1BB546670037F124 /* UIView+SetFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SetFrame.h"; sourceTree = "<group>"; };
 		187630B01BB546670037F124 /* UIView+SetFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SetFrame.m"; sourceTree = "<group>"; };
 		187631001BB56E150037F124 /* HSAllViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAllViewController.h; sourceTree = "<group>"; };
@@ -563,6 +572,17 @@
 			path = plist;
 			sourceTree = "<group>";
 		};
+		18732F691C0049DD00ACA12E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				18732F6A1C004A2600ACA12E /* HS_NetAPIManager.h */,
+				18732F6B1C004A2600ACA12E /* HS_NetAPIManager.m */,
+				18732F701C004AC400ACA12E /* HS_NetAPIClient.h */,
+				18732F711C004AC400ACA12E /* HS_NetAPIClient.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		187630FE1BB56E140037F124 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,6 +843,7 @@
 		188A209A1BAF90A900E4D570 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				18732F691C0049DD00ACA12E /* Manager */,
 				18E60F981BC102F900BDE6FD /* XBConst */,
 				18E60F911BC1023600BDE6FD /* Tool */,
 				188A209B1BAF90A900E4D570 /* Controller */,
@@ -917,6 +938,8 @@
 				18E6A5B61BC55B8900E67C26 /* UIImage+CircleCilp.m */,
 				18E6A5B81BC6188B00E67C26 /* UIImage+SquareImage.h */,
 				18E6A5B91BC6188B00E67C26 /* UIImage+SquareImage.m */,
+				18732F731C004D6F00ACA12E /* NSObject+Common.h */,
+				18732F741C004D6F00ACA12E /* NSObject+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1316,6 +1339,7 @@
 				18FBD9691BBC084E00EC98F5 /* HSRegistViewController.m in Sources */,
 				18363B6D1BDBA11E005A8689 /* JSONKit.m in Sources */,
 				18EC05FF1BCCB46A00039AF0 /* HSServiceOrder.m in Sources */,
+				18732F751C004D6F00ACA12E /* NSObject+Common.m in Sources */,
 				183398171BB968C5002EAC65 /* HSMineKeys.m in Sources */,
 				1876311D1BB56E150037F124 /* HSServingViewController.m in Sources */,
 				184324611BBB9370001E2F69 /* HSLoginFooterView.m in Sources */,
@@ -1340,6 +1364,7 @@
 				1841A7E41BD86C1E00B4196B /* HSGrabButton.m in Sources */,
 				18EC06171BCE6ED100039AF0 /* HSOrderDetailsViewController.m in Sources */,
 				187631261BB628260037F124 /* HSBaseViewController.m in Sources */,
+				18732F721C004AC400ACA12E /* HS_NetAPIClient.m in Sources */,
 				18ABE87C1BF7520F0081D5AC /* M13BadgeView.m in Sources */,
 				18E60F9B1BC102F900BDE6FD /* XBConst.m in Sources */,
 				188A20BB1BAF90A900E4D570 /* AppDelegate.m in Sources */,
@@ -1355,6 +1380,7 @@
 				18EC05E01BCB601E00039AF0 /* HSFatherTableViewController.m in Sources */,
 				1843241F1BBAB338001E2F69 /* HSDatePickerView.m in Sources */,
 				183398181BB968C5002EAC65 /* HSMineTool.m in Sources */,
+				18732F6C1C004A2600ACA12E /* HS_NetAPIManager.m in Sources */,
 				18EC06031BCCB87B00039AF0 /* HSReceiveViewController.m in Sources */,
 				1876311B1BB56E150037F124 /* HSServiceListViewController.m in Sources */,
 				1843245E1BBB9178001E2F69 /* HSLoginHeaderView.m in Sources */,
@@ -1528,6 +1554,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a644c294-c614-4db3-a705-3331f8a1dd15";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";
@@ -1580,6 +1607,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacob.HousekeepingServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a644c294-c614-4db3-a705-3331f8a1dd15";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/[HousekeepingServer]";

@@ -32,6 +32,7 @@
 #define kServiceResponse responseObject[@"serverResponse"]
 #define kDataResponse responseObject[@"data"]
 // HUD View
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
 #define MBProgressHUDSuccessView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"success"]]
 #define MBProgressHUDErrorView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"error"]]
 extern NSString *const kTagCollectionViewCellIdentifier;

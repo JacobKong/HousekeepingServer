@@ -61,7 +61,7 @@
     NSString *titleStr = [NSString stringWithFormat:@"客户%@对您的服务评价为：", self.orderComment.customerName];
     self.titleLab.text = titleStr;
     
-    NSString *commentString = [NSString string];
+    NSString *commentString;
     if ([self.orderComment.commentContent isEqualToString:@""]) {
         commentString = @"当前无该客户的对您的服务评价";
     }else{
@@ -69,7 +69,7 @@
     }
     self.commentTextView.text = commentString;
     
-    NSString *commentDateStr = [NSString string];
+    NSString *commentDateStr;
     if ([self.orderComment.commentDate isEqualToString:@""]) {
         commentDateStr = @"暂无评价时间";
     }else{

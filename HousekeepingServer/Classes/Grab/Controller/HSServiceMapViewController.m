@@ -158,7 +158,7 @@
     CGFloat buttonW = 32;
     CGFloat buttonH = 32;
     CGFloat buttonX = 10;
-    CGFloat buttonY = 74;
+    CGFloat buttonY = 10;
     locateBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
     
     [locateBtn addTarget:self action:@selector(locateBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -243,7 +243,7 @@
   if (!self.cell.frame.origin.y) {
     HSServiceDeclare *serviceDeclare = grabBtn.serviceDeclare;
     CGFloat cellW = 300;
-    CGFloat cellH = 330;
+    CGFloat cellH = 310;
     CGFloat cellX = (XBScreenWidth - cellW) * 0.5;
     CGFloat cellY = XBScreenHeight;
     self.cell.frame = CGRectMake(cellX, cellY, cellW, cellH);
@@ -256,7 +256,7 @@
     [UIView animateWithDuration:0.5
         animations:^{
           CGRect cellF = self.cell.frame;
-          cellF.origin.y = XBScreenHeight - cellH;
+          cellF.origin.y = XBScreenHeight - cellH - 64;
           self.cell.frame = cellF;
         }
         completion:^(BOOL finished){
@@ -272,7 +272,7 @@
           [UIView animateWithDuration:0.5
                            animations:^{
                              CGRect cellF = self.cell.frame;
-                             cellF.origin.y = XBScreenHeight - 330;
+                             cellF.origin.y = XBScreenHeight - 310 - 64;
                              self.cell.frame = cellF;
                            }];
         }];

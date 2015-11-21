@@ -143,7 +143,7 @@
   AFHTTPRequestOperationManager *manager =
       (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
   NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  NSString *urlStr = [NSString string];
+  NSString *urlStr;
   if (self.orderStatus) {
     attrDict[@"orderStatus"] = orderStatus;
     urlStr = [NSString

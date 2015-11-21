@@ -56,7 +56,7 @@
     [RETableViewSection sectionWithHeaderTitle:@"客户信息"];
     [self.manager addSection:section];
     
-    NSString *remarksString = [NSString string];
+    NSString *remarksString;
     if (![self.serviceOrder.remarks isEqualToString:@""]) {
         remarksString = self.serviceOrder.remarks;
     }else{
@@ -85,14 +85,14 @@
     
     NSString *paidAmountString = [NSString stringWithFormat:@"%d元", self.serviceOrder.paidAmount];
     
-    NSString *payTypeString = [NSString string];
+    NSString *payTypeString = @"";
     if ([self.serviceOrder.payType isEqualToString:@""]) {
         payTypeString = @"客户尚未付款，暂无付款类型信息";
     }else{
         payTypeString = self.serviceOrder.payType;
     }
     
-    NSString *isSettledString = [NSString string];
+    NSString *isSettledString = @"";
     if (self.serviceOrder.isSettled) {
         isSettledString = @"已结算";
     }else{
@@ -119,14 +119,14 @@
     [RETableViewSection sectionWithHeaderTitle:@"订单信息"];
     [self.manager addSection:section];
     
-    NSString *confirmTimeString = [NSString string];
+    NSString *confirmTimeString = @"";
     if (![self.serviceOrder.confirmTime isEqualToString:@""]) {
         confirmTimeString = self.serviceOrder.confirmTime;
     }else{
         confirmTimeString = @"客户尚未确认订单";
     }
     
-    NSString *payTimeString = [NSString string];
+    NSString *payTimeString = @"";
     if (![self.serviceOrder.confirmTime isEqualToString:@""]) {
         payTimeString = self.serviceOrder.payTime;
     }else{

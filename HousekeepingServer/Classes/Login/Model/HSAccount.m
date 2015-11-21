@@ -23,8 +23,6 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
-//        _servantID = [aDecoder decodeObjectForKey:@"servantID"];
-//        _loginPassword = [aDecoder decodeObjectForKey:@"loginPassword"];
         _servantName = [aDecoder decodeObjectForKey:@"servantName"];
     }
     return self;
@@ -32,8 +30,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-//    [coder encodeObject:self.servantID forKey:@"servantID"];
-//    [coder encodeObject:self.loginPassword forKey:@"loginPassword"];
     [coder encodeObject:self.servantName forKey:@"servantName"];
 }
+
+
 @end
