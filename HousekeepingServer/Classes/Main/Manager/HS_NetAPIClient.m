@@ -119,10 +119,12 @@ static dispatch_once_t onceToken;
     // log请求数据
     XBLog(@"\n===========request===========\n%@\n%@:\n%@",
           kNetworkMethodName[method], aPath, params);
-    aPath = [aPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    aPath = [aPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     // Data
     NSData *data;
     NSString *name, *fileName;
+    
     if (file) {
         UIImage *image = file[@"image"];
         
@@ -138,13 +140,24 @@ static dispatch_once_t onceToken;
         name = file[@"name"];
         fileName = file[@"fileName"];
     }
+
+//    NSURL *fileURL = [NSURL URLWithString:file[@"fileURL"]];
+//    NSString *fileName = file[@"fileName"];
+//    NSLog(@"fileURL----%@,fileName-----%@",fileURL,fileName);
     switch (method) {
         case Post:{
             
-            AFHTTPRequestOperation *operation = [self POST:aPath parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                if (file) {
-                    [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpeg"];
-                }
+          [self POST:aPath parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+              if (file) {
+                  [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpeg"];
+              }
+
+//                if (file) {
+//                    [formData appendPartWithFileURL:fileURL
+//                                               name:fileName
+//                                              error:nil];
+//                NSLog(@"asdjfhakjdjladj---------");
+//                }
             } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 XBLog(@"\n===========response===========\n%@:\n%@", aPath,
                       responseObject);
@@ -155,7 +168,7 @@ static dispatch_once_t onceToken;
                 [NSObject showError:error];
                 block(nil, error);
             }];
-            [operation start];
+
             break;
         }
         default:

@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HSMineKeys.h"
 #import "XBConst.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <RETableViewManager/RETableViewManager.h>
 #import "RETableViewOptionsController.h"
 #import "LxDBAnything.h"
+#import "HS_NetAPIManager.h"
+#import "NSObject+Common.h"
 
 @class HSInfoTableViewCell;
 @interface HSBaseViewController : UITableViewController<RETableViewManagerDelegate>

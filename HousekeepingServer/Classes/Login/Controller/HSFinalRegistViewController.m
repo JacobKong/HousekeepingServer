@@ -52,7 +52,7 @@
   NSAttributedString *_locationDefaultText;
 
   NSString *_fullPath;
-  NSString *_headPicture;
+  UIImage *_headPicture;
 
   NSURL *_iconImageFilePath;
 }
@@ -88,13 +88,6 @@
 
 @implementation HSFinalRegistViewController
 #pragma mark - getter
-//- (NSNumber *)uploadHeadPicture{
-//    if (!_uploadHeadPicture) {
-//        _uploadHeadPicture = [[NSNumber alloc]initWithBool:NO];
-//    }
-//    return _uploadHeadPicture;
-//}
-
 - (NSArray *)provinces {
   if (!_provinces) {
     NSArray *dictArray =
@@ -220,9 +213,6 @@
   self.location = [RETableViewItem itemWithTitle:@"省市区"];
   self.location.selectionHandler = ^(RETableViewItem *item) {
     [weakSelf.view endEditing:YES];
-    //         改变tableView的frame
-    //            weakSelf.tableView.frame =
-    //                CGRectMake(0, 64, XBScreenWidth, XBScreenHeight * 0.6);
     // 增加pickerView
     [weakSelf.tableView.superview addSubview:weakSelf.servantPicker];
     // 设置代理
@@ -515,94 +505,52 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)registBtnClicked {
   MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在注册"];
+    // 数据体
+    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+    attrDict[@"servantID"] = self.basicInfoArray[0];
+    attrDict[@"idCardNo"] = self.basicInfoArray[1];
+    attrDict[@"servantName"] = self.basicInfoArray[2];
+    attrDict[@"loginPassword"] = self.basicInfoArray[6];
+    attrDict[@"phoneNo"] = self.basicInfoArray[4];
+    attrDict[@"servantMobil"] = self.basicInfoArray[4];
+    attrDict[@"servantNationality"] = @"汉";
+    attrDict[@"isMarried"] = @"1";
+    attrDict[@"educationLevel"] = [self.educationLevel.value lastObject];
+    attrDict[@"trainingIntro"] = @"无";
+    attrDict[@"servantProvince"] = _servantProvince;
+    attrDict[@"servantCity"] = _servantCity;
+    attrDict[@"servantCounty"] = _servantCounty;
+    attrDict[@"contactAddress"] = self.contactAddress.value;
+    attrDict[@"registerLongitude"] = _registerLongitude;
+    attrDict[@"registerLatitude"] = _registerLatitude;
+    attrDict[@"qqNumber"] = self.basicInfoArray[5];
+    attrDict[@"emailAddress"] = @"无";
+    attrDict[@"servantGender"] = self.basicInfoArray[3];
+    attrDict[@"workYears"] = self.workYears.value;
+    attrDict[@"servantHonors"] = self.servantHonors.value;
+    attrDict[@"servantIntro"] = self.servantIntro.value;
+    attrDict[@"isStayHome"] = [self.isStayHome.value lastObject];
+    attrDict[@"holidayInMonth"] = [self.holidayInMonth.value lastObject];
+    attrDict[@"serviceItems"] = self.serviceItems.detailLabelText;
+    attrDict[@"careerType"] = @"无";
 
-  // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  // 数据体
-  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  attrDict[@"servantID"] = self.basicInfoArray[0];
-  attrDict[@"idCardNo"] = self.basicInfoArray[1];
-  attrDict[@"servantName"] = self.basicInfoArray[2];
-  attrDict[@"loginPassword"] = self.basicInfoArray[6];
-  attrDict[@"phoneNo"] = self.basicInfoArray[4];
-  attrDict[@"servantMobil"] = self.basicInfoArray[4];
-  attrDict[@"servantNationality"] = @"汉";
-  attrDict[@"isMarried"] = @"1";
-  attrDict[@"educationLevel"] = [self.educationLevel.value lastObject];
-  attrDict[@"trainingIntro"] = @"无";
-  attrDict[@"servantProvince"] = _servantProvince;
-  attrDict[@"servantCity"] = _servantCity;
-  attrDict[@"servantCounty"] = _servantCounty;
-  attrDict[@"contactAddress"] = self.contactAddress.value;
-  attrDict[@"registerLongitude"] = _registerLongitude;
-  attrDict[@"registerLatitude"] = _registerLatitude;
-  attrDict[@"qqNumber"] = self.basicInfoArray[5];
-  attrDict[@"emailAddress"] = @"无";
-  attrDict[@"servantGender"] = self.basicInfoArray[3];
-  attrDict[@"workYears"] = self.workYears.value;
-  attrDict[@"servantHonors"] = self.servantHonors.value;
-  attrDict[@"servantIntro"] = self.servantIntro.value;
-  attrDict[@"isStayHome"] = [self.isStayHome.value lastObject];
-  attrDict[@"holidayInMonth"] = [self.holidayInMonth.value lastObject];
-  attrDict[@"serviceItems"] = self.serviceItems.detailLabelText;
-  attrDict[@"careerType"] = @"无";
-
-  NSString *urlStr = [NSString
-      stringWithFormat:@"%@/MoblieServantRegisteAction?operation=_register",
-                       kHSBaseURL];
-
-  [manager POST:urlStr
-      parameters:attrDict
-      constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
-        XBLog(@"%@", _iconImageFilePath);
-        [formData appendPartWithFileURL:_iconImageFilePath
-                                   name:@"headPicture"
-                                  error:nil];
-      }
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        NSString *serverResponse = responseObject[@"serverResponse"];
-        if ([serverResponse isEqualToString:@"Success"]) {
-          [hud hide:YES];
-          [MBProgressHUD showSuccess:@"注册成功，请登录"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                // 创建模型
-                HSServant *servant = [HSServant objectWithKeyValues:attrDict];
-                // 存档
-                [HSServantTool saveServant:servant];
-
-                [MBProgressHUD hideHUD];
-                [self dismissViewControllerAnimated:YES completion:nil];
-              });
-        } else {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"注册失败，请重新注册"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-                [self dismissViewControllerAnimated:YES completion:nil];
-              });
-        }
-        XBLog(@"success%@", responseObject);
-
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
+    NSDictionary *headImageFile = @{@"fileURL":_fullPath, @"fileName":@"headPicture"};
+    LxDBAnyVar(headImageFile);
+    
+    [[HS_NetAPIManager sharedManager]request_Register_WithParams:attrDict headPicture:_headPicture andBlock:^(id data, NSError *error) {
         [hud hide:YES];
-        [MBProgressHUD showError:@"网络错误，请重新注册"];
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
-            dispatch_get_main_queue(), ^{
-              [MBProgressHUD hideHUD];
-              [self dismissViewControllerAnimated:YES completion:nil];
-            });
+        if (data) {
+            if ([(NSString *)data isEqualToString:@"Success"]) {
+                [NSObject showHudTipStr:@"注册成功，返回登录"];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                [NSObject showHudTipStr:@"注册失败，请重新注册"];
+            }
+        }else{
+            [NSObject showHudTipStr:@"似乎断开与服务器的连接"];
+        }
 
-        XBLog(@"error%@", error);
-      }];
+    }];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -812,8 +760,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
   NSString *picName = @"headPicture.png";
-  _headPicture = picName;
-  [self saveImage:image withName:_headPicture];
+  _headPicture = image;
+  [self saveImage:image withName:picName];
 
   [picker dismissViewControllerAnimated:YES
                              completion:^{

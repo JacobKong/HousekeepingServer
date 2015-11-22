@@ -12,10 +12,7 @@
 #import "HSOrangeButton.h"
 #import "HSVerify.h"
 #import "HSFinalRegistViewController.h"
-#import "AFNetworking.h"
-#import "HSHTTPRequestOperationManager.h"
-#import "XBConst.h"
-#import "MBProgressHUD+MJ.h"
+#import "MBProgressHUD.h"
 
 @interface HSRegistViewController ()
 @property(strong, readwrite, nonatomic)
@@ -254,99 +251,56 @@
  *  下一步按钮点击
  */
 - (void)nextBtnClicked {
-  NSArray *basicInfoArray = @[
-    self.servantID.value,
-    self.idCardNo.value,
-    self.servantName.value,
-    [self.sex.value lastObject],
-    self.servantMobil.value,
-    self.qqNumber.value,
-    self.userPwd.value,
-    self.confirmPwd.value
-  ];
       MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
       animated:YES];
       hud.labelText = @"请稍等";
+    // 数据体
+    NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
+    attrParams[@"servantID"] = self.servantID.value;
+    
+        [[HS_NetAPIManager sharedManager]request_Register_CheckServantIDWithParams:attrParams andBlock:^(id data, NSError *error) {
+            [hud hide:YES];
+            if (data) {
+                if ([(NSString *)data isEqualToString:@"Failed"]) {
+                    [NSObject showHudTipStr:@"用户名被占用"];
+                }else{
+                    [self verifyValidInfo];
+                }
+            }else{
+                [NSObject showHudTipStr:@"似乎断开与服务器的连接"];
+            }
+        }];
+}
 
-  // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  // 数据体
-  NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
-  attrParams[@"servantID"] = self.servantID.value;
-  NSString *urlStr = [NSString
-      stringWithFormat:@"%@/MobileServantInfoAction?operation=_checkServantID",
-                       kHSBaseURL];
-  // POST，判断用户名是否被占用
-  [manager POST:urlStr
-      parameters:attrParams
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        NSString *serverResponse = responseObject[@"serverResponse"];
-        if ([serverResponse isEqualToString:@"Failed"]) {
-          hud.labelText = @"用户名被占用";
-          [hud hide:YES];
-          [MBProgressHUD showError:@"用户名被占用"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyIDCardNumber:self.idCardNo
-                                                     .value]) { //身份证号不正确
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入正确的身份证号码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyPhoneNumber:self.servantMobil.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入正确的手机号码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![HSVerify verifyPassword:self.userPwd.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"输入6-18位数字和字母组合密码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
-        } else if (![self.userPwd.value
-                       isEqualToString:self.confirmPwd.value]) {
-          [hud hide:YES];
-          [MBProgressHUD showError:@"请输入相同的密码"];
-          dispatch_after(
-              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-              dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-              });
+- (void)verifyValidInfo{
+    NSArray *basicInfoArray = @[
+                                self.servantID.value,
+                                self.idCardNo.value,
+                                self.servantName.value,
+                                [self.sex.value lastObject],
+                                self.servantMobil.value,
+                                self.qqNumber.value,
+                                self.userPwd.value,
+                                self.confirmPwd.value
+                                ];
 
-        } else {
-          [hud hide:YES];
-          HSFinalRegistViewController *finalRegistVc =
-              [[HSFinalRegistViewController alloc] init];
-          finalRegistVc.basicInfoArray = basicInfoArray;
-          [self.navigationController pushViewController:finalRegistVc
-                                               animated:YES];
-        }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        [hud hide:YES];
-        [MBProgressHUD showError:@"网络错误,请检查网络情况"];
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),
-            dispatch_get_main_queue(), ^{
-              [MBProgressHUD hideHUD];
-            });
-
-      }];
+    if (![HSVerify verifyIDCardNumber:self.idCardNo
+          .value]) { //身份证号不正确
+        [NSObject showHudTipStr:@"请输入正确的身份证号码"];
+    } else if (![HSVerify verifyPhoneNumber:self.servantMobil.value]) {
+        [NSObject showHudTipStr:@"请输入正确的手机号码"];
+    } else if (![HSVerify verifyPassword:self.userPwd.value]) {
+        [NSObject showHudTipStr:@"输入6-18位数字和字母组合密码"];
+    } else if (![self.userPwd.value
+                 isEqualToString:self.confirmPwd.value]) {
+        [NSObject showHudTipStr:@"请输入相同的密码"];
+    } else {
+        HSFinalRegistViewController *finalRegistVc =
+        [[HSFinalRegistViewController alloc] init];
+        finalRegistVc.basicInfoArray = basicInfoArray;
+        [self.navigationController pushViewController:finalRegistVc
+                                             animated:YES];
+    }
 }
 
 @end

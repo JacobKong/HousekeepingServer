@@ -9,23 +9,12 @@
 #import "HSLoginViewController.h"
 #import "HSLoginHeaderView.h"
 #import "HSLoginFooterView.h"
-#import "XBConst.h"
 #import "HSTabBarViewController.h"
 #import "HSRegistViewController.h"
 #import "HSNavigationViewController.h"
-#import "AFNetworking.h"
-#import "HSAccount.h"
-#import "HSAccountTool.h"
-#import "MJExtension.h"
-#import "HSHTTPRequestOperationManager.h"
 #import "MBProgressHUD+MJ.h"
-#import "HSServant.h"
-#import "HSServantTool.h"
-#import "UIImageView+AFNetworking.h"
 #import "BPush.h"
 #import "LxDBAnything.h"
-#import "HS_NetAPIManager.h"
-#import "NSObject+Common.h"
 @interface HSLoginViewController () <UIGestureRecognizerDelegate,
                                      UITextFieldDelegate,
                                      HSLoginFooterViewDelegate> {
@@ -37,10 +26,7 @@
 @property(strong, nonatomic) RETextItem *userNum;
 @property(strong, nonatomic) RETextItem *userPwd;
 @property(strong, readwrite, nonatomic) REPickerItem *pickerItem;
-
 @property(strong, nonatomic) RETableViewSection *loginInfoSection;
-
-@property(strong, nonatomic) HSServant *servant;
 @end
 
 @implementation HSLoginViewController

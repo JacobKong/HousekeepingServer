@@ -116,67 +116,42 @@
   _hud.labelText = @"正在加载";
   //    hud.dimBackground = YES;
 
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
   NSMutableDictionary *serviceAttrDict = [NSMutableDictionary dictionary];
   serviceAttrDict[@"typeName"] = @"";
-  NSString *serviceUrlStr =
-      [NSString stringWithFormat:@"%@/MobileServiceTypeAction?operation=_query",
-                                 kHSBaseURL];
-  [manager POST:serviceUrlStr
-      parameters:serviceAttrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          [_hud hide:YES afterDelay:1.0];
-          _hud.completionBlock = ^{
-            weakSelf.service =
-                [HSService objectArrayWithKeyValuesArray:kDataResponse];
-            for (int i = 0; i < weakSelf.service.count; i++) {
-              HSService *service = weakSelf.service[i];
+  [[HS_NetAPIManager sharedManager]
+      request_ServiceItemWithParams:
+          serviceAttrDict andBlock:^(id data, NSError *error) {
+        [_hud hide:YES];
+        if (data) {
+          weakSelf.service = (NSArray *)data;
+          for (int i = 0; i < weakSelf.service.count; i++) {
+            HSService *service = weakSelf.service[i];
 
-              [weakSelf.serviceSection
-                  addItem:[RETableViewItem
-                                 itemWithTitle:service.typeName
-                                 accessoryType:
-                                     UITableViewCellAccessoryDisclosureIndicator
-                              selectionHandler:^(RETableViewItem *item) {
-                                [item deselectRowAnimated:YES];
-                                [weakSelf loadSubservice:service.typeName];
-                              }]];
-            }
-            [weakSelf.tableView reloadData];
-          };
-
+            [weakSelf.serviceSection
+                addItem:[RETableViewItem
+                               itemWithTitle:service.typeName
+                               accessoryType:
+                                   UITableViewCellAccessoryDisclosureIndicator
+                            selectionHandler:^(RETableViewItem *item) {
+                              [item deselectRowAnimated:YES];
+                              [weakSelf loadSubservice:service.typeName];
+                            }]];
+          }
+          [weakSelf.tableView reloadData];
         } else {
-          self.service = nil;
-          _hud.mode = MBProgressHUDModeCustomView;
-          _hud.labelText = @"加载失败";
-          _hud.customView = MBProgressHUDErrorView;
-          [_hud hide:YES afterDelay:1.0];
-          _hud.completionBlock = ^{
-            weakSelf.serviceRefreshButton.center = weakSelf.tableView.center;
-            weakSelf.serviceRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
-            [weakSelf.tableView addSubview:weakSelf.serviceRefreshButton];
-          };
-        }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        self.service = nil;
-        [self.tableView reloadData];
-        _hud.mode = MBProgressHUDModeCustomView;
-        _hud.labelText = @"网络错误";
-        _hud.customView = MBProgressHUDErrorView;
-        [_hud hide:YES afterDelay:1.0];
-        _hud.completionBlock = ^{
-          weakSelf.serviceRefreshButton.frame = CGRectMake(
-              XBScreenWidth * 0.5 - 50, XBScreenHeight * 0.3, 100, 30);
+          [NSObject showHudTipStr:@"似乎断开与服务器的连接"];
+          dispatch_after(
+              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),
+              dispatch_get_main_queue(), ^{
+                weakSelf.serviceRefreshButton.frame = CGRectMake(
+                    XBScreenWidth * 0.5 - 50, XBScreenHeight * 0.3, 100, 30);
 
-          [weakSelf.tableView addSubview:weakSelf.backgroundView];
-          [weakSelf.tableView addSubview:weakSelf.serviceRefreshButton];
-        };
+                [weakSelf.tableView addSubview:weakSelf.backgroundView];
+                [weakSelf.tableView addSubview:weakSelf.serviceRefreshButton];
+              });
+        }
       }];
+
 }
 
 /**
@@ -186,91 +161,71 @@
   __typeof(&*self) __weak weakSelf = self;
   // 向服务器发送请求
   // 取回serviceType
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
   NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-
   attrDict[@"typeName"] = parent;
-  NSString *urlStr =
-      [NSString stringWithFormat:@"%@/MobileServiceTypeAction?operation=_query",
-                                 kHSBaseURL];
-  [manager POST:urlStr
-      parameters:attrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          self.subService =
-              [HSSubService objectArrayWithKeyValuesArray:kDataResponse];
-          // 有子类
-          if (self.subService.count) {
-            NSMutableArray *nameArray = [NSMutableArray array];
-            for (int i = 0; i < self.subService.count; i++) {
-              HSSubService *subservice = self.subService[i];
-              [nameArray addObject:subservice.typeName];
-            }
-            self.subService = [nameArray copy];
-            RETableViewOptionsController *subserviceOptionsVc =
-                [[RETableViewOptionsController alloc]
-                         initWithItem:self.item
-                              options:self.subService
-                       multipleChoice:YES
-                    completionHandler:^(RETableViewItem *item) {
-                      self.selectedString = @"";
-                      for (int i = 0; i < self.item.value.count; i++) {
-                        if (i != self.item.value.count - 1) {
-                          self.selectedString = [self.selectedString
-                              stringByAppendingString:self.item.value[i]];
-                          self.selectedString = [self.selectedString
-                              stringByAppendingString:@"|"];
-                        } else {
-                          self.selectedString = [self.selectedString
-                              stringByAppendingString:self.item.value[i]];
-                        }
-                        NSLog(@"$$$$$$%@", self.selectedString);
-                      }
-                      [item reloadRowWithAnimation:UITableViewRowAnimationNone];
-                    }];
-            subserviceOptionsVc.title =
-                [NSString stringWithFormat:@"当前已选-%@", parent];
-            HSInfoFooterView *footerView = [HSInfoFooterView footerView];
-            UIView *blankView = [[UIView alloc]
-                initWithFrame:CGRectMake(0, 0, XBScreenWidth, 90)];
-            HSOrangeButton *doneSelectBtn =
-                [HSOrangeButton orangeButtonWithTitle:@"确认"];
-            CGFloat buttonX = 10;
-            CGFloat buttonW = blankView.frame.size.width - 2 * buttonX;
-            CGFloat buttonH = 50;
-            CGFloat buttonY = blankView.frame.size.height * 0.5 - buttonH * 0.5;
-            doneSelectBtn.frame =
-                CGRectMake(buttonX, buttonY, buttonW, buttonH);
-            doneSelectBtn.enabled = YES;
-            doneSelectBtn.alpha = 1;
-            [doneSelectBtn addTarget:self
-                              action:@selector(doneSelectBtnClicked)
-                    forControlEvents:UIControlEventTouchUpInside];
-            [blankView addSubview:doneSelectBtn];
-            [footerView addSubview:blankView];
-            subserviceOptionsVc.tableView.tableFooterView = footerView;
-            weakSelf.doneSelectBtn = doneSelectBtn;
-
-            [weakSelf.navigationController
-                pushViewController:subserviceOptionsVc
-                          animated:YES];
-          } else { // 没有子类
-            self.item.detailLabelText = parent;
-            [self.item reloadRowWithAnimation:UITableViewRowAnimationNone];
-            [self.navigationController popViewControllerAnimated:YES];
-          }
+  [[HS_NetAPIManager sharedManager] request_ServiceItemWithParams:
+                                        attrDict andBlock:^(id data,
+                                                            NSError *error) {
+    if (data) {
+      self.subService = data;
+      // 有子类
+      if (self.subService.count) {
+        NSMutableArray *nameArray = [NSMutableArray array];
+        for (int i = 0; i < self.subService.count; i++) {
+          HSSubService *subservice = self.subService[i];
+          [nameArray addObject:subservice.typeName];
         }
+        self.subService = [nameArray copy];
+        RETableViewOptionsController *subserviceOptionsVc =
+            [[RETableViewOptionsController alloc]
+                     initWithItem:self.item
+                          options:self.subService
+                   multipleChoice:YES
+                completionHandler:^(RETableViewItem *item) {
+                  self.selectedString = @"";
+                  for (int i = 0; i < self.item.value.count; i++) {
+                    if (i != self.item.value.count - 1) {
+                      self.selectedString = [self.selectedString
+                          stringByAppendingString:self.item.value[i]];
+                      self.selectedString =
+                          [self.selectedString stringByAppendingString:@"|"];
+                    } else {
+                      self.selectedString = [self.selectedString
+                          stringByAppendingString:self.item.value[i]];
+                    }
+                    NSLog(@"$$$$$$%@", self.selectedString);
+                  }
+                  [item reloadRowWithAnimation:UITableViewRowAnimationNone];
+                }];
+        subserviceOptionsVc.title =
+            [NSString stringWithFormat:@"当前已选-%@", parent];
+        HSInfoFooterView *footerView = [HSInfoFooterView footerView];
+        UIView *blankView =
+            [[UIView alloc] initWithFrame:CGRectMake(0, 0, XBScreenWidth, 90)];
+        HSOrangeButton *doneSelectBtn =
+            [HSOrangeButton orangeButtonWithTitle:@"确认"];
+        CGFloat buttonX = 10;
+        CGFloat buttonW = blankView.frame.size.width - 2 * buttonX;
+        CGFloat buttonH = 50;
+        CGFloat buttonY = blankView.frame.size.height * 0.5 - buttonH * 0.5;
+        doneSelectBtn.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+        doneSelectBtn.enabled = YES;
+        doneSelectBtn.alpha = 1;
+        [doneSelectBtn addTarget:self
+                          action:@selector(doneSelectBtnClicked)
+                forControlEvents:UIControlEventTouchUpInside];
+        [blankView addSubview:doneSelectBtn];
+        [footerView addSubview:blankView];
+        subserviceOptionsVc.tableView.tableFooterView = footerView;
+        weakSelf.doneSelectBtn = doneSelectBtn;
+
+        [weakSelf.navigationController pushViewController:subserviceOptionsVc
+                                                 animated:YES];
       }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        XBLog(@"error:%@", error);
-        _hud.mode = MBProgressHUDModeCustomView;
-        _hud.labelText = @"网络错误";
-        _hud.customView = MBProgressHUDErrorView;
-        [_hud hide:YES afterDelay:1.0];
-      }];
+    } else {
+      [NSObject showHudTipStr:@"似乎断开与服务器的连接"];
+    }
+  }];
 }
 
 - (void)doneSelectBtnClicked {
