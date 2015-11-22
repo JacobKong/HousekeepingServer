@@ -8,18 +8,11 @@
 
 #import "HSFinalRegistViewController.h"
 #import "HSRegistViewController.h"
-//#import "HSInfoGroup.h"
 #import "HSInfoFooterView.h"
 #import "HSOrangeButton.h"
-//#import "HSInfoTextFieldItem.h"
-//#import "HSInfoLableItem.h"
-#import "XBConst.h"
 #import "HSPickerView.h"
 #import "HSRegion.h"
-#import "MJExtension.h"
-#import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
-#import "HSHTTPRequestOperationManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "HSProvince.h"
 #import "HSCity.h"
@@ -28,8 +21,6 @@
 #import "UIImage+CircleCilp.h"
 #import "UIImage+SquareImage.h"
 #import "HSServant.h"
-#import "HSServantTool.h"
-#import "HSService.h"
 #import "MBProgressHUD.h"
 #import "HSServiceTableViewController.h"
 
