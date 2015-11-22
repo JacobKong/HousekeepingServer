@@ -15,6 +15,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "BPush.h"
 #import "LxDBAnything.h"
+#import "HSLogin.h"
+#import "NSString+Common.h"
 @interface HSLoginViewController () <UIGestureRecognizerDelegate,
                                      UITextFieldDelegate,
                                      HSLoginFooterViewDelegate> {
@@ -27,6 +29,7 @@
 @property(strong, nonatomic) RETextItem *userPwd;
 @property(strong, readwrite, nonatomic) REPickerItem *pickerItem;
 @property(strong, nonatomic) RETableViewSection *loginInfoSection;
+@property (strong, nonatomic) HSLogin *myLogin;
 @end
 
 @implementation HSLoginViewController
@@ -37,7 +40,10 @@
   self.tableView.scrollEnabled = NO;
   self.loginInfoSection = [self addLoginInfo];
   [self loginBtnStateChange];
-
+    
+    // Login初始化
+    self.myLogin = [[HSLogin alloc]init];
+    
   // 取消键盘
   // 设置敲击手势，取消键盘
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -70,7 +76,7 @@
 }
 
 - (RETableViewSection *)addLoginInfo {
-
+    __typeof (&*self) __weak weakSelf = self;
   RETableViewSection *section =
       [RETableViewSection sectionWithHeaderView:[HSLoginHeaderView headerView]];
   [self.manager addSection:section];
@@ -80,12 +86,19 @@
                     placeholder:@"请输入用户名"];
   self.userNum.image = [UIImage imageNamed:@"login_user"];
   self.userNum.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.userNum.onChange = ^(RETextItem *item){
+        weakSelf.myLogin.servantID = item.value;
+    };
 
   self.userPwd =
       [RETextItem itemWithTitle:nil value:nil placeholder:@"请输入密码"];
   self.userPwd.secureTextEntry = YES;
   self.userPwd.image = [UIImage imageNamed:@"login_key"];
   self.userPwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.userPwd.onChange = ^(RETextItem *item){
+        weakSelf.myLogin.loginPassword = item.value;
+    };
+
   [section addItem:self.userNum];
   [section addItem:self.userPwd];
 
@@ -175,16 +188,16 @@
     // 取消键盘
     [self.view endEditing:YES];
   // 访问服务器
-    // 数据体
-    NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
-    attrParams[@"servantID"] = self.userNum.value;
-    attrParams[@"loginPassword"] = self.userPwd.value;
+//    // 数据体
+//    NSMutableDictionary *attrParams = [NSMutableDictionary dictionary];
+//    attrParams[@"servantID"] = self.userNum.value;
+//    attrParams[@"loginPassword"] = self.userPwd.value;
 
-    [[HS_NetAPIManager sharedManager]request_Login_WithParams:attrParams andBlock:^(id data, NSError *error) {
+    [[HS_NetAPIManager sharedManager]request_Login_WithParams:[self.myLogin toParams] andBlock:^(id data, NSError *error) {
         hud.hidden = YES;
         if (data) {
             if ([(NSString *)data isEqualToString:@"Success"]) {
-                [weakSelf saveServantWithServantID:attrParams[@"servantID"]];
+                [weakSelf saveServantWithServantID:self.myLogin.servantID];
             }else{
                 [NSObject showHudTipStr:@"用户名与密码不匹配"];
             }

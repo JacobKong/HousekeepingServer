@@ -37,6 +37,12 @@
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 #define MBProgressHUDSuccessView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"success"]]
 #define MBProgressHUDErrorView [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"error"]]
+
+// key
+#define RegionStrKey @"region"
+#define ServiceStrKey @"service"
+#define StatusStrKey @"status"
+#define GrabBadgeValueKey @"grab"
 extern NSString *const kTagCollectionViewCellIdentifier;
 extern NSString *const kPageCollectionViewCellIdentifier;
 extern NSString *const kCachedTime;

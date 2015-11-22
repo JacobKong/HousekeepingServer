@@ -14,6 +14,9 @@
 #import "HSServantTool.h"
 #import "HSDeclareCell.h"
 #import "HSServiceDeclare.h"
+#import "HS_NetAPIManager.h"
+#import "NSObject+Common.h"
+
 
 @interface HSFatherTableViewController : UIViewController <HSDeclareCellDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) HSServant *servant;

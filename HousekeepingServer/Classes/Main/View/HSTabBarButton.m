@@ -89,16 +89,21 @@
     [self setImage:self.item.selectedImage forState:UIControlStateSelected];
     
     // 设置badgeValue
-    self.badgeButton.badgeValue = self.item.badgeValue;
-    
-    CGFloat badgeX = self.frame.size.width - self.badgeButton.frame.size.width - 10;
-    CGFloat badgeY = 3;
-    
-    CGRect badgeF = self.badgeButton.frame;
-    badgeF.origin.x = badgeX;
-    badgeF.origin.y = badgeY;
-    
-    self.badgeButton.frame = badgeF;
+    if (![self.item.badgeValue isEqualToString:@"0"]) {
+        self.badgeButton.badgeValue = self.item.badgeValue;
+        
+        CGFloat badgeX = self.frame.size.width - self.badgeButton.frame.size.width - 10;
+        CGFloat badgeY = 3;
+        
+        CGRect badgeF = self.badgeButton.frame;
+        badgeF.origin.x = badgeX;
+        badgeF.origin.y = badgeY;
+        
+        self.badgeButton.frame = badgeF;
+        self.badgeButton.hidden = NO;
+    }else{
+        self.badgeButton.hidden = YES;
+    }
     
 }
 

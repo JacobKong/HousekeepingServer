@@ -50,4 +50,6 @@
 @property (copy, nonatomic) NSString *serviceProvince;
 @property (copy, nonatomic) NSString *serviceTime;
 @property (copy, nonatomic) NSString *serviceType;
+
+- (NSDictionary *)toParams;
 @end

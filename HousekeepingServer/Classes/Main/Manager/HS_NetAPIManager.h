@@ -20,4 +20,10 @@
 
 // 服务项目
 - (void)request_ServiceItemWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+
+// 抢单
+- (void)request_Grab_CountyWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+- (void)request_Grab_StatusWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+- (void)request_Grab_DeclareWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+- (void)request_Grab_WithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
 @end

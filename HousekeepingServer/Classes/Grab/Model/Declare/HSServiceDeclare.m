@@ -9,7 +9,23 @@
 #import "HSServiceDeclare.h"
 
 @implementation HSServiceDeclare
-+ (NSDictionary *)replacedKeyFromPropertyName{
-    return @{@"ID":@"id"};
++ (NSDictionary *)replacedKeyFromPropertyName {
+  return @{ @"ID" : @"id" };
+}
+
+- (NSDictionary *)toParams {
+  return @{
+    @"id" : [NSString stringWithFormat:@"%d", self.ID],
+    @"customerID" :self.customerID,
+    @"customerName" :self.customerName,
+    @"servantID" :self.servantID,
+    @"servantName" :self.servantName,
+    @"contactAddress" :self.serviceAddress,
+    @"contactPhone" :self.phoneNo,
+    @"servicePrice" :self.salary,
+    @"serviceType" :self.serviceType,
+    @"serviceContent" :self.serviceType,
+    @"remarks" :self.remarks
+  };
 }
 @end

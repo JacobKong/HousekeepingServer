@@ -29,10 +29,6 @@
 #import "LxDBAnything.h"
 #import "HSPopoverView.h"
 
-#define RegionStrKey @"region"
-#define ServiceStrKey @"service"
-#define StatusStrKey @"status"
-#define GrabBadgeValueKey @"grab"
 @interface HSGrabViewController () <
     UICollectionViewDataSource, UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate,
@@ -502,28 +498,29 @@
  *  cell按钮点击
  */
 - (void)regionBtnClicked:(UIButton *)regionBtn {
-  self.selectedRegionBtn.selected = NO;
-  regionBtn.selected = YES;
-  self.selectedRegionBtn = regionBtn;
-  // 设置导航栏按钮标题
-  [self.leftNavBtn setTitle:regionBtn.titleLabel.text
-                   forState:UIControlStateNormal];
-  self.regionStr = regionBtn.titleLabel.text;
-
-  // 存储所点击的区域名称
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:regionBtn.titleLabel.text forKey:RegionStrKey];
-  [defaults synchronize];
-
-  // 收回collectionView
-  [self.regionCollectionView removeFromSuperview];
-  [self.bgBtn removeFromSuperview];
-  self.leftNavBtn.selected = NO;
-  self.tableView.scrollEnabled = YES;
-
-  if (self.serviceStr) {
-    [self setupRefreshView];
-  }
+        [self.refreshLab removeFromSuperview];
+        self.selectedRegionBtn.selected = NO;
+        regionBtn.selected = YES;
+        self.selectedRegionBtn = regionBtn;
+        // 设置导航栏按钮标题
+        [self.leftNavBtn setTitle:regionBtn.titleLabel.text
+                         forState:UIControlStateNormal];
+        self.regionStr = regionBtn.titleLabel.text;
+        
+        // 存储所点击的区域名称
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:regionBtn.titleLabel.text forKey:RegionStrKey];
+        [defaults synchronize];
+        
+        // 收回collectionView
+        [self.regionCollectionView removeFromSuperview];
+        [self.bgBtn removeFromSuperview];
+        self.leftNavBtn.selected = NO;
+        self.tableView.scrollEnabled = YES;
+        
+        if (self.serviceStr) {
+            [self setupRefreshView];
+        }
 }
 
 #pragma mark - 数据加载
@@ -534,7 +531,7 @@
   // 将原来加载按钮取消
   [self.regionRefreshButton removeFromSuperview];
   // weak self,否则block中循环引用
-  __weak HSGrabViewController *grabSelf = self;
+    __weak __typeof(self) weakSelf = self;
   // 将_region置空
   _regions = nil;
   [self.regionCollectionView reloadData];
@@ -544,59 +541,24 @@
   hud = [MBProgressHUD showHUDAddedTo:self.regionCollectionView animated:YES];
   hud.labelText = @"正在加载";
 
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  NSMutableDictionary *regionAttrDict = [NSMutableDictionary dictionary];
-  regionAttrDict[@"cityCode"] = @"C037";
-  NSString *regionUrlStr =
-      [NSString stringWithFormat:@"%@/MobileCountyInfoAction?operation=_query",
-                                 kHSBaseURL];
-  [manager POST:regionUrlStr
-      parameters:regionAttrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        [MBProgressHUD hideHUDForView:self.regionCollectionView animated:YES];
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          [hud hide:YES afterDelay:1.0];
-          hud.completionBlock = ^{
-            _regions =
-                [HSCoveredCountry objectArrayWithKeyValuesArray:kDataResponse];
-            [grabSelf.refreshLab removeFromSuperview];
-            [grabSelf.regionCollectionView reloadData];
-          };
-
-        } else {
-          _regions = nil;
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"加载失败";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-          hud.completionBlock = ^{
-            grabSelf.regionRefreshButton.center =
-                grabSelf.regionCollectionView.center;
-            grabSelf.regionRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
-            [grabSelf.regionCollectionView
-                addSubview:grabSelf.regionRefreshButton];
-          };
+    NSMutableDictionary *regionAttrDict = [NSMutableDictionary dictionary];
+    regionAttrDict[@"cityCode"] = @"C037";
+    
+    [[HS_NetAPIManager sharedManager]request_Grab_CountyWithParams:regionAttrDict andBlock:^(id data, NSError *error) {
+        [hud hide:YES];
+        if (data) {
+            _regions = data;
+            [weakSelf.refreshLab removeFromSuperview];
+            [weakSelf.regionCollectionView reloadData];
+        }else{
+            [NSObject showHudTipStr:@"似乎与服务器断开连接"];
+            weakSelf.regionRefreshButton.center =
+            weakSelf.regionCollectionView.center;
+            weakSelf.regionRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
+            [weakSelf.regionCollectionView
+             addSubview:weakSelf.regionRefreshButton];
         }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        _regions = nil;
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:1.0];
-        hud.completionBlock = ^{
-          grabSelf.regionRefreshButton.center =
-              grabSelf.regionCollectionView.center;
-          grabSelf.regionRefreshButton.bounds = CGRectMake(0, 0, 100, 50);
-          [grabSelf.regionCollectionView
-              addSubview:grabSelf.regionRefreshButton];
-        };
-
-        XBLog(@"failure:%@", error);
-      }];
+    }];
 }
 
 /**
@@ -608,89 +570,67 @@
   // 先移除label
   [self.refreshLab removeFromSuperview];
   // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  attrDict[@"serviceCounty"] = self.regionStr;
-  attrDict[@"serviceType"] = self.serviceStr;
-  NSString *urlStr = [NSString
-      stringWithFormat:
-          @"%@/MobileServiceDeclareAction?operation=_queryserviceDeclare",
-          kHSBaseURL];
-  [manager POST:urlStr
-      parameters:attrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        [MBProgressHUD hideHUDForView:self.regionCollectionView animated:YES];
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          [self.refreshLab removeFromSuperview];
-          self.serviceDeclare =
-              [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-          // 存储badgeValue
-          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-          [defaults
-              setObject:[NSString
-                            stringWithFormat:@"%d",
-                                             (int)self.serviceDeclare.count]
-                 forKey:GrabBadgeValueKey];
-          [defaults synchronize];
-          // 设置badgeValue
-          self.tabBarItem.badgeValue =
-              [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
+    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+    attrDict[@"serviceCounty"] = self.regionStr;
+    attrDict[@"serviceType"] = self.serviceStr;
+    
+    [[HS_NetAPIManager sharedManager]request_Grab_DeclareWithParams:attrDict andBlock:^(id data, NSError *error) {
+        [self.refreshLab removeFromSuperview];
+        if (data) {
+            if ([data isKindOfClass:[NSArray class]]) {
+                self.serviceDeclare = data;
+                // 设置badgeValue
+                self.tabBarItem.badgeValue =
+                [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
+                [self.tableView reloadData];
+                [self.tableView.header endRefreshing];
+            }else{
+//         取消刷新
+                  [self.tableView.header endRefreshing];
+                  // 将serviceDeclare置空
+                  self.serviceDeclare = nil;
+                  HSRefreshLab *refreshLab =
+                      [HSRefreshLab refreshLabelWithText:@"需"
+                                    @"求为0，请下拉刷新重试，或选"
+                                    @"择其他服务类别"];
+        
+                  CGFloat labelW = XBScreenWidth;
+                  CGFloat labelX = 0;
+                  CGFloat labelY = XBScreenHeight * 0.3;
+                  CGFloat labelH = 20;
+                  refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+                  self.refreshLab = refreshLab;
+                // 设置badgeValue
+                self.tabBarItem.badgeValue = @"0";
+                  [self.view addSubview:refreshLab];
+                  [self.tableView reloadData];
+            }
+            
+        }else{
+            [self.refreshLab removeFromSuperview];
+            [NSObject showHudTipStr:@"似乎与服务器断开连接"];
+            // 将serviceDeclare置空
+            self.serviceDeclare = nil;
 
-          [self.tableView reloadData];
-          [self.tableView.header endRefreshing];
-        } else {
-          // 取消刷新
-          [self.tableView.header endRefreshing];
-          // 将serviceDeclare置空
-          self.serviceDeclare = nil;
-          HSRefreshLab *refreshLab =
-              [HSRefreshLab refreshLabelWithText:@"需"
-                            @"求为0，请下拉刷新重试，或选"
-                            @"择其他服务类别"];
-
-          CGFloat labelW = XBScreenWidth;
-          CGFloat labelX = 0;
-          CGFloat labelY = XBScreenHeight * 0.3;
-          CGFloat labelH = 20;
-          refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-          self.refreshLab = refreshLab;
-          [self.view addSubview:refreshLab];
-
-          [self.tableView reloadData];
+            HSRefreshLab *refreshLab = [HSRefreshLab
+                                        refreshLabelWithText:
+                                        @"无法连接服务器，请检查网络连接是否正确"];
+            CGFloat labelW = XBScreenWidth;
+            CGFloat labelX = 0;
+            CGFloat labelY = XBScreenHeight * 0.3;
+            CGFloat labelH = 20;
+            refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+            weakSelf.refreshLab = refreshLab;
+            [weakSelf.view addSubview:refreshLab];
+            [self.tableView reloadData];
+            [self.tableView.header endRefreshing];
+            
         }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        XBLog(@"failure:%@", error);
-        // 创建hud
-        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
-                                   animated:YES];
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:2.0];
-        hud.completionBlock = ^{
-          HSRefreshLab *refreshLab = [HSRefreshLab
-              refreshLabelWithText:
-                  @"无法连接服务器，请检查网络连接是否正确"];
-          CGFloat labelW = XBScreenWidth;
-          CGFloat labelX = 0;
-          CGFloat labelY = XBScreenHeight * 0.3;
-          CGFloat labelH = 20;
-          refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-          weakSelf.refreshLab = refreshLab;
-          [weakSelf.view addSubview:refreshLab];
-        };
-        [self.tableView reloadData];
-
-        [self.tableView.header endRefreshing];
-      }];
+    }];
 }
 
 #pragma mark - datasource
-#pragma mark - UITableViewDataSource
+#pragma mark  UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   if (tableView == self.statusTableView) {
     return 1;
@@ -760,7 +700,7 @@
 }
 
 #pragma mark - delegate
-#pragma mark - CollectionViewDelegate
+#pragma mark  CollectionViewDelegate
 - (NSInteger)numberOfSectionsInCollectionView:
     (UICollectionView *)collectionView {
   return 1;
@@ -802,66 +742,37 @@
   return 0;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark  UITableViewDelegate
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (tableView == self.statusTableView) {
 
     // 访问服务器
-    AFHTTPRequestOperationManager *manager = (AFHTTPRequestOperationManager *)
-        [HSHTTPRequestOperationManager manager];
-    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-    attrDict[@"servantID"] = self.servant.servantID;
-    attrDict[@"servantStatus"] = [NSString string];
-    if (indexPath.row == 0) {
-      attrDict[@"servantStatus"] = @"空闲";
-    } else {
-      attrDict[@"servantStatus"] = @"忙碌";
-    }
-    NSString *urlStr = [NSString
-        stringWithFormat:@"%@/MobileServantInfoAction?operation=_modifyStatus",
-                         kHSBaseURL];
+      NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+      attrDict[@"servantID"] = self.servant.servantID;
+      attrDict[@"servantStatus"] = @"";
+      if (indexPath.row == 0) {
+          attrDict[@"servantStatus"] = @"空闲";
+      } else {
+          attrDict[@"servantStatus"] = @"忙碌";
+      }
+      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+      [[HS_NetAPIManager sharedManager]request_Grab_StatusWithParams:attrDict andBlock:^(id data, NSError *error) {
+          if (data) {
+              if (![data isEqualToString:@"Failed"]) {
+                  // 设置状态标题
+                  [self.titleBtn setTitle:data forState:UIControlStateNormal];
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+              }else{
+                  [NSObject showHudTipStr:@"状态更改失败"];
+                  NSString *titleStr = [defaults objectForKey:StatusStrKey];
+                  [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
 
-    [manager POST:urlStr
-        parameters:attrDict
-        success:^(AFHTTPRequestOperation *_Nonnull operation,
-                  id _Nonnull responseObject) {
-          if ([kServiceResponse isEqualToString:@"Success"]) {
-            NSString *titleStr = [NSString
-                stringWithFormat:@"当前%@", attrDict[@"servantStatus"]];
-            // 存储状态
-            [defaults setObject:titleStr forKey:StatusStrKey];
-            [defaults synchronize];
-            // 设置状态标题
-            [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
-          } else {
-            // 创建hud
-            hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
-                                       animated:YES];
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"状态更改失败";
-            hud.customView = MBProgressHUDErrorView;
-            [hud hide:YES afterDelay:1.0];
-            NSString *titleStr = [defaults objectForKey:StatusStrKey];
-            [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
+              }
+          }else{
+              [NSObject showHudTipStr:@"似乎与服务器断开连接"];
           }
-        }
-        failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                  NSError *_Nonnull error) {
-          XBLog(@"failure:%@", error);
-          // 创建hud
-          hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
-                                     animated:YES];
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"网络错误";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:2.0];
-          NSString *titleStr = [defaults objectForKey:StatusStrKey];
-          [self.titleBtn setTitle:titleStr forState:UIControlStateNormal];
-        }];
-
+      }];
     [self titleBtnClicked];
   } else if (tableView == self.serviceItemTableView) {
     [self navBtnClicked:self.rightNavBtn];
@@ -896,7 +807,7 @@
   }
 }
 
-#pragma mark - UIAlertViewDelegate
+#pragma mark  UIAlertViewDelegate
 - (void)alertView:(UIAlertView *_Nonnull)alertView
     clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (buttonIndex == 0) {
@@ -904,7 +815,7 @@
   }
 }
 
-#pragma mark - HSDeclareCellDelegate
+#pragma mark  HSDeclareCellDelegate
 - (void)declareCell:(HSDeclareCell *)declareCell
     rightButtonDidClickedAtIndexPath:(NSIndexPath *)indexPath {
   [super declareCell:declareCell rightButtonDidClickedAtIndexPath:indexPath];
@@ -913,59 +824,22 @@
                              animated:YES];
   hud.labelText = @"正在抢单...";
   HSServiceDeclare *serviceDeclare = self.serviceDeclare[indexPath.section];
-
-  // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-
-  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
-  attrDict[@"customerID"] = serviceDeclare.customerID;
-  attrDict[@"customerName"] = serviceDeclare.customerName;
-  attrDict[@"servantID"] = self.servant.servantID;
-  attrDict[@"servantName"] = self.servant.servantName;
-  attrDict[@"contactAddress"] = serviceDeclare.serviceAddress;
-  attrDict[@"contactPhone"] = serviceDeclare.phoneNo;
-  attrDict[@"servicePrice"] = serviceDeclare.salary;
-  attrDict[@"serviceType"] = serviceDeclare.serviceType;
-  attrDict[@"serviceContent"] = serviceDeclare.serviceType;
-  attrDict[@"remarks"] = serviceDeclare.remarks;
-
-  NSString *urlStr =
-      [NSString stringWithFormat:@"%@/MobileServiceOrderAction?operation=_add",
-                                 kHSBaseURL];
-  [manager POST:urlStr
-      parameters:attrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          // hud
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"抢单成功";
-          hud.customView = MBProgressHUDSuccessView;
-          [hud hide:YES afterDelay:1.0];
-          // 重载数据
-          [self loadNewData];
-
-        } else {
-          // hud
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"抢单失败";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-          XBLog(@"failed");
+    serviceDeclare.servantID = self.servant.servantID;
+    serviceDeclare.servantName = self.servant.servantName;
+    
+    [[HS_NetAPIManager sharedManager]request_Grab_WithParams:[serviceDeclare toParams] andBlock:^(id data, NSError *error) {
+        [hud hide:YES];
+        if (data) {
+            if ([data isEqualToString:@"Success"]) {
+                [NSObject showHudTipStr:@"抢单成功"];
+                [self loadNewData];
+            }else{
+                [NSObject showHudTipStr:@"抢单失败"];
+            }
+        }else{
+            [NSObject showHudTipStr:@"似乎与服务器断开连接"];
         }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        // hud
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:1.0];
-
-        XBLog(@"error:%@", error);
-      }];
+    }];
 }
 
 @end
