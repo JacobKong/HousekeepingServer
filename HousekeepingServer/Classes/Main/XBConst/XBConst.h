@@ -43,6 +43,7 @@
 #define ServiceStrKey @"service"
 #define StatusStrKey @"status"
 #define GrabBadgeValueKey @"grab"
+#define ReceiveBadgeValueKey @"receive"
 extern NSString *const kTagCollectionViewCellIdentifier;
 extern NSString *const kPageCollectionViewCellIdentifier;
 extern NSString *const kCachedTime;

@@ -13,7 +13,6 @@
 #import "MJExtension.h"
 #import "HSServiceDeclare.h"
 
-#define ReceiveBadgeValueKey @"receive"
 @interface HSReceiveViewController () <HSDeclareCellDelegate,
                                        UIAlertViewDelegate> {
   MBProgressHUD *hud;
@@ -53,88 +52,48 @@
   // 先移除label
   [self.refreshLab removeFromSuperview];
   // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  attrDict[@"servantID"] = self.servant.servantID;
-  NSString *urlStr =
-      [NSString stringWithFormat:
-                    @"%@/MobileServiceDeclareAction?operation=_queyOwnservice",
-                    kHSBaseURL];
-  [manager POST:urlStr
-      parameters:attrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-            self.serviceDeclare = [HSServiceDeclare objectArrayWithKeyValuesArray:kDataResponse];
-            
-            // 存储badgeValue
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:[NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count] forKey:ReceiveBadgeValueKey];
-            [defaults synchronize];
+    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+    attrDict[@"servantID"] = self.servant.servantID;
+    
+    [[HS_NetAPIManager sharedManager]request_Recevice_DeclareWithParams:attrDict andBlock:^(id data, NSError *error) {
+        if (data) {
+            self.serviceDeclare = data;
             self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", (int)self.serviceDeclare.count];
-          [self.tableView reloadData];
-          if (self.serviceDeclare.count == 0) {
-            HSRefreshLab *refreshLab = [HSRefreshLab
-                refreshLabelWithText:
-                    @"目前没有您的接单，请刷新重试"];
+            [self.tableView reloadData];
+            if (self.serviceDeclare.count == 0) {
+                HSRefreshLab *refreshLab = [HSRefreshLab
+                                            refreshLabelWithText:
+                                            @"目前没有您的接单，请刷新重试"];
+                
+                CGFloat labelW = XBScreenWidth;
+                CGFloat labelX = 0;
+                CGFloat labelY = XBScreenHeight * 0.3;
+                CGFloat labelH = 20;
+                refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
+                self.refreshLab = refreshLab;
+                [self.view addSubview:refreshLab];
+            } else {
+                [self.refreshLab removeFromSuperview];
+          }
 
+            [self.tableView.header endRefreshing];
+        }else{
+            [NSObject showHudTipStr:@"似乎与服务器断开连接"];
+            HSRefreshLab *refreshLab = [HSRefreshLab
+                                        refreshLabelWithText:
+                                        @"无法连接服务器，请检查网络连接是否正确"];
             CGFloat labelW = XBScreenWidth;
             CGFloat labelX = 0;
             CGFloat labelY = XBScreenHeight * 0.3;
             CGFloat labelH = 20;
             refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-            self.refreshLab = refreshLab;
-            [self.view addSubview:refreshLab];
-          } else {
-            [self.refreshLab removeFromSuperview];
-          }
+            weakSelf.refreshLab = refreshLab;
+            [weakSelf.view addSubview:refreshLab];
+            [self.tableView reloadData];
             [self.tableView.header endRefreshing];
-        } else {
-          // 取消刷新
-          [self.tableView.header endRefreshing];
-          HSRefreshLab *refreshLab =
-              [HSRefreshLab refreshLabelWithText:
-                                @"目前没有您的接单，请刷新重试"];
 
-          CGFloat labelW = XBScreenWidth;
-          CGFloat labelX = 0;
-          CGFloat labelY = XBScreenHeight * 0.3;
-          CGFloat labelH = 20;
-          refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-          self.refreshLab = refreshLab;
-          [self.view addSubview:refreshLab];
-
-          [self.tableView reloadData];
         }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        XBLog(@"failure:%@", error);
-        // 创建hud
-        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
-                                   animated:YES];
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:2.0];
-        hud.completionBlock = ^{
-          HSRefreshLab *refreshLab = [HSRefreshLab
-              refreshLabelWithText:
-                  @"无法连接服务器，请检查网络连接是否正确"];
-          CGFloat labelW = XBScreenWidth;
-          CGFloat labelX = 0;
-          CGFloat labelY = XBScreenHeight * 0.3;
-          CGFloat labelH = 20;
-          refreshLab.frame = CGRectMake(labelX, labelY, labelW, labelH);
-          weakSelf.refreshLab = refreshLab;
-          [weakSelf.view addSubview:refreshLab];
-        };
-        [self.tableView reloadData];
-
-        [self.tableView.header endRefreshing];
-      }];
+    }];
 }
 
 #pragma mark - HSServiceCellDelegate
@@ -147,58 +106,22 @@
   hud.labelText = @"正在接单...";
 
   HSServiceDeclare *serviceDeclare = self.serviceDeclare[indexPath.section];
-  // 访问服务器
-  AFHTTPRequestOperationManager *manager =
-      (AFHTTPRequestOperationManager *)[HSHTTPRequestOperationManager manager];
-
-  NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-  attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
-  attrDict[@"customerID"] = serviceDeclare.customerID;
-  attrDict[@"customerName"] = serviceDeclare.customerName;
-  attrDict[@"servantID"] = self.servant.servantID;
-  attrDict[@"servantName"] = self.servant.servantName;
-  attrDict[@"contactAddress"] = serviceDeclare.serviceAddress;
-  attrDict[@"contactPhone"] = serviceDeclare.phoneNo;
-  attrDict[@"servicePrice"] = serviceDeclare.salary;
-  attrDict[@"serviceType"] = serviceDeclare.serviceType;
-  attrDict[@"serviceContent"] = @"";
-  attrDict[@"remarks"] = serviceDeclare.remarks;
-
-  NSString *urlStr =
-      [NSString stringWithFormat:@"%@/MobileServiceOrderAction?operation=_add",
-                                 kHSBaseURL];
-  [manager POST:urlStr
-      parameters:attrDict
-      success:^(AFHTTPRequestOperation *_Nonnull operation,
-                id _Nonnull responseObject) {
-        if ([kServiceResponse isEqualToString:@"Success"]) {
-          // hud
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"接单成功";
-          hud.customView = MBProgressHUDSuccessView;
-          [hud hide:YES afterDelay:1.0];
-          // 重载数据
-          [self loadNewData];
-
-        } else {
-          // hud
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"接单失败";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-          XBLog(@"failed");
+    serviceDeclare.servantID = self.servant.servantID;
+    serviceDeclare.servantName = self.servant.servantName;
+    
+    [[HS_NetAPIManager sharedManager]request_Receive_WithParams:[serviceDeclare toParams] andBlock:^(id data, NSError *error) {
+        [hud hide:YES];
+        if (data) {
+            if ([data isEqualToString:@"Success"]) {
+                [NSObject showHudTipStr:@"接单成功"];
+                [self loadNewData];
+            }else{
+                [NSObject showHudTipStr:@"接单失败"];
+            }
+        }else{
+            [NSObject showHudTipStr:@"似乎与服务器断开连接"];
         }
-      }
-      failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                NSError *_Nonnull error) {
-        // hud
-        hud.mode = MBProgressHUDModeCustomView;
-        hud.labelText = @"网络错误";
-        hud.customView = MBProgressHUDErrorView;
-        [hud hide:YES afterDelay:1.0];
-
-        XBLog(@"error:%@", error);
-      }];
+    }];
 }
 
 - (void)declareCell:(HSDeclareCell *)declareCell
@@ -224,48 +147,24 @@
 
     HSServiceDeclare *serviceDeclare =
         self.serviceDeclare[self.selectedIndexPath.section];
-    // 访问服务器
-    AFHTTPRequestOperationManager *manager = (AFHTTPRequestOperationManager *)
-        [HSHTTPRequestOperationManager manager];
+      NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
+      attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
+      
+      [[HS_NetAPIManager sharedManager]request_Recevice_RefuseWithParams:attrDict andBlock:^(id data, NSError *error) {
+          [hud hide:YES];
+          if (data) {
+              if ([data isEqualToString:@"Success"]) {
+                  [NSObject showHudTipStr:@"拒单成功"];
+                  // 重载数据
+                  [self loadNewData];
 
-    NSMutableDictionary *attrDict = [NSMutableDictionary dictionary];
-    attrDict[@"id"] = [NSString stringWithFormat:@"%d", serviceDeclare.ID];
-
-    NSString *urlStr = [NSString
-        stringWithFormat:@"%@/MobileServiceDeclareAction?operation=_refuse",
-                         kHSBaseURL];
-    [manager POST:urlStr
-        parameters:attrDict
-        success:^(AFHTTPRequestOperation *_Nonnull operation,
-                  id _Nonnull responseObject) {
-          if ([kServiceResponse isEqualToString:@"Success"]) {
-            // hud
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"拒单成功";
-            hud.customView = MBProgressHUDSuccessView;
-            [hud hide:YES afterDelay:1.0];
-            // 重载数据
-            [self loadNewData];
-
-          } else {
-            // hud
-            hud.mode = MBProgressHUDModeCustomView;
-            hud.labelText = @"拒单失败";
-            hud.customView = MBProgressHUDErrorView;
-            [hud hide:YES afterDelay:1.0];
-            XBLog(@"failed");
+              }else{
+                  [NSObject showHudTipStr:@"拒单失败"];
+              }
+          }else{
+              [NSObject showHudTipStr:@"似乎与服务器断开连接"];
           }
-        }
-        failure:^(AFHTTPRequestOperation *_Nonnull operation,
-                  NSError *_Nonnull error) {
-          // hud
-          hud.mode = MBProgressHUDModeCustomView;
-          hud.labelText = @"网络错误";
-          hud.customView = MBProgressHUDErrorView;
-          [hud hide:YES afterDelay:1.0];
-
-          XBLog(@"error:%@", error);
-        }];
-  }
+      }];
+    }
 }
 @end

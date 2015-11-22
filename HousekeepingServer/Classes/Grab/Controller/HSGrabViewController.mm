@@ -10,16 +10,12 @@
 #import "HSNavBarBtn.h"
 #import "HSDropListViewController.h"
 #import "HSRegion.h"
-#import "MJExtension.h"
-#import "HSHTTPRequestOperationManager.h"
-#import "AFNetworking.h"
 #import "HSService.h"
 #import "HSCollectionView.h"
 #import "HSCollectionViewCell.h"
 #import "HSCoveredCountry.h"
 #import "MBProgressHUD+MJ.h"
 #import "HSRefreshButton.h"
-#import "HSSubServiceViewController.h"
 #import "HSNavigationViewController.h"
 #import "HSServiceDeclare.h"
 #import "HSDeclareCell.h"
@@ -31,8 +27,7 @@
 
 @interface HSGrabViewController () <
     UICollectionViewDataSource, UICollectionViewDelegate,
-    UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate,
-    HSSubServiceViewDelegate, UIAlertViewDelegate> {
+    UICollectionViewDelegateFlowLayout, HSCollectionViewCellDelegate, UIAlertViewDelegate> {
   MBProgressHUD *hud;
 }
 @property(strong, nonatomic) NSArray *regions;

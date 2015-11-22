@@ -26,4 +26,9 @@
 - (void)request_Grab_StatusWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
 - (void)request_Grab_DeclareWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
 - (void)request_Grab_WithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+
+// 接单
+- (void)request_Recevice_DeclareWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+- (void)request_Receive_WithParams:(id)params andBlock:(void (^)(id data, NSError *error))block;
+- (void)request_Recevice_RefuseWithParams:(id)params andBlock:(void (^)(id data, NSError * error))block;
 @end

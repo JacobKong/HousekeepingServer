@@ -255,4 +255,54 @@
                        }
                      }];
 }
+
+#pragma mark - 接单
+- (void)request_Recevice_DeclareWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block{
+    NSString *path = @"NationalService/MobileServiceDeclareAction?operation=_queyOwnservice";
+    [[HS_NetAPIClient sharedJsonClient]
+     requestJsonDataWithPath:path
+     withParams:params
+     withMethodType:Post
+     autoShowError:NO
+     andBlock:^(id data, NSError *error) {
+         if (kServerResponse) {
+             if ([kServerResponse isEqualToString:@"Success"]) {
+                 NSArray *serviceDelcareArray =
+                 [HSServiceDeclare objectArrayWithKeyValuesArray:kServerDataResponse];
+                 // 存储badgeValue
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 [defaults
+                  setObject:[NSString
+                             stringWithFormat:@"%d",
+                             (int)serviceDelcareArray.count]
+                  forKey:ReceiveBadgeValueKey];
+                 [defaults synchronize];
+                 block(serviceDelcareArray, nil);
+             }
+         } else {
+             block(nil, error);
+         }
+     }];
+}
+
+- (void)request_Receive_WithParams:(id)params andBlock:(void (^)(id data, NSError *error))block{
+    [self request_Grab_WithParams:params andBlock:block];
+}
+
+- (void)request_Recevice_RefuseWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block{
+    NSString *path = @"NationalService/MobileServiceDeclareAction?operation=_refuse";
+    [[HS_NetAPIClient sharedJsonClient]
+     requestJsonDataWithPath:path
+     withParams:params
+     withMethodType:Post
+     autoShowError:NO
+     andBlock:^(id data, NSError *error) {
+         if (kServerResponse) {
+                 block(kServerResponse, nil);
+         } else {
+             block(nil, error);
+         }
+     }];
+
+}
 @end
